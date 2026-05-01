@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="TRÆNING">
+<meta name="theme-color" content="#07070f">
+<title>TRÆNINGSPROGRAM</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#07070f;--bg1:#0e0e1a;--bg2:#13131f;--bg3:#1a1a28;
+  --bdr:#1e1e2e;--bdr2:#2a2a3e;
+  --txt:#f0f0ff;--mut:#5a5a7a;--mut2:#3a3a5a;
+  --acc:#f0c040;--acc2:#e8a820;
+  --blue:#4f8ef7;--ora:#f07040;--grn:#30c080;--red:#e04060;--pur:#9060f0;
+  --st:env(safe-area-inset-top,0px);--sb:env(safe-area-inset-bottom,0px);
+  --r:14px;--r2:10px;--r3:8px;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;background:var(--bg);color:var(--txt);font-family:'DM Sans',sans-serif;overflow-x:hidden}
+
+/* ── NOISE TEXTURE ── */
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");pointer-events:none;z-index:0;opacity:.4}
+
+#app{display:flex;flex-direction:column;height:100vh;height:100dvh;position:relative;z-index:1}
+
+/* ── HEADER ── */
+#hdr{
+  padding:calc(var(--st) + 20px) 18px 18px;
+  border-bottom:1px solid var(--bdr);
+  flex-shrink:0;
+  position:relative;
+  overflow:hidden;
+  background:linear-gradient(160deg,#0d0d1e 0%,#07070f 100%);
+}
+#hdr::before{
+  content:'';position:absolute;top:-40px;right:-20px;
+  width:180px;height:180px;
+  background:radial-gradient(circle,rgba(240,192,64,.12) 0%,transparent 70%);
+  pointer-events:none;
+}
+#hdr::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--acc)40,transparent);
+}
+.hdr-eyebrow{
+  font-size:9px;letter-spacing:4px;color:var(--acc);
+  font-family:'DM Mono',monospace;margin-bottom:6px;opacity:.8;
+}
+#hdr h1{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(32px,8vw,52px);
+  letter-spacing:1px;line-height:.95;
+  background:linear-gradient(135deg,#fff 40%,var(--acc) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.hdr-stats{display:flex;gap:12px;margin-top:14px;flex-wrap:wrap}
+.hdr-stat{
+  background:var(--bg2);border:1px solid var(--bdr2);
+  border-radius:999px;padding:5px 12px;
+  display:flex;align-items:center;gap:6px;
+}
+.hdr-stat-dot{width:5px;height:5px;border-radius:50%;background:var(--acc);flex-shrink:0}
+.hdr-stat label{font-size:9px;color:var(--mut);letter-spacing:1px;text-transform:uppercase}
+.hdr-stat b{font-size:11px;font-weight:600;color:var(--acc);font-family:'DM Mono',monospace}
+
+/* ── TABS ── */
+#tabs{
+  background:var(--bg1);border-bottom:1px solid var(--bdr);
+  display:flex;overflow-x:auto;flex-shrink:0;
+  -webkit-overflow-scrolling:touch;scrollbar-width:none;
+  padding:0 10px;gap:2px;
+}
+#tabs::-webkit-scrollbar{display:none}
+.tab{
+  flex-shrink:0;padding:13px 14px;font-size:10px;font-weight:600;
+  letter-spacing:1.5px;color:var(--mut);border:none;
+  background:transparent;font-family:'DM Sans',sans-serif;
+  cursor:pointer;white-space:nowrap;transition:color .2s;
+  position:relative;text-transform:uppercase;
+}
+.tab::after{
+  content:'';position:absolute;bottom:0;left:14px;right:14px;height:2px;
+  background:var(--acc);border-radius:2px 2px 0 0;
+  transform:scaleX(0);transition:transform .2s;
+}
+.tab.on{color:var(--acc)}
+.tab.on::after{transform:scaleX(1)}
+
+/* ── SCROLL AREA ── */
+#cnt{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:16px 14px calc(var(--sb)+20px)}
+
+/* ── DAY GRID ── */
+.dgrid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-bottom:16px}
+.dc{
+  border-radius:var(--r2);padding:10px 3px 8px;text-align:center;
+  cursor:pointer;border:1.5px solid var(--bdr);background:var(--bg2);
+  transition:all .18s;position:relative;overflow:hidden;
+}
+.dc::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:var(--col);border-radius:var(--r2) var(--r2) 0 0;
+  transform:scaleX(0);transition:transform .18s;
+}
+.dc:active{transform:scale(.92)}
+.dc.on{border-color:var(--col);background:var(--col)18}
+.dc.on::before{transform:scaleX(1)}
+.dc .di{font-size:16px;display:block;margin-bottom:3px}
+.dc .da{font-size:9px;font-weight:700;letter-spacing:.5px;font-family:'DM Mono',monospace}
+.dc .dl{font-size:6px;letter-spacing:.8px;margin-top:3px;color:var(--col);opacity:.8}
+.dc.on .dl{opacity:1}
+
+/* ── DETAIL PANEL ── */
+.det{background:var(--bg1);border-radius:var(--r);padding:18px;border:1px solid var(--bdr);animation:fi .2s ease;position:relative;overflow:hidden}
+.det::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--acc)30,transparent)}
+@keyframes fi{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.det-head{display:flex;align-items:center;gap:12px;margin-bottom:16px;flex-wrap:wrap}
+.det-icon{font-size:28px;width:50px;height:50px;display:flex;align-items:center;justify-content:center;background:var(--bg2);border-radius:var(--r2);border:1px solid var(--bdr2)}
+.det-title{font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:.5px;line-height:1}
+.det-sub{font-size:9px;color:var(--mut);letter-spacing:2px;text-transform:uppercase;font-family:'DM Mono',monospace;margin-bottom:2px}
+.badge{margin-left:auto;padding:5px 14px;border-radius:999px;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;font-family:'DM Mono',monospace}
+
+/* ── PHASE BANNER ── */
+.phase-banner{
+  display:flex;align-items:center;gap:10px;
+  padding:10px 14px;border-radius:var(--r2);margin-bottom:12px;
+  position:relative;overflow:hidden;
+}
+.phase-banner::before{content:'';position:absolute;inset:0;opacity:.08}
+.phase-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.phase-name{font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:1px}
+.phase-info{font-size:10px;color:var(--mut);font-family:'DM Mono',monospace}
+
+/* ── EXERCISE TABLE ── */
+.ex-hd{display:grid;grid-template-columns:1fr 38px 52px 76px 40px;gap:3px 8px;padding:8px 0 5px;border-bottom:1px solid var(--bdr);margin-bottom:2px}
+.ex-hd span{font-size:8px;color:var(--mut2);letter-spacing:2px;text-transform:uppercase;font-family:'DM Mono',monospace}
+.exrow{display:grid;grid-template-columns:1fr 38px 52px 76px 40px;gap:3px 8px;padding:10px 0;border-bottom:1px solid var(--bdr);align-items:center;transition:background .1s;border-radius:var(--r3);position:relative}
+.exrow.core{padding-left:10px;margin-bottom:2px}
+.exrow.core::before{content:'';position:absolute;left:0;top:4px;bottom:4px;width:3px;background:var(--acc);border-radius:3px}
+.exn{font-size:12px;font-weight:500;line-height:1.25;color:var(--txt)}
+.exno{font-size:9px;color:var(--mut);font-family:'DM Mono',monospace;margin-top:1px}
+.exs{
+  font-family:'Bebas Neue',sans-serif;font-size:20px;
+  text-align:center;line-height:1;
+}
+.exr{font-size:9px;font-weight:500;text-align:center;font-family:'DM Mono',monospace;line-height:1.3;color:var(--txt)}
+.exkg{display:flex;flex-direction:column;align-items:center;gap:3px}
+.wi{
+  background:var(--bg3);border:1.5px solid var(--bdr2);color:var(--txt);
+  font-family:'DM Mono',monospace;font-size:13px;font-weight:500;
+  width:70px;padding:6px 4px;border-radius:999px;text-align:center;
+  outline:none;-webkit-appearance:none;transition:all .15s;
+}
+.wi:focus{border-color:var(--acc);background:var(--acc)0a;box-shadow:0 0 0 3px var(--acc)15}
+.wi::placeholder{color:var(--mut2);font-size:10px;font-weight:400}
+.wi.fl{animation:wfl .5s ease}
+@keyframes wfl{0%{border-color:var(--grn);box-shadow:0 0 0 3px rgba(48,192,128,.25)}100%{border-color:var(--bdr2);box-shadow:none}}
+.dup{font-size:9px;font-weight:600;font-family:'DM Mono',monospace;color:var(--grn)}
+.ddn{font-size:9px;font-weight:600;font-family:'DM Mono',monospace;color:var(--red)}
+.deq{font-size:9px;font-family:'DM Mono',monospace;color:var(--mut)}
+.vl{
+  display:inline-flex;align-items:center;gap:3px;color:var(--acc);
+  text-decoration:none;font-size:9px;font-family:'DM Mono',monospace;font-weight:500;
+  padding:5px 6px;background:var(--acc)12;border-radius:var(--r3);white-space:nowrap;
+  border:1px solid var(--acc)25;transition:background .15s;
+}
+.vl:hover{background:var(--acc)22}
+
+/* ── TIP / NOTICE ── */
+.tip{margin-top:12px;padding:10px 13px;background:var(--bg2);border-radius:var(--r2);font-size:11px;color:var(--mut);line-height:1.6;border-left:3px solid var(--bdr2)}
+.tip b{color:var(--txt)}
+.tcore{margin-top:6px;padding:10px 13px;background:var(--acc)0a;border:1px solid var(--acc)20;border-radius:var(--r2);font-size:11px;color:var(--acc);border-left:3px solid var(--acc)}
+
+/* ── WEEK PICKER ── */
+.wpick{display:flex;gap:5px;align-items:center;margin-bottom:12px;flex-wrap:wrap}
+.wpick label{font-size:8px;color:var(--mut);letter-spacing:2px;font-family:'DM Mono',monospace;text-transform:uppercase}
+.wb{
+  padding:5px 10px;border-radius:999px;border:1.5px solid var(--bdr2);
+  background:var(--bg2);color:var(--mut);font-family:'DM Mono',monospace;
+  font-size:11px;font-weight:500;cursor:pointer;transition:all .15s;
+}
+.wb.on{background:var(--acc);color:#000;border-color:var(--acc);font-weight:700}
+
+/* ── RUN CARDS ── */
+.rungrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+.rcard{background:var(--bg2);border-radius:var(--r2);padding:14px;border:1px solid var(--bdr)}
+.rcard label{font-size:8px;color:var(--mut);letter-spacing:2px;text-transform:uppercase;font-family:'DM Mono',monospace;display:block;margin-bottom:5px}
+.rcard .rval{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:.5px}
+.rtip{grid-column:1/-1;border-radius:var(--r2);padding:13px;font-size:12px;line-height:1.5}
+.runlog{margin-top:2px;background:var(--bg2);border-radius:var(--r2);overflow:hidden;border:1px solid var(--bdr)}
+.runlog-head{padding:10px 14px;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--bdr)}
+.runlog-head span{font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:.5px}
+.runlog-row{display:grid;grid-template-columns:1fr auto;gap:8px 12px;padding:11px 14px;border-bottom:1px solid var(--bdr);align-items:center}
+.runlog-label{font-size:12px;font-weight:500}
+.runlog-prev{font-size:9px;color:var(--mut);font-family:'DM Mono',monospace;margin-top:2px}
+.runlog-note{padding:10px 14px}
+.runlog-note label{font-size:8px;color:var(--mut);letter-spacing:2px;text-transform:uppercase;font-family:'DM Mono',monospace;display:block;margin-bottom:5px}
+textarea{background:var(--bg);border:1.5px solid var(--bdr2);color:var(--txt);border-radius:var(--r2);padding:8px 10px;font-family:'DM Sans',sans-serif;font-size:12px;resize:none;outline:none;width:100%;transition:border-color .15s;line-height:1.5}
+textarea:focus{border-color:var(--acc)}
+
+/* ── REST ── */
+.rest{text-align:center;padding:36px 0}
+.rest-icon{font-size:48px;display:block;margin-bottom:12px}
+.rest-title{font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--mut);letter-spacing:1px}
+.rest-sub{font-size:12px;color:var(--mut2);margin-top:5px;font-family:'DM Mono',monospace}
+
+/* ── WEIGHT LOG ── */
+.wld{background:var(--bg1);border-radius:var(--r);overflow:hidden;margin-bottom:14px;border:1px solid var(--bdr)}
+.wlh{padding:12px 16px;display:flex;align-items:center;gap:10px;position:relative}
+.wlh-icon{font-size:18px}
+.wlh-text{font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:.5px}
+.wlh-phase{margin-left:auto;font-size:8px;font-family:'DM Mono',monospace;font-weight:500;padding:3px 8px;border-radius:999px;opacity:.9}
+.wlc{display:grid;grid-template-columns:1fr 80px 80px 72px;gap:3px 8px;padding:7px 16px 4px;border-bottom:1px solid var(--bdr);background:var(--bg2)}
+.wlc span{font-size:8px;color:var(--mut2);letter-spacing:2px;text-transform:uppercase;font-family:'DM Mono',monospace}
+.wlr{display:grid;grid-template-columns:1fr 80px 80px 72px;gap:3px 8px;padding:10px 16px;border-bottom:1px solid var(--bdr);align-items:center}
+.wln{font-size:12px;font-weight:500}
+.wls{font-size:9px;color:var(--mut);font-family:'DM Mono',monospace;margin-top:2px}
+.wlp{font-size:12px;font-weight:500;color:var(--mut);font-family:'DM Mono',monospace}
+
+/* ── PHASES ── */
+.phcard{
+  background:var(--bg1);border:1px solid var(--bdr);border-radius:var(--r);
+  padding:16px;display:grid;grid-template-columns:56px 1fr auto;
+  gap:14px;align-items:center;margin-bottom:12px;position:relative;overflow:hidden;
+}
+.phcard::before{content:'';position:absolute;top:0;left:0;bottom:0;width:3px;background:var(--pc)}
+.ph-num-wrap{text-align:center}
+.ph-num{font-family:'Bebas Neue',sans-serif;font-size:36px;line-height:1;color:var(--pc)}
+.ph-weeks{font-size:8px;color:var(--mut);font-family:'DM Mono',monospace;margin-top:1px}
+.ph-label{font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:.5px;margin-bottom:5px}
+.ph-row{font-size:11px;color:var(--mut);font-family:'DM Mono',monospace;margin-bottom:2px;line-height:1.5}
+.ph-goal{text-align:center;background:var(--bg2);border-radius:var(--r2);padding:10px 14px;border:1px solid var(--bdr2);min-width:72px}
+.ph-goal label{font-size:7px;color:var(--mut);letter-spacing:2px;text-transform:uppercase;font-family:'DM Mono',monospace;display:block;margin-bottom:3px}
+.ph-goal span{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:.5px;color:var(--acc)}
+.section-label{font-size:8px;color:var(--mut);letter-spacing:3px;text-transform:uppercase;font-family:'DM Mono',monospace;margin-bottom:10px;margin-top:4px;display:flex;align-items:center;gap:8px}
+.section-label::after{content:'';flex:1;height:1px;background:var(--bdr)}
+
+/* ── RULES ── */
+.rgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.rc{background:var(--bg1);border-radius:var(--r2);padding:14px;border:1px solid var(--bdr);position:relative;overflow:hidden}
+.rc::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--rc)}
+.rc-icon{font-size:22px;margin-bottom:8px;display:block}
+.rc-title{font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:.5px;margin-bottom:4px;color:var(--rc)}
+.rc-body{font-size:11px;color:#8888aa;line-height:1.55}
+
+/* ── GRAPH ── */
+.graph-wrap{background:var(--bg1);border-radius:var(--r);padding:16px;border:1px solid var(--bdr);margin-bottom:14px}
+.graph-title{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:.5px;margin-bottom:4px}
+.graph-gain{font-size:11px;font-family:'DM Mono',monospace;font-weight:500;margin-bottom:12px}
+.ex-picker{display:flex;gap:6px;overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:4px;margin-bottom:14px;scrollbar-width:none}
+.ex-picker::-webkit-scrollbar{display:none}
+.expill{
+  flex-shrink:0;padding:6px 12px;border-radius:999px;
+  border:1.5px solid var(--bdr2);background:var(--bg2);color:var(--mut);
+  font-family:'DM Mono',monospace;font-size:10px;font-weight:500;
+  white-space:nowrap;cursor:pointer;transition:all .15s;
+}
+.expill.on{color:#000;font-weight:700}
+
+/* ── HINT ── */
+.hint{text-align:center;padding:32px 0;color:var(--mut2);font-family:'DM Mono',monospace;font-size:12px;line-height:2}
+.hint-icon{font-size:32px;display:block;margin-bottom:8px}
+
+/* ── TOAST ── */
+#toast{
+  position:fixed;bottom:calc(var(--sb)+80px);left:50%;
+  transform:translateX(-50%) translateY(20px);
+  background:var(--grn);color:#000;
+  font-family:'DM Mono',monospace;font-size:12px;font-weight:600;
+  padding:8px 20px;border-radius:999px;opacity:0;
+  transition:all .3s cubic-bezier(.34,1.56,.64,1);
+  pointer-events:none;z-index:999;white-space:nowrap;
+  box-shadow:0 4px 24px rgba(48,192,128,.35);
+}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* ── DIVIDERS ── */
+.page-title{margin-bottom:16px}
+.page-eyebrow{font-size:8px;color:var(--acc);letter-spacing:3px;font-family:'DM Mono',monospace;text-transform:uppercase;margin-bottom:4px;opacity:.7}
+.page-h1{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:.5px}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none}
+</style>
+</head>
+<body>
+<div id="app">
+  <div id="hdr">
+    <div class="hdr-eyebrow">// PERSONLIGT TRÆNINGSPROGRAM</div>
+    <h1>RECOMP<br>+ 5KM RUN</h1>
+    <div class="hdr-stats">
+      <div class="hdr-stat"><div class="hdr-stat-dot"></div><label>Start</label><b>35:00</b></div>
+      <div class="hdr-stat"><div class="hdr-stat-dot"></div><label>Mål</label><b>&lt;30:00</b></div>
+      <div class="hdr-stat"><div class="hdr-stat-dot"></div><label>Plan</label><b>8 UGE</b></div>
+    </div>
+  </div>
+  <div id="tabs">
+    <button class="tab on" onclick="go('weekly')">Skema</button>
+    <button class="tab" onclick="go('weights')">Vægtlog</button>
+    <button class="tab" onclick="go('graph')">Fremgang</button>
+    <button class="tab" onclick="go('phases')">Faser</button>
+    <button class="tab" onclick="go('rules')">Regler</button>
+  </div>
+  <div id="cnt"></div>
+</div>
+<div id="toast">✓ Gemt</div>
+<script>
+const D=[
+  {day:"MAN",full:"Mandag",type:"Upper A",label:"STYRKE",color:"#4f8ef7",icon:"💪",tag:"upper",ex:[
+    {n:"Bænkpres (flad)",k:"c",no:"Kontrolleret",l:"https://www.youtube.com/watch?v=4Y2ZdHCOXok"},
+    {n:"Bent-over Rows",k:"c",no:"Eksplosivt op",l:"https://www.youtube.com/results?search_query=bent+over+row+tutorial"},
+    {n:"Overhead Press",k:"c",no:"",l:"https://www.youtube.com/watch?v=F3QY5vMz_6I"},
+    {n:"Pullups / Lat Pulldown",k:"c",no:"",l:"https://www.youtube.com/results?search_query=lat+pulldown+tutorial"},
+    {n:"Facepulls",k:"i",no:"",l:"https://www.youtube.com/results?search_query=cable+face+pull+tutorial"},
+  ]},
+  {day:"TIR",full:"Tirsdag",type:"Løb – Let",label:"LØBETUR",color:"#30c080",icon:"🏃",tag:"run",
+    run:{pace:"7:30 /km",dur:"30 min",type:"Restitutionsløb",tip:"Roligt tempo – du skal kunne tale. Benene er friske efter Upper A 💚"}},
+  {day:"ONS",full:"Onsdag",type:"Lower A",label:"STYRKE",color:"#4f8ef7",icon:"🦵",tag:"lower",ex:[
+    {n:"Squat",k:"c",no:"Dyb & kontrolleret",l:"https://www.youtube.com/watch?v=gcNh17Ckjgg"},
+    {n:"Romanian Deadlift",k:"c",no:"Langsomt ned",l:"https://www.youtube.com/watch?v=2SHsk9AzdjA"},
+    {n:"Leg Press",k:"c",no:"",l:"https://www.youtube.com/results?search_query=leg+press+tutorial"},
+    {n:"Leg Curl",k:"i",no:"",l:"https://www.youtube.com/results?search_query=seated+leg+curl+tutorial"},
+    {n:"Calf Raises",k:"i",no:"",l:"https://www.youtube.com/results?search_query=calf+raise+tutorial"},
+    {n:"Cable Crunch",k:"x",no:"CORE · Langsomt ned",l:"https://www.youtube.com/results?search_query=cable+crunch+tutorial",core:1},
+    {n:"Pallof Press",k:"x",no:"CORE · Kontroller rotation",l:"https://www.youtube.com/watch?v=_2xWmYNnFS8",core:1},
+    {n:"Planke",k:"x",no:"CORE · Spænd hele kroppen",l:"https://www.youtube.com/results?search_query=plank+tutorial",core:1},
+  ]},
+  {day:"TOR",full:"Torsdag",type:"Upper B",label:"HYPERTROFI",color:"#f07040",icon:"💪",tag:"upper",ex:[
+    {n:"Incline Bænkpres",k:"c",no:"3 sek ned",l:"https://www.youtube.com/results?search_query=incline+bench+press+tutorial"},
+    {n:"Kabel Rows",k:"c",no:"",l:"https://www.youtube.com/results?search_query=seated+cable+row+tutorial"},
+    {n:"DB Shoulder Press",k:"c",no:"",l:"https://www.youtube.com/results?search_query=dumbbell+shoulder+press+tutorial"},
+    {n:"Underhaands Pulldown",k:"c",no:"",l:"https://www.youtube.com/results?search_query=underhand+lat+pulldown+tutorial"},
+    {n:"Biceps Curl (kabel)",k:"i",no:"",l:"https://www.youtube.com/results?search_query=cable+bicep+curl+tutorial"},
+    {n:"Triceps Pushdown",k:"i",no:"",l:"https://www.youtube.com/results?search_query=cable+tricep+pushdown+tutorial"},
+  ]},
+  {day:"FRE",full:"Fredag",type:"Løb – Hård",label:"INTERVALLER",color:"#e04060",icon:"⚡",tag:"run",
+    run:{pace:"5:30 /km",dur:"6×400m",type:"Intervalløb",tip:"90 sek pause – kør hårdt! Benene er friske efter Upper B 🔥"}},
+  {day:"LØR",full:"Lørdag",type:"Lower B",label:"HYPERTROFI",color:"#f07040",icon:"🦵",tag:"lower",ex:[
+    {n:"Hack Squat / Benpres",k:"c",no:"",l:"https://www.youtube.com/results?search_query=hack+squat+tutorial"},
+    {n:"Sumo Deadlift",k:"c",no:"",l:"https://www.youtube.com/results?search_query=sumo+deadlift+tutorial"},
+    {n:"Walking Lunges",k:"c",no:"",l:"https://www.youtube.com/results?search_query=walking+lunges+tutorial"},
+    {n:"Leg Curl (liggende)",k:"i",no:"3 sek ned",l:"https://www.youtube.com/results?search_query=lying+leg+curl+tutorial"},
+    {n:"Hip Thrust",k:"c",no:"",l:"https://www.youtube.com/watch?v=S_uZP4UH6J0"},
+    {n:"Tibialis Raises",k:"i",no:"",l:"https://www.youtube.com/results?search_query=tibialis+raise+tutorial"},
+    {n:"Ab Wheel Rollout",k:"x",no:"CORE · Kontroller vejen",l:"https://www.youtube.com/results?search_query=ab+wheel+rollout+tutorial",core:1},
+    {n:"Dead Bug",k:"x",no:"CORE · Langsomt",l:"https://www.youtube.com/results?search_query=dead+bug+exercise+tutorial",core:1},
+    {n:"Side Planke",k:"x",no:"CORE · Hold hoften oppe",l:"https://www.youtube.com/results?search_query=side+plank+tutorial",core:1},
+  ]},
+  {day:"SØN",full:"Søndag",type:"Hvile",label:"RESTITUTION",color:"#5a5a7a",icon:"😴",tag:"rest"},
+];
+const GP=[
+  {name:"Hypertrofi",weeks:"Uge 1–3",color:"#4f8ef7",tip:"Høj volumen · RIR 2",c:{s:"4",r:"8–12"},i:{s:"3",r:"12–15"},x:{s:"3",r:"30–45s"}},
+  {name:"Styrke",weeks:"Uge 4–6",color:"#f07040",tip:"Tunge løft · RIR 1",c:{s:"5",r:"4–6"},i:{s:"4",r:"6–8"},x:{s:"3",r:"30–45s"}},
+  {name:"Peak",weeks:"Uge 7–8",color:"#e04060",tip:"Max intensitet · RIR 0",c:{s:"3",r:"3–5"},i:{s:"3",r:"5–7"},x:{s:"3",r:"30–45s"}},
+];
+function gymPhase(w){return w<=3?0:w<=6?1:2}
+function exSR(e,w){if(e.core)return GP[gymPhase(w)].x;return GP[gymPhase(w)][e.k]||GP[gymPhase(w)].c}
+const PH=[
+  {n:1,l:"Opbygning",w:"Uge 1–3",wd:"30 min @ 7:30/km",sa:"6×400m @ 5:30/km",g:"32–33 min",c:"#4f8ef7"},
+  {n:2,l:"Fart",w:"Uge 4–6",wd:"30–35 min @ 7:00/km",sa:"5×800m @ 6:00/km",g:"31 min",c:"#f07040"},
+  {n:3,l:"Race Pace",w:"Uge 7–8",wd:"35 min @ 6:45/km",sa:"5km @ 6:00/km",g:"30 min 🎯",c:"#e04060"},
+];
+const RL=[
+  {i:"🥩",t:"Protein",b:"2,2 g per kg kropsvægt dagligt. Prioritet #1 for recomp.",c:"#e04060"},
+  {i:"⚖️",t:"Kalorier",b:"Vedligeholdelseskalorier ±100 kcal. Recomp kræver præcision.",c:"#4f8ef7"},
+  {i:"🍚",t:"Kulhydrater",b:"Spis mest kulhydrater før og efter træning. +200–300 kcal på løbedage.",c:"#f07040"},
+  {i:"😴",t:"Søvn",b:"7–9 timer. Her sker muskelvæksten – den vigtigste variabel.",c:"#9060f0"},
+  {i:"📊",t:"Overload",b:"Rammer du øverste rep-tal → +2,5–5 kg næste uge.",c:"#30c080"},
+  {i:"🚫",t:"Undgå",b:"Aldrig tung bendag + løb samme dag. Benene skal restituere.",c:"#e04060"},
+  {i:"🔶",t:"Core",b:"Core-blok på Onsdag og Lørdag (~10 min). Cable crunch, pallof press, planke, ab wheel, dead bug.",c:"#f0c040"},
+];
+
+let tab='weekly',sel=null,week=1,selGraph=0;
+const SK='tw4';
+let W={};
+try{W=JSON.parse(localStorage.getItem(SK)||'{}')}catch(e){}
+function save(){try{localStorage.setItem(SK,JSON.stringify(W))}catch(e){}}
+function ek(w,d,n){return'w'+w+'__'+(d+'__'+n).replace(/[^\w]/g,'_')}
+function gw(w,d,n){return W[ek(w,d,n)]||''}
+function sw(w,d,n,v){W[ek(w,d,n)]=v;save();toast()}
+function df(w,d,n){if(w<2)return null;const c=parseFloat(gw(w,d,n)),p=parseFloat(gw(w-1,d,n));if(isNaN(c)||isNaN(p))return null;return Math.round((c-p)*10)/10}
+let tt;
+function toast(){const t=document.getElementById('toast');t.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('show'),1400)}
+function go(t){tab=t;sel=null;document.querySelectorAll('.tab').forEach((el,i)=>el.classList.toggle('on',['weekly','weights','graph','phases','rules'][i]===t));render()}
+function sd(i){sel=sel===i?null:i;render();if(sel!==null)setTimeout(()=>document.querySelector('.det')?.scrollIntoView({behavior:'smooth',block:'start'}),50)}
+function sw2(w){week=w;render()}
+function wch(el){const w=+el.dataset.w,d=el.dataset.d,n=el.dataset.n;sw(w,d,n,el.value);el.classList.remove('fl');void el.offsetWidth;el.classList.add('fl');setTimeout(()=>el.classList.remove('fl'),550)}
+function diffH(d){if(d===null)return'';const cl=d>0?'dup':d<0?'ddn':'deq',s=d>0?`▲+${d}`:d<0?`▼${d}`:'=0';return`<div class="${cl}">${s}</div>`}
+
+function render(){
+  const c=document.getElementById('cnt');
+  if(tab==='weekly')c.innerHTML=rWeekly();
+  else if(tab==='weights')c.innerHTML=rLog();
+  else if(tab==='graph')c.innerHTML=rGraph();
+  else if(tab==='phases')c.innerHTML=rPhases();
+  else c.innerHTML=rRules();
+}
+
+function wpickH(){
+  let h='<div class="wpick"><label>Uge</label>';
+  for(let w=1;w<=8;w++)h+=`<button class="wb${week===w?' on':''}" onclick="sw2(${w})">${w}</button>`;
+  return h+'</div>';
+}
+
+function rWeekly(){
+  let h='<div class="dgrid">';
+  D.forEach((d,i)=>{
+    h+=`<div class="dc${sel===i?' on':''}" style="--col:${d.color}" onclick="sd(${i})">
+      <span class="di">${d.icon}</span>
+      <div class="da">${d.day}</div>
+      <div class="dl">${d.label}</div>
+    </div>`;
+  });
+  h+='</div>';
+  if(sel!==null){
+    const d=D[sel];
+    h+=`<div class="det">
+      <div class="det-head">
+        <div class="det-icon">${d.icon}</div>
+        <div>
+          <div class="det-sub">${d.full}</div>
+          <div class="det-title">${d.type}</div>
+        </div>
+        <div class="badge" style="background:${d.color}22;color:${d.color};border:1px solid ${d.color}44">${d.label}</div>
+      </div>`;
+
+    if(d.ex){
+      const gp=GP[gymPhase(week)];
+      h+=wpickH();
+      h+=`<div class="phase-banner" style="background:${gp.color}10;border:1px solid ${gp.color}30">
+        <div class="phase-dot" style="background:${gp.color}"></div>
+        <div class="phase-name" style="color:${gp.color}">${gp.name.toUpperCase()}</div>
+        <div class="phase-info">${gp.weeks} &nbsp;·&nbsp; ${gp.tip}</div>
+      </div>`;
+      h+=`<div class="ex-hd"><span>Øvelse</span><span>Sæt</span><span>Reps</span><span>Kg – uge ${week}</span><span>Se</span></div>`;
+      d.ex.forEach(e=>{
+        const sr=exSR(e,week),v=gw(week,d.full,e.n),dv=df(week,d.full,e.n);
+        h+=`<div class="exrow${e.core?' core':''}">
+          <div><div class="exn">${e.n}</div>${e.no?`<div class="exno">${e.no}</div>`:''}</div>
+          <div class="exs" style="color:${d.color}">${sr.s}</div>
+          <div class="exr">${sr.r}</div>
+          <div class="exkg">
+            <input class="wi" type="number" inputmode="decimal" placeholder="kg" min="0" step="0.5"
+              value="${v}" data-w="${week}" data-d="${d.full}" data-n="${e.n}"
+              onchange="wch(this)" onfocus="this.select()">
+            ${diffH(dv)}
+          </div>
+          <a class="vl" href="${e.l}" target="_blank">▶</a>
+        </div>`;
+      });
+      h+=`<div class="tip">💡 <b>Pause:</b> 2–3 min styrke &nbsp;·&nbsp; 60–90 sek isolation &nbsp;·&nbsp; 1–2 reps fra failure</div>`;
+      if(d.ex.some(e=>e.core))h+=`<div class="tcore">🔶 <b>Core-blok</b> – ca. 10 min til sidst &nbsp;·&nbsp; 45–60 sek pause</div>`;
+
+    }else if(d.run){
+      h+=wpickH();
+      h+=`<div class="rungrid">
+        <div class="rcard"><label>Type</label><div class="rval" style="color:${d.color}">${d.run.type}</div></div>
+        <div class="rcard"><label>Mål pace</label><div class="rval" style="color:${d.color}">${d.run.pace}</div></div>
+        <div class="rcard"><label>Varighed</label><div class="rval" style="color:${d.color}">${d.run.dur}</div></div>
+        <div class="rtip" style="background:${d.color}10;border:1px solid ${d.color}25;color:${d.color}cc">💡 ${d.run.tip}</div>
+      </div>`;
+      const rf=[{k:'tid',label:'Tid (min:sek)',ph:'28:30'},{k:'pace',label:'Faktisk pace (min/km)',ph:'5:42'},{k:'km',label:'Distance (km)',ph:'5.2'}];
+      h+=`<div class="runlog">
+        <div class="runlog-head" style="background:${d.color}15;border-bottom:1px solid ${d.color}25">
+          <span style="color:${d.color}">📝</span>
+          <span style="color:${d.color}">LOG – UGE ${week}</span>
+        </div>`;
+      rf.forEach(f=>{
+        const cv=gw(week,d.full,f.k),pv=week>1?gw(week-1,d.full,f.k):'';
+        h+=`<div class="runlog-row">
+          <div>
+            <div class="runlog-label">${f.label}</div>
+            ${pv?`<div class="runlog-prev">▸ Forrige: ${pv}</div>`:''}
+          </div>
+          <input class="wi" type="text" inputmode="decimal" placeholder="${f.ph}" style="width:80px"
+            value="${cv}" data-w="${week}" data-d="${d.full}" data-n="${f.k}"
+            onchange="wch(this)" onfocus="this.select()">
+        </div>`;
+      });
+      const note=gw(week,d.full,'note');
+      h+=`<div class="runlog-note">
+        <label>📓 Noter</label>
+        <textarea rows="2" placeholder="Hvordan gik det? Følte du dig stærk?"
+          data-w="${week}" data-d="${d.full}" data-n="note"
+          onchange="wch(this)">${note}</textarea>
+      </div></div>`;
+
+    }else{
+      h+=`<div class="rest">
+        <span class="rest-icon">😴</span>
+        <div class="rest-title">Restitutionsdag</div>
+        <div class="rest-sub">Søvn 7–9 timer &nbsp;·&nbsp; Let gåtur er fint</div>
+      </div>`;
+    }
+    h+='</div>';
+  }else{
+    h+=`<div class="hint"><span class="hint-icon">👆</span>Tryk på en dag<br>for øvelser og videolinks</div>`;
+  }
+  return h;
+}
+
+function rLog(){
+  let h='<div class="page-title"><div class="page-eyebrow">// Data</div><div class="page-h1">Vægtlog</div></div>';
+  h+=wpickH();
+  D.filter(d=>d.ex).forEach(d=>{
+    const gp=GP[gymPhase(week)];
+    h+=`<div class="wld">
+      <div class="wlh" style="background:${d.color}15;border-bottom:1px solid ${d.color}25">
+        <span class="wlh-icon">${d.icon}</span>
+        <span class="wlh-text" style="color:${d.color}">${d.full} – ${d.type}</span>
+        <span class="wlh-phase" style="background:${gp.color}20;color:${gp.color};border:1px solid ${gp.color}30">${gp.name}</span>
+      </div>
+      <div class="wlc"><span>Øvelse</span><span>Uge ${week}</span><span>${week>1?'Uge '+(week-1):'Forrige'}</span><span>Ændring</span></div>`;
+    d.ex.filter(e=>!e.core).forEach(e=>{
+      const sr=exSR(e,week),cv=gw(week,d.full,e.n),pv=week>1?gw(week-1,d.full,e.n):'',dv=df(week,d.full,e.n);
+      let dfh='<span style="color:var(--mut2)">–</span>';
+      if(dv!==null){const cl=dv>0?'dup':dv<0?'ddn':'deq',s=dv>0?`▲+${dv}`:dv<0?`▼${dv}`:'=0';dfh=`<span class="${cl}">${s}</span>`;}
+      h+=`<div class="wlr">
+        <div><div class="wln">${e.n}</div><div class="wls">${sr.s} sæt · ${sr.r}</div></div>
+        <input class="wi" type="number" inputmode="decimal" placeholder="kg" min="0" step="0.5"
+          style="width:72px" value="${cv}" data-w="${week}" data-d="${d.full}" data-n="${e.n}"
+          onchange="wch(this)" onfocus="this.select()">
+        <div class="wlp">${pv?pv+' kg':'–'}</div>
+        <div>${dfh}</div>
+      </div>`;
+    });
+    h+='</div>';
+  });
+  D.filter(d=>d.run).forEach(d=>{
+    const rf=[{k:'tid',label:'Tid'},{k:'pace',label:'Pace /km'},{k:'km',label:'Distance'}];
+    h+=`<div class="wld">
+      <div class="wlh" style="background:${d.color}15;border-bottom:1px solid ${d.color}25">
+        <span class="wlh-icon">${d.icon}</span>
+        <span class="wlh-text" style="color:${d.color}">${d.full} – ${d.type}</span>
+      </div>`;
+    rf.forEach(f=>{
+      const cv=gw(week,d.full,f.k),pv=week>1?gw(week-1,d.full,f.k):'';
+      h+=`<div class="wlr" style="grid-template-columns:1fr auto">
+        <div><div class="wln">${f.label}</div>${pv?`<div class="wls">▸ Forrige: ${pv}</div>`:''}</div>
+        <input class="wi" type="text" inputmode="decimal" placeholder="–" style="width:80px"
+          value="${cv}" data-w="${week}" data-d="${d.full}" data-n="${f.k}"
+          onchange="wch(this)" onfocus="this.select()">
+      </div>`;
+    });
+    const note=gw(week,d.full,'note');
+    h+=`<div class="runlog-note">
+      <label>📓 Noter</label>
+      <textarea rows="2" placeholder="Hvordan gik det?"
+        data-w="${week}" data-d="${d.full}" data-n="note"
+        onchange="wch(this)">${note}</textarea>
+    </div></div>`;
+  });
+  h+=`<div class="tip">💡 Rammer du øverste rep-tal → <b>+2,5–5 kg næste uge</b>. Grøn = du er på rette spor! 🎯<br>Data gemmes permanent på din iPhone.</div>`;
+  return h;
+}
+
+function rGraph(){
+  const gymExs=[];
+  D.filter(d=>d.ex).forEach(d=>{
+    d.ex.filter(e=>!e.core).forEach(e=>{
+      if(!gymExs.find(x=>x.n===e.n))gymExs.push({n:e.n,day:d.full,color:d.color});
+    });
+  });
+  const selEx=gymExs[selGraph]||gymExs[0];
+  const pts=[];
+  for(let w=1;w<=8;w++){const v=parseFloat(gw(w,selEx.day,selEx.n));pts.push(isNaN(v)?null:v)}
+  const filled=pts.filter(v=>v!==null);
+  const hasData=filled.length>=2;
+  const maxV=hasData?Math.max(...filled):100,minV=hasData?Math.min(...filled):0;
+  const range=Math.max(maxV-minV,10),padV=range*.2;
+  const W2=340,H2=170,pl=42,pr=14,pt2=18,pb=28,iw=W2-pl-pr,ih=H2-pt2-pb;
+  function px(w){return pl+((w-1)/7)*iw}
+  function py(v){return pt2+ih-(((v-(minV-padV))/(range+2*padV))*ih)}
+  const phC=['#4f8ef722','#f0704022','#e0406022'],phR=[[1,3],[4,6],[7,8]];
+  let svg=`<svg viewBox="0 0 ${W2} ${H2}" xmlns="http://www.w3.org/2000/svg" style="width:100%;border-radius:10px">`;
+  // bg
+  svg+=`<rect width="${W2}" height="${H2}" fill="#0e0e1a" rx="10"/>`;
+  // phase bands
+  phR.forEach(([s,e],i)=>{
+    const x1=px(s)-iw/14,x2=px(e)+iw/14;
+    svg+=`<rect x="${x1}" y="${pt2}" width="${x2-x1}" height="${ih}" fill="${phC[i]}" rx="4"/>`;
+  });
+  // grid
+  for(let i=0;i<=4;i++){const y=pt2+(ih/4)*i;svg+=`<line x1="${pl}" y1="${y}" x2="${W2-pr}" y2="${y}" stroke="#ffffff06" stroke-width="1"/>`;}
+  // y labels
+  if(hasData){
+    for(let i=0;i<=2;i++){
+      const v=minV-padV+(range+2*padV)*(1-i/2);
+      svg+=`<text x="${pl-4}" y="${pt2+(ih/2)*i+4}" text-anchor="end" font-size="8" fill="#3a3a5a" font-family="DM Mono,monospace">${Math.round(v)}</text>`;
+    }
+  }
+  // week labels
+  for(let w=1;w<=8;w++)svg+=`<text x="${px(w)}" y="${H2-6}" text-anchor="middle" font-size="9" fill="#3a3a5a" font-family="DM Mono,monospace">${w}</text>`;
+  if(hasData){
+    let pathD='',dotPts=[];
+    let prev=null;
+    for(let w=1;w<=8;w++){
+      const v=pts[w-1];
+      if(v!==null){const x=px(w),y=py(v);if(prev===null)pathD+=`M${x},${y}`;else pathD+=` L${x},${y}`;dotPts.push({x,y,v,w});prev={x,y};}
+    }
+    const fd=dotPts[0],ld=dotPts[dotPts.length-1];
+    svg+=`<path d="${pathD} L${ld.x},${pt2+ih} L${fd.x},${pt2+ih} Z" fill="url(#grad)"/>`;
+    svg+=`<defs><linearGradient id="grad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="${selEx.color}" stop-opacity=".3"/><stop offset="100%" stop-color="${selEx.color}" stop-opacity="0"/></linearGradient></defs>`;
+    svg+=`<path d="${pathD}" fill="none" stroke="${selEx.color}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>`;
+    dotPts.forEach(({x,y,v})=>{
+      svg+=`<circle cx="${x}" cy="${y}" r="4.5" fill="${selEx.color}" stroke="#0e0e1a" stroke-width="2"/>`;
+      svg+=`<text x="${x}" y="${y-9}" text-anchor="middle" font-size="9" fill="${selEx.color}" font-family="DM Mono,monospace" font-weight="500">${v}</text>`;
+    });
+  }else{
+    svg+=`<text x="${W2/2}" y="${H2/2}" text-anchor="middle" font-size="11" fill="#3a3a5a" font-family="DM Sans,sans-serif">Ingen data endnu</text>`;
+  }
+  svg+=`<text x="${W2/2}" y="${H2-1}" text-anchor="middle" font-size="7" fill="#2a2a3a" font-family="DM Mono,monospace">UGE</text>`;
+  svg+='</svg>';
+
+  const firstVal=filled[0],lastVal=filled[filled.length-1];
+  const totalGain=filled.length>=2?Math.round((lastVal-firstVal)*10)/10:null;
+
+  let h=`<div class="page-title"><div class="page-eyebrow">// Statistik</div><div class="page-h1">Fremgang</div></div>`;
+  h+=`<div class="ex-picker">`;
+  gymExs.forEach((e,i)=>{
+    const on=i===selGraph;
+    h+=`<button class="expill${on?' on':''}" style="${on?`background:${e.color}22;border-color:${e.color};color:${e.color}`:''}" onclick="selGraph=${i};render()">${e.n}</button>`;
+  });
+  h+=`</div>`;
+  h+=`<div class="graph-wrap">
+    <div class="graph-title" style="color:${selEx.color}">${selEx.n}</div>
+    ${totalGain!==null?`<div class="graph-gain" style="color:${totalGain>=0?'#30c080':'#e04060'}">${totalGain>=0?'▲ +':'▼ '}${totalGain} kg totalt over ${filled.length} uger</div>`:'<div class="graph-gain" style="color:var(--mut)">Tilføj mindst 2 ugers data for at se trend</div>'}
+    ${svg}
+    <div style="display:flex;justify-content:center;gap:14px;margin-top:12px">
+      ${['Hypertrofi','Styrke','Peak'].map((l,i)=>`<div style="display:flex;align-items:center;gap:5px"><div style="width:10px;height:10px;border-radius:3px;background:${'#4f8ef7 #f07040 #e04060'.split(' ')[i]}33;border:1px solid ${'#4f8ef7 #f07040 #e04060'.split(' ')[i]}55"></div><span style="font-size:9px;color:var(--mut);font-family:'DM Mono',monospace">${l}</span></div>`).join('')}
+    </div>
+  </div>`;
+
+  h+=`<div class="section-label">🏃 Løbefremgang</div>`;
+  D.filter(d=>d.run).forEach(rd=>{
+    const paces=[];
+    for(let w=1;w<=8;w++){const v=gw(w,rd.full,'pace');if(v)paces.push({w,v});}
+    h+=`<div class="wld" style="margin-bottom:12px;border:1px solid ${rd.color}22">
+      <div class="wlh" style="background:${rd.color}12;border-bottom:1px solid ${rd.color}20">
+        <span class="wlh-icon">${rd.icon}</span>
+        <span class="wlh-text" style="color:${rd.color}">${rd.full} – ${rd.type}</span>
+      </div>
+      <div style="padding:12px 16px">`;
+    if(paces.length===0){
+      h+=`<div style="font-size:12px;color:var(--mut2);font-family:'DM Mono',monospace">Ingen løbsdata endnu</div>`;
+    }else{
+      h+=`<div style="display:flex;gap:8px;flex-wrap:wrap">`;
+      paces.forEach(p=>{
+        h+=`<div style="background:${rd.color}15;border:1px solid ${rd.color}25;border-radius:10px;padding:8px 12px;text-align:center">
+          <div style="font-size:8px;color:var(--mut);font-family:'DM Mono',monospace;letter-spacing:1px;margin-bottom:3px">UGE ${p.w}</div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:.5px;color:${rd.color}">${p.v}</div>
+        </div>`;
+      });
+      h+=`</div>`;
+    }
+    h+=`</div></div>`;
+  });
+  return h;
+}
+
+function rPhases(){
+  let h=`<div class="page-title"><div class="page-eyebrow">// Perioder</div><div class="page-h1">Faser</div></div>`;
+  h+=`<div class="section-label">💪 Gym</div>`;
+  GP.forEach((p,i)=>{
+    h+=`<div class="phcard" style="--pc:${p.color}">
+      <div class="ph-num-wrap"><div class="ph-num">${i+1}</div><div class="ph-weeks">${['Uge 1–3','Uge 4–6','Uge 7–8'][i]}</div></div>
+      <div>
+        <div class="ph-label" style="color:${p.color}">${p.name.toUpperCase()}</div>
+        <div class="ph-row"><span style="color:#7070a0">Compound:</span> ${p.c.s} sæt · ${p.c.r} reps</div>
+        <div class="ph-row"><span style="color:#7070a0">Isolation:</span> ${p.i.s} sæt · ${p.i.r} reps</div>
+        <div class="ph-row" style="color:var(--mut);font-size:10px;margin-top:3px">${p.tip}</div>
+      </div>
+      <div class="ph-goal"><label>Fokus</label><span>${['📈','🏋️','🔥'][i]}</span></div>
+    </div>`;
+  });
+  h+=`<div class="section-label">🏃 Løb</div>`;
+  PH.forEach(p=>{
+    h+=`<div class="phcard" style="--pc:${p.c}">
+      <div class="ph-num-wrap"><div class="ph-num">${p.n}</div><div class="ph-weeks">${p.w}</div></div>
+      <div>
+        <div class="ph-label" style="color:${p.c}">${p.l.toUpperCase()}</div>
+        <div class="ph-row"><span style="color:#30c080">Tir:</span> ${p.wd}</div>
+        <div class="ph-row"><span style="color:#e04060">Fre:</span> ${p.sa}</div>
+      </div>
+      <div class="ph-goal"><label>Mål</label><span style="font-size:14px">${p.g}</span></div>
+    </div>`;
+  });
+  return h;
+}
+
+function rRules(){
+  let h=`<div class="page-title"><div class="page-eyebrow">// Principper</div><div class="page-h1">Regler</div></div>`;
+  h+='<div class="rgrid">';
+  RL.forEach(r=>{
+    h+=`<div class="rc" style="--rc:${r.c}">
+      <span class="rc-icon">${r.i}</span>
+      <div class="rc-title">${r.t.toUpperCase()}</div>
+      <div class="rc-body">${r.b}</div>
+    </div>`;
+  });
+  return h+'</div>';
+}
+
+render();
+</script>
+</body>
+</html>
