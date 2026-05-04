@@ -140,7 +140,12 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .exrow{display:grid;grid-template-columns:1fr 38px 52px 76px 40px;gap:3px 8px;padding:10px 0;border-bottom:1px solid var(--bdr);align-items:center;transition:background .1s;border-radius:var(--r3);position:relative}
 .exrow.core{padding-left:10px;margin-bottom:2px}
 .exrow.core::before{content:'';position:absolute;left:0;top:4px;bottom:4px;width:3px;background:var(--acc);border-radius:3px}
+.exrow.cust{padding-left:10px}
+.exrow.cust::before{content:'';position:absolute;left:0;top:4px;bottom:4px;width:3px;background:var(--pur);border-radius:3px}
 .exn{font-size:12px;font-weight:500;line-height:1.25;color:var(--txt)}
+.exn .cust-tag{display:inline-block;background:var(--pur)22;color:var(--pur);font-family:'DM Mono',monospace;font-size:7px;font-weight:600;letter-spacing:1px;padding:1px 5px;border-radius:4px;margin-left:4px;vertical-align:middle}
+.exn .rmx{display:inline-block;color:var(--red);font-size:11px;margin-left:4px;cursor:pointer;opacity:.6;padding:0 4px;background:none;border:none;font-family:inherit}
+.exn .rmx:hover{opacity:1}
 .exno{font-size:9px;color:var(--mut);font-family:'DM Mono',monospace;margin-top:1px}
 .exs{
   font-family:'Bebas Neue',sans-serif;font-size:20px;
@@ -284,6 +289,353 @@ textarea:focus{border-color:var(--acc)}
 
 input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none}
+
+/* ──────────────────────────────────────────── */
+/* ── AI COACH ── */
+/* ──────────────────────────────────────────── */
+/* ──────────────────────────────────────────── */
+/* ── TODAY BANNER ── */
+/* ──────────────────────────────────────────── */
+.today-banner{
+  background:linear-gradient(135deg,var(--tc)18 0%,var(--tc)08 100%);
+  border:1px solid var(--tc)40;border-radius:var(--r);
+  padding:14px 16px;margin-bottom:14px;
+  display:flex;align-items:center;gap:14px;cursor:pointer;
+  position:relative;overflow:hidden;
+  transition:transform .15s;
+}
+.today-banner::before{
+  content:'';position:absolute;top:0;left:0;bottom:0;width:4px;background:var(--tc);
+}
+.today-banner:active{transform:scale(.99)}
+.tb-icon{
+  font-size:32px;flex-shrink:0;width:54px;height:54px;
+  display:flex;align-items:center;justify-content:center;
+  background:var(--tc)20;border-radius:var(--r2);border:1px solid var(--tc)35;
+}
+.tb-text{flex:1;min-width:0}
+.tb-eyebrow{
+  font-size:8px;letter-spacing:3px;color:var(--tc);
+  font-family:'DM Mono',monospace;text-transform:uppercase;margin-bottom:3px;
+  display:flex;align-items:center;gap:6px;
+}
+.tb-eyebrow .pulse{
+  width:6px;height:6px;border-radius:50%;background:var(--tc);
+  animation:pls 2s infinite ease-in-out;
+}
+@keyframes pls{0%,100%{opacity:.4;transform:scale(.8)}50%{opacity:1;transform:scale(1.2)}}
+.tb-title{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:.5px;line-height:1;color:var(--txt)}
+.tb-sub{font-size:11px;color:var(--mut);font-family:'DM Mono',monospace;margin-top:4px;line-height:1.4}
+.tb-arrow{font-size:18px;color:var(--tc);flex-shrink:0;opacity:.6}
+
+/* ── PROGRAM SETUP / DONE ── */
+.prog-setup{
+  background:var(--bg1);border:1px solid var(--bdr);border-radius:var(--r);
+  padding:18px;margin-bottom:14px;text-align:center;
+  position:relative;overflow:hidden;
+}
+.prog-setup::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--acc),transparent);
+}
+.prog-setup-title{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:.5px;margin-bottom:6px}
+.prog-setup-sub{font-size:11px;color:var(--mut);line-height:1.6;margin-bottom:14px}
+.prog-setup .btn-row{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:10px}
+.prog-btn{
+  background:var(--acc);color:#000;border:none;
+  font-family:'DM Mono',monospace;font-size:10px;font-weight:700;letter-spacing:1.5px;
+  padding:10px 18px;border-radius:999px;cursor:pointer;text-transform:uppercase;
+  transition:transform .1s;
+}
+.prog-btn:active{transform:scale(.95)}
+.prog-btn.ghost{background:transparent;color:var(--mut);border:1.5px solid var(--bdr2)}
+.prog-btn.ghost:hover{color:var(--txt);border-color:var(--mut)}
+.prog-date-input{
+  background:var(--bg);border:1.5px solid var(--bdr2);color:var(--txt);
+  font-family:'DM Mono',monospace;font-size:13px;
+  padding:9px 12px;border-radius:var(--r2);outline:none;
+  text-align:center;margin:8px 0;
+}
+.prog-date-input:focus{border-color:var(--acc)}
+
+.prog-done{
+  background:linear-gradient(135deg,#e0406018 0%,#f0c04018 50%,#30c08018 100%);
+  border:1px solid #f0c04050;border-radius:var(--r);
+  padding:20px 18px;margin-bottom:14px;text-align:center;
+  position:relative;overflow:hidden;
+}
+.prog-done .pd-emoji{font-size:48px;display:block;margin-bottom:8px}
+.prog-done .pd-title{
+  font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:1px;
+  background:linear-gradient(135deg,#fff 0%,var(--acc) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  margin-bottom:6px;
+}
+.prog-done .pd-sub{font-size:12px;color:var(--mut);line-height:1.6;margin-bottom:14px;font-family:'DM Mono',monospace}
+.prog-done .pd-stats{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:8px;
+  margin:12px 0 16px;
+}
+.prog-done .pd-stat{
+  background:var(--bg2);border:1px solid var(--bdr);border-radius:var(--r2);padding:8px 6px;
+}
+.prog-done .pd-stat label{font-size:7px;color:var(--mut);letter-spacing:2px;text-transform:uppercase;font-family:'DM Mono',monospace;display:block;margin-bottom:3px}
+.prog-done .pd-stat span{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:.5px;color:var(--acc)}
+
+/* ──────────────────────────────────────────── */
+/* ── AI COACH ── */
+/* ──────────────────────────────────────────── */
+.ai-settings{
+  background:var(--bg1);border:1px solid var(--bdr);border-radius:var(--r);
+  padding:14px 16px;margin-bottom:14px;
+}
+.ai-settings-head{
+  display:flex;align-items:center;gap:8px;cursor:pointer;
+  font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2px;
+  color:var(--mut);text-transform:uppercase;
+}
+.ai-settings-head .arrow{transition:transform .2s;font-size:10px;color:var(--acc)}
+.ai-settings.open .ai-settings-head .arrow{transform:rotate(90deg)}
+.ai-settings-body{display:none;margin-top:12px}
+.ai-settings.open .ai-settings-body{display:block}
+.ai-settings-status{margin-left:auto;font-family:'DM Mono',monospace;font-size:9px;padding:3px 8px;border-radius:999px}
+.ai-settings-status.ok{background:var(--grn)18;color:var(--grn);border:1px solid var(--grn)35}
+.ai-settings-status.miss{background:var(--red)18;color:var(--red);border:1px solid var(--red)35}
+.ai-field{margin-bottom:12px}
+.ai-field label{display:block;font-family:'DM Mono',monospace;font-size:8px;letter-spacing:2px;color:var(--mut);text-transform:uppercase;margin-bottom:5px}
+.ai-field input,.ai-field select{
+  width:100%;background:var(--bg);border:1.5px solid var(--bdr2);color:var(--txt);
+  border-radius:var(--r2);padding:9px 11px;font-family:'DM Mono',monospace;
+  font-size:12px;outline:none;transition:border-color .15s;
+}
+.ai-field input:focus,.ai-field select:focus{border-color:var(--acc)}
+.ai-field .hint-line{font-size:10px;color:var(--mut);margin-top:5px;line-height:1.5}
+.ai-field .hint-line a{color:var(--acc);text-decoration:none}
+.ai-btn{
+  background:var(--acc);color:#000;border:none;
+  font-family:'DM Mono',monospace;font-size:10px;font-weight:700;letter-spacing:1.5px;
+  padding:9px 16px;border-radius:999px;cursor:pointer;text-transform:uppercase;
+  transition:transform .1s,opacity .15s;
+}
+.ai-btn:active{transform:scale(.95)}
+.ai-btn:disabled{opacity:.4;cursor:not-allowed}
+.ai-btn.ghost{background:transparent;color:var(--mut);border:1.5px solid var(--bdr2)}
+.ai-btn.ghost:hover{color:var(--txt);border-color:var(--mut)}
+
+.ai-quick{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px}
+.ai-quick-btn{
+  background:var(--bg1);border:1px solid var(--bdr);border-radius:var(--r2);
+  padding:12px 12px;text-align:left;cursor:pointer;
+  font-family:'DM Sans',sans-serif;color:var(--txt);
+  transition:all .15s;display:flex;align-items:center;gap:10px;
+  position:relative;overflow:hidden;
+}
+.ai-quick-btn::before{
+  content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--qc);
+}
+.ai-quick-btn:active{transform:scale(.97)}
+.ai-quick-btn:hover{border-color:var(--qc)}
+.ai-quick-btn .qi{font-size:20px;flex-shrink:0}
+.ai-quick-btn .qt{font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:.5px;line-height:1.1;color:var(--qc)}
+.ai-quick-btn .qd{font-size:10px;color:var(--mut);margin-top:2px;line-height:1.3}
+
+.ai-chat{
+  background:var(--bg1);border:1px solid var(--bdr);border-radius:var(--r);
+  display:flex;flex-direction:column;overflow:hidden;margin-bottom:10px;
+}
+.ai-chat-head{
+  padding:11px 14px;border-bottom:1px solid var(--bdr);
+  display:flex;align-items:center;gap:8px;background:var(--bg2);
+}
+.ai-chat-head .ai-dot{width:7px;height:7px;border-radius:50%;background:var(--grn);box-shadow:0 0 8px var(--grn)}
+.ai-chat-head .ai-title{font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:.5px}
+.ai-chat-head .ai-clear{
+  margin-left:auto;background:none;border:none;color:var(--mut);
+  font-family:'DM Mono',monospace;font-size:9px;letter-spacing:1.5px;
+  text-transform:uppercase;cursor:pointer;padding:4px 8px;border-radius:6px;
+}
+.ai-chat-head .ai-clear:hover{color:var(--red);background:var(--red)10}
+.ai-msgs{padding:14px;display:flex;flex-direction:column;gap:10px;max-height:60vh;overflow-y:auto}
+.ai-msg{display:flex;gap:8px;animation:fi .2s ease}
+.ai-msg.user{justify-content:flex-end}
+.ai-bub{
+  max-width:85%;padding:10px 13px;border-radius:14px;
+  font-size:13px;line-height:1.55;
+}
+.ai-msg.user .ai-bub{
+  background:var(--acc);color:#000;
+  border-bottom-right-radius:4px;font-weight:500;
+}
+.ai-msg.bot .ai-bub{
+  background:var(--bg2);color:var(--txt);
+  border:1px solid var(--bdr);border-bottom-left-radius:4px;
+}
+.ai-bub p{margin:0 0 8px}
+.ai-bub p:last-child{margin-bottom:0}
+.ai-bub strong{color:var(--acc);font-weight:600}
+.ai-msg.user .ai-bub strong{color:#000;text-decoration:underline;text-decoration-color:#0006;text-underline-offset:2px}
+.ai-bub ul,.ai-bub ol{margin:6px 0 6px 18px}
+.ai-bub li{margin:3px 0}
+.ai-bub code{background:var(--bg);padding:1px 5px;border-radius:4px;font-family:'DM Mono',monospace;font-size:11px;color:var(--acc)}
+.ai-msg.user .ai-bub code{background:#0002;color:#000}
+
+.ai-typing{display:flex;align-items:center;gap:5px;padding:14px}
+.ai-typing span{
+  width:7px;height:7px;border-radius:50%;background:var(--mut);
+  animation:tdot 1.4s infinite ease-in-out;
+}
+.ai-typing span:nth-child(2){animation-delay:.2s}
+.ai-typing span:nth-child(3){animation-delay:.4s}
+@keyframes tdot{0%,80%,100%{opacity:.3;transform:scale(.8)}40%{opacity:1;transform:scale(1)}}
+
+.ai-error{
+  background:var(--red)10;border:1px solid var(--red)40;color:var(--red);
+  padding:10px 13px;border-radius:var(--r2);font-size:12px;line-height:1.5;
+  margin:8px 14px 14px;
+}
+
+.ai-input-row{
+  border-top:1px solid var(--bdr);padding:10px 12px;
+  display:flex;gap:8px;align-items:flex-end;background:var(--bg);
+}
+.ai-input{
+  flex:1;background:var(--bg2);border:1.5px solid var(--bdr2);color:var(--txt);
+  font-family:'DM Sans',sans-serif;font-size:13px;
+  padding:9px 12px;border-radius:18px;outline:none;resize:none;
+  min-height:38px;max-height:120px;line-height:1.4;
+}
+.ai-input:focus{border-color:var(--acc)}
+.ai-send{
+  background:var(--acc);color:#000;border:none;
+  width:38px;height:38px;border-radius:50%;cursor:pointer;
+  font-size:16px;flex-shrink:0;transition:transform .1s;
+  display:flex;align-items:center;justify-content:center;
+}
+.ai-send:active{transform:scale(.92)}
+.ai-send:disabled{opacity:.4;cursor:not-allowed}
+
+.ai-empty{
+  text-align:center;padding:30px 20px;color:var(--mut);
+}
+.ai-empty .ae-icon{font-size:36px;display:block;margin-bottom:10px;opacity:.6}
+.ai-empty .ae-title{font-family:'Bebas Neue',sans-serif;font-size:18px;color:var(--txt);letter-spacing:.5px;margin-bottom:6px}
+.ai-empty .ae-sub{font-size:11px;font-family:'DM Mono',monospace;line-height:1.7}
+
+.ai-cost-note{font-size:10px;color:var(--mut2);text-align:center;font-family:'DM Mono',monospace;padding:6px 14px;line-height:1.5}
+
+/* ──────────────────────────────────────────── */
+/* ── EXERCISE LIBRARY ── */
+/* ──────────────────────────────────────────── */
+.lib-search{
+  display:flex;gap:8px;margin-bottom:12px;
+}
+.lib-search input{
+  flex:1;background:var(--bg2);border:1.5px solid var(--bdr2);color:var(--txt);
+  font-family:'DM Sans',sans-serif;font-size:13px;
+  padding:10px 14px;border-radius:999px;outline:none;
+  transition:border-color .15s;
+}
+.lib-search input:focus{border-color:var(--pur)}
+.lib-search input::placeholder{color:var(--mut2)}
+
+.lib-filters{
+  display:flex;gap:6px;overflow-x:auto;-webkit-overflow-scrolling:touch;
+  padding-bottom:6px;margin-bottom:14px;scrollbar-width:none;
+}
+.lib-filters::-webkit-scrollbar{display:none}
+.lib-pill{
+  flex-shrink:0;padding:7px 13px;border-radius:999px;
+  border:1.5px solid var(--bdr2);background:var(--bg2);color:var(--mut);
+  font-family:'DM Mono',monospace;font-size:10px;font-weight:500;
+  white-space:nowrap;cursor:pointer;transition:all .15s;
+  display:flex;align-items:center;gap:5px;
+}
+.lib-pill .lp-emo{font-size:13px}
+.lib-pill.on{font-weight:700;color:#000}
+
+.lib-grid{display:grid;grid-template-columns:1fr;gap:10px}
+@media (min-width:520px){.lib-grid{grid-template-columns:1fr 1fr}}
+
+.lib-card{
+  background:var(--bg1);border:1px solid var(--bdr);border-radius:var(--r);
+  padding:13px 14px;position:relative;overflow:hidden;
+  display:flex;flex-direction:column;gap:8px;
+}
+.lib-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--lc);
+}
+.lc-row1{display:flex;align-items:flex-start;gap:10px}
+.lc-emo{
+  font-size:22px;flex-shrink:0;width:42px;height:42px;
+  display:flex;align-items:center;justify-content:center;
+  background:var(--lc)15;border-radius:var(--r2);border:1px solid var(--lc)25;
+}
+.lc-titles{flex:1;min-width:0}
+.lc-name{font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:.5px;line-height:1.1}
+.lc-meta{display:flex;gap:5px;margin-top:4px;flex-wrap:wrap;align-items:center}
+.lc-tag{
+  font-family:'DM Mono',monospace;font-size:8px;font-weight:500;
+  letter-spacing:1px;text-transform:uppercase;
+  padding:2px 6px;border-radius:4px;
+  background:var(--bg2);color:var(--mut);border:1px solid var(--bdr2);
+}
+.lc-tag.muscle{background:var(--lc)15;color:var(--lc);border-color:var(--lc)30}
+.lc-diff{font-family:'DM Mono',monospace;font-size:9px;color:var(--acc);letter-spacing:1px}
+.lc-desc{font-size:11px;color:var(--mut);line-height:1.5}
+.lc-actions{display:flex;gap:6px;margin-top:2px}
+.lc-btn{
+  flex:1;font-family:'DM Mono',monospace;font-size:9px;font-weight:600;letter-spacing:1.5px;
+  text-transform:uppercase;padding:7px 10px;border-radius:8px;cursor:pointer;
+  text-align:center;text-decoration:none;display:flex;align-items:center;justify-content:center;gap:4px;
+  border:1.5px solid var(--bdr2);background:var(--bg2);color:var(--mut);
+  transition:all .15s;
+}
+.lc-btn:hover{color:var(--txt);border-color:var(--mut)}
+.lc-btn.video{border-color:var(--acc)35;color:var(--acc);background:var(--acc)08}
+.lc-btn.video:hover{background:var(--acc)18}
+.lc-btn.add{border-color:var(--pur)35;color:var(--pur);background:var(--pur)10}
+.lc-btn.add:hover{background:var(--pur)22}
+
+.lib-empty{
+  text-align:center;padding:40px 20px;color:var(--mut);
+  font-family:'DM Mono',monospace;font-size:12px;
+}
+
+/* ── MODAL ── */
+.modal-bg{
+  position:fixed;inset:0;background:#000a;backdrop-filter:blur(4px);
+  z-index:998;display:none;align-items:flex-end;justify-content:center;
+  padding:0 14px calc(var(--sb) + 14px);
+}
+.modal-bg.show{display:flex;animation:fi .2s ease}
+.modal{
+  background:var(--bg1);border:1px solid var(--bdr);border-radius:var(--r) var(--r) 0 0;
+  width:100%;max-width:480px;padding:20px 18px calc(var(--sb) + 20px);
+  animation:slup .25s cubic-bezier(.34,1.56,.64,1);
+}
+@media (min-width:520px){
+  .modal-bg{align-items:center;padding:14px}
+  .modal{border-radius:var(--r);max-width:420px}
+}
+@keyframes slup{from{transform:translateY(40px);opacity:0}to{transform:translateY(0);opacity:1}}
+.modal-title{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:.5px;margin-bottom:4px}
+.modal-sub{font-size:11px;color:var(--mut);font-family:'DM Mono',monospace;margin-bottom:16px}
+.modal-list{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
+.modal-row{
+  display:flex;align-items:center;gap:10px;padding:11px 13px;
+  background:var(--bg2);border:1px solid var(--bdr);border-radius:var(--r2);
+  cursor:pointer;transition:all .12s;
+}
+.modal-row:hover{border-color:var(--pur)}
+.modal-row .mi{font-size:18px}
+.modal-row .mt{font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:.5px}
+.modal-row .ms{font-size:9px;color:var(--mut);font-family:'DM Mono',monospace}
+.modal-row .mr{margin-left:auto;color:var(--pur);font-family:'DM Mono',monospace;font-size:11px}
+.modal-close{
+  width:100%;padding:10px;background:transparent;border:1.5px solid var(--bdr2);
+  color:var(--mut);border-radius:var(--r2);font-family:'DM Mono',monospace;
+  font-size:10px;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;
+}
 </style>
 </head>
 <body>
@@ -291,23 +643,30 @@ input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none}
   <div id="hdr">
     <div class="hdr-eyebrow">// PERSONLIGT TRÆNINGSPROGRAM</div>
     <h1>RECOMP<br>+ 5KM RUN</h1>
-    <div class="hdr-stats">
+    <div class="hdr-stats" id="hdrStats">
       <div class="hdr-stat"><div class="hdr-stat-dot"></div><label>Start</label><b>35:00</b></div>
       <div class="hdr-stat"><div class="hdr-stat-dot"></div><label>Mål</label><b>&lt;30:00</b></div>
-      <div class="hdr-stat"><div class="hdr-stat-dot"></div><label>Plan</label><b>8 UGE</b></div>
+      <div class="hdr-stat" id="hdrWeek"><div class="hdr-stat-dot"></div><label>Plan</label><b>8 UGE</b></div>
     </div>
   </div>
   <div id="tabs">
     <button class="tab on" onclick="go('weekly')">Skema</button>
     <button class="tab" onclick="go('weights')">Vægtlog</button>
     <button class="tab" onclick="go('graph')">Fremgang</button>
+    <button class="tab" onclick="go('coach')">AI Coach</button>
+    <button class="tab" onclick="go('library')">Bibliotek</button>
     <button class="tab" onclick="go('phases')">Faser</button>
     <button class="tab" onclick="go('rules')">Regler</button>
   </div>
   <div id="cnt"></div>
 </div>
 <div id="toast">✓ Gemt</div>
+<div id="modal" class="modal-bg" onclick="if(event.target.id==='modal')closeModal()"></div>
+
 <script>
+/* ═══════════════════════════════════════════════════════════ */
+/* ── BASE PROGRAM DATA ─────────────────────────────────────── */
+/* ═══════════════════════════════════════════════════════════ */
 const D=[
   {day:"MAN",full:"Mandag",type:"Upper A",label:"STYRKE",color:"#4f8ef7",icon:"💪",tag:"upper",ex:[
     {n:"Bænkpres (flad)",k:"c",no:"Kontrolleret",l:"https://www.youtube.com/watch?v=4Y2ZdHCOXok"},
@@ -373,30 +732,254 @@ const RL=[
   {i:"🔶",t:"Core",b:"Core-blok på Onsdag og Lørdag (~10 min). Cable crunch, pallof press, planke, ab wheel, dead bug.",c:"#f0c040"},
 ];
 
+/* ═══════════════════════════════════════════════════════════ */
+/* ── EXERCISE LIBRARY DATA ─────────────────────────────────── */
+/* ═══════════════════════════════════════════════════════════ */
+const MG=[
+  {k:"chest",n:"Bryst",emo:"💪",c:"#4f8ef7"},
+  {k:"back",n:"Ryg",emo:"🔙",c:"#9060f0"},
+  {k:"legs",n:"Ben",emo:"🦵",c:"#f07040"},
+  {k:"shoulders",n:"Skuldre",emo:"🏔️",c:"#30c080"},
+  {k:"arms",n:"Arme",emo:"💥",c:"#e04060"},
+  {k:"core",n:"Core",emo:"🔶",c:"#f0c040"},
+  {k:"cardio",n:"Kondition",emo:"🏃",c:"#4fb8c0"},
+];
+
+const LIB=[
+  // BRYST
+  {n:"Bænkpres (flad)",m:"chest",k:"c",e:"Stang",d:2,desc:"Klassisk pres, byg overall brystmasse.",l:"https://www.youtube.com/watch?v=4Y2ZdHCOXok"},
+  {n:"Incline Bænkpres",m:"chest",k:"c",e:"Stang",d:2,desc:"30° hældning rammer øvre bryst.",l:"https://www.youtube.com/results?search_query=incline+bench+press+tutorial"},
+  {n:"Decline Bænkpres",m:"chest",k:"c",e:"Stang",d:2,desc:"Fokus på nedre bryst.",l:"https://www.youtube.com/results?search_query=decline+bench+press+tutorial"},
+  {n:"Dumbbell Press",m:"chest",k:"c",e:"Håndvægte",d:1,desc:"Større range of motion end stang.",l:"https://www.youtube.com/results?search_query=dumbbell+bench+press+tutorial"},
+  {n:"Incline DB Press",m:"chest",k:"c",e:"Håndvægte",d:2,desc:"Skån skuldrene, ram øvre bryst.",l:"https://www.youtube.com/results?search_query=incline+dumbbell+press+tutorial"},
+  {n:"Dumbbell Flyes",m:"chest",k:"i",e:"Håndvægte",d:1,desc:"Isolation af bryst i stretch.",l:"https://www.youtube.com/results?search_query=dumbbell+flyes+tutorial"},
+  {n:"Cable Flyes",m:"chest",k:"i",e:"Kabel",d:1,desc:"Konstant spænding gennem hele bevægelsen.",l:"https://www.youtube.com/results?search_query=cable+fly+tutorial"},
+  {n:"Push-ups",m:"chest",k:"c",e:"Egen vægt",d:1,desc:"Klassiker – kan laves overalt.",l:"https://www.youtube.com/results?search_query=push+up+proper+form"},
+  {n:"Dips (bryst)",m:"chest",k:"c",e:"Dip-stang",d:2,desc:"Læn forover for brystfokus.",l:"https://www.youtube.com/results?search_query=chest+dips+tutorial"},
+  {n:"Pec Deck",m:"chest",k:"i",e:"Maskine",d:1,desc:"Sikker isolation, god til pump.",l:"https://www.youtube.com/results?search_query=pec+deck+tutorial"},
+
+  // RYG
+  {n:"Pullups",m:"back",k:"c",e:"Pullup-stang",d:3,desc:"Konge-øvelse for bredde i ryggen.",l:"https://www.youtube.com/results?search_query=pull+up+tutorial"},
+  {n:"Lat Pulldown",m:"back",k:"c",e:"Kabel",d:1,desc:"Bygger latissimus uden at kunne hive sig op.",l:"https://www.youtube.com/results?search_query=lat+pulldown+tutorial"},
+  {n:"Bent-over Rows",m:"back",k:"c",e:"Stang",d:2,desc:"Tykkelse i mid-back.",l:"https://www.youtube.com/results?search_query=bent+over+row+tutorial"},
+  {n:"Pendlay Row",m:"back",k:"c",e:"Stang",d:3,desc:"Eksplosiv version – stangen rører gulv.",l:"https://www.youtube.com/results?search_query=pendlay+row+tutorial"},
+  {n:"Seated Cable Row",m:"back",k:"c",e:"Kabel",d:1,desc:"God form-kontrol, mid-back fokus.",l:"https://www.youtube.com/results?search_query=seated+cable+row+tutorial"},
+  {n:"T-Bar Row",m:"back",k:"c",e:"Stang",d:2,desc:"Tunge belastninger for tykkelse.",l:"https://www.youtube.com/results?search_query=t+bar+row+tutorial"},
+  {n:"Dumbbell Row",m:"back",k:"c",e:"Håndvægt",d:1,desc:"En arm ad gangen – fix asymmetri.",l:"https://www.youtube.com/results?search_query=single+arm+dumbbell+row+tutorial"},
+  {n:"Deadlift",m:"back",k:"c",e:"Stang",d:3,desc:"Fuld posterior chain – konge-øvelsen.",l:"https://www.youtube.com/results?search_query=conventional+deadlift+tutorial"},
+  {n:"Rack Pull",m:"back",k:"c",e:"Stang",d:2,desc:"Top-half deadlift, fokus på øvre ryg.",l:"https://www.youtube.com/results?search_query=rack+pull+tutorial"},
+  {n:"Inverted Row",m:"back",k:"c",e:"Stang/TRX",d:1,desc:"Bodyweight-version af row.",l:"https://www.youtube.com/results?search_query=inverted+row+tutorial"},
+  {n:"Face Pull",m:"back",k:"i",e:"Kabel",d:1,desc:"Bagsiden af skuldre + ryg-postur.",l:"https://www.youtube.com/results?search_query=face+pull+tutorial"},
+  {n:"Shrugs",m:"back",k:"i",e:"Håndvægte",d:1,desc:"Trapezius isolation.",l:"https://www.youtube.com/results?search_query=dumbbell+shrugs+tutorial"},
+  {n:"Underhaands Pulldown",m:"back",k:"c",e:"Kabel",d:1,desc:"Underhåndsgreb – mere biceps i ligningen.",l:"https://www.youtube.com/results?search_query=underhand+lat+pulldown+tutorial"},
+
+  // BEN
+  {n:"Squat",m:"legs",k:"c",e:"Stang",d:3,desc:"Konge for ben-størrelse og styrke.",l:"https://www.youtube.com/watch?v=gcNh17Ckjgg"},
+  {n:"Front Squat",m:"legs",k:"c",e:"Stang",d:3,desc:"Mere quad, mindre lænd.",l:"https://www.youtube.com/results?search_query=front+squat+tutorial"},
+  {n:"Hack Squat",m:"legs",k:"c",e:"Maskine",d:2,desc:"Quad-fokus, sikker form.",l:"https://www.youtube.com/results?search_query=hack+squat+tutorial"},
+  {n:"Leg Press",m:"legs",k:"c",e:"Maskine",d:1,desc:"Tunge ben-belastninger uden risiko.",l:"https://www.youtube.com/results?search_query=leg+press+tutorial"},
+  {n:"Romanian Deadlift",m:"legs",k:"c",e:"Stang",d:2,desc:"Hamstring-stretch + glutes.",l:"https://www.youtube.com/watch?v=2SHsk9AzdjA"},
+  {n:"Sumo Deadlift",m:"legs",k:"c",e:"Stang",d:3,desc:"Bredt stand – mere quads og glutes.",l:"https://www.youtube.com/results?search_query=sumo+deadlift+tutorial"},
+  {n:"Walking Lunges",m:"legs",k:"c",e:"Håndvægte",d:2,desc:"Unilateral – fix svagheder.",l:"https://www.youtube.com/results?search_query=walking+lunges+tutorial"},
+  {n:"Bulgarian Split Squat",m:"legs",k:"c",e:"Håndvægte",d:2,desc:"Et ben ad gangen – brutal men effektiv.",l:"https://www.youtube.com/results?search_query=bulgarian+split+squat+tutorial"},
+  {n:"Goblet Squat",m:"legs",k:"c",e:"Håndvægt",d:1,desc:"God begynder-squat med kettlebell.",l:"https://www.youtube.com/results?search_query=goblet+squat+tutorial"},
+  {n:"Leg Curl (siddende)",m:"legs",k:"i",e:"Maskine",d:1,desc:"Hamstring isolation.",l:"https://www.youtube.com/results?search_query=seated+leg+curl+tutorial"},
+  {n:"Leg Curl (liggende)",m:"legs",k:"i",e:"Maskine",d:1,desc:"Hamstring isolation – anden vinkel.",l:"https://www.youtube.com/results?search_query=lying+leg+curl+tutorial"},
+  {n:"Leg Extension",m:"legs",k:"i",e:"Maskine",d:1,desc:"Quadriceps isolation.",l:"https://www.youtube.com/results?search_query=leg+extension+tutorial"},
+  {n:"Hip Thrust",m:"legs",k:"c",e:"Stang",d:2,desc:"Glute-fokus – tunge belastninger.",l:"https://www.youtube.com/watch?v=S_uZP4UH6J0"},
+  {n:"Glute Bridge",m:"legs",k:"i",e:"Egen vægt",d:1,desc:"Begynder-version af hip thrust.",l:"https://www.youtube.com/results?search_query=glute+bridge+tutorial"},
+  {n:"Calf Raises (stående)",m:"legs",k:"i",e:"Maskine",d:1,desc:"Gastrocnemius – stående lægmuskel.",l:"https://www.youtube.com/results?search_query=standing+calf+raise+tutorial"},
+  {n:"Calf Raises (siddende)",m:"legs",k:"i",e:"Maskine",d:1,desc:"Soleus – dybere lægmuskel.",l:"https://www.youtube.com/results?search_query=seated+calf+raise+tutorial"},
+  {n:"Tibialis Raises",m:"legs",k:"i",e:"Egen vægt",d:1,desc:"Forsiden af læg – godt for løbere.",l:"https://www.youtube.com/results?search_query=tibialis+raise+tutorial"},
+
+  // SKULDRE
+  {n:"Overhead Press",m:"shoulders",k:"c",e:"Stang",d:2,desc:"Konge-øvelse for skuldre og styrke.",l:"https://www.youtube.com/watch?v=F3QY5vMz_6I"},
+  {n:"DB Shoulder Press",m:"shoulders",k:"c",e:"Håndvægte",d:1,desc:"Mere range – mindre belastning på led.",l:"https://www.youtube.com/results?search_query=dumbbell+shoulder+press+tutorial"},
+  {n:"Arnold Press",m:"shoulders",k:"c",e:"Håndvægte",d:2,desc:"Rotation – rammer alle 3 skulder-hoveder.",l:"https://www.youtube.com/results?search_query=arnold+press+tutorial"},
+  {n:"Lateral Raise",m:"shoulders",k:"i",e:"Håndvægte",d:1,desc:"Side-skulder – bredde.",l:"https://www.youtube.com/results?search_query=lateral+raise+tutorial"},
+  {n:"Front Raise",m:"shoulders",k:"i",e:"Håndvægte",d:1,desc:"Forsiden af skulder.",l:"https://www.youtube.com/results?search_query=front+raise+tutorial"},
+  {n:"Reverse Flyes",m:"shoulders",k:"i",e:"Håndvægte",d:1,desc:"Bagsiden af skulder + ryg-postur.",l:"https://www.youtube.com/results?search_query=reverse+fly+tutorial"},
+  {n:"Cable Lateral Raise",m:"shoulders",k:"i",e:"Kabel",d:1,desc:"Konstant spænding hele vejen.",l:"https://www.youtube.com/results?search_query=cable+lateral+raise+tutorial"},
+  {n:"Upright Row",m:"shoulders",k:"c",e:"Stang",d:2,desc:"Trapezius + side-skulder.",l:"https://www.youtube.com/results?search_query=upright+row+tutorial"},
+
+  // ARME
+  {n:"Biceps Curl (stang)",m:"arms",k:"i",e:"Stang",d:1,desc:"Klassisk biceps – tunge belastninger.",l:"https://www.youtube.com/results?search_query=barbell+curl+tutorial"},
+  {n:"Biceps Curl (DB)",m:"arms",k:"i",e:"Håndvægte",d:1,desc:"En arm ad gangen, fuld supination.",l:"https://www.youtube.com/results?search_query=dumbbell+bicep+curl+tutorial"},
+  {n:"Hammer Curl",m:"arms",k:"i",e:"Håndvægte",d:1,desc:"Brachialis – tykkere arme.",l:"https://www.youtube.com/results?search_query=hammer+curl+tutorial"},
+  {n:"Cable Curl",m:"arms",k:"i",e:"Kabel",d:1,desc:"Konstant spænding gennem hele bevægelsen.",l:"https://www.youtube.com/results?search_query=cable+bicep+curl+tutorial"},
+  {n:"Preacher Curl",m:"arms",k:"i",e:"Stang/EZ",d:2,desc:"Strict isolation – ingen swing.",l:"https://www.youtube.com/results?search_query=preacher+curl+tutorial"},
+  {n:"Concentration Curl",m:"arms",k:"i",e:"Håndvægt",d:1,desc:"Maks biceps-peak.",l:"https://www.youtube.com/results?search_query=concentration+curl+tutorial"},
+  {n:"Triceps Pushdown",m:"arms",k:"i",e:"Kabel",d:1,desc:"Triceps isolation, populær favorit.",l:"https://www.youtube.com/results?search_query=cable+tricep+pushdown+tutorial"},
+  {n:"Overhead Tri Extension",m:"arms",k:"i",e:"Håndvægt",d:1,desc:"Stretcher det lange triceps-hoved.",l:"https://www.youtube.com/results?search_query=overhead+tricep+extension+tutorial"},
+  {n:"Skull Crushers",m:"arms",k:"i",e:"Stang/EZ",d:2,desc:"Liggende triceps-extension.",l:"https://www.youtube.com/results?search_query=skull+crusher+tutorial"},
+  {n:"Close-Grip Bench",m:"arms",k:"c",e:"Stang",d:2,desc:"Triceps + bryst – tunge belastninger.",l:"https://www.youtube.com/results?search_query=close+grip+bench+press+tutorial"},
+  {n:"Dips (triceps)",m:"arms",k:"c",e:"Dip-stang",d:2,desc:"Stå oprejst for triceps-fokus.",l:"https://www.youtube.com/results?search_query=tricep+dips+tutorial"},
+
+  // CORE
+  {n:"Plank",m:"core",k:"x",e:"Egen vægt",d:1,desc:"Anti-extension – byg core-stabilitet.",l:"https://www.youtube.com/results?search_query=plank+tutorial"},
+  {n:"Side Plank",m:"core",k:"x",e:"Egen vægt",d:2,desc:"Obliques + lateral stabilitet.",l:"https://www.youtube.com/results?search_query=side+plank+tutorial"},
+  {n:"Cable Crunch",m:"core",k:"x",e:"Kabel",d:1,desc:"Tung core-træning med stigende belastning.",l:"https://www.youtube.com/results?search_query=cable+crunch+tutorial"},
+  {n:"Hanging Leg Raise",m:"core",k:"x",e:"Pullup-stang",d:2,desc:"Lower abs – avanceret.",l:"https://www.youtube.com/results?search_query=hanging+leg+raise+tutorial"},
+  {n:"Ab Wheel Rollout",m:"core",k:"x",e:"Ab wheel",d:2,desc:"Brutal anti-extension.",l:"https://www.youtube.com/results?search_query=ab+wheel+rollout+tutorial"},
+  {n:"Dead Bug",m:"core",k:"x",e:"Egen vægt",d:1,desc:"Anti-extension – sikker for ryg.",l:"https://www.youtube.com/results?search_query=dead+bug+exercise+tutorial"},
+  {n:"Pallof Press",m:"core",k:"x",e:"Kabel",d:1,desc:"Anti-rotation – funktionel core.",l:"https://www.youtube.com/watch?v=_2xWmYNnFS8"},
+  {n:"Russian Twist",m:"core",k:"x",e:"Vægtskive",d:1,desc:"Rotational core-træning.",l:"https://www.youtube.com/results?search_query=russian+twist+tutorial"},
+  {n:"Mountain Climbers",m:"core",k:"x",e:"Egen vægt",d:1,desc:"Dynamic core + lidt cardio.",l:"https://www.youtube.com/results?search_query=mountain+climbers+tutorial"},
+  {n:"Hollow Hold",m:"core",k:"x",e:"Egen vægt",d:2,desc:"Gymnast-favorit – brutal core.",l:"https://www.youtube.com/results?search_query=hollow+hold+tutorial"},
+  {n:"Bird Dog",m:"core",k:"x",e:"Egen vægt",d:1,desc:"Stabilitet + balance, god opvarmning.",l:"https://www.youtube.com/results?search_query=bird+dog+exercise+tutorial"},
+
+  // KONDITION
+  {n:"Restitutionsløb",m:"cardio",k:"c",e:"Løbesko",d:1,desc:"Roligt tempo, du skal kunne tale.",l:"https://www.youtube.com/results?search_query=easy+recovery+run+pace"},
+  {n:"Tempoløb",m:"cardio",k:"c",e:"Løbesko",d:2,desc:"Komfortabelt hårdt – holdbart 20–40 min.",l:"https://www.youtube.com/results?search_query=tempo+run+training"},
+  {n:"Intervaller 400m",m:"cardio",k:"c",e:"Løbesko",d:2,desc:"Korte hårde intervaller – byg fart.",l:"https://www.youtube.com/results?search_query=400m+interval+training"},
+  {n:"Intervaller 800m",m:"cardio",k:"c",e:"Løbesko",d:3,desc:"Længere intervaller – byg udholdenhed i fart.",l:"https://www.youtube.com/results?search_query=800m+interval+training"},
+  {n:"Backe-intervaller",m:"cardio",k:"c",e:"Løbesko",d:3,desc:"Op ad bakken – byg styrke + fart.",l:"https://www.youtube.com/results?search_query=hill+sprint+training"},
+  {n:"Cykling (let)",m:"cardio",k:"c",e:"Cykel",d:1,desc:"Aktiv restitution.",l:"https://www.youtube.com/results?search_query=easy+cycling+recovery"},
+  {n:"Cykling HIIT",m:"cardio",k:"c",e:"Cykel",d:2,desc:"Korte intervaller – sparer benene.",l:"https://www.youtube.com/results?search_query=hiit+cycling+workout"},
+  {n:"Roning",m:"cardio",k:"c",e:"Romaskine",d:1,desc:"Hele kroppen – low-impact.",l:"https://www.youtube.com/results?search_query=rowing+machine+technique"},
+  {n:"Stairmaster",m:"cardio",k:"c",e:"Maskine",d:1,desc:"Bens og glutes – low-impact.",l:"https://www.youtube.com/results?search_query=stairmaster+workout"},
+];
+
+/* ═══════════════════════════════════════════════════════════ */
+/* ── STATE & STORAGE ───────────────────────────────────────── */
+/* ═══════════════════════════════════════════════════════════ */
 let tab='weekly',sel=null,week=1,selGraph=0;
-const SK='tw4';
+const SK='tw4', CK='tw4_custom', AIK='tw4_ai';
+
 let W={};
 try{W=JSON.parse(localStorage.getItem(SK)||'{}')}catch(e){}
 function save(){try{localStorage.setItem(SK,JSON.stringify(W))}catch(e){}}
+
+let CUSTOM={};
+try{CUSTOM=JSON.parse(localStorage.getItem(CK)||'{}')}catch(e){}
+function saveCustom(){try{localStorage.setItem(CK,JSON.stringify(CUSTOM))}catch(e){}}
+
+// Program metadata: startdato + status
+const PK='tw4_prog';
+let PROG={startDate:null};
+try{PROG={...PROG,...JSON.parse(localStorage.getItem(PK)||'{}')}}catch(e){}
+function saveProg(){try{localStorage.setItem(PK,JSON.stringify(PROG))}catch(e){}}
+
+// Dato-hjælpere
+const DAY_NAMES=['Mandag','Tirsdag','Onsdag','Torsdag','Fredag','Lørdag','Søndag'];
+function todayISO(){const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
+function todayDayIdx(){return (new Date().getDay()+6)%7} // 0=Mandag, 6=Søndag
+function thisMondayISO(){
+  const d=new Date();
+  const idx=(d.getDay()+6)%7;
+  d.setDate(d.getDate()-idx);
+  return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+}
+function weekFromStart(){
+  if(!PROG.startDate)return 0;
+  const start=new Date(PROG.startDate+'T00:00:00');
+  const today=new Date();
+  today.setHours(0,0,0,0);start.setHours(0,0,0,0);
+  const diffDays=Math.floor((today-start)/(24*60*60*1000));
+  return Math.floor(diffDays/7)+1; // uge 1 = dag 0..6
+}
+function fmtDate(iso){
+  if(!iso)return'';
+  try{return new Date(iso+'T00:00:00').toLocaleDateString('da-DK',{day:'numeric',month:'long',year:'numeric'})}catch(e){return iso}
+}
+
+let AI={apiKey:'',model:'gemini-2.5-flash',messages:[],settingsOpen:false};
+try{
+  const stored=JSON.parse(localStorage.getItem(AIK)||'{}');
+  AI={...AI,...stored};
+  // Migration: nulstil gamle Claude-modeller og -nøgler til Gemini-default
+  if(AI.model&&AI.model.startsWith('claude-')){AI.model='gemini-2.5-flash'}
+  if(AI.apiKey&&AI.apiKey.startsWith('sk-ant-')){AI.apiKey=''}
+}catch(e){}
+function saveAI(){try{localStorage.setItem(AIK,JSON.stringify(AI))}catch(e){}}
+
 function ek(w,d,n){return'w'+w+'__'+(d+'__'+n).replace(/[^\w]/g,'_')}
 function gw(w,d,n){return W[ek(w,d,n)]||''}
 function sw(w,d,n,v){W[ek(w,d,n)]=v;save();toast()}
 function df(w,d,n){if(w<2)return null;const c=parseFloat(gw(w,d,n)),p=parseFloat(gw(w-1,d,n));if(isNaN(c)||isNaN(p))return null;return Math.round((c-p)*10)/10}
+
+// merge default + custom exercises for a day
+function dayEx(d){if(!d.ex)return null;return [...d.ex,...(CUSTOM[d.full]||[])]}
+
+// Programmets nuværende uge — først via startdato, ellers fra seneste data
+function currentWeek(){
+  if(PROG.startDate){
+    const w=weekFromStart();
+    if(w>=1&&w<=8)return w;
+    if(w>8)return 9; // færdigt
+    return 1; // før startdato
+  }
+  // Fallback: seneste uge med data
+  for(let w=8;w>=1;w--){
+    const has=D.some(d=>{
+      if(d.ex){return dayEx(d).some(e=>gw(w,d.full,e.n))}
+      if(d.run){return['tid','pace','km'].some(k=>gw(w,d.full,k))}
+      return false;
+    });
+    if(has)return w;
+  }
+  return 1;
+}
+function isProgramDone(){return PROG.startDate&&weekFromStart()>8}
+
 let tt;
-function toast(){const t=document.getElementById('toast');t.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('show'),1400)}
-function go(t){tab=t;sel=null;document.querySelectorAll('.tab').forEach((el,i)=>el.classList.toggle('on',['weekly','weights','graph','phases','rules'][i]===t));render()}
+function toast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg||'✓ Gemt';
+  t.classList.add('show');
+  clearTimeout(tt);
+  tt=setTimeout(()=>t.classList.remove('show'),1400);
+}
+
+const TABS=['weekly','weights','graph','coach','library','phases','rules'];
+function go(t){
+  tab=t;
+  // Når Skema åbnes: spring til dagens dag og dagens uge
+  if(t==='weekly'){
+    sel=todayDayIdx();
+    const cw=currentWeek();
+    if(cw>=1&&cw<=8)week=cw;
+  }else{
+    sel=null;
+  }
+  document.querySelectorAll('.tab').forEach((el,i)=>el.classList.toggle('on',TABS[i]===t));
+  render();
+  document.getElementById('cnt').scrollTop=0;
+}
 function sd(i){sel=sel===i?null:i;render();if(sel!==null)setTimeout(()=>document.querySelector('.det')?.scrollIntoView({behavior:'smooth',block:'start'}),50)}
 function sw2(w){week=w;render()}
 function wch(el){const w=+el.dataset.w,d=el.dataset.d,n=el.dataset.n;sw(w,d,n,el.value);el.classList.remove('fl');void el.offsetWidth;el.classList.add('fl');setTimeout(()=>el.classList.remove('fl'),550)}
 function diffH(d){if(d===null)return'';const cl=d>0?'dup':d<0?'ddn':'deq',s=d>0?`▲+${d}`:d<0?`▼${d}`:'=0';return`<div class="${cl}">${s}</div>`}
 
+function escAttr(s){return String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+function escHtml(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+
+/* ═══════════════════════════════════════════════════════════ */
+/* ── MAIN RENDER ───────────────────────────────────────────── */
+/* ═══════════════════════════════════════════════════════════ */
 function render(){
+  updateHeaderWeek();
   const c=document.getElementById('cnt');
   if(tab==='weekly')c.innerHTML=rWeekly();
   else if(tab==='weights')c.innerHTML=rLog();
   else if(tab==='graph')c.innerHTML=rGraph();
+  else if(tab==='coach')c.innerHTML=rCoach();
+  else if(tab==='library')c.innerHTML=rLibrary();
   else if(tab==='phases')c.innerHTML=rPhases();
   else c.innerHTML=rRules();
+}
+
+function updateHeaderWeek(){
+  const el=document.getElementById('hdrWeek');
+  if(!el)return;
+  const cw=currentWeek();
+  if(isProgramDone()){
+    el.innerHTML=`<div class="hdr-stat-dot" style="background:#30c080"></div><label>Status</label><b style="color:#30c080">FÆRDIG</b>`;
+  }else if(PROG.startDate){
+    el.innerHTML=`<div class="hdr-stat-dot"></div><label>Uge</label><b>${cw} / 8</b>`;
+  }else{
+    el.innerHTML=`<div class="hdr-stat-dot"></div><label>Plan</label><b>8 UGE</b>`;
+  }
 }
 
 function wpickH(){
@@ -405,12 +988,31 @@ function wpickH(){
   return h+'</div>';
 }
 
+/* ── WEEKLY ── */
 function rWeekly(){
-  let h='<div class="dgrid">';
+  let h='';
+
+  // Program færdigt? Vis fejring + start-forfra
+  if(isProgramDone()){
+    h+=rProgDone();
+  }
+  // Ingen startdato sat? Vis setup-banner
+  else if(!PROG.startDate){
+    h+=rProgSetup();
+  }
+  // I gang: vis dagens træning som banner
+  else{
+    h+=rTodayBanner();
+  }
+
+  // Day grid
+  const todayIdx=todayDayIdx();
+  h+='<div class="dgrid">';
   D.forEach((d,i)=>{
+    const isToday=i===todayIdx&&PROG.startDate&&!isProgramDone();
     h+=`<div class="dc${sel===i?' on':''}" style="--col:${d.color}" onclick="sd(${i})">
       <span class="di">${d.icon}</span>
-      <div class="da">${d.day}</div>
+      <div class="da">${d.day}${isToday?' <span style="color:'+d.color+';font-size:10px">●</span>':''}</div>
       <div class="dl">${d.label}</div>
     </div>`;
   });
@@ -427,7 +1029,8 @@ function rWeekly(){
         <div class="badge" style="background:${d.color}22;color:${d.color};border:1px solid ${d.color}44">${d.label}</div>
       </div>`;
 
-    if(d.ex){
+    const exs=dayEx(d);
+    if(exs){
       const gp=GP[gymPhase(week)];
       h+=wpickH();
       h+=`<div class="phase-banner" style="background:${gp.color}10;border:1px solid ${gp.color}30">
@@ -436,15 +1039,19 @@ function rWeekly(){
         <div class="phase-info">${gp.weeks} &nbsp;·&nbsp; ${gp.tip}</div>
       </div>`;
       h+=`<div class="ex-hd"><span>Øvelse</span><span>Sæt</span><span>Reps</span><span>Kg – uge ${week}</span><span>Se</span></div>`;
-      d.ex.forEach(e=>{
+      exs.forEach((e,exIdx)=>{
         const sr=exSR(e,week),v=gw(week,d.full,e.n),dv=df(week,d.full,e.n);
-        h+=`<div class="exrow${e.core?' core':''}">
-          <div><div class="exn">${e.n}</div>${e.no?`<div class="exno">${e.no}</div>`:''}</div>
+        const isCust=e.custom;
+        const cls=isCust?'cust':(e.core?'core':'');
+        const rmBtn=isCust?`<button class="rmx" onclick="removeCustomEx('${escAttr(d.full)}','${escAttr(e.n)}')" title="Fjern">×</button>`:'';
+        const custTag=isCust?'<span class="cust-tag">EGEN</span>':'';
+        h+=`<div class="exrow${cls?' '+cls:''}">
+          <div><div class="exn">${e.n}${custTag}${rmBtn}</div>${e.no?`<div class="exno">${e.no}</div>`:''}</div>
           <div class="exs" style="color:${d.color}">${sr.s}</div>
           <div class="exr">${sr.r}</div>
           <div class="exkg">
             <input class="wi" type="number" inputmode="decimal" placeholder="kg" min="0" step="0.5"
-              value="${v}" data-w="${week}" data-d="${d.full}" data-n="${e.n}"
+              value="${v}" data-w="${week}" data-d="${d.full}" data-n="${escAttr(e.n)}"
               onchange="wch(this)" onfocus="this.select()">
             ${diffH(dv)}
           </div>
@@ -452,7 +1059,8 @@ function rWeekly(){
         </div>`;
       });
       h+=`<div class="tip">💡 <b>Pause:</b> 2–3 min styrke &nbsp;·&nbsp; 60–90 sek isolation &nbsp;·&nbsp; 1–2 reps fra failure</div>`;
-      if(d.ex.some(e=>e.core))h+=`<div class="tcore">🔶 <b>Core-blok</b> – ca. 10 min til sidst &nbsp;·&nbsp; 45–60 sek pause</div>`;
+      if(exs.some(e=>e.core))h+=`<div class="tcore">🔶 <b>Core-blok</b> – ca. 10 min til sidst &nbsp;·&nbsp; 45–60 sek pause</div>`;
+      h+=`<div style="margin-top:12px;text-align:center"><button class="ai-btn ghost" onclick="go('library')">+ Tilføj øvelse fra bibliotek</button></div>`;
 
     }else if(d.run){
       h+=wpickH();
@@ -485,7 +1093,7 @@ function rWeekly(){
         <label>📓 Noter</label>
         <textarea rows="2" placeholder="Hvordan gik det? Følte du dig stærk?"
           data-w="${week}" data-d="${d.full}" data-n="note"
-          onchange="wch(this)">${note}</textarea>
+          onchange="wch(this)">${escHtml(note)}</textarea>
       </div></div>`;
 
     }else{
@@ -502,11 +1110,105 @@ function rWeekly(){
   return h;
 }
 
+/* ── TODAY BANNER ── */
+function rTodayBanner(){
+  const idx=todayDayIdx();
+  const d=D[idx];
+  const cw=currentWeek();
+  const today=new Date().toLocaleDateString('da-DK',{weekday:'long',day:'numeric',month:'long'});
+  const exs=dayEx(d);
+  let summary='';
+  if(d.run){
+    summary=`${d.run.dur} @ ${d.run.pace} · ${d.run.type}`;
+  }else if(exs){
+    const compounds=exs.filter(e=>!e.core).slice(0,3).map(e=>e.n).join(', ');
+    summary=`${exs.filter(e=>!e.core).length} øvelser · ${compounds}${exs.filter(e=>!e.core).length>3?'…':''}`;
+  }else{
+    summary='Hvile · Søvn 7-9 timer · Let gåtur er fint';
+  }
+  return `<div class="today-banner" style="--tc:${d.color}" onclick="sel=${idx};render();setTimeout(()=>document.querySelector('.det')?.scrollIntoView({behavior:'smooth',block:'start'}),50)">
+    <div class="tb-icon">${d.icon}</div>
+    <div class="tb-text">
+      <div class="tb-eyebrow"><span class="pulse"></span>I dag · ${today} · Uge ${cw}</div>
+      <div class="tb-title">${d.type}</div>
+      <div class="tb-sub">${summary}</div>
+    </div>
+    <div class="tb-arrow">›</div>
+  </div>`;
+}
+
+/* ── PROGRAM SETUP (vælg startdato) ── */
+function rProgSetup(){
+  const tm=thisMondayISO();
+  return `<div class="prog-setup">
+    <div class="prog-setup-title">📅 Sæt startdato</div>
+    <div class="prog-setup-sub">Vælg den mandag du starter (eller startede) programmet.<br>Så ved appen hvilken uge du er i — og din coach ved hvad dagens træning er.</div>
+    <input type="date" class="prog-date-input" id="progDateInput" value="${tm}">
+    <div class="btn-row">
+      <button class="prog-btn" onclick="setProgStart()">✓ Start programmet</button>
+      <button class="prog-btn ghost" onclick="setProgStartToday()">Start i denne uge</button>
+    </div>
+  </div>`;
+}
+
+/* ── PROGRAM DONE ── */
+function rProgDone(){
+  // Saml stats
+  const startDate=fmtDate(PROG.startDate);
+  let totalLogged=0,totalKg=0;
+  D.filter(d=>d.ex).forEach(d=>{
+    dayEx(d).filter(e=>!e.core).forEach(e=>{
+      for(let w=1;w<=8;w++){const v=parseFloat(gw(w,d.full,e.n));if(!isNaN(v)){totalLogged++;totalKg+=v}}
+    });
+  });
+  // Find bedste 5km tid
+  let bestPace='–';
+  D.filter(d=>d.run).forEach(d=>{
+    for(let w=1;w<=8;w++){const v=gw(w,d.full,'tid');if(v&&(bestPace==='–'||v<bestPace))bestPace=v}
+  });
+  return `<div class="prog-done">
+    <span class="pd-emoji">🏆</span>
+    <div class="pd-title">8 UGER FÆRDIG!</div>
+    <div class="pd-sub">Startet ${startDate}<br>Du har gennemført hele Recomp + 5km programmet</div>
+    <div class="pd-stats">
+      <div class="pd-stat"><label>Sæt loggede</label><span>${totalLogged}</span></div>
+      <div class="pd-stat"><label>Bedste tid</label><span>${bestPace}</span></div>
+      <div class="pd-stat"><label>Uger</label><span>8/8</span></div>
+    </div>
+    <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
+      <button class="prog-btn" onclick="restartProgram()">↻ Start nyt 8-ugers forløb</button>
+      <button class="prog-btn ghost" onclick="go('coach')">🤖 Få debrief fra coach</button>
+    </div>
+    <div style="font-size:10px;color:var(--mut2);margin-top:14px;font-family:'DM Mono',monospace;line-height:1.6">Dine data fra denne periode bevares — du kan altid se dem i Vægtlog og Fremgang.</div>
+  </div>`;
+}
+
+function setProgStart(){
+  const inp=document.getElementById('progDateInput');
+  if(!inp||!inp.value){toast('Vælg en dato');return}
+  PROG.startDate=inp.value;saveProg();
+  const cw=currentWeek();if(cw>=1&&cw<=8)week=cw;
+  toast('✓ Programmet startet');
+  render();
+}
+function setProgStartToday(){
+  PROG.startDate=thisMondayISO();saveProg();
+  toast('✓ Programmet startet');
+  render();
+}
+function restartProgram(){
+  if(!confirm('Start et nyt 8-ugers forløb?\n\nDine eksisterende data bevares – men programmet starter forfra fra denne mandag.'))return;
+  PROG.startDate=thisMondayISO();saveProg();
+  week=1;
+  toast('✓ Nyt forløb startet');
+  render();
+}
 function rLog(){
   let h='<div class="page-title"><div class="page-eyebrow">// Data</div><div class="page-h1">Vægtlog</div></div>';
   h+=wpickH();
   D.filter(d=>d.ex).forEach(d=>{
     const gp=GP[gymPhase(week)];
+    const exs=dayEx(d);
     h+=`<div class="wld">
       <div class="wlh" style="background:${d.color}15;border-bottom:1px solid ${d.color}25">
         <span class="wlh-icon">${d.icon}</span>
@@ -514,14 +1216,15 @@ function rLog(){
         <span class="wlh-phase" style="background:${gp.color}20;color:${gp.color};border:1px solid ${gp.color}30">${gp.name}</span>
       </div>
       <div class="wlc"><span>Øvelse</span><span>Uge ${week}</span><span>${week>1?'Uge '+(week-1):'Forrige'}</span><span>Ændring</span></div>`;
-    d.ex.filter(e=>!e.core).forEach(e=>{
+    exs.filter(e=>!e.core).forEach(e=>{
       const sr=exSR(e,week),cv=gw(week,d.full,e.n),pv=week>1?gw(week-1,d.full,e.n):'',dv=df(week,d.full,e.n);
       let dfh='<span style="color:var(--mut2)">–</span>';
       if(dv!==null){const cl=dv>0?'dup':dv<0?'ddn':'deq',s=dv>0?`▲+${dv}`:dv<0?`▼${dv}`:'=0';dfh=`<span class="${cl}">${s}</span>`;}
+      const custTag=e.custom?' <span style="background:#9060f022;color:#9060f0;font-family:DM Mono,monospace;font-size:7px;font-weight:600;letter-spacing:1px;padding:1px 5px;border-radius:4px">EGEN</span>':'';
       h+=`<div class="wlr">
-        <div><div class="wln">${e.n}</div><div class="wls">${sr.s} sæt · ${sr.r}</div></div>
+        <div><div class="wln">${e.n}${custTag}</div><div class="wls">${sr.s} sæt · ${sr.r}</div></div>
         <input class="wi" type="number" inputmode="decimal" placeholder="kg" min="0" step="0.5"
-          style="width:72px" value="${cv}" data-w="${week}" data-d="${d.full}" data-n="${e.n}"
+          style="width:72px" value="${cv}" data-w="${week}" data-d="${d.full}" data-n="${escAttr(e.n)}"
           onchange="wch(this)" onfocus="this.select()">
         <div class="wlp">${pv?pv+' kg':'–'}</div>
         <div>${dfh}</div>
@@ -550,21 +1253,24 @@ function rLog(){
       <label>📓 Noter</label>
       <textarea rows="2" placeholder="Hvordan gik det?"
         data-w="${week}" data-d="${d.full}" data-n="note"
-        onchange="wch(this)">${note}</textarea>
+        onchange="wch(this)">${escHtml(note)}</textarea>
     </div></div>`;
   });
   h+=`<div class="tip">💡 Rammer du øverste rep-tal → <b>+2,5–5 kg næste uge</b>. Grøn = du er på rette spor! 🎯<br>Data gemmes permanent på din iPhone.</div>`;
   return h;
 }
 
+/* ── GRAPH ── */
 function rGraph(){
   const gymExs=[];
   D.filter(d=>d.ex).forEach(d=>{
-    d.ex.filter(e=>!e.core).forEach(e=>{
+    dayEx(d).filter(e=>!e.core).forEach(e=>{
       if(!gymExs.find(x=>x.n===e.n))gymExs.push({n:e.n,day:d.full,color:d.color});
     });
   });
+  if(selGraph>=gymExs.length)selGraph=0;
   const selEx=gymExs[selGraph]||gymExs[0];
+  if(!selEx)return '<div class="hint"><span class="hint-icon">📊</span>Ingen øvelser endnu</div>';
   const pts=[];
   for(let w=1;w<=8;w++){const v=parseFloat(gw(w,selEx.day,selEx.n));pts.push(isNaN(v)?null:v)}
   const filled=pts.filter(v=>v!==null);
@@ -576,23 +1282,18 @@ function rGraph(){
   function py(v){return pt2+ih-(((v-(minV-padV))/(range+2*padV))*ih)}
   const phC=['#4f8ef722','#f0704022','#e0406022'],phR=[[1,3],[4,6],[7,8]];
   let svg=`<svg viewBox="0 0 ${W2} ${H2}" xmlns="http://www.w3.org/2000/svg" style="width:100%;border-radius:10px">`;
-  // bg
   svg+=`<rect width="${W2}" height="${H2}" fill="#0e0e1a" rx="10"/>`;
-  // phase bands
   phR.forEach(([s,e],i)=>{
     const x1=px(s)-iw/14,x2=px(e)+iw/14;
     svg+=`<rect x="${x1}" y="${pt2}" width="${x2-x1}" height="${ih}" fill="${phC[i]}" rx="4"/>`;
   });
-  // grid
   for(let i=0;i<=4;i++){const y=pt2+(ih/4)*i;svg+=`<line x1="${pl}" y1="${y}" x2="${W2-pr}" y2="${y}" stroke="#ffffff06" stroke-width="1"/>`;}
-  // y labels
   if(hasData){
     for(let i=0;i<=2;i++){
       const v=minV-padV+(range+2*padV)*(1-i/2);
       svg+=`<text x="${pl-4}" y="${pt2+(ih/2)*i+4}" text-anchor="end" font-size="8" fill="#3a3a5a" font-family="DM Mono,monospace">${Math.round(v)}</text>`;
     }
   }
-  // week labels
   for(let w=1;w<=8;w++)svg+=`<text x="${px(w)}" y="${H2-6}" text-anchor="middle" font-size="9" fill="#3a3a5a" font-family="DM Mono,monospace">${w}</text>`;
   if(hasData){
     let pathD='',dotPts=[];
@@ -661,6 +1362,7 @@ function rGraph(){
   return h;
 }
 
+/* ── PHASES ── */
 function rPhases(){
   let h=`<div class="page-title"><div class="page-eyebrow">// Perioder</div><div class="page-h1">Faser</div></div>`;
   h+=`<div class="section-label">💪 Gym</div>`;
@@ -691,6 +1393,7 @@ function rPhases(){
   return h;
 }
 
+/* ── RULES ── */
 function rRules(){
   let h=`<div class="page-title"><div class="page-eyebrow">// Principper</div><div class="page-h1">Regler</div></div>`;
   h+='<div class="rgrid">';
@@ -704,6 +1407,623 @@ function rRules(){
   return h+'</div>';
 }
 
+/* ═══════════════════════════════════════════════════════════ */
+/* ── AI COACH ──────────────────────────────────────────────── */
+/* ═══════════════════════════════════════════════════════════ */
+function rCoach(){
+  const hasKey=AI.apiKey&&AI.apiKey.trim().length>10;
+  let h=`<div class="page-title"><div class="page-eyebrow">// Personlig analyse</div><div class="page-h1">AI Coach</div></div>`;
+
+  // Settings
+  h+=`<div class="ai-settings${AI.settingsOpen?' open':''}">
+    <div class="ai-settings-head" onclick="toggleAISettings()">
+      <span class="arrow">▶</span>
+      <span>Indstillinger</span>
+      <span class="ai-settings-status ${hasKey?'ok':'miss'}">${hasKey?'● Klar':'● API-nøgle mangler'}</span>
+    </div>
+    <div class="ai-settings-body">
+      <div class="ai-field">
+        <label>Google Gemini API-nøgle</label>
+        <input type="password" id="aiKey" value="${escAttr(AI.apiKey)}" placeholder="AIzaSy..." autocomplete="off">
+        <div class="hint-line">Hent gratis API-nøgle på <a href="https://aistudio.google.com/apikey" target="_blank">aistudio.google.com/apikey</a> → log ind med Google-konto → "Create API key". Ingen kreditkort nødvendigt. Nøglen gemmes kun i din browser.</div>
+      </div>
+      <div class="ai-field">
+        <label>Model</label>
+        <select id="aiModel">
+          <option value="gemini-2.5-flash"${AI.model==='gemini-2.5-flash'?' selected':''}>Gemini 2.5 Flash — anbefalet (1500/dag gratis)</option>
+          <option value="gemini-2.5-flash-lite"${AI.model==='gemini-2.5-flash-lite'?' selected':''}>Gemini 2.5 Flash-Lite — hurtigst (1500/dag, 30/min)</option>
+          <option value="gemini-2.5-pro"${AI.model==='gemini-2.5-pro'?' selected':''}>Gemini 2.5 Pro — mest avanceret (50/dag gratis)</option>
+        </select>
+        <div class="hint-line">Helt gratis tier: Flash giver 1500 forespørgsler/dag — mere end nok til daglig coaching.</div>
+      </div>
+      <div style="display:flex;gap:8px">
+        <button class="ai-btn" onclick="saveAISettings()">Gem</button>
+        <button class="ai-btn ghost" onclick="clearAIChat()">Ryd chat</button>
+      </div>
+    </div>
+  </div>`;
+
+  // Quick actions — "I dag" får førsteplads og fuld bredde
+  const programDone=isProgramDone();
+  h+=`<div class="ai-quick" style="grid-template-columns:1fr;margin-bottom:8px">
+    <button class="ai-quick-btn" style="--qc:#4f8ef7" onclick="aiQuick('today')" ${hasKey?'':'disabled'}>
+      <span class="qi">📅</span>
+      <div><div class="qt">${programDone?'Programmet er færdigt':'Dagens træning'}</div><div class="qd">${programDone?'Hvad skal du nu? Få konkrete næste skridt':'Få konkrete vægte/pace til i dag'}</div></div>
+    </button>
+  </div>`;
+  h+=`<div class="ai-quick">
+    <button class="ai-quick-btn" style="--qc:#30c080" onclick="aiQuick('analyze')" ${hasKey?'':'disabled'}>
+      <span class="qi">📊</span>
+      <div><div class="qt">Analysér fremgang</div><div class="qd">Hvor godt går det?</div></div>
+    </button>
+    <button class="ai-quick-btn" style="--qc:#f0c040" onclick="aiQuick('next')" ${hasKey?'':'disabled'}>
+      <span class="qi">🎯</span>
+      <div><div class="qt">Næste uges vægte</div><div class="qd">Konkrete forslag</div></div>
+    </button>
+    <button class="ai-quick-btn" style="--qc:#9060f0" onclick="aiQuick('adjust')" ${hasKey?'':'disabled'}>
+      <span class="qi">🔧</span>
+      <div><div class="qt">Justér programmet</div><div class="qd">Hvad skal ændres?</div></div>
+    </button>
+    <button class="ai-quick-btn" style="--qc:#e04060" onclick="aiQuick('run')" ${hasKey?'':'disabled'}>
+      <span class="qi">🏃</span>
+      <div><div class="qt">Løbe-strategi</div><div class="qd">Pace til næste uge</div></div>
+    </button>
+  </div>`;
+
+  // Chat
+  h+=`<div class="ai-chat">
+    <div class="ai-chat-head">
+      <div class="ai-dot"></div>
+      <div class="ai-title">DIN COACH</div>
+      <button class="ai-clear" onclick="clearAIChat()">Ryd</button>
+    </div>
+    <div class="ai-msgs" id="aiMsgs">`;
+  if(AI.messages.length===0){
+    h+=`<div class="ai-empty">
+      <span class="ae-icon">🤖</span>
+      <div class="ae-title">Klar til at coache dig</div>
+      <div class="ae-sub">${hasKey?'Tryk på en hurtig handling ovenfor<br>eller skriv et spørgsmål nedenfor':'Tilføj din API-nøgle ovenfor for at komme i gang'}</div>
+    </div>`;
+  }else{
+    AI.messages.forEach(m=>{
+      h+=`<div class="ai-msg ${m.role==='user'?'user':'bot'}">
+        <div class="ai-bub">${m.role==='user'?escHtml(m.content):md2html(m.content)}</div>
+      </div>`;
+    });
+  }
+  h+=`</div>
+    <div id="aiError"></div>
+    <div class="ai-input-row">
+      <textarea class="ai-input" id="aiInput" rows="1" placeholder="${hasKey?'Spørg din coach…':'Tilføj API-nøgle først'}" ${hasKey?'':'disabled'}
+        oninput="autoGrow(this)" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendAIMessage()}"></textarea>
+      <button class="ai-send" onclick="sendAIMessage()" ${hasKey?'':'disabled'}>↑</button>
+    </div>
+    <div class="ai-cost-note">Din API-nøgle og chathistorik gemmes kun i din browser.</div>
+  </div>`;
+
+  return h;
+}
+
+function toggleAISettings(){AI.settingsOpen=!AI.settingsOpen;saveAI();render()}
+
+function saveAISettings(){
+  const key=document.getElementById('aiKey').value.trim();
+  const model=document.getElementById('aiModel').value;
+  AI.apiKey=key;AI.model=model;saveAI();
+  toast('✓ Indstillinger gemt');
+  AI.settingsOpen=false;
+  render();
+}
+
+function clearAIChat(){
+  if(AI.messages.length>0&&!confirm('Ryd hele chat-historikken?'))return;
+  AI.messages=[];saveAI();render();
+}
+
+function autoGrow(el){
+  el.style.height='auto';
+  el.style.height=Math.min(el.scrollHeight,120)+'px';
+}
+
+// Build context summary of all training data
+function buildTrainingContext(){
+  // === DATO & DAGENS TRÆNING ===
+  const now=new Date();
+  const todayStr=now.toLocaleDateString('da-DK',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+  const todayIdx=todayDayIdx();
+  const todayD=D[todayIdx];
+  const cw=currentWeek();
+  const programDone=isProgramDone();
+
+  let ctx='=== I DAG ===\n';
+  ctx+=`Dato: ${todayStr}\n`;
+  ctx+=`Dagens dag: ${todayD.full} – ${todayD.type} (${todayD.label})\n`;
+  if(todayD.run){
+    ctx+=`Dagens træning: ${todayD.run.type} – ${todayD.run.dur} @ ${todayD.run.pace}. ${todayD.run.tip}\n`;
+  }else if(todayD.ex){
+    const exs=dayEx(todayD);
+    ctx+=`Dagens øvelser: ${exs.map(e=>e.n).join(', ')}\n`;
+    // Vis hvad brugeren løftede sidste uge for at hjælpe coach foreslå vægte
+    if(cw>=2&&cw<=8){
+      const prevW=cw-1;
+      const prevWeights=exs.filter(e=>!e.core).map(e=>{
+        const v=gw(prevW,todayD.full,e.n);return v?`${e.n}: ${v} kg`:null;
+      }).filter(Boolean);
+      if(prevWeights.length)ctx+=`Sidste uge (uge ${prevW}) på denne dag: ${prevWeights.join(', ')}\n`;
+    }
+  }else{
+    ctx+=`Dagens træning: Hvile (restitution).\n`;
+  }
+  if(PROG.startDate){
+    ctx+=`Program startdato: ${fmtDate(PROG.startDate)}\n`;
+    if(programDone){
+      ctx+=`STATUS: Programmet er FÆRDIGT – brugeren har gennemført alle 8 uger! Foreslå hvad de skal nu (nyt forløb, nye mål, deload, etc).\n`;
+    }else{
+      ctx+=`Programuge: ${cw} af 8 (${GP[gymPhase(cw)].name}-fase)\n`;
+    }
+  }else{
+    ctx+=`Program ikke startet endnu (ingen startdato sat).\n`;
+    ctx+=`Estimeret aktuel uge (fra data): ${cw}\n`;
+  }
+
+  // === PROGRAM ===
+  ctx+='\n=== TRÆNINGSPROGRAM ===\n';
+  ctx+='8-ugers Recomp + 5km løb. Mål: muskelvækst + fedttab + 5km tid fra 35 min til <30 min.\n';
+  ctx+='Ugentligt skema:\n';
+  D.forEach(d=>{
+    const exs=dayEx(d);
+    if(exs){
+      ctx+=`  ${d.full} (${d.type}): ${exs.map(e=>e.n).join(', ')}\n`;
+    }else if(d.run){
+      ctx+=`  ${d.full} (${d.type}): ${d.run.dur} @ ${d.run.pace}\n`;
+    }else{
+      ctx+=`  ${d.full}: Hvile\n`;
+    }
+  });
+  ctx+='\nFaser:\n';
+  GP.forEach((p,i)=>{
+    ctx+=`  Uge ${['1-3','4-6','7-8'][i]} – ${p.name}: compound ${p.c.s} sæt × ${p.c.r}, isolation ${p.i.s} sæt × ${p.i.r} (${p.tip})\n`;
+  });
+  PH.forEach(p=>{
+    ctx+=`  ${p.w} – Løb ${p.l}: Tir ${p.wd}, Fre ${p.sa}, Mål ${p.g}\n`;
+  });
+
+  ctx+='\n=== LOGGEDE DATA ===\n';
+  let anyData=false;
+  for(let w=1;w<=8;w++){
+    let weekData='';
+    D.forEach(d=>{
+      const exs=dayEx(d);
+      if(exs){
+        exs.filter(e=>!e.core).forEach(e=>{
+          const v=gw(w,d.full,e.n);
+          if(v){weekData+=`  ${d.full} ${e.n}: ${v} kg\n`;anyData=true}
+        });
+      }else if(d.run){
+        const tid=gw(w,d.full,'tid'),pace=gw(w,d.full,'pace'),km=gw(w,d.full,'km'),note=gw(w,d.full,'note');
+        if(tid||pace||km){
+          weekData+=`  ${d.full} løb: tid=${tid||'-'}, pace=${pace||'-'}, km=${km||'-'}`;
+          if(note)weekData+=`, noter: "${note}"`;
+          weekData+='\n';
+          anyData=true;
+        }
+      }
+    });
+    if(weekData)ctx+=`Uge ${w}:\n${weekData}`;
+  }
+  if(!anyData)ctx+='(Ingen data logget endnu)\n';
+
+  // Custom exercises
+  const allCust=Object.entries(CUSTOM).filter(([_,arr])=>arr&&arr.length);
+  if(allCust.length){
+    ctx+='\n=== TILFØJEDE ØVELSER ===\n';
+    allCust.forEach(([day,arr])=>{
+      ctx+=`${day}: ${arr.map(e=>e.n).join(', ')}\n`;
+    });
+  }
+
+  return ctx;
+}
+
+const SYSTEM_PROMPT=`Du er en personlig dansk styrketræner og løbecoach for en bruger der følger et 8-ugers Recomp + 5km program.
+
+Brugerens mål:
+1. Recomposition: muskelvækst + fedttab på samme tid (vedligeholdelseskalorier ±100, 2,2g protein/kg)
+2. 5km løb: forbedre fra 35 min til under 30 min på 8 uger
+
+Programstruktur (uge 1-3 hypertrofi, 4-6 styrke, 7-8 peak):
+- Mandag: Upper A (styrke)
+- Tirsdag: Restitutionsløb (let)
+- Onsdag: Lower A (styrke + core-blok)
+- Torsdag: Upper B (hypertrofi)
+- Fredag: Intervalløb (hård)
+- Lørdag: Lower B (hypertrofi + core-blok)
+- Søndag: Hvile
+
+Princip for progression: Når brugeren rammer øverste rep-tal i en sæt-rækkefølge → +2,5–5 kg næste uge.
+
+VIGTIGT: Du modtager ALTID følgende kontekst i hver besked:
+- Dagens dato og hvilken dag det er
+- Dagens specifikke træning (øvelser eller løbetype)
+- Brugerens nuværende programuge
+- Sidste uges vægte for dagens øvelser (hvis relevant)
+- Alle loggede data fra programmet
+
+Brug ALTID denne kontekst aktivt. Sig "I dag har du Upper A" hvis det er mandag, ikke "din næste træning kan være...". Vær specifik om dato og uge.
+
+Når programmet er FÆRDIGT (uge 8 forbi):
+- Anerkend resultatet og foreslå konkrete næste skridt
+- Mulige veje: nyt 8-ugers forløb (med højere mål), deload-uge før genstart, peak-test af 5km løb, eller skift til vedligeholdelse
+- Brug brugerens faktiske data til at vurdere hvad der giver mening
+
+Stil og format:
+- Svar på dansk
+- Vær konkret og handlingsorienteret. Ingen vatpinde-svar.
+- Når du foreslår vægte, vær specifik: "Bænkpres: prøv 67,5 kg næste uge (+2,5 kg fra sidst)"
+- Maks 4-6 punkter per svar — kort og brugbart
+- Brug **bold** til vigtige tal og navne
+- Hvis data mangler, sig det direkte og foreslå hvad brugeren skal logge
+- Aldrig generiske fitness-floskler — brug brugerens reelle data`;
+
+async function callClaude(userMessage){
+  if(!AI.apiKey)throw new Error('Indtast først din API-nøgle i indstillinger.');
+
+  const ctx=buildTrainingContext();
+
+  // Byg Gemini "contents"-format. Gemini bruger 'model' som rolle for assistant,
+  // og 'parts:[{text}]' i stedet for content-strings.
+  const contents=[];
+  const recent=AI.messages.slice(-10);
+  recent.forEach(m=>{
+    contents.push({
+      role:m.role==='assistant'?'model':'user',
+      parts:[{text:m.content}]
+    });
+  });
+  // Tilføj den nye besked med kontekst
+  contents.push({
+    role:'user',
+    parts:[{text:`<træningsdata>\n${ctx}\n</træningsdata>\n\n${userMessage}`}]
+  });
+
+  const model=AI.model||'gemini-2.5-flash';
+  const url=`https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent`;
+
+  const res=await fetch(url,{
+    method:'POST',
+    headers:{
+      'Content-Type':'application/json',
+      'x-goog-api-key':AI.apiKey
+    },
+    body:JSON.stringify({
+      contents,
+      systemInstruction:{parts:[{text:SYSTEM_PROMPT}]},
+      generationConfig:{
+        maxOutputTokens:1500,
+        temperature:1
+      }
+    })
+  });
+
+  if(!res.ok){
+    let errMsg=`API fejl ${res.status}`;
+    try{const err=await res.json();errMsg=err?.error?.message||errMsg;}catch(e){}
+    if(res.status===400&&errMsg.toLowerCase().includes('api key'))errMsg='Ugyldig API-nøgle. Tjek din nøgle i indstillinger.';
+    else if(res.status===403)errMsg='Adgang nægtet. Tjek at API-nøglen er aktiv på aistudio.google.com.';
+    else if(res.status===429)errMsg='Daglig grænse nået (1500 forespørgsler/dag på Flash). Vent til i morgen, eller skift model.';
+    else if(res.status===404||(res.status===400&&errMsg.toLowerCase().includes('model')))errMsg=`Modellen "${model}" blev ikke fundet. Skift til Gemini 2.5 Flash i indstillinger.`;
+    else if(res.status===503)errMsg='Google har midlertidig overbelastning. Prøv igen om et øjeblik.';
+    throw new Error(errMsg);
+  }
+
+  const data=await res.json();
+  // Gemini-svar: data.candidates[0].content.parts[0].text
+  const candidate=data?.candidates?.[0];
+  if(!candidate)throw new Error('Tomt svar fra Gemini. Prøv igen.');
+  if(candidate.finishReason==='SAFETY')throw new Error('Svaret blev blokeret af Geminis sikkerhedsfilter.');
+  const text=(candidate.content?.parts||[]).filter(p=>p.text).map(p=>p.text).join('\n').trim();
+  if(!text)throw new Error('Tomt tekstsvar — modellen returnerede intet.');
+  return text;
+}
+
+let aiBusy=false;
+
+async function sendAIMessage(custom){
+  if(aiBusy)return;
+  const inp=document.getElementById('aiInput');
+  const userMsg=custom||inp.value.trim();
+  if(!userMsg)return;
+  if(!AI.apiKey){toast('Tilføj først API-nøgle');return}
+
+  AI.messages.push({role:'user',content:userMsg});
+  if(!custom)inp.value='';
+  saveAI();
+  aiBusy=true;
+  renderChat();
+  showTyping();
+
+  try{
+    const reply=await callClaude(userMsg);
+    AI.messages.push({role:'assistant',content:reply});
+    saveAI();
+  }catch(e){
+    showAIError(e.message||'Ukendt fejl');
+    AI.messages.pop(); // remove user msg on error so they can try again
+    saveAI();
+  }finally{
+    aiBusy=false;
+    hideTyping();
+    renderChat();
+  }
+}
+
+function aiQuick(kind){
+  const cw=currentWeek();
+  const phase=GP[gymPhase(Math.min(cw,8))].name;
+  const programDone=isProgramDone();
+  let prompt;
+  if(kind==='today'){
+    if(programDone){
+      prompt=`Programmet er færdigt — jeg har gennemført alle 8 uger. Giv mig en grundig debrief: Hvor stor fremgang har jeg lavet (vægte og 5km tid)? Hvad var stærkest? Hvad kan forbedres? Og giv mig 3 konkrete valgmuligheder for hvad jeg gør nu (fx nyt forløb med højere mål, deload-uge, peak-test af 5km, eller skift til vedligeholdelse).`;
+    }else{
+      const todayD=D[todayDayIdx()];
+      if(todayD.run){
+        prompt=`I dag er det ${todayD.full} – ${todayD.type}. Giv mig konkret pace-strategi for dagens løb baseret på mine sidste løbedata. Hvad skal jeg sigte efter, og hvor hårdt skal jeg køre?`;
+      }else if(todayD.ex){
+        prompt=`I dag er det ${todayD.full} – ${todayD.type}. Foreslå konkrete vægte til hver øvelse i dag baseret på det jeg løftede sidste uge. Vær specifik: "Øvelse: X kg" — og fortæl hvilke der skal øges og hvilke der skal holdes.`;
+      }else{
+        prompt=`I dag er det ${todayD.full} – hviledag. Giv mig konkret råd til hvad jeg bør fokusere på i dag for optimal restitution (søvn, protein, evt. let aktivitet) — uden generiske floskler.`;
+      }
+    }
+  }else if(kind==='analyze'){
+    prompt=`Analysér min fremgang grundigt. Hvor er jeg stærk? Hvor halter jeg? Er jeg på vej mod mit mål om både muskelvækst og 5km under 30 min? Vær konkret med tal.`;
+  }else if(kind==='next'){
+    if(programDone){
+      prompt=`Programmet er færdigt. Foreslå konkret hvad næste 8-ugers forløb skal se ud — baseret på mine resultater. Skal noget ændres i programstrukturen, vægte eller løbemål?`;
+    }else{
+      const next=cw+1;
+      if(next>8)prompt=`Det er sidste uge af programmet. Giv mig en debrief på hele 8-ugers forløbet og foreslå hvad jeg skal gøre når jeg er færdig.`;
+      else{
+        const nextPhase=GP[gymPhase(next)].name;
+        const phaseChange=phase!==nextPhase?`Bemærk: jeg skifter fra ${phase} til ${nextPhase}-fase næste uge.`:'';
+        prompt=`Foreslå konkrete vægte til alle øvelser i Uge ${next}. Brug min sidste loggede uge som basis. ${phaseChange} Vær specifik: "Øvelse: X kg".`;
+      }
+    }
+  }else if(kind==='adjust'){
+    prompt=`Skal noget i mit program justeres? Kig på data: er der øvelser hvor jeg ikke gør fremskridt? Skal volumen, hyppighed eller restitution ændres? Foreslå konkrete ændringer hvis nødvendigt.`;
+  }else if(kind==='run'){
+    prompt=`Hvordan går det med min 5km tid? Er jeg på vej mod under 30 min? Foreslå pace til næste tirsdag (let) og næste fredag (intervaller). Skal noget ændres ved løbene?`;
+  }
+  sendAIMessage(prompt);
+}
+
+function md2html(text){
+  let s=escHtml(text);
+  // Code
+  s=s.replace(/`([^`\n]+)`/g,'<code>$1</code>');
+  // Bold + italic
+  s=s.replace(/\*\*([^*\n]+)\*\*/g,'<strong>$1</strong>');
+  s=s.replace(/(?<!\*)\*([^*\n]+)\*(?!\*)/g,'<em>$1</em>');
+  // Bullet lists
+  s=s.replace(/^[ \t]*[-•*][ \t]+(.+)$/gm,'<li>$1</li>');
+  // Numbered lists
+  s=s.replace(/^[ \t]*\d+\.[ \t]+(.+)$/gm,'<li>$1</li>');
+  // Wrap consecutive <li>s in <ul>
+  s=s.replace(/(<li>[\s\S]*?<\/li>(?:\s*<li>[\s\S]*?<\/li>)*)/g,m=>'<ul>'+m+'</ul>');
+  s=s.replace(/<\/ul>\s*<ul>/g,'');
+  // Paragraphs from double newlines
+  const blocks=s.split(/\n{2,}/);
+  return blocks.map(b=>{
+    b=b.trim();
+    if(!b)return'';
+    if(b.startsWith('<ul>')||b.startsWith('<li>'))return b;
+    return '<p>'+b.replace(/\n/g,'<br>')+'</p>';
+  }).join('');
+}
+
+function renderChat(){
+  if(tab!=='coach')return;
+  const c=document.getElementById('aiMsgs');
+  if(!c)return;
+  if(AI.messages.length===0){
+    const hasKey=AI.apiKey&&AI.apiKey.trim().length>10;
+    c.innerHTML=`<div class="ai-empty">
+      <span class="ae-icon">🤖</span>
+      <div class="ae-title">Klar til at coache dig</div>
+      <div class="ae-sub">${hasKey?'Tryk på en hurtig handling ovenfor<br>eller skriv et spørgsmål nedenfor':'Tilføj din API-nøgle ovenfor for at komme i gang'}</div>
+    </div>`;
+  }else{
+    c.innerHTML=AI.messages.map(m=>`<div class="ai-msg ${m.role==='user'?'user':'bot'}">
+      <div class="ai-bub">${m.role==='user'?escHtml(m.content):md2html(m.content)}</div>
+    </div>`).join('');
+  }
+  if(aiBusy)showTyping();
+  c.scrollTop=c.scrollHeight;
+}
+
+function showTyping(){
+  const c=document.getElementById('aiMsgs');
+  if(!c||document.getElementById('aiTyping'))return;
+  const t=document.createElement('div');
+  t.id='aiTyping';
+  t.className='ai-msg bot';
+  t.innerHTML=`<div class="ai-bub" style="padding:8px 13px"><div class="ai-typing"><span></span><span></span><span></span></div></div>`;
+  c.appendChild(t);
+  c.scrollTop=c.scrollHeight;
+}
+function hideTyping(){document.getElementById('aiTyping')?.remove()}
+
+function showAIError(msg){
+  const e=document.getElementById('aiError');
+  if(e){e.innerHTML=`<div class="ai-error">⚠️ ${escHtml(msg)}</div>`;setTimeout(()=>{e.innerHTML=''},6000);}
+}
+
+/* ═══════════════════════════════════════════════════════════ */
+/* ── EXERCISE LIBRARY ──────────────────────────────────────── */
+/* ═══════════════════════════════════════════════════════════ */
+let libQuery='', libFilter='all';
+
+function rLibrary(){
+  let h=`<div class="page-title"><div class="page-eyebrow">// Søg, find, tilføj</div><div class="page-h1">Bibliotek</div></div>`;
+
+  h+=`<div class="lib-search">
+    <input type="text" id="libQ" value="${escAttr(libQuery)}" placeholder="🔍 Søg øvelse…" oninput="libSearch(this.value)">
+  </div>`;
+
+  // Filters
+  h+=`<div class="lib-filters">
+    <button class="lib-pill${libFilter==='all'?' on':''}" style="${libFilter==='all'?'background:var(--acc);border-color:var(--acc)':''}" onclick="libSetFilter('all')">Alle (${LIB.length})</button>`;
+  MG.forEach(g=>{
+    const count=LIB.filter(e=>e.m===g.k).length;
+    const on=libFilter===g.k;
+    h+=`<button class="lib-pill${on?' on':''}" style="${on?`background:${g.c};border-color:${g.c}`:''}" onclick="libSetFilter('${g.k}')">
+      <span class="lp-emo">${g.emo}</span>${g.n} (${count})
+    </button>`;
+  });
+  h+=`</div>`;
+
+  // Filter exercises
+  let list=LIB.slice();
+  if(libFilter!=='all')list=list.filter(e=>e.m===libFilter);
+  if(libQuery){
+    const q=libQuery.toLowerCase();
+    list=list.filter(e=>e.n.toLowerCase().includes(q)||e.desc.toLowerCase().includes(q)||e.e.toLowerCase().includes(q));
+  }
+
+  if(list.length===0){
+    h+=`<div class="lib-empty">Ingen øvelser fundet for "${escHtml(libQuery)}"</div>`;
+    return h;
+  }
+
+  h+=`<div class="lib-grid">`;
+  list.forEach((e,i)=>{
+    const g=MG.find(x=>x.k===e.m);
+    const stars='★'.repeat(e.d)+'☆'.repeat(3-e.d);
+    const idx=LIB.indexOf(e);
+    h+=`<div class="lib-card" style="--lc:${g.c}">
+      <div class="lc-row1">
+        <div class="lc-emo">${g.emo}</div>
+        <div class="lc-titles">
+          <div class="lc-name">${e.n}</div>
+          <div class="lc-meta">
+            <span class="lc-tag muscle">${g.n}</span>
+            <span class="lc-tag">${e.e}</span>
+            <span class="lc-diff">${stars}</span>
+          </div>
+        </div>
+      </div>
+      <div class="lc-desc">${e.desc}</div>
+      <div class="lc-actions">
+        <a class="lc-btn video" href="${e.l}" target="_blank">▶ Video</a>
+        <button class="lc-btn add" onclick="openAddModal(${idx})">+ Tilføj</button>
+      </div>
+    </div>`;
+  });
+  h+=`</div>`;
+
+  // Show summary of custom exercises
+  const allCust=Object.entries(CUSTOM).filter(([_,arr])=>arr&&arr.length);
+  if(allCust.length){
+    h+=`<div class="section-label" style="margin-top:24px">📌 Dine tilføjede øvelser</div>`;
+    allCust.forEach(([day,arr])=>{
+      const dayObj=D.find(d=>d.full===day);
+      const col=dayObj?.color||'#9060f0';
+      arr.forEach(ex=>{
+        h+=`<div style="background:var(--bg1);border:1px solid var(--bdr);border-left:3px solid ${col};border-radius:var(--r2);padding:10px 14px;margin-bottom:6px;display:flex;align-items:center;gap:10px">
+          <div style="font-family:'DM Mono',monospace;font-size:9px;color:${col};letter-spacing:1px;text-transform:uppercase;min-width:60px">${day}</div>
+          <div style="flex:1;font-size:13px">${ex.n}</div>
+          <button onclick="removeCustomEx('${escAttr(day)}','${escAttr(ex.n)}')" style="background:none;border:none;color:var(--red);font-size:16px;cursor:pointer;padding:4px 8px">×</button>
+        </div>`;
+      });
+    });
+  }
+
+  return h;
+}
+
+function libSearch(v){
+  libQuery=v;
+  // Re-render only the grid section to keep input focus
+  const inp=document.getElementById('libQ');
+  const focus=document.activeElement===inp;
+  const caret=inp?inp.selectionStart:0;
+  render();
+  if(focus){
+    const newInp=document.getElementById('libQ');
+    if(newInp){newInp.focus();newInp.setSelectionRange(caret,caret)}
+  }
+}
+
+function libSetFilter(f){libFilter=f;render()}
+
+function openAddModal(libIdx){
+  const ex=LIB[libIdx];
+  if(!ex)return;
+  const m=document.getElementById('modal');
+  let h=`<div class="modal" onclick="event.stopPropagation()">
+    <div class="modal-title">Tilføj "${ex.n}"</div>
+    <div class="modal-sub">Vælg hvilken styrkedag øvelsen skal tilføjes til</div>
+    <div class="modal-list">`;
+  D.filter(d=>d.ex).forEach(d=>{
+    h+=`<div class="modal-row" onclick="addCustomEx(${libIdx},'${escAttr(d.full)}')">
+      <span class="mi">${d.icon}</span>
+      <div>
+        <div class="mt">${d.full}</div>
+        <div class="ms">${d.type}</div>
+      </div>
+      <span class="mr">+ TILFØJ</span>
+    </div>`;
+  });
+  h+=`</div>
+    <button class="modal-close" onclick="closeModal()">Annuller</button>
+  </div>`;
+  m.innerHTML=h;
+  m.classList.add('show');
+}
+
+function closeModal(){
+  const m=document.getElementById('modal');
+  m.classList.remove('show');
+  m.innerHTML='';
+}
+
+function addCustomEx(libIdx,dayFull){
+  const ex=LIB[libIdx];
+  if(!ex)return;
+  if(!CUSTOM[dayFull])CUSTOM[dayFull]=[];
+  // Avoid duplicates
+  if(CUSTOM[dayFull].some(e=>e.n===ex.n)){
+    toast('Allerede tilføjet');
+    closeModal();
+    return;
+  }
+  CUSTOM[dayFull].push({
+    n:ex.n,
+    k:ex.k,
+    no:ex.e,
+    l:ex.l,
+    custom:true,
+    core:ex.k==='x'?1:undefined
+  });
+  saveCustom();
+  closeModal();
+  toast('✓ Tilføjet til '+dayFull);
+  render();
+}
+
+function removeCustomEx(dayFull,exName){
+  if(!confirm(`Fjern "${exName}" fra ${dayFull}?`))return;
+  if(!CUSTOM[dayFull])return;
+  CUSTOM[dayFull]=CUSTOM[dayFull].filter(e=>e.n!==exName);
+  if(CUSTOM[dayFull].length===0)delete CUSTOM[dayFull];
+  saveCustom();
+  toast('✓ Fjernet');
+  render();
+}
+
+/* ═══════════════════════════════════════════════════════════ */
+/* ── INIT ──────────────────────────────────────────────────── */
+/* ═══════════════════════════════════════════════════════════ */
 render();
 </script>
 </body>
