@@ -114,6 +114,30 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .vl{display:inline-flex;align-items:center;justify-content:center;color:var(--acc);text-decoration:none;font-size:10px;font-family:'DM Mono',monospace;font-weight:500;padding:6px 8px;background:rgba(255,214,10,.08);border-radius:var(--r3);white-space:nowrap;border:1px solid rgba(255,214,10,.15);transition:all .15s;min-width:36px;min-height:36px}
 .vl:hover{background:rgba(255,214,10,.16)}
 
+/* ══ PER-SET INPUTS ══ */
+.set-expand{
+  grid-column:1/-1;padding:10px 0 6px;
+  animation:slideUp .25s var(--spring);
+}
+.set-row{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.set-chip{display:flex;flex-direction:column;align-items:center;gap:3px}
+.set-chip label{font-family:'DM Mono',monospace;font-size:8px;color:var(--mut);letter-spacing:1px}
+.set-chip input{
+  width:56px;padding:7px 4px;border-radius:10px;text-align:center;
+  background:var(--bg3);border:1.5px solid var(--bdr);color:var(--txt);
+  font-family:'DM Mono',monospace;font-size:13px;font-weight:500;
+  outline:none;-webkit-appearance:none;transition:border-color .2s;
+  min-height:36px;
+}
+.set-chip input:focus{border-color:var(--acc);box-shadow:0 0 0 2px rgba(255,214,10,.1)}
+.set-toggle{
+  background:none;border:none;color:var(--mut);font-size:10px;
+  cursor:pointer;padding:4px 6px;border-radius:6px;
+  font-family:'DM Mono',monospace;transition:all .15s;
+  min-width:28px;min-height:28px;display:flex;align-items:center;justify-content:center;
+}
+.set-toggle:hover{color:var(--acc);background:rgba(255,214,10,.06)}
+
 /* ══ TIP ══ */
 .tip{margin-top:16px;padding:12px 16px;background:var(--bg2);border-radius:var(--r2);font-size:12px;color:var(--mut);line-height:1.6;border-left:3px solid var(--bdr)}
 .tip b{color:var(--txt)}
@@ -360,6 +384,53 @@ input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-
 .modal-row .mr{margin-left:auto;color:var(--pur);font-family:'DM Mono',monospace;font-size:12px}
 .modal-close{width:100%;padding:12px;background:transparent;border:1.5px solid var(--bdr);color:var(--mut);border-radius:var(--r2);font-family:'DM Mono',monospace;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;min-height:44px;transition:all .15s}
 .modal-close:active{transform:scale(.98)}
+
+/* ══ BODY TRACKER ══ */
+.body-week-nav{display:flex;align-items:center;gap:12px;margin-bottom:20px}
+.body-week-nav .bw-arr{width:44px;height:44px;border-radius:50%;background:var(--bg2);border:1px solid var(--bdr);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px;color:var(--mut);transition:all .15s var(--ease)}
+.body-week-nav .bw-arr:active{transform:scale(.9);background:var(--bg3)}
+.body-week-nav .bw-arr.dis{opacity:.25;pointer-events:none}
+.body-week-nav .bw-label{flex:1;text-align:center;font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:1px}
+.body-week-nav .bw-phase{font-size:10px;color:var(--mut);font-family:'DM Mono',monospace;text-align:center;display:block;margin-top:2px}
+
+.body-inputs{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px}
+.body-field{background:var(--bg1);border:1px solid var(--bdr);border-radius:var(--r);padding:16px;box-shadow:var(--shadow)}
+.body-field label{display:block;font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--mut);text-transform:uppercase;margin-bottom:8px}
+.body-field input{width:100%;background:var(--bg);border:1.5px solid var(--bdr);color:var(--txt);font-family:'DM Mono',monospace;font-size:18px;font-weight:500;padding:10px 12px;border-radius:var(--r2);outline:none;text-align:center;transition:border-color .2s,box-shadow .2s}
+.body-field input:focus{border-color:var(--acc);box-shadow:0 0 0 3px rgba(255,214,10,.12)}
+.body-field .bf-unit{font-size:11px;color:var(--mut);text-align:center;margin-top:6px;font-family:'DM Mono',monospace}
+.body-field .bf-diff{font-size:11px;font-family:'DM Mono',monospace;text-align:center;margin-top:4px;font-weight:600}
+
+.body-photo{background:var(--bg1);border:1px solid var(--bdr);border-radius:var(--r);padding:20px;margin-bottom:20px;box-shadow:var(--shadow)}
+.body-photo>label{display:block;font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--mut);text-transform:uppercase;margin-bottom:14px;text-align:center}
+.body-photo-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.body-photo-slot{text-align:center}
+.body-photo-slot .bps-label{font-family:'DM Mono',monospace;font-size:10px;font-weight:600;letter-spacing:1px;margin-bottom:8px;display:flex;align-items:center;justify-content:center;gap:4px}
+.body-photo-preview{width:100%;border-radius:var(--r2);overflow:hidden;aspect-ratio:3/4;background:var(--bg2);border:1px solid var(--bdr);display:flex;align-items:center;justify-content:center;position:relative}
+.body-photo-preview img{width:100%;height:100%;object-fit:cover}
+.body-photo-preview .bpp-empty{text-align:center;padding:20px;color:var(--mut2)}
+.body-photo-preview .bpp-empty span{font-size:40px;display:block;margin-bottom:8px;opacity:.4}
+.body-photo-preview .bpp-empty div{font-size:11px;font-family:'DM Mono',monospace}
+.body-photo-btns{display:flex;gap:8px;justify-content:center;margin-top:12px}
+.bp-btn{font-family:'DM Mono',monospace;font-size:10px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;padding:10px 16px;border-radius:100px;cursor:pointer;border:1.5px solid var(--bdr);background:var(--bg2);color:var(--mut);transition:all .15s;min-height:44px;display:flex;align-items:center;gap:6px}
+.bp-btn:active{transform:scale(.95)}
+.bp-btn.primary{background:var(--acc);color:#000;border-color:var(--acc)}
+.bp-btn.danger{color:var(--red);border-color:rgba(255,69,58,.3)}
+input[type=file]{display:none}
+
+.body-graph{background:var(--bg1);border:1px solid var(--bdr);border-radius:var(--r);padding:20px;margin-bottom:20px;box-shadow:var(--shadow)}
+.body-graph-title{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:.5px;margin-bottom:4px}
+.body-graph-sub{font-size:11px;color:var(--mut);font-family:'DM Mono',monospace;margin-bottom:14px}
+
+.body-compare{background:var(--bg1);border:1px solid var(--bdr);border-radius:var(--r);padding:20px;margin-bottom:20px;box-shadow:var(--shadow)}
+.body-compare-title{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:.5px;margin-bottom:14px}
+.body-compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.body-compare-card{text-align:center}
+.body-compare-card .bcc-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--mut);text-transform:uppercase;margin-bottom:8px}
+.body-compare-card .bcc-img{width:100%;aspect-ratio:3/4;border-radius:var(--r2);overflow:hidden;background:var(--bg2);border:1px solid var(--bdr);display:flex;align-items:center;justify-content:center}
+.body-compare-card .bcc-img img{width:100%;height:100%;object-fit:cover}
+.body-compare-card .bcc-stats{font-size:11px;color:var(--mut);font-family:'DM Mono',monospace;margin-top:6px;line-height:1.6}
+.body-compare-card .bcc-empty{color:var(--mut2);font-size:24px;opacity:.3}
 </style>
 </head>
 <body>
@@ -368,8 +439,8 @@ input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-
     <div class="hdr-eyebrow">// PERSONLIGT TRÆNINGSPROGRAM</div>
     <h1>RECOMP<br>+ 5KM RUN</h1>
     <div class="hdr-stats" id="hdrStats">
-      <div class="hdr-stat"><div class="hdr-stat-dot"></div><label>Start</label><b>35:00</b></div>
-      <div class="hdr-stat"><div class="hdr-stat-dot"></div><label>Mål</label><b>&lt;30:00</b></div>
+      <div class="hdr-stat" id="hdrStart"><div class="hdr-stat-dot"></div><label>Start</label><b>35:00</b></div>
+      <div class="hdr-stat" id="hdrGoal"><div class="hdr-stat-dot"></div><label>Mål</label><b>&lt;30:00</b></div>
       <div class="hdr-stat" id="hdrWeek"><div class="hdr-stat-dot"></div><label>Plan</label><b>8 UGE</b></div>
     </div>
   </div>
@@ -377,10 +448,10 @@ input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-
     <button class="tab on" onclick="go('weekly')"><span class="tab-icon">📋</span>Skema</button>
     <button class="tab" onclick="go('weights')"><span class="tab-icon">⚖️</span>Vægt</button>
     <button class="tab" onclick="go('graph')"><span class="tab-icon">📊</span>Graf</button>
+    <button class="tab" onclick="go('body')"><span class="tab-icon">📷</span>Krop</button>
     <button class="tab" onclick="go('coach')"><span class="tab-icon">🤖</span>Coach</button>
     <button class="tab" onclick="go('library')"><span class="tab-icon">📚</span>Bibliotek</button>
-    <button class="tab" onclick="go('phases')"><span class="tab-icon">🔄</span>Faser</button>
-    <button class="tab" onclick="go('rules')"><span class="tab-icon">📌</span>Regler</button>
+    <button class="tab" onclick="go('info')"><span class="tab-icon">ℹ️</span>Info</button>
   </div>
   <div id="cnt"></div>
 </div>
@@ -439,7 +510,15 @@ const GP=[
   {name:"Styrke",weeks:"Uge 4–6",color:"#f07040",tip:"Tunge løft · RIR 1",c:{s:"5",r:"4–6"},i:{s:"4",r:"6–8"},x:{s:"3",r:"30–45s"}},
   {name:"Peak",weeks:"Uge 7–8",color:"#e04060",tip:"Max intensitet · RIR 0",c:{s:"3",r:"3–5"},i:{s:"3",r:"5–7"},x:{s:"3",r:"30–45s"}},
 ];
-function gymPhase(w){return w<=3?0:w<=6?1:2}
+// Dynamisk fase-fordeling: ~40% hypertrofi, ~35% styrke, resten peak
+function phaseRanges(){
+  const tw=TW();
+  const p1=Math.ceil(tw*0.375);
+  const p2=p1+Math.ceil(tw*0.375);
+  return[{s:1,e:p1},{s:p1+1,e:p2},{s:p2+1,e:tw}];
+}
+function gymPhase(w){const r=phaseRanges();if(w<=r[0].e)return 0;if(w<=r[1].e)return 1;return 2}
+function phaseLabel(i){const r=phaseRanges()[i];return`Uge ${r.s}–${r.e}`}
 function exSR(e,w){if(e.core)return GP[gymPhase(w)].x;return GP[gymPhase(w)][e.k]||GP[gymPhase(w)].c}
 const PH=[
   {n:1,l:"Opbygning",w:"Uge 1–3",wd:"30 min @ 7:30/km",sa:"6×400m @ 5:30/km",g:"32–33 min",c:"#4f8ef7"},
@@ -578,11 +657,33 @@ let CUSTOM={};
 try{CUSTOM=JSON.parse(localStorage.getItem(CK)||'{}')}catch(e){}
 function saveCustom(){try{localStorage.setItem(CK,JSON.stringify(CUSTOM))}catch(e){}}
 
-// Program metadata: startdato + status
+// Program metadata: startdato, varighed, starttid
 const PK='tw4_prog';
-let PROG={startDate:null};
-try{PROG={...PROG,...JSON.parse(localStorage.getItem(PK)||'{}')}}catch(e){}
+let PROG={startDate:null,totalWeeks:8,start5kSec:2100};
+try{PROG={startDate:null,totalWeeks:8,start5kSec:2100,...JSON.parse(localStorage.getItem(PK)||'{}')}}catch(e){}
 function saveProg(){try{localStorage.setItem(PK,JSON.stringify(PROG))}catch(e){}}
+
+// Program-varighed helper
+function TW(){return PROG.totalWeeks||8}
+
+// Tids-formattering
+function fmtSec(s){const m=Math.floor(s/60),sec=s%60;return m+':'+String(sec).padStart(2,'0')}
+function parseSec(str){if(!str)return null;const p=str.split(':');if(p.length!==2)return null;return parseInt(p[0])*60+parseInt(p[1])}
+
+// Beregn realistisk 5km-mål baseret på starttid og programlængde
+// ~1.5-2% forbedring per uge for motionister, med aftagende effekt
+function goal5kSec(){
+  const s=PROG.start5kSec||2100;
+  const w=TW();
+  const improvement=Math.min(0.30,0.02*w); // maks 30% forbedring
+  return Math.round(s*(1-improvement));
+}
+
+// Kropsdata: vægt, fedtprocent, foto per uge
+const BK='tw4_body';
+let BODY={};// {1:{kg:82.5,fat:18.2,photo:'data:...',date:'2025-05-05'}, ...}
+try{BODY=JSON.parse(localStorage.getItem(BK)||'{}')}catch(e){}
+function saveBody(){try{localStorage.setItem(BK,JSON.stringify(BODY))}catch(e){}}
 
 // Dato-hjælpere
 const DAY_NAMES=['Mandag','Tirsdag','Onsdag','Torsdag','Fredag','Lørdag','Søndag'];
@@ -620,7 +721,14 @@ function saveAI(){try{localStorage.setItem(AIK,JSON.stringify(AI))}catch(e){}}
 function ek(w,d,n){return'w'+w+'__'+(d+'__'+n).replace(/[^\w]/g,'_')}
 function gw(w,d,n){return W[ek(w,d,n)]||''}
 function sw(w,d,n,v){W[ek(w,d,n)]=v;save();toast()}
-function df(w,d,n){if(w<2)return null;const c=parseFloat(gw(w,d,n)),p=parseFloat(gw(w-1,d,n));if(isNaN(c)||isNaN(p))return null;return Math.round((c-p)*10)/10}
+
+// Multi-set helpers
+function parseW(val){if(!val)return[];return String(val).split(',').map(s=>parseFloat(s.trim())).filter(v=>!isNaN(v))}
+function maxW(val){const arr=parseW(val);if(!arr.length)return NaN;return Math.max(...arr)}
+function summaryW(val){const arr=parseW(val);if(!arr.length)return'';if(arr.every(v=>v===arr[0]))return String(arr[0]);return arr.join('/')}
+function df(w,d,n){if(w<2)return null;const c=maxW(gw(w,d,n)),p=maxW(gw(w-1,d,n));if(isNaN(c)||isNaN(p))return null;return Math.round((c-p)*10)/10}
+
+let selExRow=null; // which exercise row is expanded for per-set input
 
 // merge default + custom exercises for a day
 function dayEx(d){if(!d.ex)return null;return [...d.ex,...(CUSTOM[d.full]||[])]}
@@ -629,8 +737,8 @@ function dayEx(d){if(!d.ex)return null;return [...d.ex,...(CUSTOM[d.full]||[])]}
 function currentWeek(){
   if(PROG.startDate){
     const w=weekFromStart();
-    if(w>=1&&w<=8)return w;
-    if(w>8)return 9; // færdigt
+    if(w>=1&&w<=TW())return w;
+    if(w>TW())return 9; // færdigt
     return 1; // før startdato
   }
   // Fallback: seneste uge med data
@@ -644,7 +752,7 @@ function currentWeek(){
   }
   return 1;
 }
-function isProgramDone(){return PROG.startDate&&weekFromStart()>8}
+function isProgramDone(){return PROG.startDate&&weekFromStart()>TW()}
 
 let tt;
 function toast(msg){
@@ -655,14 +763,14 @@ function toast(msg){
   tt=setTimeout(()=>t.classList.remove('show'),1400);
 }
 
-const TABS=['weekly','weights','graph','coach','library','phases','rules'];
+const TABS=['weekly','weights','graph','body','coach','library','info'];
 function go(t){
   tab=t;
   // Når Skema åbnes: spring til dagens dag og dagens uge
   if(t==='weekly'){
     sel=todayDayIdx();
     const cw=currentWeek();
-    if(cw>=1&&cw<=8)week=cw;
+    if(cw>=1&&cw<=TW())week=cw;
   }else{
     sel=null;
   }
@@ -674,6 +782,51 @@ function sd(i){sel=sel===i?null:i;render();if(sel!==null)setTimeout(()=>document
 function sw2(w){week=w;render()}
 function wch(el){const w=+el.dataset.w,d=el.dataset.d,n=el.dataset.n;sw(w,d,n,el.value);el.classList.remove('fl');void el.offsetWidth;el.classList.add('fl');setTimeout(()=>el.classList.remove('fl'),550)}
 function diffH(d){if(d===null)return'';const cl=d>0?'dup':d<0?'ddn':'deq',s=d>0?`▲+${d}`:d<0?`▼${d}`:'=0';return`<div class="${cl}">${s}</div>`}
+
+// Sæt-for-sæt funktioner
+function wchAll(el){
+  // Når man ændrer hoved-inputtet: sæt alle sæt til denne vægt
+  const w=+el.dataset.w,d=el.dataset.d,n=el.dataset.n,sets=+el.dataset.sets||3;
+  const val=el.value.trim();
+  if(!val){sw(w,d,n,'');return}
+  const arr=Array(sets).fill(val).join(',');
+  sw(w,d,n,arr);
+  el.classList.remove('fl');void el.offsetWidth;el.classList.add('fl');setTimeout(()=>el.classList.remove('fl'),550);
+  if(selExRow===d+'__'+n)render(); // refresh set inputs
+}
+function toggleSetRow(key){
+  selExRow=selExRow===key?null:key;
+  render();
+}
+function renderSetInputs(w,day,name,numSets){
+  const val=gw(w,day,name);
+  const arr=parseW(val);
+  let h=`<div class="set-expand"><div class="set-row">`;
+  for(let s=0;s<numSets;s++){
+    const sv=s<arr.length?arr[s]:'';
+    h+=`<div class="set-chip">
+      <label>S${s+1}</label>
+      <input type="number" inputmode="decimal" step="0.5" min="0" placeholder="—" value="${sv}"
+        onchange="wchSet(${w},'${escAttr(day)}','${escAttr(name)}',${s},${numSets},this.value)"
+        onfocus="this.select()">
+    </div>`;
+  }
+  h+=`</div></div>`;
+  return h;
+}
+function wchSet(w,day,name,idx,numSets,val){
+  const current=gw(w,day,name);
+  const arr=parseW(current);
+  const num=parseFloat(val);
+  if(isNaN(num))return;
+  // Pad array to numSets — fill empty slots with the new value
+  while(arr.length<numSets)arr.push(0);
+  arr[idx]=num;
+  // Replace any 0s with the entered value (user probably lifts similar on all sets)
+  for(let i=0;i<arr.length;i++){if(arr[i]===0)arr[i]=num}
+  sw(w,day,name,arr.join(','));
+  render();
+}
 
 function escAttr(s){return String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
 function escHtml(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
@@ -687,28 +840,35 @@ function render(){
   if(tab==='weekly')c.innerHTML=rWeekly();
   else if(tab==='weights')c.innerHTML=rLog();
   else if(tab==='graph')c.innerHTML=rGraph();
+  else if(tab==='body')c.innerHTML=rBody();
   else if(tab==='coach')c.innerHTML=rCoach();
   else if(tab==='library')c.innerHTML=rLibrary();
-  else if(tab==='phases')c.innerHTML=rPhases();
-  else c.innerHTML=rRules();
+  else if(tab==='info')c.innerHTML=rInfo();
 }
 
 function updateHeaderWeek(){
+  // Start-tid
+  const startEl=document.getElementById('hdrStart');
+  if(startEl)startEl.innerHTML=`<div class="hdr-stat-dot"></div><label>Start</label><b>${fmtSec(PROG.start5kSec||2100)}</b>`;
+  // Mål-tid
+  const goalEl=document.getElementById('hdrGoal');
+  if(goalEl){const g=goal5kSec();goalEl.innerHTML=`<div class="hdr-stat-dot" style="background:var(--grn)"></div><label>Mål</label><b style="color:var(--grn)">&lt;${fmtSec(g)}</b>`}
+  // Uge / Status
   const el=document.getElementById('hdrWeek');
   if(!el)return;
   const cw=currentWeek();
   if(isProgramDone()){
-    el.innerHTML=`<div class="hdr-stat-dot" style="background:#30c080"></div><label>Status</label><b style="color:#30c080">FÆRDIG</b>`;
+    el.innerHTML=`<div class="hdr-stat-dot" style="background:#30d158"></div><label>Status</label><b style="color:#30d158">FÆRDIG</b>`;
   }else if(PROG.startDate){
-    el.innerHTML=`<div class="hdr-stat-dot"></div><label>Uge</label><b>${cw} / 8</b>`;
+    el.innerHTML=`<div class="hdr-stat-dot"></div><label>Uge</label><b>${cw} / ${TW()}</b>`;
   }else{
-    el.innerHTML=`<div class="hdr-stat-dot"></div><label>Plan</label><b>8 UGE</b>`;
+    el.innerHTML=`<div class="hdr-stat-dot"></div><label>Plan</label><b>${TW()} UGE</b>`;
   }
 }
 
 function wpickH(){
   let h='<div class="wpick"><label>Uge</label>';
-  for(let w=1;w<=8;w++)h+=`<button class="wb${week===w?' on':''}" onclick="sw2(${w})">${w}</button>`;
+  for(let w=1;w<=TW();w++)h+=`<button class="wb${week===w?' on':''}" onclick="sw2(${w})">${w}</button>`;
   return h+'</div>';
 }
 
@@ -765,21 +925,29 @@ function rWeekly(){
       h+=`<div class="ex-hd"><span>Øvelse</span><span>Sæt</span><span>Reps</span><span>Kg – uge ${week}</span><span>Se</span></div>`;
       exs.forEach((e,exIdx)=>{
         const sr=exSR(e,week),v=gw(week,d.full,e.n),dv=df(week,d.full,e.n);
+        const numSets=parseInt(sr.s)||3;
         const isCust=e.custom;
         const cls=isCust?'cust':(e.core?'core':'');
         const rmBtn=isCust?`<button class="rmx" onclick="removeCustomEx('${escAttr(d.full)}','${escAttr(e.n)}')" title="Fjern">×</button>`:'';
         const custTag=isCust?'<span class="cust-tag">EGEN</span>':'';
+        const isExpanded=selExRow===d.full+'__'+e.n;
+        const displayVal=summaryW(v)||'';
+        const mainVal=maxW(v);
         h+=`<div class="exrow${cls?' '+cls:''}">
           <div><div class="exn">${e.n}${custTag}${rmBtn}</div>${e.no?`<div class="exno">${e.no}</div>`:''}</div>
           <div class="exs" style="color:${d.color}">${sr.s}</div>
           <div class="exr">${sr.r}</div>
           <div class="exkg">
-            <input class="wi" type="number" inputmode="decimal" placeholder="kg" min="0" step="0.5"
-              value="${v}" data-w="${week}" data-d="${d.full}" data-n="${escAttr(e.n)}"
-              onchange="wch(this)" onfocus="this.select()">
+            <div style="display:flex;align-items:center;gap:2px">
+              <input class="wi" type="number" inputmode="decimal" placeholder="kg" min="0" step="0.5"
+                value="${!isNaN(mainVal)?mainVal:''}" data-w="${week}" data-d="${d.full}" data-n="${escAttr(e.n)}" data-sets="${numSets}"
+                onchange="wchAll(this)" onfocus="this.select()">
+              <button class="set-toggle" onclick="toggleSetRow('${escAttr(d.full)}__${escAttr(e.n)}')" title="Sæt-detaljer">${isExpanded?'▴':'⋯'}</button>
+            </div>
             ${diffH(dv)}
           </div>
           <a class="vl" href="${e.l}" target="_blank">▶</a>
+          ${isExpanded?renderSetInputs(week,d.full,e.n,numSets):''}
         </div>`;
       });
       h+=`<div class="tip">💡 <b>Pause:</b> 2–3 min styrke &nbsp;·&nbsp; 60–90 sek isolation &nbsp;·&nbsp; 1–2 reps fra failure</div>`;
@@ -864,9 +1032,35 @@ function rTodayBanner(){
 /* ── PROGRAM SETUP (vælg startdato) ── */
 function rProgSetup(){
   const tm=thisMondayISO();
+  const startMin=Math.floor((PROG.start5kSec||2100)/60);
+  const startSec=(PROG.start5kSec||2100)%60;
+  const tw=TW();
+  const goalStr=fmtSec(goal5kSec());
   return `<div class="prog-setup">
-    <div class="prog-setup-title">📅 Sæt startdato</div>
-    <div class="prog-setup-sub">Vælg den mandag du starter (eller startede) programmet.<br>Så ved appen hvilken uge du er i — og din coach ved hvad dagens træning er.</div>
+    <div class="prog-setup-title">⚙️ Opsæt dit program</div>
+    <div class="prog-setup-sub">Tilpas programmet til dig — starttid, varighed og startdato.</div>
+    <div class="body-inputs" style="margin-bottom:16px">
+      <div class="body-field">
+        <label>🏃 5km starttid</label>
+        <input type="text" inputmode="decimal" placeholder="35:00" id="progStartTime"
+          value="${fmtSec(PROG.start5kSec||2100)}"
+          onchange="updateProgPreview()">
+        <div class="bf-unit">min:sek</div>
+      </div>
+      <div class="body-field">
+        <label>📅 Antal uger</label>
+        <select id="progWeeks" style="font-size:18px;text-align:center;text-align-last:center" onchange="updateProgPreview()">
+          ${[6,8,10,12,16].map(w=>`<option value="${w}"${w===tw?' selected':''}>${w} uger</option>`).join('')}
+        </select>
+        <div class="bf-unit">varighed</div>
+      </div>
+    </div>
+    <div id="progPreview" style="background:var(--bg2);border:1px solid var(--bdr);border-radius:var(--r2);padding:12px 16px;margin-bottom:16px;text-align:center">
+      <div style="font-size:10px;color:var(--mut);font-family:'DM Mono',monospace;letter-spacing:1px;margin-bottom:6px">BEREGNET MÅL</div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:var(--grn);letter-spacing:1px">&lt;${goalStr}</div>
+      <div style="font-size:11px;color:var(--mut);font-family:'DM Mono',monospace;margin-top:4px">${fmtSec(PROG.start5kSec||2100)} → ${goalStr} på ${tw} uger</div>
+    </div>
+    <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--mut);letter-spacing:2px;text-transform:uppercase;margin-bottom:8px">Startdato</div>
     <input type="date" class="prog-date-input" id="progDateInput" value="${tm}">
     <div class="btn-row">
       <button class="prog-btn" onclick="setProgStart()">✓ Start programmet</button>
@@ -877,51 +1071,79 @@ function rProgSetup(){
 
 /* ── PROGRAM DONE ── */
 function rProgDone(){
-  // Saml stats
   const startDate=fmtDate(PROG.startDate);
-  let totalLogged=0,totalKg=0;
+  const tw=TW();
+  let totalLogged=0;
   D.filter(d=>d.ex).forEach(d=>{
     dayEx(d).filter(e=>!e.core).forEach(e=>{
-      for(let w=1;w<=8;w++){const v=parseFloat(gw(w,d.full,e.n));if(!isNaN(v)){totalLogged++;totalKg+=v}}
+      for(let w=1;w<=tw;w++){const v=parseFloat(gw(w,d.full,e.n));if(!isNaN(v)){totalLogged++}}
     });
   });
-  // Find bedste 5km tid
   let bestPace='–';
   D.filter(d=>d.run).forEach(d=>{
-    for(let w=1;w<=8;w++){const v=gw(w,d.full,'tid');if(v&&(bestPace==='–'||v<bestPace))bestPace=v}
+    for(let w=1;w<=tw;w++){const v=gw(w,d.full,'tid');if(v&&(bestPace==='–'||v<bestPace))bestPace=v}
   });
   return `<div class="prog-done">
     <span class="pd-emoji">🏆</span>
-    <div class="pd-title">8 UGER FÆRDIG!</div>
+    <div class="pd-title">${tw} UGER FÆRDIG!</div>
     <div class="pd-sub">Startet ${startDate}<br>Du har gennemført hele Recomp + 5km programmet</div>
     <div class="pd-stats">
       <div class="pd-stat"><label>Sæt loggede</label><span>${totalLogged}</span></div>
       <div class="pd-stat"><label>Bedste tid</label><span>${bestPace}</span></div>
-      <div class="pd-stat"><label>Uger</label><span>8/8</span></div>
+      <div class="pd-stat"><label>Uger</label><span>${tw}/${tw}</span></div>
     </div>
     <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
-      <button class="prog-btn" onclick="restartProgram()">↻ Start nyt 8-ugers forløb</button>
+      <button class="prog-btn" onclick="restartProgram()">↻ Start nyt forløb</button>
       <button class="prog-btn ghost" onclick="go('coach')">🤖 Få debrief fra coach</button>
     </div>
-    <div style="font-size:10px;color:var(--mut2);margin-top:14px;font-family:'DM Mono',monospace;line-height:1.6">Dine data fra denne periode bevares — du kan altid se dem i Vægtlog og Fremgang.</div>
+    <div style="font-size:10px;color:var(--mut2);margin-top:14px;font-family:'DM Mono',monospace;line-height:1.6">Dine data bevares — du kan altid se dem i Vægtlog og Fremgang.</div>
   </div>`;
+}
+
+function updateProgPreview(){
+  const timeInput=document.getElementById('progStartTime');
+  const weeksSelect=document.getElementById('progWeeks');
+  if(!timeInput||!weeksSelect)return;
+  const sec=parseSec(timeInput.value);
+  const weeks=parseInt(weeksSelect.value);
+  if(sec&&sec>0)PROG.start5kSec=sec;
+  if(weeks&&weeks>=4)PROG.totalWeeks=weeks;
+  // Update preview without saving
+  const goalSec=Math.round((PROG.start5kSec||2100)*(1-Math.min(0.30,0.02*PROG.totalWeeks)));
+  const preview=document.getElementById('progPreview');
+  if(preview){
+    preview.innerHTML=`
+      <div style="font-size:10px;color:var(--mut);font-family:'DM Mono',monospace;letter-spacing:1px;margin-bottom:6px">BEREGNET MÅL</div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:var(--grn);letter-spacing:1px">&lt;${fmtSec(goalSec)}</div>
+      <div style="font-size:11px;color:var(--mut);font-family:'DM Mono',monospace;margin-top:4px">${fmtSec(PROG.start5kSec||2100)} → ${fmtSec(goalSec)} på ${PROG.totalWeeks} uger</div>`;
+  }
 }
 
 function setProgStart(){
   const inp=document.getElementById('progDateInput');
   if(!inp||!inp.value){toast('Vælg en dato');return}
-  PROG.startDate=inp.value;saveProg();
-  const cw=currentWeek();if(cw>=1&&cw<=8)week=cw;
+  // Gem indstillinger
+  const timeInput=document.getElementById('progStartTime');
+  const weeksSelect=document.getElementById('progWeeks');
+  if(timeInput){const sec=parseSec(timeInput.value);if(sec&&sec>0)PROG.start5kSec=sec}
+  if(weeksSelect){const w=parseInt(weeksSelect.value);if(w&&w>=4)PROG.totalWeeks=w}
+  PROG.startDate=inp.value;
+  saveProg();
+  const cw=currentWeek();if(cw>=1&&cw<=TW())week=cw;
   toast('✓ Programmet startet');
   render();
 }
 function setProgStartToday(){
+  const timeInput=document.getElementById('progStartTime');
+  const weeksSelect=document.getElementById('progWeeks');
+  if(timeInput){const sec=parseSec(timeInput.value);if(sec&&sec>0)PROG.start5kSec=sec}
+  if(weeksSelect){const w=parseInt(weeksSelect.value);if(w&&w>=4)PROG.totalWeeks=w}
   PROG.startDate=thisMondayISO();saveProg();
   toast('✓ Programmet startet');
   render();
 }
 function restartProgram(){
-  if(!confirm('Start et nyt 8-ugers forløb?\n\nDine eksisterende data bevares – men programmet starter forfra fra denne mandag.'))return;
+  if(!confirm('Start et nyt forløb?\n\nDine eksisterende data bevares – men programmet starter forfra fra denne mandag.')){return}
   PROG.startDate=thisMondayISO();saveProg();
   week=1;
   toast('✓ Nyt forløb startet');
@@ -942,15 +1164,17 @@ function rLog(){
       <div class="wlc"><span>Øvelse</span><span>Uge ${week}</span><span>${week>1?'Uge '+(week-1):'Forrige'}</span><span>Ændring</span></div>`;
     exs.filter(e=>!e.core).forEach(e=>{
       const sr=exSR(e,week),cv=gw(week,d.full,e.n),pv=week>1?gw(week-1,d.full,e.n):'',dv=df(week,d.full,e.n);
+      const cvAvg=maxW(cv),pvAvg=maxW(pv);
+      const pvDisplay=pv?(summaryW(pv)||pvAvg)+' kg':'–';
       let dfh='<span style="color:var(--mut2)">–</span>';
       if(dv!==null){const cl=dv>0?'dup':dv<0?'ddn':'deq',s=dv>0?`▲+${dv}`:dv<0?`▼${dv}`:'=0';dfh=`<span class="${cl}">${s}</span>`;}
       const custTag=e.custom?' <span style="background:#9060f022;color:#9060f0;font-family:DM Mono,monospace;font-size:7px;font-weight:600;letter-spacing:1px;padding:1px 5px;border-radius:4px">EGEN</span>':'';
       h+=`<div class="wlr">
         <div><div class="wln">${e.n}${custTag}</div><div class="wls">${sr.s} sæt · ${sr.r}</div></div>
         <input class="wi" type="number" inputmode="decimal" placeholder="kg" min="0" step="0.5"
-          style="width:72px" value="${cv}" data-w="${week}" data-d="${d.full}" data-n="${escAttr(e.n)}"
+          style="width:72px" value="${!isNaN(cvAvg)?cvAvg:''}" data-w="${week}" data-d="${d.full}" data-n="${escAttr(e.n)}"
           onchange="wch(this)" onfocus="this.select()">
-        <div class="wlp">${pv?pv+' kg':'–'}</div>
+        <div class="wlp">${pvDisplay}</div>
         <div>${dfh}</div>
       </div>`;
     });
@@ -996,7 +1220,7 @@ function rGraph(){
   const selEx=gymExs[selGraph]||gymExs[0];
   if(!selEx)return '<div class="hint"><span class="hint-icon">📊</span>Ingen øvelser endnu</div>';
   const pts=[];
-  for(let w=1;w<=8;w++){const v=parseFloat(gw(w,selEx.day,selEx.n));pts.push(isNaN(v)?null:v)}
+  for(let w=1;w<=TW();w++){const v=maxW(gw(w,selEx.day,selEx.n));pts.push(isNaN(v)?null:v)}
   const filled=pts.filter(v=>v!==null);
   const hasData=filled.length>=2;
   const maxV=hasData?Math.max(...filled):100,minV=hasData?Math.min(...filled):0;
@@ -1018,11 +1242,11 @@ function rGraph(){
       svg+=`<text x="${pl-4}" y="${pt2+(ih/2)*i+4}" text-anchor="end" font-size="8" fill="#3a3a5a" font-family="DM Mono,monospace">${Math.round(v)}</text>`;
     }
   }
-  for(let w=1;w<=8;w++)svg+=`<text x="${px(w)}" y="${H2-6}" text-anchor="middle" font-size="9" fill="#3a3a5a" font-family="DM Mono,monospace">${w}</text>`;
+  for(let w=1;w<=TW();w++)svg+=`<text x="${px(w)}" y="${H2-6}" text-anchor="middle" font-size="9" fill="#3a3a5a" font-family="DM Mono,monospace">${w}</text>`;
   if(hasData){
     let pathD='',dotPts=[];
     let prev=null;
-    for(let w=1;w<=8;w++){
+    for(let w=1;w<=TW();w++){
       const v=pts[w-1];
       if(v!==null){const x=px(w),y=py(v);if(prev===null)pathD+=`M${x},${y}`;else pathD+=` L${x},${y}`;dotPts.push({x,y,v,w});prev={x,y};}
     }
@@ -1062,7 +1286,7 @@ function rGraph(){
   h+=`<div class="section-label">🏃 Løbefremgang</div>`;
   D.filter(d=>d.run).forEach(rd=>{
     const paces=[];
-    for(let w=1;w<=8;w++){const v=gw(w,rd.full,'pace');if(v)paces.push({w,v});}
+    for(let w=1;w<=TW();w++){const v=gw(w,rd.full,'pace');if(v)paces.push({w,v});}
     h+=`<div class="wld" style="margin-bottom:12px;border:1px solid ${rd.color}22">
       <div class="wlh" style="background:${rd.color}12;border-bottom:1px solid ${rd.color}20">
         <span class="wlh-icon">${rd.icon}</span>
@@ -1086,13 +1310,250 @@ function rGraph(){
   return h;
 }
 
+/* ═══════════════════════════════════════════════════════════ */
+/* ── BODY TRACKER ──────────────────────────────────────────── */
+/* ═══════════════════════════════════════════════════════════ */
+let bodyWeek=null; // tracks which week is selected in body view
+
+function rBody(){
+  if(bodyWeek===null)bodyWeek=Math.min(currentWeek(),8)||1;
+  const bw=bodyWeek;
+  const bd=BODY[bw]||{};
+  const prevBd=bw>1?BODY[bw-1]||{}:{};
+
+  let h=`<div class="page-title"><div class="page-eyebrow">// Kropsmåling</div><div class="page-h1">Kropslog</div></div>`;
+
+  // Week navigator
+  const gp=GP[gymPhase(Math.min(bw,TW()))];
+  h+=`<div class="body-week-nav">
+    <button class="bw-arr${bw<=1?' dis':''}" onclick="bodyNav(-1)">‹</button>
+    <div>
+      <div class="bw-label">Uge ${bw}</div>
+      <span class="bw-phase" style="color:${gp.color}">${gp.name} · ${gp.tip}</span>
+    </div>
+    <button class="bw-arr${bw>=TW()?' dis':''}" onclick="bodyNav(1)">›</button>
+  </div>`;
+
+  // Weight + fat inputs
+  const kgDiff=bw>1&&bd.kg&&prevBd.kg?Math.round((bd.kg-prevBd.kg)*10)/10:null;
+  const fatDiff=bw>1&&bd.fat&&prevBd.fat?Math.round((bd.fat-prevBd.fat)*10)/10:null;
+  h+=`<div class="body-inputs">
+    <div class="body-field">
+      <label>⚖️ Kropsvægt</label>
+      <input type="number" inputmode="decimal" step="0.1" placeholder="—" value="${bd.kg||''}"
+        onchange="bodySetField(${bw},'kg',this.value)" onfocus="this.select()">
+      <div class="bf-unit">kg</div>
+      ${kgDiff!==null?`<div class="bf-diff" style="color:${kgDiff<=0?'var(--grn)':'var(--red)'}">
+        ${kgDiff>0?'▲ +':'▼ '}${kgDiff} kg fra uge ${bw-1}
+      </div>`:''}
+    </div>
+    <div class="body-field">
+      <label>📐 Fedtprocent</label>
+      <input type="number" inputmode="decimal" step="0.1" placeholder="—" value="${bd.fat||''}"
+        onchange="bodySetField(${bw},'fat',this.value)" onfocus="this.select()">
+      <div class="bf-unit">%</div>
+      ${fatDiff!==null?`<div class="bf-diff" style="color:${fatDiff<=0?'var(--grn)':'var(--red)'}">
+        ${fatDiff>0?'▲ +':'▼ '}${fatDiff}% fra uge ${bw-1}
+      </div>`:''}
+    </div>
+  </div>`;
+
+  // Photo upload — dual slots
+  // Migrate old 'photo' field → 'photoBody'
+  if(bd.photo&&!bd.photoBody){bd.photoBody=bd.photo;delete bd.photo;BODY[bw]=bd;saveBody()}
+
+  h+=`<div class="body-photo">
+    <label>📸 Billeder – Uge ${bw}</label>
+    <div class="body-photo-grid">
+      <div class="body-photo-slot">
+        <div class="bps-label" style="color:var(--blue)">📱 Vægt-aflæsning</div>
+        <div class="body-photo-preview">
+          ${bd.photoScale
+            ?`<img src="${bd.photoScale}" alt="Vægt uge ${bw}">`
+            :`<div class="bpp-empty"><span>📱</span><div>Foto af vægt</div></div>`}
+        </div>
+        <div class="body-photo-btns">
+          <label class="bp-btn${bd.photoScale?'':' primary'}" for="bpScale${bw}">📱 ${bd.photoScale?'Skift':'Upload'}</label>
+          <input type="file" id="bpScale${bw}" accept="image/*" capture="environment" onchange="bodyUploadPhoto(${bw},'photoScale',this)">
+          ${bd.photoScale?`<button class="bp-btn danger" onclick="bodyRemovePhoto(${bw},'photoScale')">✕</button>`:''}
+        </div>
+      </div>
+      <div class="body-photo-slot">
+        <div class="bps-label" style="color:var(--grn)">📷 Progressbillede</div>
+        <div class="body-photo-preview">
+          ${bd.photoBody
+            ?`<img src="${bd.photoBody}" alt="Krop uge ${bw}">`
+            :`<div class="bpp-empty"><span>📷</span><div>Foto af dig</div></div>`}
+        </div>
+        <div class="body-photo-btns">
+          <label class="bp-btn${bd.photoBody?'':' primary'}" for="bpBody${bw}">📷 ${bd.photoBody?'Skift':'Upload'}</label>
+          <input type="file" id="bpBody${bw}" accept="image/*" capture="environment" onchange="bodyUploadPhoto(${bw},'photoBody',this)">
+          ${bd.photoBody?`<button class="bp-btn danger" onclick="bodyRemovePhoto(${bw},'photoBody')">✕</button>`:''}
+        </div>
+      </div>
+    </div>
+  </div>`;
+
+  // Graph: weight + fat over 8 weeks
+  h+=rBodyGraph();
+
+  // Photo comparison: week 1 vs current
+  h+=rBodyCompare();
+
+  // Data summary
+  h+=`<div class="tip">💡 <b>Tip:</b> Vej dig og tag billede samme dag hver uge — gerne om morgenen, fastende. Fedtprocent kan aflæses fra din smarte vægt, eller vurderes visuelt.</div>`;
+
+  return h;
+}
+
+function bodyNav(dir){bodyWeek=Math.max(1,Math.min(8,bodyWeek+dir));render()}
+
+function bodySetField(w,field,val){
+  if(!BODY[w])BODY[w]={};
+  const num=parseFloat(val);
+  if(isNaN(num)||val.trim()===''){delete BODY[w][field]}
+  else{BODY[w][field]=num}
+  if(!BODY[w].date)BODY[w].date=todayISO();
+  saveBody();toast();
+  render();
+}
+
+function bodyUploadPhoto(w,field,input){
+  const file=input.files?.[0];
+  if(!file)return;
+  const reader=new FileReader();
+  reader.onload=function(e){
+    // Compress image to max 600px width to keep localStorage manageable
+    const img=new Image();
+    img.onload=function(){
+      const maxW=600,maxH=800;
+      let cw=img.width,ch=img.height;
+      if(cw>maxW){ch=Math.round(ch*(maxW/cw));cw=maxW}
+      if(ch>maxH){cw=Math.round(cw*(maxH/ch));ch=maxH}
+      const canvas=document.createElement('canvas');
+      canvas.width=cw;canvas.height=ch;
+      const ctx=canvas.getContext('2d');
+      ctx.drawImage(img,0,0,cw,ch);
+      const compressed=canvas.toDataURL('image/jpeg',0.7);
+      if(!BODY[w])BODY[w]={};
+      BODY[w][field]=compressed;
+      if(!BODY[w].date)BODY[w].date=todayISO();
+      saveBody();
+      toast('✓ Billede gemt');
+      render();
+    };
+    img.src=e.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+
+function bodyRemovePhoto(w,field){
+  if(!confirm('Fjern billedet?'))return;
+  if(BODY[w])delete BODY[w][field];
+  saveBody();toast('✓ Fjernet');render();
+}
+
+function rBodyGraph(){
+  const pts=[],fatPts=[];
+  for(let w=1;w<=TW();w++){
+    const b=BODY[w]||{};
+    pts.push(b.kg?b.kg:null);
+    fatPts.push(b.fat?b.fat:null);
+  }
+  const kgFilled=pts.filter(v=>v!==null);
+  const fatFilled=fatPts.filter(v=>v!==null);
+  const hasKg=kgFilled.length>=2,hasFat=fatFilled.length>=2;
+  if(!hasKg&&!hasFat)return'<div class="body-graph"><div class="body-graph-title">Vægt & Fedt Trend</div><div class="body-graph-sub" style="color:var(--mut2)">Tilføj mindst 2 ugers data for at se trend</div></div>';
+
+  const W2=340,H2=180,pl=46,pr=14,pt2=20,pb=30;
+  const iw=W2-pl-pr,ih=H2-pt2-pb;
+  function px(w){return pl+((w-1)/7)*iw}
+
+  let svg=`<svg viewBox="0 0 ${W2} ${H2}" xmlns="http://www.w3.org/2000/svg" style="width:100%;border-radius:10px">`;
+  svg+=`<rect width="${W2}" height="${H2}" fill="#0c0c0e" rx="10"/>`;
+
+  // Grid
+  for(let i=0;i<=4;i++){const y=pt2+(ih/4)*i;svg+=`<line x1="${pl}" y1="${y}" x2="${W2-pr}" y2="${y}" stroke="#ffffff06" stroke-width="1"/>`;}
+  for(let w=1;w<=TW();w++)svg+=`<text x="${px(w)}" y="${H2-8}" text-anchor="middle" font-size="9" fill="#48484a" font-family="DM Mono,monospace">${w}</text>`;
+  svg+=`<text x="${W2/2}" y="${H2-1}" text-anchor="middle" font-size="7" fill="#38383a" font-family="DM Mono,monospace">UGE</text>`;
+
+  // Draw kg line (blue)
+  if(hasKg){
+    const maxV=Math.max(...kgFilled),minV=Math.min(...kgFilled);
+    const range=Math.max(maxV-minV,2),padV=range*.25;
+    function pyKg(v){return pt2+ih-(((v-(minV-padV))/(range+2*padV))*ih)}
+    let pathD='',dots=[];
+    for(let w=1;w<=TW();w++){if(pts[w-1]!==null){const x=px(w),y=pyKg(pts[w-1]);pathD+=(dots.length===0?'M':'L')+x+','+y;dots.push({x,y,v:pts[w-1]})}}
+    svg+=`<path d="${pathD}" fill="none" stroke="#0a84ff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>`;
+    dots.forEach(d=>{
+      svg+=`<circle cx="${d.x}" cy="${d.y}" r="4" fill="#0a84ff" stroke="#0c0c0e" stroke-width="2"/>`;
+      svg+=`<text x="${d.x}" y="${d.y-9}" text-anchor="middle" font-size="8" fill="#0a84ff" font-family="DM Mono,monospace" font-weight="500">${d.v}</text>`;
+    });
+  }
+
+  // Draw fat% line (purple)
+  if(hasFat){
+    const maxF=Math.max(...fatFilled),minF=Math.min(...fatFilled);
+    const rangeF=Math.max(maxF-minF,2),padF=rangeF*.25;
+    function pyFat(v){return pt2+ih-(((v-(minF-padF))/(rangeF+2*padF))*ih)}
+    let pathF='',dotsF=[];
+    for(let w=1;w<=TW();w++){if(fatPts[w-1]!==null){const x=px(w),y=pyFat(fatPts[w-1]);pathF+=(dotsF.length===0?'M':'L')+x+','+y;dotsF.push({x,y,v:fatPts[w-1]})}}
+    svg+=`<path d="${pathF}" fill="none" stroke="#bf5af2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="6 3"/>`;
+    dotsF.forEach(d=>{
+      svg+=`<circle cx="${d.x}" cy="${d.y}" r="3.5" fill="#bf5af2" stroke="#0c0c0e" stroke-width="2"/>`;
+      svg+=`<text x="${d.x}" y="${d.y+14}" text-anchor="middle" font-size="8" fill="#bf5af2" font-family="DM Mono,monospace">${d.v}%</text>`;
+    });
+  }
+  svg+='</svg>';
+
+  // Summary stats
+  const kgChange=hasKg?Math.round((kgFilled[kgFilled.length-1]-kgFilled[0])*10)/10:null;
+  const fatChange=hasFat?Math.round((fatFilled[fatFilled.length-1]-fatFilled[0])*10)/10:null;
+
+  let h=`<div class="body-graph">
+    <div class="body-graph-title">Vægt & Fedt Trend</div>
+    <div class="body-graph-sub">
+      ${hasKg?`<span style="color:#0a84ff">● Vægt${kgChange!==null?' ('+(kgChange>=0?'+':'')+kgChange+' kg)':''}</span> `:''}
+      ${hasFat?`<span style="color:#bf5af2">● Fedt%${fatChange!==null?' ('+(fatChange>=0?'+':'')+fatChange+'%)':''}</span>`:''}
+    </div>
+    ${svg}
+  </div>`;
+  return h;
+}
+
+function rBodyCompare(){
+  // Find first and last week with progress photos
+  let first=null,last=null;
+  for(let w=1;w<=TW();w++){if(BODY[w]?.photoBody){if(!first)first=w;last=w;}}
+  if(!first||first===last)return'';
+
+  const fb=BODY[first],lb=BODY[last];
+  return `<div class="body-compare">
+    <div class="body-compare-title">📸 Før & Nu</div>
+    <div class="body-compare-grid">
+      <div class="body-compare-card">
+        <div class="bcc-label">Uge ${first}</div>
+        <div class="bcc-img"><img src="${fb.photoBody}" alt="Uge ${first}"></div>
+        <div class="bcc-stats">${fb.kg?fb.kg+' kg':''}${fb.kg&&fb.fat?' · ':''}${fb.fat?fb.fat+'%':''}</div>
+      </div>
+      <div class="body-compare-card">
+        <div class="bcc-label">Uge ${last}</div>
+        <div class="bcc-img"><img src="${lb.photoBody}" alt="Uge ${last}"></div>
+        <div class="bcc-stats">${lb.kg?lb.kg+' kg':''}${lb.kg&&lb.fat?' · ':''}${lb.fat?lb.fat+'%':''}</div>
+      </div>
+    </div>
+  </div>`;
+}
+
 /* ── PHASES ── */
-function rPhases(){
-  let h=`<div class="page-title"><div class="page-eyebrow">// Perioder</div><div class="page-h1">Faser</div></div>`;
-  h+=`<div class="section-label">💪 Gym</div>`;
+function rInfo(){
+  let h=`<div class="page-title"><div class="page-eyebrow">// Program & principper</div><div class="page-h1">Info</div></div>`;
+
+  // Faser
+  h+=`<div class="section-label">💪 Gym-faser</div>`;
   GP.forEach((p,i)=>{
     h+=`<div class="phcard" style="--pc:${p.color}">
-      <div class="ph-num-wrap"><div class="ph-num">${i+1}</div><div class="ph-weeks">${['Uge 1–3','Uge 4–6','Uge 7–8'][i]}</div></div>
+      <div class="ph-num-wrap"><div class="ph-num">${i+1}</div><div class="ph-weeks">${phaseLabel(i)}</div></div>
       <div>
         <div class="ph-label" style="color:${p.color}">${p.name.toUpperCase()}</div>
         <div class="ph-row"><span style="color:#7070a0">Compound:</span> ${p.c.s} sæt · ${p.c.r} reps</div>
@@ -1102,24 +1563,21 @@ function rPhases(){
       <div class="ph-goal"><label>Fokus</label><span>${['📈','🏋️','🔥'][i]}</span></div>
     </div>`;
   });
-  h+=`<div class="section-label">🏃 Løb</div>`;
+  h+=`<div class="section-label">🏃 Løbefaser</div>`;
   PH.forEach(p=>{
     h+=`<div class="phcard" style="--pc:${p.c}">
       <div class="ph-num-wrap"><div class="ph-num">${p.n}</div><div class="ph-weeks">${p.w}</div></div>
       <div>
         <div class="ph-label" style="color:${p.c}">${p.l.toUpperCase()}</div>
-        <div class="ph-row"><span style="color:#30c080">Tir:</span> ${p.wd}</div>
-        <div class="ph-row"><span style="color:#e04060">Fre:</span> ${p.sa}</div>
+        <div class="ph-row"><span style="color:#30d158">Tir:</span> ${p.wd}</div>
+        <div class="ph-row"><span style="color:#ff453a">Fre:</span> ${p.sa}</div>
       </div>
       <div class="ph-goal"><label>Mål</label><span style="font-size:14px">${p.g}</span></div>
     </div>`;
   });
-  return h;
-}
 
-/* ── RULES ── */
-function rRules(){
-  let h=`<div class="page-title"><div class="page-eyebrow">// Principper</div><div class="page-h1">Regler</div></div>`;
+  // Regler
+  h+=`<div class="section-label" style="margin-top:24px">📌 Regler & principper</div>`;
   h+='<div class="rgrid">';
   RL.forEach(r=>{
     h+=`<div class="rc" style="--rc:${r.c}">
@@ -1128,7 +1586,8 @@ function rRules(){
       <div class="rc-body">${r.b}</div>
     </div>`;
   });
-  return h+'</div>';
+  h+='</div>';
+  return h;
 }
 
 /* ═══════════════════════════════════════════════════════════ */
@@ -1268,7 +1727,7 @@ function buildTrainingContext(){
     const exs=dayEx(todayD);
     ctx+=`Dagens øvelser: ${exs.map(e=>e.n).join(', ')}\n`;
     // Vis hvad brugeren løftede sidste uge for at hjælpe coach foreslå vægte
-    if(cw>=2&&cw<=8){
+    if(cw>=2&&cw<=TW()){
       const prevW=cw-1;
       const prevWeights=exs.filter(e=>!e.core).map(e=>{
         const v=gw(prevW,todayD.full,e.n);return v?`${e.n}: ${v} kg`:null;
@@ -1281,9 +1740,10 @@ function buildTrainingContext(){
   if(PROG.startDate){
     ctx+=`Program startdato: ${fmtDate(PROG.startDate)}\n`;
     if(programDone){
-      ctx+=`STATUS: Programmet er FÆRDIGT – brugeren har gennemført alle 8 uger! Foreslå hvad de skal nu (nyt forløb, nye mål, deload, etc).\n`;
+      ctx+=`STATUS: Programmet er FÆRDIGT – brugeren har gennemført hele programmet! Foreslå hvad de skal nu (nyt forløb, nye mål, deload, etc).\n`;
     }else{
-      ctx+=`Programuge: ${cw} af 8 (${GP[gymPhase(cw)].name}-fase)\n`;
+      ctx+=`Programuge: ${cw} af ${TW()} (${GP[gymPhase(cw)].name}-fase)\n`;
+      ctx+=`5km mål: ${fmtSec(PROG.start5kSec||2100)} → under ${fmtSec(goal5kSec())} på ${TW()} uger\n`;
     }
   }else{
     ctx+=`Program ikke startet endnu (ingen startdato sat).\n`;
@@ -1291,8 +1751,8 @@ function buildTrainingContext(){
   }
 
   // === PROGRAM ===
-  ctx+='\n=== TRÆNINGSPROGRAM ===\n';
-  ctx+='8-ugers Recomp + 5km løb. Mål: muskelvækst + fedttab + 5km tid fra 35 min til <30 min.\n';
+  ctx+=`\n=== TRÆNINGSPROGRAM ===\n`;
+  ctx+=`${TW()}-ugers Recomp + 5km løb. Start: ${fmtSec(PROG.start5kSec||2100)}, mål: under ${fmtSec(goal5kSec())}.\n`;
   ctx+='Ugentligt skema:\n';
   D.forEach(d=>{
     const exs=dayEx(d);
@@ -1314,7 +1774,7 @@ function buildTrainingContext(){
 
   ctx+='\n=== LOGGEDE DATA ===\n';
   let anyData=false;
-  for(let w=1;w<=8;w++){
+  for(let w=1;w<=TW();w++){
     let weekData='';
     D.forEach(d=>{
       const exs=dayEx(d);
@@ -1346,16 +1806,31 @@ function buildTrainingContext(){
     });
   }
 
+  // Kropsdata
+  const bodyEntries=Object.entries(BODY).filter(([_,v])=>v.kg||v.fat).sort((a,b)=>a[0]-b[0]);
+  if(bodyEntries.length){
+    ctx+='\n=== KROPSDATA ===\n';
+    bodyEntries.forEach(([w,v])=>{
+      ctx+=`Uge ${w}: ${v.kg?v.kg+' kg':''}${v.kg&&v.fat?' · ':''}${v.fat?v.fat+'% fedt':''}${v.date?' ('+v.date+')':''}\n`;
+    });
+    // Beregn ændringer
+    const first=bodyEntries[0][1],last=bodyEntries[bodyEntries.length-1][1];
+    if(bodyEntries.length>=2){
+      if(first.kg&&last.kg){const d=Math.round((last.kg-first.kg)*10)/10;ctx+=`Vægtændring: ${d>=0?'+':''}${d} kg\n`}
+      if(first.fat&&last.fat){const d=Math.round((last.fat-first.fat)*10)/10;ctx+=`Fedtændring: ${d>=0?'+':''}${d}%\n`}
+    }
+  }
+
   return ctx;
 }
 
-const SYSTEM_PROMPT=`Du er en personlig dansk styrketræner og løbecoach for en bruger der følger et 8-ugers Recomp + 5km program.
+function getSystemPrompt(){return `Du er en personlig dansk styrketræner og løbecoach for en bruger der følger et ${TW()}-ugers Recomp + 5km program.
 
 Brugerens mål:
 1. Recomposition: muskelvækst + fedttab på samme tid (vedligeholdelseskalorier ±100, 2,2g protein/kg)
-2. 5km løb: forbedre fra 35 min til under 30 min på 8 uger
+2. 5km løb: forbedre fra ${fmtSec(PROG.start5kSec||2100)} til under ${fmtSec(goal5kSec())} på ${TW()} uger
 
-Programstruktur (uge 1-3 hypertrofi, 4-6 styrke, 7-8 peak):
+Programstruktur (${phaseLabel(0)} hypertrofi, ${phaseLabel(1)} styrke, ${phaseLabel(2)} peak):
 - Mandag: Upper A (styrke)
 - Tirsdag: Restitutionsløb (let)
 - Onsdag: Lower A (styrke + core-blok)
@@ -1377,7 +1852,7 @@ Brug ALTID denne kontekst aktivt. Sig "I dag har du Upper A" hvis det er mandag,
 
 Når programmet er FÆRDIGT (uge 8 forbi):
 - Anerkend resultatet og foreslå konkrete næste skridt
-- Mulige veje: nyt 8-ugers forløb (med højere mål), deload-uge før genstart, peak-test af 5km løb, eller skift til vedligeholdelse
+- Mulige veje: nyt forløb (med højere mål), deload-uge før genstart, peak-test af 5km løb, eller skift til vedligeholdelse
 - Brug brugerens faktiske data til at vurdere hvad der giver mening
 
 Stil og format:
@@ -1387,7 +1862,7 @@ Stil og format:
 - Maks 4-6 punkter per svar — kort og brugbart
 - Brug **bold** til vigtige tal og navne
 - Hvis data mangler, sig det direkte og foreslå hvad brugeren skal logge
-- Aldrig generiske fitness-floskler — brug brugerens reelle data`;
+- Aldrig generiske fitness-floskler — brug brugerens reelle data`}
 
 async function callClaude(userMessage){
   if(!AI.apiKey)throw new Error('Indtast først din API-nøgle i indstillinger.');
@@ -1421,7 +1896,7 @@ async function callClaude(userMessage){
     },
     body:JSON.stringify({
       contents,
-      systemInstruction:{parts:[{text:SYSTEM_PROMPT}]},
+      systemInstruction:{parts:[{text:getSystemPrompt()}]},
       generationConfig:{
         maxOutputTokens:1500,
         temperature:1
@@ -1483,12 +1958,12 @@ async function sendAIMessage(custom){
 
 function aiQuick(kind){
   const cw=currentWeek();
-  const phase=GP[gymPhase(Math.min(cw,8))].name;
+  const phase=GP[gymPhase(Math.min(cw,TW()))].name;
   const programDone=isProgramDone();
   let prompt;
   if(kind==='today'){
     if(programDone){
-      prompt=`Programmet er færdigt — jeg har gennemført alle 8 uger. Giv mig en grundig debrief: Hvor stor fremgang har jeg lavet (vægte og 5km tid)? Hvad var stærkest? Hvad kan forbedres? Og giv mig 3 konkrete valgmuligheder for hvad jeg gør nu (fx nyt forløb med højere mål, deload-uge, peak-test af 5km, eller skift til vedligeholdelse).`;
+      prompt=`Programmet er færdigt — jeg har gennemført hele programmet. Giv mig en grundig debrief: Hvor stor fremgang har jeg lavet (vægte og 5km tid)? Hvad var stærkest? Hvad kan forbedres? Og giv mig 3 konkrete valgmuligheder for hvad jeg gør nu (fx nyt forløb med højere mål, deload-uge, peak-test af 5km, eller skift til vedligeholdelse).`;
     }else{
       const todayD=D[todayDayIdx()];
       if(todayD.run){
@@ -1503,10 +1978,10 @@ function aiQuick(kind){
     prompt=`Analysér min fremgang grundigt. Hvor er jeg stærk? Hvor halter jeg? Er jeg på vej mod mit mål om både muskelvækst og 5km under 30 min? Vær konkret med tal.`;
   }else if(kind==='next'){
     if(programDone){
-      prompt=`Programmet er færdigt. Foreslå konkret hvad næste 8-ugers forløb skal se ud — baseret på mine resultater. Skal noget ændres i programstrukturen, vægte eller løbemål?`;
+      prompt=`Programmet er færdigt. Foreslå konkret hvad næste forløb skal se ud — baseret på mine resultater. Skal noget ændres i programstrukturen, vægte eller løbemål?`;
     }else{
       const next=cw+1;
-      if(next>8)prompt=`Det er sidste uge af programmet. Giv mig en debrief på hele 8-ugers forløbet og foreslå hvad jeg skal gøre når jeg er færdig.`;
+      if(next>TW())prompt=`Det er sidste uge af programmet. Giv mig en debrief på hele forløbet og foreslå hvad jeg skal gøre når jeg er færdig.`;
       else{
         const nextPhase=GP[gymPhase(next)].name;
         const phaseChange=phase!==nextPhase?`Bemærk: jeg skifter fra ${phase} til ${nextPhase}-fase næste uge.`:'';
