@@ -471,11 +471,82 @@ input[type=file]{display:none}
 .backup-title{font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:.5px;margin-bottom:8px}
 .backup-sub{font-size:11px;color:var(--mut);font-family:'DM Mono',monospace;margin-bottom:14px;line-height:1.6}
 .backup-btns{display:flex;gap:8px;flex-wrap:wrap}
+
+/* ══ COG BUTTON ══ */
+#hdrCog{position:absolute;top:calc(var(--st) + 14px);right:14px;z-index:5;width:40px;height:40px;border-radius:50%;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.06);color:var(--mut);font-size:18px;cursor:pointer;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);transition:all .2s var(--ease);display:flex;align-items:center;justify-content:center}
+#hdrCog:active{transform:scale(.9) rotate(45deg)}
+#hdrCog:hover{color:var(--acc);border-color:var(--acc)}
+
+/* ══ NOTES POPUP ══ */
+.note-btn{background:none;border:none;color:var(--mut);cursor:pointer;font-size:14px;padding:4px;opacity:.5;transition:opacity .15s;min-width:28px;min-height:28px}
+.note-btn:hover,.note-btn.has{opacity:1;color:var(--acc)}
+.note-popup{margin-top:8px;padding:10px;background:var(--bg2);border:1px solid var(--bdr);border-radius:var(--r2);grid-column:1/-1;animation:slideUp .2s var(--spring)}
+.note-popup textarea{width:100%;min-height:50px;font-size:12px}
+
+/* ══ ESTIMATED 1RM ══ */
+.est-1rm{font-size:9px;color:var(--mut2);font-family:'DM Mono',monospace;margin-top:2px;letter-spacing:.5px}
+.est-1rm b{color:var(--blue);font-weight:600}
+
+/* ══ CONFETTI ══ */
+#confetti{position:fixed;inset:0;pointer-events:none;z-index:1001;overflow:hidden;display:none}
+#confetti.show{display:block}
+.cf{position:absolute;top:-20px;width:8px;height:14px;animation:cfFall 1.6s ease-in forwards}
+@keyframes cfFall{0%{transform:translateY(0) rotate(0)}100%{transform:translateY(120vh) rotate(720deg);opacity:.5}}
+
+/* ══ VOLUME CHART ══ */
+.vol-section{background:var(--bg1);border:1px solid var(--bdr);border-radius:var(--r);padding:18px;margin-bottom:16px;box-shadow:var(--shadow)}
+.vol-title{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:.5px;margin-bottom:4px}
+.vol-sub{font-size:11px;color:var(--mut);font-family:'DM Mono',monospace;margin-bottom:12px}
+.vol-bars{display:flex;flex-direction:column;gap:8px}
+.vol-bar-row{display:grid;grid-template-columns:80px 1fr 60px;gap:10px;align-items:center}
+.vol-bar-label{font-size:11px;font-family:'DM Mono',monospace;color:var(--mut);text-transform:uppercase;letter-spacing:1px}
+.vol-bar-track{height:12px;background:var(--bg2);border-radius:6px;position:relative;overflow:hidden}
+.vol-bar-fill{height:100%;border-radius:6px;transition:width .8s var(--ease)}
+.vol-bar-val{font-size:11px;font-family:'DM Mono',monospace;color:var(--txt);text-align:right;font-weight:500}
+
+/* ══ STREAK HEATMAP ══ */
+.streak-section{background:var(--bg1);border:1px solid var(--bdr);border-radius:var(--r);padding:18px;margin-bottom:16px;box-shadow:var(--shadow)}
+.streak-title{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:.5px;margin-bottom:4px}
+.streak-sub{font-size:11px;color:var(--mut);font-family:'DM Mono',monospace;margin-bottom:14px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+.streak-stat{color:var(--acc);font-weight:600}
+.streak-grid{display:grid;grid-template-columns:32px repeat(7,1fr);gap:4px}
+.streak-day-label{font-size:8px;color:var(--mut2);font-family:'DM Mono',monospace;display:flex;align-items:center;justify-content:center;text-transform:uppercase;letter-spacing:.5px}
+.streak-cell{aspect-ratio:1;border-radius:4px;background:var(--bg3);position:relative;transition:transform .15s var(--ease)}
+.streak-cell:hover{transform:scale(1.15)}
+.streak-cell.l1{background:rgba(255,214,10,.18)}
+.streak-cell.l2{background:rgba(255,214,10,.4)}
+.streak-cell.l3{background:rgba(255,214,10,.7)}
+.streak-cell.l4{background:var(--acc)}
+.streak-cell.future{background:var(--bg2);opacity:.5}
+.streak-cell.today{box-shadow:0 0 0 2px var(--acc)}
+.streak-week-label{font-size:7px;color:var(--mut2);font-family:'DM Mono',monospace;text-align:center;margin-top:2px}
+.streak-legend{display:flex;align-items:center;gap:6px;justify-content:flex-end;margin-top:10px;font-size:9px;color:var(--mut2);font-family:'DM Mono',monospace}
+.streak-legend-cells{display:flex;gap:3px}
+.streak-legend-cells div{width:10px;height:10px;border-radius:2px}
+
+/* ══ PHOTO GALLERY ══ */
+.gallery-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:14px}
+@media (min-width:520px){.gallery-grid{grid-template-columns:repeat(3,1fr)}}
+.gallery-item{position:relative;aspect-ratio:3/4;border-radius:var(--r2);overflow:hidden;background:var(--bg2);border:1px solid var(--bdr);cursor:pointer;transition:transform .2s var(--ease)}
+.gallery-item:active{transform:scale(.96)}
+.gallery-item img{width:100%;height:100%;object-fit:cover}
+.gallery-item .gal-week{position:absolute;top:6px;left:6px;background:rgba(0,0,0,.7);color:#fff;padding:3px 8px;border-radius:6px;font-family:'DM Mono',monospace;font-size:10px;font-weight:600;letter-spacing:.5px;-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
+.gallery-item .gal-stats{position:absolute;bottom:0;left:0;right:0;padding:6px 8px;background:linear-gradient(transparent,rgba(0,0,0,.85));font-family:'DM Mono',monospace;font-size:9px;color:#fff;text-align:center}
+.gallery-toggle{margin-top:12px;text-align:center}
+
+/* ══ WORKOUT TIMER ══ */
+.workout-timer{display:inline-flex;align-items:center;gap:6px;font-family:'DM Mono',monospace;font-size:11px;font-weight:600;color:var(--blue);padding:5px 10px;background:rgba(10,132,255,.1);border:1px solid rgba(10,132,255,.25);border-radius:100px;letter-spacing:.5px}
+.workout-timer .wt-dot{width:6px;height:6px;border-radius:50%;background:var(--blue);animation:pls 1.5s infinite}
+
+/* ══ TOOLTIP ══ */
+#chartTooltip{position:fixed;background:var(--glass);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border:1px solid var(--bdr);color:var(--txt);font-family:'DM Mono',monospace;font-size:11px;padding:6px 10px;border-radius:8px;pointer-events:none;z-index:1000;display:none;white-space:nowrap;box-shadow:0 4px 16px rgba(0,0,0,.4)}
+#chartTooltip.show{display:block;animation:fi .15s ease}
 </style>
 </head>
 <body>
 <div id="app">
   <div id="hdr">
+    <button id="hdrCog" onclick="openSettingsModal()" title="Indstillinger">⚙️</button>
     <div class="hdr-eyebrow">// PERSONLIGT TRÆNINGSPROGRAM</div>
     <h1>RECOMP<br>+ 5KM RUN</h1>
     <div class="hdr-stats" id="hdrStats">
@@ -498,6 +569,8 @@ input[type=file]{display:none}
 <div id="toast">✓ Gemt</div>
 <div id="restTimer" onclick="dismissTimer()"><div class="rt-time">0:00</div><div class="rt-label">Pause</div></div>
 <div id="prToast" class="pr-toast">🏆 NY PR!</div>
+<div id="confetti"></div>
+<div id="chartTooltip"></div>
 <div id="modal" class="modal-bg" onclick="if(event.target.id==='modal')closeModal()"></div>
 
 <script>
@@ -709,8 +782,24 @@ function saveProg(){try{localStorage.setItem(PK,JSON.stringify(PROG))}catch(e){}
 function TW(){return PROG.totalWeeks||8}
 
 // Tids-formattering
-function fmtSec(s){const m=Math.floor(s/60),sec=s%60;return m+':'+String(sec).padStart(2,'0')}
-function parseSec(str){if(!str)return null;const p=str.split(':');if(p.length!==2)return null;return parseInt(p[0])*60+parseInt(p[1])}
+function fmtSec(s){const m=Math.floor(s/60),sec=Math.round(s%60);return m+':'+String(sec).padStart(2,'0')}
+function parseSec(str){
+  if(!str)return null;
+  const s=String(str).trim().replace(',','.');
+  if(!s)return null;
+  // Format "min:sec"
+  if(s.includes(':')){
+    const p=s.split(':');
+    if(p.length!==2)return null;
+    const m=parseInt(p[0]),sec=parseInt(p[1]);
+    if(isNaN(m)||isNaN(sec))return null;
+    return m*60+sec;
+  }
+  // Bare et tal → tolk som minutter (decimaler tilladt)
+  const num=parseFloat(s);
+  if(isNaN(num)||num<=0)return null;
+  return Math.round(num*60);
+}
 
 // Beregn realistisk 5km-mål baseret på starttid og programlængde
 // ~1.5-2% forbedring per uge for motionister, med aftagende effekt
@@ -821,24 +910,32 @@ function go(t){
   document.getElementById('cnt').scrollTop=0;
 }
 function sd(i){sel=sel===i?null:i;render();if(sel!==null)setTimeout(()=>document.querySelector('.det')?.scrollIntoView({behavior:'smooth',block:'start'}),50)}
+function goToTodayDetail(idx){
+  sel=idx;render();
+  setTimeout(()=>{
+    document.querySelector('.det')?.scrollIntoView({behavior:'smooth',block:'start'});
+    setTimeout(()=>{
+      const empties=document.querySelectorAll('input.wi[type="number"]');
+      for(const inp of empties){if(!inp.value){inp.focus();break}}
+    },400);
+  },50);
+}
 function sw2(w){week=w;render()}
 function wch(el){const w=+el.dataset.w,d=el.dataset.d,n=el.dataset.n;sw(w,d,n,el.value);el.classList.remove('fl');void el.offsetWidth;el.classList.add('fl');setTimeout(()=>el.classList.remove('fl'),550)}
 function diffH(d){if(d===null)return'';const cl=d>0?'dup':d<0?'ddn':'deq',s=d>0?`▲+${d}`:d<0?`▼${d}`:'=0';return`<div class="${cl}">${s}</div>`}
 
 // Sæt-for-sæt funktioner
 function wchAll(el){
-  // Når man ændrer hoved-inputtet: sæt alle sæt til denne vægt
   const w=+el.dataset.w,d=el.dataset.d,n=el.dataset.n,sets=+el.dataset.sets||3;
-  const t=el.dataset.t||'c';// exercise type
+  const t=el.dataset.t||'c';
   const exIdx=+el.dataset.idx;
   const val=el.value.trim();
   if(!val){sw(w,d,n,'');return}
   const arr=Array(sets).fill(val).join(',');
   sw(w,d,n,arr);
-  // Start rest timer (respect superset grouping)
+  bumpWorkoutActivity();
   const restType=getRestTypeForSuperset(d,exIdx,t);
   if(restType)startRestTimer(restType);
-  // Check for PR
   checkAndCelebratePR(d,n,arr);
   el.classList.remove('fl');void el.offsetWidth;el.classList.add('fl');setTimeout(()=>el.classList.remove('fl'),550);
   if(selExRow===d+'__'+n)render();
@@ -980,6 +1077,10 @@ function rWeekly(){
         <div class="phase-dot" style="background:${gp.color}"></div>
         <div class="phase-name" style="color:${gp.color}">${gp.name.toUpperCase()}</div>
         <div class="phase-info">${gp.weeks} &nbsp;·&nbsp; ${gp.tip}</div>
+        <div id="workoutTimer" class="workout-timer" style="margin-left:auto;display:${workoutStart?'inline-flex':'none'}">
+          <div class="wt-dot"></div>
+          <span class="wt-time">0:00</span>
+        </div>
       </div>`;
       h+=`<div class="ex-hd"><span>Øvelse</span><span>Sæt</span><span>Reps</span><span>Kg – uge ${week}</span><span>Se</span></div>`;
       exs.forEach((e,exIdx)=>{
@@ -996,9 +1097,15 @@ function rWeekly(){
         const ssTag=inSS?'<span class="ss-tag">SS</span>':'';
         const showPR=!e.core&&isPR(d.full,e.n,week)&&mainVal>0;
         const prBadge=showPR?'<span class="pr-badge">🏆 PR</span>':'';
-        const ssBtn=!e.core?`<button class="ss-btn${inSS?' on':''}" onclick="toggleSuperset('${escAttr(d.full)}',${exIdx})" title="${inSS?'Fjern superset':'Markér som superset med næste øvelse'}">${inSS?'×SS':'+SS'}</button>`:'';
+        const ssBtn=!e.core?`<button class="ss-btn${inSS?' on':''}" onclick="toggleSuperset('${escAttr(d.full)}',${exIdx})" title="${inSS?'Fjern superset':'Markér som superset'}">${inSS?'×SS':'+SS'}</button>`:'';
+        const noteKey=d.full+'__'+e.n;
+        const hasNote=!!getExerciseNote(week,d.full,e.n);
+        const noteOpen=selExRow==='note__'+noteKey;
+        const noteBtn=`<button class="note-btn${hasNote?' has':''}" onclick="toggleNote('${escAttr(noteKey)}')" title="Note">${hasNote?'📝':'✎'}</button>`;
+        const est1rm=!e.core?estimateExercise1RM(week,d.full,e.n,e):null;
+        const rmDisplay=est1rm?`<div class="est-1rm">est. 1RM: <b>${est1rm} kg</b></div>`:'';
         h+=`<div class="exrow${cls?' '+cls:''}">
-          <div><div class="exn">${e.n}${custTag}${ssTag}${prBadge}${ssBtn}${rmBtn}</div>${e.no?`<div class="exno">${e.no}</div>`:''}</div>
+          <div><div class="exn">${e.n}${custTag}${ssTag}${prBadge}${ssBtn}${noteBtn}${rmBtn}</div>${e.no?`<div class="exno">${e.no}</div>`:''}${rmDisplay}</div>
           <div class="exs" style="color:${d.color}">${sr.s}</div>
           <div class="exr">${sr.r}</div>
           <div class="exkg">
@@ -1012,6 +1119,7 @@ function rWeekly(){
           </div>
           <a class="vl" href="${e.l}" target="_blank">▶</a>
           ${isExpanded?renderSetInputs(week,d.full,e.n,numSets):''}
+          ${noteOpen?renderNotePopup(week,d.full,e.n):''}
         </div>`;
       });
       h+=`<div class="tip">💡 <b>Pause:</b> 2–3 min styrke &nbsp;·&nbsp; 60–90 sek isolation &nbsp;·&nbsp; 1–2 reps fra failure</div>`;
@@ -1083,7 +1191,7 @@ function rTodayBanner(){
   }else{
     summary='Hvile · Søvn 7-9 timer · Let gåtur er fint';
   }
-  return `<div class="today-banner" style="--tc:${d.color}" onclick="sel=${idx};render();setTimeout(()=>document.querySelector('.det')?.scrollIntoView({behavior:'smooth',block:'start'}),50)">
+  return `<div class="today-banner" style="--tc:${d.color}" onclick="goToTodayDetail(${idx})">
     <div class="tb-icon">${d.icon}</div>
     <div class="tb-text">
       <div class="tb-eyebrow"><span class="pulse"></span>I dag · ${today} · Uge ${cw}</div>
@@ -1101,16 +1209,24 @@ function rProgSetup(){
   const startSec=(PROG.start5kSec||2100)%60;
   const tw=TW();
   const goalStr=fmtSec(goal5kSec());
+  const initSec=PROG.start5kSec||2100;
+  const initMin=Math.floor(initSec/60),initSecRem=initSec%60;
   return `<div class="prog-setup">
     <div class="prog-setup-title">⚙️ Opsæt dit program</div>
     <div class="prog-setup-sub">Tilpas programmet til dig — starttid, varighed og startdato.</div>
     <div class="body-inputs" style="margin-bottom:16px">
       <div class="body-field">
         <label>🏃 5km starttid</label>
-        <input type="text" inputmode="decimal" placeholder="35:00" id="progStartTime"
-          value="${fmtSec(PROG.start5kSec||2100)}"
-          onchange="updateProgPreview()">
-        <div class="bf-unit">min:sek</div>
+        <div style="display:flex;align-items:center;gap:6px;justify-content:center">
+          <input type="number" inputmode="numeric" min="0" max="120" placeholder="35" id="progStartMin"
+            value="${initMin}" oninput="updateProgPreview()" style="width:60px"
+            onfocus="this.select()">
+          <span style="font-size:20px;color:var(--mut);font-weight:600">:</span>
+          <input type="number" inputmode="numeric" min="0" max="59" placeholder="00" id="progStartSec"
+            value="${String(initSecRem).padStart(2,'0')}" oninput="updateProgPreview()" style="width:60px"
+            onfocus="this.select()">
+        </div>
+        <div class="bf-unit">min : sek</div>
       </div>
       <div class="body-field">
         <label>📅 Antal uger</label>
@@ -1165,15 +1281,23 @@ function rProgDone(){
   </div>`;
 }
 
+function readSetupTime(){
+  const minInp=document.getElementById('progStartMin');
+  const secInp=document.getElementById('progStartSec');
+  if(!minInp&&!secInp)return null;
+  const m=parseInt(minInp?.value);
+  const s=parseInt(secInp?.value)||0;
+  if(isNaN(m)||m<=0)return null;
+  return m*60+Math.min(s,59);
+}
+
 function updateProgPreview(){
-  const timeInput=document.getElementById('progStartTime');
+  const sec=readSetupTime();
   const weeksSelect=document.getElementById('progWeeks');
-  if(!timeInput||!weeksSelect)return;
-  const sec=parseSec(timeInput.value);
-  const weeks=parseInt(weeksSelect.value);
   if(sec&&sec>0)PROG.start5kSec=sec;
-  if(weeks&&weeks>=4)PROG.totalWeeks=weeks;
-  // Update preview without saving
+  if(weeksSelect){const w=parseInt(weeksSelect.value);if(w&&w>=4)PROG.totalWeeks=w}
+  saveProg(); // gem live så headeren også opdateres
+  updateHeaderWeek();
   const goalSec=Math.round((PROG.start5kSec||2100)*(1-Math.min(0.30,0.02*PROG.totalWeeks)));
   const preview=document.getElementById('progPreview');
   if(preview){
@@ -1187,10 +1311,9 @@ function updateProgPreview(){
 function setProgStart(){
   const inp=document.getElementById('progDateInput');
   if(!inp||!inp.value){toast('Vælg en dato');return}
-  // Gem indstillinger
-  const timeInput=document.getElementById('progStartTime');
+  const sec=readSetupTime();
   const weeksSelect=document.getElementById('progWeeks');
-  if(timeInput){const sec=parseSec(timeInput.value);if(sec&&sec>0)PROG.start5kSec=sec}
+  if(sec&&sec>0)PROG.start5kSec=sec;
   if(weeksSelect){const w=parseInt(weeksSelect.value);if(w&&w>=4)PROG.totalWeeks=w}
   PROG.startDate=inp.value;
   saveProg();
@@ -1199,9 +1322,9 @@ function setProgStart(){
   render();
 }
 function setProgStartToday(){
-  const timeInput=document.getElementById('progStartTime');
+  const sec=readSetupTime();
   const weeksSelect=document.getElementById('progWeeks');
-  if(timeInput){const sec=parseSec(timeInput.value);if(sec&&sec>0)PROG.start5kSec=sec}
+  if(sec&&sec>0)PROG.start5kSec=sec;
   if(weeksSelect){const w=parseInt(weeksSelect.value);if(w&&w>=4)PROG.totalWeeks=w}
   PROG.startDate=thisMondayISO();saveProg();
   toast('✓ Programmet startet');
@@ -1372,6 +1495,11 @@ function rGraph(){
     }
     h+=`</div></div>`;
   });
+
+  // Volumen og streak nederst
+  h+=rVolume();
+  h+=rStreak();
+
   return h;
 }
 
@@ -1381,7 +1509,7 @@ function rGraph(){
 let bodyWeek=null; // tracks which week is selected in body view
 
 function rBody(){
-  if(bodyWeek===null)bodyWeek=Math.min(currentWeek(),8)||1;
+  if(bodyWeek===null)bodyWeek=Math.min(currentWeek(),TW())||1;
   const bw=bodyWeek;
   const bd=BODY[bw]||{};
   const prevBd=bw>1?BODY[bw-1]||{}:{};
@@ -1465,13 +1593,16 @@ function rBody(){
   // Photo comparison: week 1 vs current
   h+=rBodyCompare();
 
+  // Photo gallery (all weeks)
+  h+=rPhotoGallery();
+
   // Data summary
   h+=`<div class="tip">💡 <b>Tip:</b> Vej dig og tag billede samme dag hver uge — gerne om morgenen, fastende. Fedtprocent kan aflæses fra din smarte vægt, eller vurderes visuelt.</div>`;
 
   return h;
 }
 
-function bodyNav(dir){bodyWeek=Math.max(1,Math.min(8,bodyWeek+dir));render()}
+function bodyNav(dir){bodyWeek=Math.max(1,Math.min(TW(),bodyWeek+dir));render()}
 
 function bodySetField(w,field,val){
   if(!BODY[w])BODY[w]={};
@@ -1658,7 +1789,8 @@ function rInfo(){
     <div class="backup-title">💾 Backup & gendan</div>
     <div class="backup-sub">Download alle dine data som JSON-fil. Hvis Safari-cachen ryddes eller du skifter telefon, kan du importere filen og få det hele tilbage.</div>
     <div class="backup-btns">
-      <button class="prog-btn" onclick="exportData()">⬇ Download backup</button>
+      <button class="prog-btn" onclick="exportData()">⬇ JSON backup</button>
+      <button class="prog-btn ghost" onclick="exportCSV()">📊 CSV eksport</button>
       <label class="prog-btn ghost" for="importFile">⬆ Importér</label>
       <input type="file" id="importFile" accept=".json,application/json" onchange="importData(this)">
     </div>
@@ -2370,6 +2502,7 @@ function showPRCelebration(){
   el.classList.remove('show');
   void el.offsetWidth;
   el.classList.add('show');
+  fireConfetti();
   try{navigator.vibrate&&navigator.vibrate([100,50,100,50,200])}catch(e){}
   setTimeout(()=>el.classList.remove('show'),1200);
 }
@@ -2468,50 +2601,72 @@ function getRestTypeForSuperset(dayFull,exIdx,exType){
 function renderPaceCalc(){
   return `<div class="pace-calc">
     <div class="pace-calc-title">🧮 Pace-kalkulator</div>
-    <div class="pace-calc-row">
+    <div class="pace-calc-row" style="grid-template-columns:1fr 1.4fr 1.4fr">
       <div class="pace-calc-field">
         <label>Distance</label>
-        <input type="number" inputmode="decimal" step="0.1" placeholder="5.0" id="pcDist" value="5" oninput="calcPace()">
+        <input type="number" inputmode="decimal" step="0.1" placeholder="5" id="pcDist" value="5" oninput="calcPace()">
+        <div style="font-size:8px;color:var(--mut2);font-family:'DM Mono',monospace;margin-top:4px">km</div>
       </div>
       <div class="pace-calc-field">
-        <label>Tid (min:sek)</label>
-        <input type="text" inputmode="decimal" placeholder="30:00" id="pcTime" oninput="calcPace()">
+        <label>Tid</label>
+        <div style="display:flex;align-items:center;gap:4px;justify-content:center">
+          <input type="number" inputmode="numeric" min="0" max="999" placeholder="30" id="pcTimeMin" oninput="calcPace()" style="width:48px" onfocus="this.select()">
+          <span style="color:var(--mut);font-weight:600">:</span>
+          <input type="number" inputmode="numeric" min="0" max="59" placeholder="00" id="pcTimeSec" oninput="calcPace()" style="width:48px" onfocus="this.select()">
+        </div>
+        <div style="font-size:8px;color:var(--mut2);font-family:'DM Mono',monospace;margin-top:4px">min : sek</div>
       </div>
       <div class="pace-calc-field">
         <label>Pace /km</label>
-        <input type="text" inputmode="decimal" placeholder="6:00" id="pcPace" oninput="calcPaceReverse()">
+        <div style="display:flex;align-items:center;gap:4px;justify-content:center">
+          <input type="number" inputmode="numeric" min="0" max="30" placeholder="6" id="pcPaceMin" oninput="calcPaceReverse()" style="width:48px" onfocus="this.select()">
+          <span style="color:var(--mut);font-weight:600">:</span>
+          <input type="number" inputmode="numeric" min="0" max="59" placeholder="00" id="pcPaceSec" oninput="calcPaceReverse()" style="width:48px" onfocus="this.select()">
+        </div>
+        <div style="font-size:8px;color:var(--mut2);font-family:'DM Mono',monospace;margin-top:4px">min : sek</div>
       </div>
     </div>
-    <div class="pace-calc-result" id="pcResult">Indtast tid eller pace for at beregne</div>
+    <div class="pace-calc-result" id="pcResult">Indtast tid eller pace</div>
   </div>`;
 }
 
+function readMinSec(minId,secId){
+  const m=parseInt(document.getElementById(minId)?.value);
+  const s=parseInt(document.getElementById(secId)?.value)||0;
+  if(isNaN(m)||m<0)return null;
+  return m*60+Math.min(Math.max(s,0),59);
+}
+function setMinSec(minId,secId,totalSec){
+  const m=Math.floor(totalSec/60),s=Math.round(totalSec%60);
+  const minEl=document.getElementById(minId),secEl=document.getElementById(secId);
+  if(minEl&&document.activeElement!==minEl)minEl.value=m;
+  if(secEl&&document.activeElement!==secEl)secEl.value=String(s).padStart(2,'0');
+}
+
 function calcPace(){
-  const dist=parseFloat(document.getElementById('pcDist')?.value);
-  const timeStr=document.getElementById('pcTime')?.value;
-  const totalSec=parseSec(timeStr);
-  if(!dist||!totalSec||dist<=0)return;
-  const paceSec=Math.round(totalSec/dist);
-  const paceStr=fmtSec(paceSec);
-  const pcPace=document.getElementById('pcPace');
-  if(pcPace)pcPace.value=paceStr;
-  const kmh=Math.round(dist/(totalSec/3600)*10)/10;
   const result=document.getElementById('pcResult');
-  if(result)result.textContent=`${paceStr} /km · ${kmh} km/t`;
+  if(!result)return;
+  const dist=parseFloat(document.getElementById('pcDist')?.value);
+  const totalSec=readMinSec('pcTimeMin','pcTimeSec');
+  if(!dist||dist<=0){result.textContent='Indtast en gyldig distance';return}
+  if(!totalSec||totalSec<=0){result.textContent='Indtast tid (min + sek)';return}
+  const paceSec=Math.round(totalSec/dist);
+  setMinSec('pcPaceMin','pcPaceSec',paceSec);
+  const kmh=Math.round(dist/(totalSec/3600)*10)/10;
+  result.textContent=`${fmtSec(paceSec)} /km · ${kmh} km/t · ${fmtSec(totalSec)} total`;
 }
 
 function calcPaceReverse(){
-  const dist=parseFloat(document.getElementById('pcDist')?.value);
-  const paceStr=document.getElementById('pcPace')?.value;
-  const paceSec=parseSec(paceStr);
-  if(!dist||!paceSec||dist<=0)return;
-  const totalSec=Math.round(paceSec*dist);
-  const timeStr=fmtSec(totalSec);
-  const pcTime=document.getElementById('pcTime');
-  if(pcTime)pcTime.value=timeStr;
-  const kmh=Math.round(3600/paceSec*10)/10;
   const result=document.getElementById('pcResult');
-  if(result)result.textContent=`${timeStr} total · ${kmh} km/t`;
+  if(!result)return;
+  const dist=parseFloat(document.getElementById('pcDist')?.value);
+  const paceSec=readMinSec('pcPaceMin','pcPaceSec');
+  if(!dist||dist<=0){result.textContent='Indtast en gyldig distance';return}
+  if(!paceSec||paceSec<=0){result.textContent='Indtast pace (min + sek)';return}
+  const totalSec=Math.round(paceSec*dist);
+  setMinSec('pcTimeMin','pcTimeSec',totalSec);
+  const kmh=Math.round(3600/paceSec*10)/10;
+  result.textContent=`${fmtSec(totalSec)} total · ${kmh} km/t · ${fmtSec(paceSec)} /km`;
 }
 
 /* ═══════════════════════════════════════════════════════════ */
@@ -2553,6 +2708,385 @@ function importData(input){
     }
   };
   reader.readAsText(file);
+}
+
+/* ═══════════════════════════════════════════════════════════ */
+/* ── SETTINGS MODAL ────────────────────────────────────────── */
+/* ═══════════════════════════════════════════════════════════ */
+function openSettingsModal(){
+  const m=document.getElementById('modal');
+  const initSec=PROG.start5kSec||2100;
+  const initMin=Math.floor(initSec/60),initSecRem=initSec%60;
+  const tw=TW();
+  m.innerHTML=`<div class="modal" onclick="event.stopPropagation()" style="max-width:440px">
+    <div class="modal-title">⚙️ Indstillinger</div>
+    <div class="modal-sub">Tilpas program-mål og varighed</div>
+
+    <div class="ai-field">
+      <label>🏃 5km starttid</label>
+      <div style="display:flex;align-items:center;gap:6px;justify-content:flex-start">
+        <input type="number" inputmode="numeric" min="0" max="120" id="setMin" value="${initMin}" style="width:80px;text-align:center" onfocus="this.select()" oninput="updateSettingsPreview()">
+        <span style="font-size:20px;color:var(--mut);font-weight:600">:</span>
+        <input type="number" inputmode="numeric" min="0" max="59" id="setSec" value="${String(initSecRem).padStart(2,'0')}" style="width:80px;text-align:center" onfocus="this.select()" oninput="updateSettingsPreview()">
+        <span style="font-size:11px;color:var(--mut);font-family:'DM Mono',monospace;margin-left:4px">min : sek</span>
+      </div>
+    </div>
+
+    <div class="ai-field">
+      <label>📅 Antal uger</label>
+      <select id="setWeeks" oninput="updateSettingsPreview()">
+        ${[6,8,10,12,16].map(w=>`<option value="${w}"${w===tw?' selected':''}>${w} uger</option>`).join('')}
+      </select>
+    </div>
+
+    <div class="ai-field">
+      <label>📆 Startdato</label>
+      <input type="date" id="setDate" value="${PROG.startDate||thisMondayISO()}">
+    </div>
+
+    <div id="setPreview" style="background:var(--bg2);border:1px solid var(--bdr);border-radius:var(--r2);padding:12px 16px;margin-bottom:16px;text-align:center">
+      <div style="font-size:9px;color:var(--mut);font-family:'DM Mono',monospace;letter-spacing:1px;margin-bottom:4px">BEREGNET MÅL</div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:24px;color:var(--grn)">&lt;${fmtSec(goal5kSec())}</div>
+    </div>
+
+    <div style="display:flex;gap:8px">
+      <button class="prog-btn" style="flex:1" onclick="saveSettingsModal()">✓ Gem ændringer</button>
+      <button class="prog-btn ghost" onclick="closeModal()">Annullér</button>
+    </div>
+  </div>`;
+  m.classList.add('show');
+}
+
+function updateSettingsPreview(){
+  const min=parseInt(document.getElementById('setMin')?.value);
+  const sec=parseInt(document.getElementById('setSec')?.value)||0;
+  const weeks=parseInt(document.getElementById('setWeeks')?.value);
+  if(!isNaN(min)&&min>0){
+    const tot=min*60+Math.min(sec,59);
+    const goal=Math.round(tot*(1-Math.min(0.30,0.02*weeks)));
+    const p=document.getElementById('setPreview');
+    if(p)p.innerHTML=`<div style="font-size:9px;color:var(--mut);font-family:'DM Mono',monospace;letter-spacing:1px;margin-bottom:4px">BEREGNET MÅL</div><div style="font-family:'Bebas Neue',sans-serif;font-size:24px;color:var(--grn)">&lt;${fmtSec(goal)}</div><div style="font-size:10px;color:var(--mut);font-family:'DM Mono',monospace;margin-top:3px">${fmtSec(tot)} → ${fmtSec(goal)} på ${weeks} uger</div>`;
+  }
+}
+
+function saveSettingsModal(){
+  const min=parseInt(document.getElementById('setMin')?.value);
+  const sec=parseInt(document.getElementById('setSec')?.value)||0;
+  const weeks=parseInt(document.getElementById('setWeeks')?.value);
+  const date=document.getElementById('setDate')?.value;
+  if(!isNaN(min)&&min>0)PROG.start5kSec=min*60+Math.min(sec,59);
+  if(weeks&&weeks>=4)PROG.totalWeeks=weeks;
+  if(date)PROG.startDate=date;
+  saveProg();
+  closeModal();
+  toast('✓ Indstillinger gemt');
+  render();
+}
+
+/* ═══════════════════════════════════════════════════════════ */
+/* ── EXERCISE NOTES ────────────────────────────────────────── */
+/* ═══════════════════════════════════════════════════════════ */
+function getExerciseNote(week,day,name){
+  return W[ek(week,day,name)+'__note']||'';
+}
+function setExerciseNote(week,day,name,val){
+  W[ek(week,day,name)+'__note']=val;save();
+}
+function toggleNote(key){
+  selExRow=selExRow==='note__'+key?null:'note__'+key;
+  render();
+}
+function renderNotePopup(week,day,name){
+  const note=getExerciseNote(week,day,name);
+  return `<div class="note-popup">
+    <textarea rows="2" placeholder="Hvordan føltes det? Form, smerter, observationer…" 
+      onchange="setExerciseNote(${week},'${escAttr(day)}','${escAttr(name)}',this.value);toast('✓ Note gemt')"
+      onfocus="this.select()">${escHtml(note)}</textarea>
+  </div>`;
+}
+
+/* ═══════════════════════════════════════════════════════════ */
+/* ── ESTIMATED 1RM (Epley formula) ─────────────────────────── */
+/* ═══════════════════════════════════════════════════════════ */
+function estimate1RM(weight,reps){
+  if(!weight||!reps||weight<=0||reps<=0)return 0;
+  return Math.round(weight*(1+reps/30));
+}
+function estimateExercise1RM(week,day,name,e){
+  const w=maxW(gw(week,day,name));
+  if(isNaN(w)||w<=0)return null;
+  // Use upper rep bound from current phase
+  const sr=exSR(e,week);
+  const repStr=String(sr.r);
+  const upperRep=parseInt(repStr.split('–').pop())||parseInt(repStr)||10;
+  return estimate1RM(w,upperRep);
+}
+
+/* ═══════════════════════════════════════════════════════════ */
+/* ── CONFETTI ──────────────────────────────────────────────── */
+/* ═══════════════════════════════════════════════════════════ */
+function fireConfetti(){
+  const cont=document.getElementById('confetti');
+  if(!cont)return;
+  cont.classList.add('show');
+  cont.innerHTML='';
+  const colors=['#ffd60a','#0a84ff','#30d158','#ff453a','#bf5af2','#ff6f40'];
+  for(let i=0;i<40;i++){
+    const el=document.createElement('div');
+    el.className='cf';
+    el.style.left=Math.random()*100+'%';
+    el.style.background=colors[Math.floor(Math.random()*colors.length)];
+    el.style.animationDelay=(Math.random()*.3)+'s';
+    el.style.animationDuration=(1.2+Math.random()*1)+'s';
+    cont.appendChild(el);
+  }
+  setTimeout(()=>{cont.classList.remove('show');cont.innerHTML=''},2400);
+}
+
+/* ═══════════════════════════════════════════════════════════ */
+/* ── VOLUME TRACKING ───────────────────────────────────────── */
+/* ═══════════════════════════════════════════════════════════ */
+// Map exercise names to muscle groups
+const MUSCLE_MAP={
+  // Bryst
+  "Bænkpres (flad)":"chest","Incline Bænkpres":"chest","Decline Bænkpres":"chest","Dumbbell Press":"chest","Incline DB Press":"chest","Dumbbell Flyes":"chest","Cable Flyes":"chest","Push-ups":"chest","Dips (bryst)":"chest","Pec Deck":"chest","Close-Grip Bench":"chest",
+  // Ryg
+  "Bent-over Rows":"back","Pullups":"back","Pullups / Lat Pulldown":"back","Lat Pulldown":"back","Pendlay Row":"back","Seated Cable Row":"back","Kabel Rows":"back","T-Bar Row":"back","Dumbbell Row":"back","Deadlift":"back","Rack Pull":"back","Inverted Row":"back","Face Pull":"back","Facepulls":"back","Shrugs":"back","Underhaands Pulldown":"back",
+  // Skuldre
+  "Overhead Press":"shoulders","DB Shoulder Press":"shoulders","Arnold Press":"shoulders","Lateral Raise":"shoulders","Front Raise":"shoulders","Reverse Flyes":"shoulders","Cable Lateral Raise":"shoulders","Upright Row":"shoulders",
+  // Ben
+  "Squat":"legs","Front Squat":"legs","Hack Squat":"legs","Hack Squat / Benpres":"legs","Leg Press":"legs","Romanian Deadlift":"legs","Sumo Deadlift":"legs","Walking Lunges":"legs","Bulgarian Split Squat":"legs","Goblet Squat":"legs","Leg Curl":"legs","Leg Curl (siddende)":"legs","Leg Curl (liggende)":"legs","Leg Extension":"legs","Hip Thrust":"legs","Glute Bridge":"legs","Calf Raises":"legs","Calf Raises (stående)":"legs","Calf Raises (siddende)":"legs","Tibialis Raises":"legs",
+  // Arme
+  "Biceps Curl (stang)":"arms","Biceps Curl (DB)":"arms","Biceps Curl (kabel)":"arms","Hammer Curl":"arms","Cable Curl":"arms","Preacher Curl":"arms","Concentration Curl":"arms","Triceps Pushdown":"arms","Overhead Tri Extension":"arms","Skull Crushers":"arms","Dips (triceps)":"arms"
+};
+const MUSCLE_INFO={
+  chest:{n:"Bryst",c:"#0a84ff",emo:"💪"},
+  back:{n:"Ryg",c:"#bf5af2",emo:"🔙"},
+  legs:{n:"Ben",c:"#ff6f40",emo:"🦵"},
+  shoulders:{n:"Skuldre",c:"#30d158",emo:"🏔️"},
+  arms:{n:"Arme",c:"#ff453a",emo:"💥"}
+};
+
+function calcWeeklyVolume(w){
+  // returns {muscle: totalVolume}
+  const vol={chest:0,back:0,legs:0,shoulders:0,arms:0};
+  D.filter(d=>d.ex).forEach(d=>{
+    dayEx(d).filter(e=>!e.core).forEach(e=>{
+      const muscle=MUSCLE_MAP[e.n];
+      if(!muscle)return;
+      const arr=parseW(gw(w,d.full,e.n));
+      if(!arr.length)return;
+      const sr=exSR(e,w);
+      const repStr=String(sr.r);
+      // Use middle of rep range as estimate
+      const reps=repStr.includes('–')?
+        Math.round((parseInt(repStr.split('–')[0])+parseInt(repStr.split('–')[1]))/2):
+        parseInt(repStr)||8;
+      arr.forEach(weight=>{vol[muscle]+=weight*reps});
+    });
+  });
+  return vol;
+}
+
+function rVolume(){
+  const cw=Math.min(currentWeek(),TW());
+  const vol=calcWeeklyVolume(cw);
+  const total=Object.values(vol).reduce((a,b)=>a+b,0);
+  if(total===0)return '';
+  const max=Math.max(...Object.values(vol));
+  let h=`<div class="vol-section">
+    <div class="vol-title">📊 Volumen denne uge</div>
+    <div class="vol-sub">Estimeret tonnage (sæt × reps × kg) per muskelgruppe</div>
+    <div class="vol-bars">`;
+  Object.entries(vol).filter(([k,v])=>v>0).sort((a,b)=>b[1]-a[1]).forEach(([k,v])=>{
+    const info=MUSCLE_INFO[k];
+    const pct=Math.round(v/max*100);
+    h+=`<div class="vol-bar-row">
+      <div class="vol-bar-label">${info.emo} ${info.n}</div>
+      <div class="vol-bar-track">
+        <div class="vol-bar-fill" style="width:${pct}%;background:${info.c}"></div>
+      </div>
+      <div class="vol-bar-val">${Math.round(v).toLocaleString('da-DK')} kg</div>
+    </div>`;
+  });
+  h+=`</div></div>`;
+  return h;
+}
+
+/* ═══════════════════════════════════════════════════════════ */
+/* ── STREAK HEATMAP ────────────────────────────────────────── */
+/* ═══════════════════════════════════════════════════════════ */
+function rStreak(){
+  if(!PROG.startDate)return '';
+  const start=new Date(PROG.startDate+'T00:00:00');
+  const today=new Date();today.setHours(0,0,0,0);start.setHours(0,0,0,0);
+  const totalDays=TW()*7;
+  const todayIdx=Math.floor((today-start)/(86400000));
+
+  // Per uge: tæl hvor mange dage med data
+  const dayMap={};// dayIdx → entries count
+  for(let w=1;w<=TW();w++){
+    D.forEach((d,di)=>{
+      const exs=dayEx(d);
+      let hasData=false;
+      if(exs){hasData=exs.some(e=>gw(w,d.full,e.n))}
+      else if(d.run){hasData=['tid','pace','km'].some(k=>gw(w,d.full,k))}
+      if(hasData){
+        const dayIdx=(w-1)*7+di;
+        dayMap[dayIdx]=(dayMap[dayIdx]||0)+1;
+      }
+    });
+  }
+
+  // Beregn streak (lange og nuværende)
+  let curStreak=0,bestStreak=0,running=0;
+  const trainingDays=[0,2,4,5]; // mandag, onsdag, torsdag(?), lørdag — alle ikke-løb dage med ex
+  // Faktisk lad os tælle om man har trænet på dage hvor man skulle
+  for(let i=0;i<=Math.min(todayIdx,totalDays-1);i++){
+    if(dayMap[i]){running++;bestStreak=Math.max(bestStreak,running)}
+    else{running=0}
+  }
+  curStreak=running;
+
+  let h=`<div class="streak-section">
+    <div class="streak-title">🔥 Konsistens</div>
+    <div class="streak-sub">
+      <div>Nuværende streak: <span class="streak-stat">${curStreak} ${curStreak===1?'dag':'dage'}</span></div>
+      <div>Bedste: <span class="streak-stat">${bestStreak} ${bestStreak===1?'dag':'dage'}</span></div>
+    </div>
+    <div class="streak-grid">
+      <div class="streak-day-label"></div>
+      <div class="streak-day-label">M</div>
+      <div class="streak-day-label">T</div>
+      <div class="streak-day-label">O</div>
+      <div class="streak-day-label">T</div>
+      <div class="streak-day-label">F</div>
+      <div class="streak-day-label">L</div>
+      <div class="streak-day-label">S</div>`;
+  for(let w=0;w<TW();w++){
+    h+=`<div class="streak-day-label">U${w+1}</div>`;
+    for(let di=0;di<7;di++){
+      const idx=w*7+di;
+      const cnt=dayMap[idx]||0;
+      const isFuture=idx>todayIdx;
+      const isToday=idx===todayIdx;
+      let cls='streak-cell';
+      if(isFuture)cls+=' future';
+      else if(cnt>=3)cls+=' l4';
+      else if(cnt===2)cls+=' l3';
+      else if(cnt===1)cls+=' l1';
+      if(isToday)cls+=' today';
+      h+=`<div class="${cls}" title="${D[di].full} uge ${w+1}${cnt?' · '+cnt+' øvelser':''}"></div>`;
+    }
+  }
+  h+=`</div>
+    <div class="streak-legend">
+      <span>Mindre</span>
+      <div class="streak-legend-cells">
+        <div style="background:var(--bg3)"></div>
+        <div style="background:rgba(255,214,10,.18)"></div>
+        <div style="background:rgba(255,214,10,.4)"></div>
+        <div style="background:rgba(255,214,10,.7)"></div>
+        <div style="background:var(--acc)"></div>
+      </div>
+      <span>Mere</span>
+    </div>
+  </div>`;
+  return h;
+}
+
+/* ═══════════════════════════════════════════════════════════ */
+/* ── PHOTO GALLERY ─────────────────────────────────────────── */
+/* ═══════════════════════════════════════════════════════════ */
+let galleryOpen=false;
+function toggleGallery(){galleryOpen=!galleryOpen;render();}
+
+function rPhotoGallery(){
+  const weeks=[];
+  for(let w=1;w<=TW();w++){if(BODY[w]?.photoBody||BODY[w]?.photoScale)weeks.push(w)}
+  if(weeks.length===0)return '';
+  let h=`<div class="gallery-toggle">
+    <button class="prog-btn ghost" onclick="toggleGallery()">${galleryOpen?'▴ Skjul':'🖼️ Se alle billeder ('+weeks.length+')'}</button>
+  </div>`;
+  if(galleryOpen){
+    h+=`<div class="gallery-grid">`;
+    weeks.forEach(w=>{
+      const b=BODY[w];
+      const photo=b.photoBody||b.photoScale;
+      const stats=[b.kg?b.kg+'kg':'',b.fat?b.fat+'%':''].filter(Boolean).join(' · ');
+      h+=`<div class="gallery-item" onclick="bodyWeek=${w};galleryOpen=false;render()">
+        <img src="${photo}" alt="Uge ${w}">
+        <div class="gal-week">UGE ${w}</div>
+        ${stats?`<div class="gal-stats">${stats}</div>`:''}
+      </div>`;
+    });
+    h+=`</div>`;
+  }
+  return h;
+}
+
+/* ═══════════════════════════════════════════════════════════ */
+/* ── WORKOUT TIMER ─────────────────────────────────────────── */
+/* ═══════════════════════════════════════════════════════════ */
+let workoutStart=null,workoutTimerInterval=null,workoutLastActivity=0;
+
+function startWorkoutTimer(){
+  if(workoutStart)return;
+  workoutStart=Date.now();
+  workoutLastActivity=Date.now();
+  workoutTimerInterval=setInterval(updateWorkoutTimerDisplay,1000);
+  updateWorkoutTimerDisplay();
+}
+function bumpWorkoutActivity(){
+  workoutLastActivity=Date.now();
+  if(!workoutStart)startWorkoutTimer();
+}
+function updateWorkoutTimerDisplay(){
+  const el=document.getElementById('workoutTimer');
+  if(!el||!workoutStart)return;
+  const sec=Math.floor((Date.now()-workoutStart)/1000);
+  const m=Math.floor(sec/60),s=sec%60;
+  el.querySelector('.wt-time').textContent=m+':'+String(s).padStart(2,'0');
+  // Auto-stop hvis ingen aktivitet i 30 min
+  if(Date.now()-workoutLastActivity>30*60*1000){
+    stopWorkoutTimer();
+  }
+}
+function stopWorkoutTimer(){
+  clearInterval(workoutTimerInterval);
+  workoutStart=null;
+  const el=document.getElementById('workoutTimer');
+  if(el)el.style.display='none';
+}
+
+/* ═══════════════════════════════════════════════════════════ */
+/* ── CSV EXPORT ────────────────────────────────────────────── */
+/* ═══════════════════════════════════════════════════════════ */
+function exportCSV(){
+  const rows=[['Uge','Dag','Øvelse','Vægt(max kg)','Sæt-for-sæt','Type','Note']];
+  for(let w=1;w<=TW();w++){
+    D.filter(d=>d.ex).forEach(d=>{
+      dayEx(d).forEach(e=>{
+        const v=gw(w,d.full,e.n);
+        if(!v)return;
+        const note=getExerciseNote(w,d.full,e.n);
+        rows.push([w,d.full,e.n,maxW(v)||'',v,e.k||'c',note.replace(/[\r\n]/g,' ')]);
+      });
+    });
+    D.filter(d=>d.run).forEach(d=>{
+      const tid=gw(w,d.full,'tid'),pace=gw(w,d.full,'pace'),km=gw(w,d.full,'km'),note=gw(w,d.full,'note');
+      if(tid||pace||km){
+        rows.push([w,d.full,'Løb',tid||'',pace+' /km'+(km?' · '+km+'km':''),'run',(note||'').replace(/[\r\n]/g,' ')]);
+      }
+    });
+  }
+  const csv=rows.map(r=>r.map(c=>'"'+String(c).replace(/"/g,'""')+'"').join(',')).join('\n');
+  const blob=new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url;a.download='traening-'+todayISO()+'.csv';
+  a.click();URL.revokeObjectURL(url);
+  toast('✓ CSV downloadet');
 }
 
 /* ═══════════════════════════════════════════════════════════ */
