@@ -2357,7 +2357,7 @@ function rProfileOnboarding(){
       <div class="pcos-ob-q">🎂 Alder</div>
       <div class="pcos-ob-hint">Restitution og hormonelle behov ændres med alderen.</div>
       <div class="pcos-ob-input-wrap" style="max-width:200px;margin:0 auto">
-        <input type="number" inputmode="numeric" min="14" max="100" placeholder="38" id="profAge"
+        <input type="number" inputmode="numeric" min="14" max="100" placeholder="Alder" id="profAge"
           value="${p.age||''}" oninput="updateProfileLive()" onfocus="this.select()">
         <span class="ob-unit">år</span>
       </div>
@@ -2368,12 +2368,12 @@ function rProfileOnboarding(){
       <div class="pcos-ob-hint">Bruges til BMI og kalorie-beregning. Du kan altid opdatere senere.</div>
       <div class="pcos-ob-bmi">
         <div class="pcos-ob-input-wrap">
-          <input type="number" inputmode="numeric" min="120" max="220" placeholder="175" id="profHeight"
+          <input type="number" inputmode="numeric" min="120" max="220" placeholder="Højde" id="profHeight"
             value="${p.height||''}" oninput="updateProfileLive()" onfocus="this.select()">
           <span class="ob-unit">cm</span>
         </div>
         <div class="pcos-ob-input-wrap">
-          <input type="number" inputmode="decimal" step="0.1" min="30" max="200" placeholder="75" id="profWeight"
+          <input type="number" inputmode="decimal" step="0.1" min="30" max="200" placeholder="Vægt" id="profWeight"
             value="${p.weight||''}" oninput="updateProfileLive()" onfocus="this.select()">
           <span class="ob-unit">kg</span>
         </div>
@@ -2385,7 +2385,7 @@ function rProfileOnboarding(){
       <div class="pcos-ob-q">🎯 Mål-vægt</div>
       <div class="pcos-ob-hint">Hvis relevant. Lader appen tracke fremgang mod et konkret mål. Spring over hvis du ikke har et tal.</div>
       <div class="pcos-ob-input-wrap" style="max-width:200px;margin:0 auto">
-        <input type="number" inputmode="decimal" step="0.1" min="30" max="200" placeholder="—" id="profGoalWeight"
+        <input type="number" inputmode="decimal" step="0.1" min="30" max="200" placeholder="Mål-vægt" id="profGoalWeight"
           value="${p.goalWeight||''}" oninput="updateProfileLive()" onfocus="this.select()">
         <span class="ob-unit">kg</span>
       </div>
@@ -2470,6 +2470,7 @@ function updateProfileLive(){
 function completeProfile(){
   PROFILE.completed=true;
   saveProfile();
+  closeModal();
   toast('✓ Profil gemt — programmet er nu personligt');
   render();
 }
@@ -2478,15 +2479,20 @@ function skipProfile(){
   PROFILE.completed=true;
   PROFILE.skipped=true;
   saveProfile();
+  closeModal();
   render();
 }
 
 function openProfileModal(){
   const m=document.getElementById('modal');
-  m.innerHTML=`<div class="modal" onclick="event.stopPropagation()" style="max-width:480px;max-height:90vh;overflow-y:auto;padding:0">
-    <div style="position:sticky;top:0;background:var(--glass);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);padding:14px 20px;border-bottom:1px solid var(--bdr);z-index:5;display:flex;justify-content:space-between;align-items:center">
+  m.innerHTML=`<div class="modal" onclick="event.stopPropagation()" style="max-width:480px;max-height:90vh;overflow-y:auto;padding:0;position:relative" id="profileModalContent">
+    <div class="modal-grabber" style="position:sticky;top:0;background:var(--glass);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);padding:8px 20px 0;z-index:6;text-align:center;cursor:grab"
+      ontouchstart="modalSwipeStart(event)" ontouchmove="modalSwipeMove(event)" ontouchend="modalSwipeEnd(event)">
+      <div style="width:40px;height:4px;background:var(--bdr);border-radius:2px;margin:0 auto 8px"></div>
+    </div>
+    <div style="position:sticky;top:20px;background:var(--glass);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);padding:6px 20px 14px;border-bottom:1px solid var(--bdr);z-index:5;display:flex;justify-content:space-between;align-items:center">
       <div style="font-family:'Bebas Neue',sans-serif;font-size:18px">👤 Personlig profil</div>
-      <button onclick="closeModal();render()" style="background:none;border:none;color:var(--mut);font-size:18px;cursor:pointer;padding:8px">✕</button>
+      <button onclick="closeModal();render()" style="background:var(--bg2);border:1px solid var(--bdr);color:var(--mut);font-size:18px;cursor:pointer;width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center">✕</button>
     </div>
     ${rProfileOnboarding()}
   </div>`;
@@ -2591,6 +2597,7 @@ function updatePcosOb(){
 function completePcosProfile(){
   PCOS_PROFILE.completed=true;
   savePcosProfile();
+  closeModal();
   toast('✓ Tak — programmet er nu tilpasset dig');
   render();
 }
@@ -2599,15 +2606,20 @@ function skipPcosProfile(){
   PCOS_PROFILE.completed=true;
   PCOS_PROFILE.skipped=true;
   savePcosProfile();
+  closeModal();
   render();
 }
 
 function openPcosProfileModal(){
   const m=document.getElementById('modal');
-  m.innerHTML=`<div class="modal" onclick="event.stopPropagation()" style="max-width:480px;max-height:90vh;overflow-y:auto;padding:0">
-    <div style="position:sticky;top:0;background:var(--glass);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);padding:14px 20px;border-bottom:1px solid var(--bdr);z-index:5;display:flex;justify-content:space-between;align-items:center">
-      <div style="font-family:'Bebas Neue',sans-serif;font-size:18px">PCOS Profil</div>
-      <button onclick="closeModal();render()" style="background:none;border:none;color:var(--mut);font-size:18px;cursor:pointer;padding:8px">✕</button>
+  m.innerHTML=`<div class="modal" onclick="event.stopPropagation()" style="max-width:480px;max-height:90vh;overflow-y:auto;padding:0;position:relative" id="profileModalContent">
+    <div class="modal-grabber" style="position:sticky;top:0;background:var(--glass);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);padding:8px 20px 0;z-index:6;text-align:center;cursor:grab"
+      ontouchstart="modalSwipeStart(event)" ontouchmove="modalSwipeMove(event)" ontouchend="modalSwipeEnd(event)">
+      <div style="width:40px;height:4px;background:var(--bdr);border-radius:2px;margin:0 auto 8px"></div>
+    </div>
+    <div style="position:sticky;top:20px;background:var(--glass);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);padding:6px 20px 14px;border-bottom:1px solid var(--bdr);z-index:5;display:flex;justify-content:space-between;align-items:center">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:18px">🌸 PCOS Profil</div>
+      <button onclick="closeModal();render()" style="background:var(--bg2);border:1px solid var(--bdr);color:var(--mut);font-size:18px;cursor:pointer;width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center">✕</button>
     </div>
     ${rPcosOnboarding()}
   </div>`;
@@ -3522,6 +3534,35 @@ function closeModal(){
   m.innerHTML='';
 }
 
+// Swipe-down-to-dismiss på modaler
+let modalSwipeStartY=null;
+function modalSwipeStart(e){
+  modalSwipeStartY=e.touches[0].clientY;
+  const c=document.getElementById('profileModalContent');
+  if(c)c.style.transition='none';
+}
+function modalSwipeMove(e){
+  if(modalSwipeStartY===null)return;
+  const dy=e.touches[0].clientY-modalSwipeStartY;
+  if(dy<=0)return;
+  const c=document.getElementById('profileModalContent');
+  if(c)c.style.transform='translateY('+dy+'px)';
+}
+function modalSwipeEnd(e){
+  if(modalSwipeStartY===null)return;
+  const c=document.getElementById('profileModalContent');
+  if(!c){modalSwipeStartY=null;return}
+  const dy=(e.changedTouches?.[0]?.clientY||0)-modalSwipeStartY;
+  c.style.transition='transform .25s cubic-bezier(.34,1.56,.64,1)';
+  if(dy>100){
+    c.style.transform='translateY(100vh)';
+    setTimeout(()=>{closeModal();render()},250);
+  }else{
+    c.style.transform='translateY(0)';
+  }
+  modalSwipeStartY=null;
+}
+
 function addCustomEx(libIdx,dayFull){
   const ex=LIB[libIdx];
   if(!ex)return;
@@ -3732,46 +3773,24 @@ function getRestTypeForSuperset(dayFull,exIdx,exType){
 function renderPaceCalc(){
   return `<div class="pace-calc">
     <div class="pace-calc-title">🧮 Pace-kalkulator</div>
-    <div class="pace-calc-row" style="grid-template-columns:1fr 1.4fr 1.4fr">
+    <div class="pace-calc-row" style="grid-template-columns:1fr 1.4fr">
       <div class="pace-calc-field">
         <label>Distance</label>
-        <input type="number" inputmode="decimal" step="0.1" placeholder="5" id="pcDist" value="5" oninput="calcPace()">
+        <input type="number" inputmode="decimal" step="0.1" placeholder="Distance" id="pcDist" oninput="calcPace()" onfocus="this.select()">
         <div style="font-size:8px;color:var(--mut2);font-family:'DM Mono',monospace;margin-top:4px">km</div>
       </div>
       <div class="pace-calc-field">
         <label>Tid</label>
         <div style="display:flex;align-items:center;gap:4px;justify-content:center">
-          <input type="number" inputmode="numeric" min="0" max="999" placeholder="30" id="pcTimeMin" oninput="calcPace()" style="width:48px" onfocus="this.select()">
+          <input type="number" inputmode="numeric" min="0" max="999" placeholder="min" id="pcTimeMin" oninput="calcPace()" style="width:60px" onfocus="this.select()">
           <span style="color:var(--mut);font-weight:600">:</span>
-          <input type="number" inputmode="numeric" min="0" max="59" placeholder="00" id="pcTimeSec" oninput="calcPace()" style="width:48px" onfocus="this.select()">
-        </div>
-        <div style="font-size:8px;color:var(--mut2);font-family:'DM Mono',monospace;margin-top:4px">min : sek</div>
-      </div>
-      <div class="pace-calc-field">
-        <label>Pace /km</label>
-        <div style="display:flex;align-items:center;gap:4px;justify-content:center">
-          <input type="number" inputmode="numeric" min="0" max="30" placeholder="6" id="pcPaceMin" oninput="calcPaceReverse()" style="width:48px" onfocus="this.select()">
-          <span style="color:var(--mut);font-weight:600">:</span>
-          <input type="number" inputmode="numeric" min="0" max="59" placeholder="00" id="pcPaceSec" oninput="calcPaceReverse()" style="width:48px" onfocus="this.select()">
+          <input type="number" inputmode="numeric" min="0" max="59" placeholder="sek" id="pcTimeSec" oninput="calcPace()" style="width:60px" onfocus="this.select()">
         </div>
         <div style="font-size:8px;color:var(--mut2);font-family:'DM Mono',monospace;margin-top:4px">min : sek</div>
       </div>
     </div>
-    <div class="pace-calc-result" id="pcResult">Indtast tid eller pace</div>
+    <div class="pace-calc-result" id="pcResult">Indtast distance + tid → vi beregner pace</div>
   </div>`;
-}
-
-function readMinSec(minId,secId){
-  const m=parseInt(document.getElementById(minId)?.value);
-  const s=parseInt(document.getElementById(secId)?.value)||0;
-  if(isNaN(m)||m<0)return null;
-  return m*60+Math.min(Math.max(s,0),59);
-}
-function setMinSec(minId,secId,totalSec){
-  const m=Math.floor(totalSec/60),s=Math.round(totalSec%60);
-  const minEl=document.getElementById(minId),secEl=document.getElementById(secId);
-  if(minEl&&document.activeElement!==minEl)minEl.value=m;
-  if(secEl&&document.activeElement!==secEl)secEl.value=String(s).padStart(2,'0');
 }
 
 function calcPace(){
@@ -3779,25 +3798,18 @@ function calcPace(){
   if(!result)return;
   const dist=parseFloat(document.getElementById('pcDist')?.value);
   const totalSec=readMinSec('pcTimeMin','pcTimeSec');
-  if(!dist||dist<=0){result.textContent='Indtast en gyldig distance';return}
+  if(!dist||dist<=0){result.textContent='Indtast distance';return}
   if(!totalSec||totalSec<=0){result.textContent='Indtast tid (min + sek)';return}
   const paceSec=Math.round(totalSec/dist);
-  setMinSec('pcPaceMin','pcPaceSec',paceSec);
   const kmh=Math.round(dist/(totalSec/3600)*10)/10;
-  result.textContent=`${fmtSec(paceSec)} /km · ${kmh} km/t · ${fmtSec(totalSec)} total`;
+  result.innerHTML=`<span style="color:var(--grn);font-size:14px;font-weight:600">${fmtSec(paceSec)} /km</span> &nbsp;·&nbsp; ${kmh} km/t`;
 }
 
-function calcPaceReverse(){
-  const result=document.getElementById('pcResult');
-  if(!result)return;
-  const dist=parseFloat(document.getElementById('pcDist')?.value);
-  const paceSec=readMinSec('pcPaceMin','pcPaceSec');
-  if(!dist||dist<=0){result.textContent='Indtast en gyldig distance';return}
-  if(!paceSec||paceSec<=0){result.textContent='Indtast pace (min + sek)';return}
-  const totalSec=Math.round(paceSec*dist);
-  setMinSec('pcTimeMin','pcTimeSec',totalSec);
-  const kmh=Math.round(3600/paceSec*10)/10;
-  result.textContent=`${fmtSec(totalSec)} total · ${kmh} km/t · ${fmtSec(paceSec)} /km`;
+function readMinSec(minId,secId){
+  const m=parseInt(document.getElementById(minId)?.value);
+  const s=parseInt(document.getElementById(secId)?.value)||0;
+  if(isNaN(m)||m<0)return null;
+  return m*60+Math.min(Math.max(s,0),59);
 }
 
 /* ═══════════════════════════════════════════════════════════ */
