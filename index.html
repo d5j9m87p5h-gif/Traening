@@ -2434,13 +2434,16 @@ function removeCustomEx(dayFull,exName){
 let restTimerInterval=null,restTimerEnd=0;
 
 function startRestTimer(exType){
-  // exType: 'c'=compound, 'i'=isolation, 'x'=core
-  const durations={c:150,i:75,x:45}; // sekunder
+  // exType: 'c'=compound (150s), 'i'=isolation (75s), 'x'=core (45s), 'ss'=superset transition (20s)
+  const durations={c:150,i:75,x:45,ss:20};
+  const labels={c:'Pause',i:'Pause',x:'Pause',ss:'Skift øvelse'};
   const secs=durations[exType]||90;
+  const label=labels[exType]||'Pause';
   restTimerEnd=Date.now()+secs*1000;
   const el=document.getElementById('restTimer');
   el.classList.remove('done');
   el.classList.add('show');
+  el.querySelector('.rt-label').textContent=label;
   clearInterval(restTimerInterval);
   restTimerInterval=setInterval(()=>{
     const left=Math.max(0,Math.ceil((restTimerEnd-Date.now())/1000));
@@ -2587,12 +2590,12 @@ function isSupersetPartner(dayFull,idx){
 }
 
 function getRestTypeForSuperset(dayFull,exIdx,exType){
-  // If in superset, only start timer after the SECOND exercise in the pair
+  // Superset: kort 20-sek "skift øvelse"-pause for første i par, normal pause efter andet
   const pairs=SUPERSETS[dayFull]||[];
   const pair=pairs.find(p=>p[0]===exIdx||p[1]===exIdx);
-  if(!pair)return exType; // normal timer
-  if(pair[1]===exIdx)return exType; // second in pair → start timer
-  return null; // first in pair → no timer yet
+  if(!pair)return exType; // ikke i superset → normal pause
+  if(pair[1]===exIdx)return exType; // andet i par → normal pause
+  return 'ss'; // første i par → kort overgangs-pause
 }
 
 /* ═══════════════════════════════════════════════════════════ */
