@@ -541,6 +541,84 @@ input[type=file]{display:none}
 /* ══ TOOLTIP ══ */
 #chartTooltip{position:fixed;background:var(--glass);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border:1px solid var(--bdr);color:var(--txt);font-family:'DM Mono',monospace;font-size:11px;padding:6px 10px;border-radius:8px;pointer-events:none;z-index:1000;display:none;white-space:nowrap;box-shadow:0 4px 16px rgba(0,0,0,.4)}
 #chartTooltip.show{display:block;animation:fi .15s ease}
+
+/* ══ TEMPLATE CHOOSER ══ */
+.tpl-chooser{padding:24px 16px;animation:fi .3s ease}
+.tpl-eyebrow{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:3px;color:var(--acc);text-transform:uppercase;text-align:center;margin-bottom:6px}
+.tpl-h1{font-family:'Bebas Neue',sans-serif;font-size:36px;letter-spacing:1px;text-align:center;margin-bottom:8px;line-height:1}
+.tpl-sub{font-size:13px;color:var(--mut);font-family:'DM Mono',monospace;text-align:center;margin-bottom:32px;line-height:1.5}
+.tpl-card{background:var(--bg1);border:2px solid var(--bdr);border-radius:var(--r);padding:18px;margin-bottom:12px;cursor:pointer;transition:all .2s var(--ease);display:grid;grid-template-columns:54px 1fr auto;gap:14px;align-items:center}
+.tpl-card:active{transform:scale(.98)}
+.tpl-card:hover{border-color:var(--tc);background:var(--bg2)}
+.tpl-card.cur{border-color:var(--tc);background:var(--bg2);box-shadow:0 0 0 3px color-mix(in srgb,var(--tc) 20%,transparent)}
+.tpl-emo{width:54px;height:54px;border-radius:50%;background:color-mix(in srgb,var(--tc) 15%,transparent);display:flex;align-items:center;justify-content:center;font-size:28px}
+.tpl-info .tpl-name{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:.5px;line-height:1.1;margin-bottom:2px}
+.tpl-info .tpl-meta{font-size:11px;font-family:'DM Mono',monospace;color:var(--mut2);margin-bottom:6px;letter-spacing:.5px}
+.tpl-info .tpl-desc{font-size:12px;color:var(--mut);line-height:1.5}
+.tpl-arr{color:var(--tc);font-size:20px;opacity:.6}
+.tpl-card.cur .tpl-arr{opacity:1}
+.tpl-current-tag{font-family:'DM Mono',monospace;font-size:8px;font-weight:700;letter-spacing:1.5px;background:var(--acc);color:#000;padding:3px 8px;border-radius:100px;display:inline-block;margin-left:8px;vertical-align:middle}
+
+/* ══ STEPS WIDGET (PCOS) ══ */
+.steps-widget{background:linear-gradient(135deg,rgba(255,111,168,.12),rgba(10,132,255,.08));border:1.5px solid rgba(255,111,168,.3);border-radius:var(--r);padding:18px;margin-bottom:16px}
+.steps-widget-row{display:flex;align-items:center;gap:14px}
+.steps-icon{width:54px;height:54px;border-radius:50%;background:rgba(255,111,168,.18);display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0}
+.steps-content{flex:1}
+.steps-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--mut);text-transform:uppercase;margin-bottom:4px}
+.steps-value{display:flex;align-items:baseline;gap:6px}
+.steps-value input{width:90px;background:transparent;border:none;color:var(--txt);font-family:'Bebas Neue',sans-serif;font-size:32px;font-weight:600;outline:none;padding:0;letter-spacing:.5px}
+.steps-value input:focus{color:#ff6fa8}
+.steps-goal{font-size:13px;color:var(--mut);font-family:'DM Mono',monospace}
+.steps-bar{height:6px;background:var(--bg3);border-radius:6px;margin-top:10px;overflow:hidden}
+.steps-bar-fill{height:100%;background:linear-gradient(90deg,#ff6fa8,#0a84ff);border-radius:6px;transition:width .6s var(--ease)}
+.steps-status{font-size:10px;font-family:'DM Mono',monospace;margin-top:6px;letter-spacing:.5px}
+
+/* ══ CYCLE TRACKER ══ */
+.cycle-section{background:var(--bg1);border:1px solid var(--bdr);border-radius:var(--r);padding:18px;margin-bottom:16px}
+.cycle-title{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:.5px;margin-bottom:4px}
+.cycle-sub{font-size:11px;color:var(--mut);font-family:'DM Mono',monospace;margin-bottom:14px}
+.cycle-phases{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:12px}
+@media(min-width:480px){.cycle-phases{grid-template-columns:repeat(4,1fr)}}
+.cycle-phase{padding:12px 8px;border:1.5px solid var(--bdr);border-radius:var(--r2);background:var(--bg2);text-align:center;cursor:pointer;transition:all .2s var(--ease);min-height:60px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px}
+.cycle-phase:active{transform:scale(.95)}
+.cycle-phase.on{background:rgba(255,111,168,.15);border-color:#ff6fa8;color:#ff6fa8}
+.cycle-phase .cp-emo{font-size:18px}
+.cycle-phase .cp-name{font-family:'DM Mono',monospace;font-size:9px;font-weight:600;letter-spacing:.5px;text-transform:uppercase}
+
+/* ══ MEDICAL DISCLAIMER ══ */
+.med-disclaimer{background:rgba(255,69,58,.08);border:1px solid rgba(255,69,58,.25);border-radius:var(--r2);padding:12px 14px;margin-bottom:16px;display:flex;gap:10px;align-items:flex-start}
+.med-disclaimer-icon{font-size:18px;line-height:1.3;flex-shrink:0}
+.med-disclaimer-text{font-size:11px;color:var(--mut);line-height:1.5}
+.med-disclaimer-text b{color:#ff453a;font-weight:600}
+
+/* ══ PCOS ONBOARDING ══ */
+.pcos-ob{padding:20px 16px;animation:fi .3s ease}
+.pcos-ob-eyebrow{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:3px;color:#ff6fa8;text-transform:uppercase;text-align:center;margin-bottom:6px}
+.pcos-ob-h1{font-family:'Bebas Neue',sans-serif;font-size:30px;letter-spacing:1px;text-align:center;margin-bottom:8px;line-height:1.1}
+.pcos-ob-sub{font-size:13px;color:var(--mut);font-family:'DM Mono',monospace;text-align:center;margin-bottom:24px;line-height:1.5;padding:0 8px}
+.pcos-ob-card{background:var(--bg1);border:1px solid var(--bdr);border-radius:var(--r);padding:18px;margin-bottom:14px;box-shadow:var(--shadow)}
+.pcos-ob-q{font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:.5px;margin-bottom:6px}
+.pcos-ob-hint{font-size:11px;color:var(--mut2);font-family:'DM Mono',monospace;margin-bottom:12px;line-height:1.5}
+.pcos-ob-bmi{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.pcos-ob-input-wrap{position:relative}
+.pcos-ob-input-wrap input{width:100%;background:var(--bg2);border:1.5px solid var(--bdr);color:var(--txt);font-family:'DM Mono',monospace;font-size:18px;padding:12px 14px;padding-right:36px;border-radius:var(--r2);outline:none;text-align:center;min-height:48px;font-weight:500;transition:border-color .2s}
+.pcos-ob-input-wrap input:focus{border-color:#ff6fa8}
+.pcos-ob-input-wrap .ob-unit{position:absolute;right:12px;top:50%;transform:translateY(-50%);font-size:11px;color:var(--mut2);font-family:'DM Mono',monospace;pointer-events:none}
+.pcos-ob-bmi-result{margin-top:10px;padding:10px 14px;border-radius:var(--r2);background:var(--bg2);text-align:center;font-family:'DM Mono',monospace;font-size:12px;color:var(--mut)}
+.pcos-ob-bmi-result.lean{background:rgba(48,209,88,.1);color:#30d158}
+.pcos-ob-bmi-result.normal{background:rgba(10,132,255,.1);color:#0a84ff}
+.pcos-ob-bmi-result.over{background:rgba(255,159,10,.1);color:#ff9f0a}
+
+.pcos-ob-options{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.pcos-ob-opt{padding:12px 10px;border:1.5px solid var(--bdr);background:var(--bg2);color:var(--mut);border-radius:var(--r2);cursor:pointer;font-family:'DM Mono',monospace;font-size:11px;font-weight:600;letter-spacing:.5px;text-align:center;transition:all .2s var(--ease);min-height:54px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;line-height:1.3}
+.pcos-ob-opt:active{transform:scale(.96)}
+.pcos-ob-opt.on{background:rgba(255,111,168,.12);border-color:#ff6fa8;color:#ff6fa8}
+.pcos-ob-opt .ob-emo{font-size:18px}
+
+.pcos-ob-actions{display:flex;gap:8px;margin-top:20px;flex-direction:column}
+.pcos-ob-actions .pob-primary{background:#ff6fa8;color:#fff;border:none;font-family:'DM Mono',monospace;font-size:13px;font-weight:600;letter-spacing:1.5px;padding:14px 20px;border-radius:100px;cursor:pointer;text-transform:uppercase;min-height:48px}
+.pcos-ob-actions .pob-primary:active{transform:scale(.97);background:#e8588f}
+.pcos-ob-actions .pob-skip{background:none;border:none;color:var(--mut2);font-family:'DM Mono',monospace;font-size:11px;letter-spacing:1px;padding:10px;cursor:pointer;text-transform:uppercase}
 </style>
 </head>
 <body>
@@ -577,7 +655,7 @@ input[type=file]{display:none}
 /* ═══════════════════════════════════════════════════════════ */
 /* ── BASE PROGRAM DATA ─────────────────────────────────────── */
 /* ═══════════════════════════════════════════════════════════ */
-const D=[
+let D=[
   {day:"MAN",full:"Mandag",type:"Upper A",label:"STYRKE",color:"#4f8ef7",icon:"💪",tag:"upper",ex:[
     {n:"Bænkpres (flad)",k:"c",no:"Kontrolleret",l:"https://www.youtube.com/watch?v=4Y2ZdHCOXok"},
     {n:"Bent-over Rows",k:"c",no:"Eksplosivt op",l:"https://www.youtube.com/results?search_query=bent+over+row+tutorial"},
@@ -620,7 +698,7 @@ const D=[
   ]},
   {day:"SØN",full:"Søndag",type:"Hvile",label:"RESTITUTION",color:"#5a5a7a",icon:"😴",tag:"rest"},
 ];
-const GP=[
+let GP=[
   {name:"Hypertrofi",weeks:"Uge 1–3",color:"#4f8ef7",tip:"Høj volumen · RIR 2",c:{s:"4",r:"8–12"},i:{s:"3",r:"12–15"},x:{s:"3",r:"30–45s"}},
   {name:"Styrke",weeks:"Uge 4–6",color:"#f07040",tip:"Tunge løft · RIR 1",c:{s:"5",r:"4–6"},i:{s:"4",r:"6–8"},x:{s:"3",r:"30–45s"}},
   {name:"Peak",weeks:"Uge 7–8",color:"#e04060",tip:"Max intensitet · RIR 0",c:{s:"3",r:"3–5"},i:{s:"3",r:"5–7"},x:{s:"3",r:"30–45s"}},
@@ -635,12 +713,12 @@ function phaseRanges(){
 function gymPhase(w){const r=phaseRanges();if(w<=r[0].e)return 0;if(w<=r[1].e)return 1;return 2}
 function phaseLabel(i){const r=phaseRanges()[i];return`Uge ${r.s}–${r.e}`}
 function exSR(e,w){if(e.core)return GP[gymPhase(w)].x;return GP[gymPhase(w)][e.k]||GP[gymPhase(w)].c}
-const PH=[
+let PH=[
   {n:1,l:"Opbygning",w:"Uge 1–3",wd:"30 min @ 7:30/km",sa:"6×400m @ 5:30/km",g:"32–33 min",c:"#4f8ef7"},
   {n:2,l:"Fart",w:"Uge 4–6",wd:"30–35 min @ 7:00/km",sa:"5×800m @ 6:00/km",g:"31 min",c:"#f07040"},
   {n:3,l:"Race Pace",w:"Uge 7–8",wd:"35 min @ 6:45/km",sa:"5km @ 6:00/km",g:"30 min 🎯",c:"#e04060"},
 ];
-const RL=[
+let RL=[
   {i:"🥩",t:"Protein",b:"2,2 g per kg kropsvægt dagligt. Prioritet #1 for recomp.",c:"#e04060"},
   {i:"⚖️",t:"Kalorier",b:"Vedligeholdelseskalorier ±100 kcal. Recomp kræver præcision.",c:"#4f8ef7"},
   {i:"🍚",t:"Kulhydrater",b:"Spis mest kulhydrater før og efter træning. +200–300 kcal på løbedage.",c:"#f07040"},
@@ -649,6 +727,384 @@ const RL=[
   {i:"🚫",t:"Undgå",b:"Aldrig tung bendag + løb samme dag. Benene skal restituere.",c:"#e04060"},
   {i:"🔶",t:"Core",b:"Core-blok på Onsdag og Lørdag (~10 min). Cable crunch, pallof press, planke, ab wheel, dead bug.",c:"#f0c040"},
 ];
+
+/* ═══════════════════════════════════════════════════════════ */
+/* ── PROGRAM TEMPLATES ─────────────────────────────────────── */
+/* ═══════════════════════════════════════════════════════════ */
+// Snapshot af nuværende default = "Recomp + 5km"
+const TEMPLATE_RECOMP={
+  D:JSON.parse(JSON.stringify(D)),
+  GP:JSON.parse(JSON.stringify(GP)),
+  PH:JSON.parse(JSON.stringify(PH)),
+  RL:JSON.parse(JSON.stringify(RL))
+};
+
+const TEMPLATES={
+  recomp:{
+    id:'recomp',name:'Recomp + 5km',emo:'⚖️',color:'#ffd60a',
+    desc:'Muskelopbygning + fedttab + 5km løb under 30 min. 4 styrkedage + 2 løbedage.',
+    weeks:8,needsRunTime:true,defaultRunSec:2100,
+    D:TEMPLATE_RECOMP.D,GP:TEMPLATE_RECOMP.GP,PH:TEMPLATE_RECOMP.PH,RL:TEMPLATE_RECOMP.RL,
+    headerTitle:'RECOMP<br>+ 5KM RUN'
+  },
+
+  bulk:{
+    id:'bulk',name:'Ren muskelopbygning',emo:'💪',color:'#0a84ff',
+    desc:'Maksimal hypertrofi. 5 styrkedage med Push/Pull/Legs split + Upper/Lower.',
+    weeks:12,needsRunTime:false,
+    headerTitle:'PURE<br>HYPERTROPHY',
+    D:[
+      {day:"MAN",full:"Mandag",type:"Push A",label:"BRYST/SKULDER",color:"#0a84ff",icon:"💪",tag:"upper",ex:[
+        {n:"Bænkpres (flad)",k:"c",no:"3-4 sæt tunge",l:"https://www.youtube.com/watch?v=4Y2ZdHCOXok"},
+        {n:"Incline DB Press",k:"c",no:"",l:"https://www.youtube.com/results?search_query=incline+dumbbell+press+tutorial"},
+        {n:"Overhead Press",k:"c",no:"",l:"https://www.youtube.com/watch?v=F3QY5vMz_6I"},
+        {n:"Lateral Raise",k:"i",no:"",l:"https://www.youtube.com/results?search_query=lateral+raise+tutorial"},
+        {n:"Triceps Pushdown",k:"i",no:"",l:"https://www.youtube.com/results?search_query=cable+tricep+pushdown+tutorial"},
+        {n:"Cable Flyes",k:"i",no:"",l:"https://www.youtube.com/results?search_query=cable+fly+tutorial"},
+      ]},
+      {day:"TIR",full:"Tirsdag",type:"Pull A",label:"RYG/BICEPS",color:"#bf5af2",icon:"🔙",tag:"upper",ex:[
+        {n:"Pullups / Lat Pulldown",k:"c",no:"",l:"https://www.youtube.com/results?search_query=lat+pulldown+tutorial"},
+        {n:"Bent-over Rows",k:"c",no:"Eksplosivt op",l:"https://www.youtube.com/results?search_query=bent+over+row+tutorial"},
+        {n:"Seated Cable Row",k:"c",no:"",l:"https://www.youtube.com/results?search_query=seated+cable+row+tutorial"},
+        {n:"Face Pull",k:"i",no:"",l:"https://www.youtube.com/results?search_query=face+pull+tutorial"},
+        {n:"Biceps Curl (stang)",k:"i",no:"",l:"https://www.youtube.com/results?search_query=barbell+curl+tutorial"},
+        {n:"Hammer Curl",k:"i",no:"",l:"https://www.youtube.com/results?search_query=hammer+curl+tutorial"},
+      ]},
+      {day:"ONS",full:"Onsdag",type:"Legs A",label:"BEN/CORE",color:"#ff6f40",icon:"🦵",tag:"lower",ex:[
+        {n:"Squat",k:"c",no:"Dyb & kontrolleret",l:"https://www.youtube.com/watch?v=gcNh17Ckjgg"},
+        {n:"Romanian Deadlift",k:"c",no:"Langsomt ned",l:"https://www.youtube.com/watch?v=2SHsk9AzdjA"},
+        {n:"Leg Press",k:"c",no:"",l:"https://www.youtube.com/results?search_query=leg+press+tutorial"},
+        {n:"Leg Curl",k:"i",no:"",l:"https://www.youtube.com/results?search_query=seated+leg+curl+tutorial"},
+        {n:"Calf Raises",k:"i",no:"",l:"https://www.youtube.com/results?search_query=calf+raise+tutorial"},
+        {n:"Cable Crunch",k:"x",no:"CORE",l:"https://www.youtube.com/results?search_query=cable+crunch+tutorial",core:1},
+        {n:"Planke",k:"x",no:"CORE",l:"https://www.youtube.com/results?search_query=plank+tutorial",core:1},
+      ]},
+      {day:"TOR",full:"Torsdag",type:"Hvile",label:"RESTITUTION",color:"#5a5a7a",icon:"😴",tag:"rest"},
+      {day:"FRE",full:"Fredag",type:"Upper",label:"OVERKROP",color:"#0a84ff",icon:"💪",tag:"upper",ex:[
+        {n:"Incline Bænkpres",k:"c",no:"",l:"https://www.youtube.com/results?search_query=incline+bench+press+tutorial"},
+        {n:"Pendlay Row",k:"c",no:"",l:"https://www.youtube.com/results?search_query=pendlay+row+tutorial"},
+        {n:"DB Shoulder Press",k:"c",no:"",l:"https://www.youtube.com/results?search_query=dumbbell+shoulder+press+tutorial"},
+        {n:"Underhaands Pulldown",k:"c",no:"",l:"https://www.youtube.com/results?search_query=underhand+lat+pulldown+tutorial"},
+        {n:"Biceps Curl (kabel)",k:"i",no:"",l:"https://www.youtube.com/results?search_query=cable+bicep+curl+tutorial"},
+        {n:"Skull Crushers",k:"i",no:"",l:"https://www.youtube.com/results?search_query=skull+crusher+tutorial"},
+      ]},
+      {day:"LØR",full:"Lørdag",type:"Legs B",label:"BEN/CORE",color:"#ff6f40",icon:"🦵",tag:"lower",ex:[
+        {n:"Hack Squat / Benpres",k:"c",no:"",l:"https://www.youtube.com/results?search_query=hack+squat+tutorial"},
+        {n:"Sumo Deadlift",k:"c",no:"",l:"https://www.youtube.com/results?search_query=sumo+deadlift+tutorial"},
+        {n:"Walking Lunges",k:"c",no:"",l:"https://www.youtube.com/results?search_query=walking+lunges+tutorial"},
+        {n:"Hip Thrust",k:"c",no:"",l:"https://www.youtube.com/watch?v=S_uZP4UH6J0"},
+        {n:"Leg Extension",k:"i",no:"",l:"https://www.youtube.com/results?search_query=leg+extension+tutorial"},
+        {n:"Ab Wheel Rollout",k:"x",no:"CORE",l:"https://www.youtube.com/results?search_query=ab+wheel+rollout+tutorial",core:1},
+        {n:"Hanging Leg Raise",k:"x",no:"CORE",l:"https://www.youtube.com/results?search_query=hanging+leg+raise+tutorial",core:1},
+      ]},
+      {day:"SØN",full:"Søndag",type:"Hvile",label:"RESTITUTION",color:"#5a5a7a",icon:"😴",tag:"rest"},
+    ],
+    GP:[
+      {name:"Volumen 1",weeks:"Uge 1–4",color:"#0a84ff",tip:"Hypertrofi · RIR 2",c:{s:"4",r:"8–12"},i:{s:"3",r:"12–15"},x:{s:"3",r:"30–60s"}},
+      {name:"Volumen 2",weeks:"Uge 5–8",color:"#bf5af2",tip:"Højere volumen · RIR 1-2",c:{s:"4",r:"6–10"},i:{s:"4",r:"10–12"},x:{s:"3",r:"30–60s"}},
+      {name:"Intensitet",weeks:"Uge 9–12",color:"#ff453a",tip:"Tungere belastning · RIR 1",c:{s:"5",r:"5–8"},i:{s:"4",r:"8–10"},x:{s:"3",r:"30–60s"}},
+    ],
+    PH:[],
+    RL:[
+      {i:"🥩",t:"Protein",b:"2,2 g per kg kropsvægt. Spis det samme på hviledage.",c:"#ff453a"},
+      {i:"⚖️",t:"Kalorier",b:"Lille overskud +200-300 kcal. Spor vægten ugentligt.",c:"#0a84ff"},
+      {i:"📊",t:"Overload",b:"Ramme rep-tal → +2,5 kg. Volumen er kongen.",c:"#30d158"},
+      {i:"😴",t:"Søvn",b:"7-9 timer. Muskelvækst kræver restitution.",c:"#bf5af2"},
+      {i:"🍚",t:"Carbs",b:"Spis carbs omkring træning for max ydelse.",c:"#ff6f40"},
+      {i:"🎯",t:"Konsistens",b:"5 dage om ugen. Spring aldrig over uden grund.",c:"#ffd60a"},
+    ]
+  },
+
+  cut:{
+    id:'cut',name:'Fedttab + kondi',emo:'🔥',color:'#ff453a',
+    desc:'Fedt af, muskel bevares. 3 styrke-fullbody + 3 cardio-dage. Stort kalorieunderskud.',
+    weeks:12,needsRunTime:true,defaultRunSec:1800,
+    headerTitle:'CUT<br>+ CARDIO',
+    D:[
+      {day:"MAN",full:"Mandag",type:"Full Body A",label:"STYRKE",color:"#ff453a",icon:"💪",tag:"upper",ex:[
+        {n:"Squat",k:"c",no:"Bevar styrken",l:"https://www.youtube.com/watch?v=gcNh17Ckjgg"},
+        {n:"Bænkpres (flad)",k:"c",no:"",l:"https://www.youtube.com/watch?v=4Y2ZdHCOXok"},
+        {n:"Bent-over Rows",k:"c",no:"",l:"https://www.youtube.com/results?search_query=bent+over+row+tutorial"},
+        {n:"Overhead Press",k:"c",no:"",l:"https://www.youtube.com/watch?v=F3QY5vMz_6I"},
+        {n:"Planke",k:"x",no:"CORE",l:"https://www.youtube.com/results?search_query=plank+tutorial",core:1},
+      ]},
+      {day:"TIR",full:"Tirsdag",type:"Cardio",label:"LØB/CYKEL",color:"#30d158",icon:"🏃",tag:"run",
+        run:{pace:"7:00 /km",dur:"30-40 min",type:"Steady cardio",tip:"Roligt tempo, fedtforbrænding. Kan tale undervejs."}},
+      {day:"ONS",full:"Onsdag",type:"Full Body B",label:"STYRKE",color:"#ff453a",icon:"🦵",tag:"lower",ex:[
+        {n:"Romanian Deadlift",k:"c",no:"",l:"https://www.youtube.com/watch?v=2SHsk9AzdjA"},
+        {n:"Incline Bænkpres",k:"c",no:"",l:"https://www.youtube.com/results?search_query=incline+bench+press+tutorial"},
+        {n:"Lat Pulldown",k:"c",no:"",l:"https://www.youtube.com/results?search_query=lat+pulldown+tutorial"},
+        {n:"Walking Lunges",k:"c",no:"",l:"https://www.youtube.com/results?search_query=walking+lunges+tutorial"},
+        {n:"Side Plank",k:"x",no:"CORE",l:"https://www.youtube.com/results?search_query=side+plank+tutorial",core:1},
+      ]},
+      {day:"TOR",full:"Torsdag",type:"Intervaller",label:"HIIT",color:"#ff453a",icon:"⚡",tag:"run",
+        run:{pace:"5:30 /km",dur:"6×400m",type:"Intervalløb",tip:"Hård indsats — bevarer muskel + brænder fedt."}},
+      {day:"FRE",full:"Fredag",type:"Full Body C",label:"STYRKE",color:"#ff453a",icon:"💪",tag:"upper",ex:[
+        {n:"Sumo Deadlift",k:"c",no:"",l:"https://www.youtube.com/results?search_query=sumo+deadlift+tutorial"},
+        {n:"DB Shoulder Press",k:"c",no:"",l:"https://www.youtube.com/results?search_query=dumbbell+shoulder+press+tutorial"},
+        {n:"Pullups / Lat Pulldown",k:"c",no:"",l:"https://www.youtube.com/results?search_query=lat+pulldown+tutorial"},
+        {n:"Hip Thrust",k:"c",no:"",l:"https://www.youtube.com/watch?v=S_uZP4UH6J0"},
+        {n:"Hanging Leg Raise",k:"x",no:"CORE",l:"https://www.youtube.com/results?search_query=hanging+leg+raise+tutorial",core:1},
+      ]},
+      {day:"LØR",full:"Lørdag",type:"Lang gåtur/cykel",label:"AKTIV REST",color:"#30d158",icon:"🚶",tag:"run",
+        run:{pace:"–",dur:"60+ min",type:"Lavintensitet",tip:"Brænd fedt uden at slide kroppen. Tag en lang tur."}},
+      {day:"SØN",full:"Søndag",type:"Hvile",label:"RESTITUTION",color:"#5a5a7a",icon:"😴",tag:"rest"},
+    ],
+    GP:[
+      {name:"Tilvænning",weeks:"Uge 1–4",color:"#ff453a",tip:"Bevar styrken · RIR 2",c:{s:"3",r:"6–8"},i:{s:"3",r:"10–12"},x:{s:"3",r:"30–45s"}},
+      {name:"Aggressiv",weeks:"Uge 5–8",color:"#0a84ff",tip:"Tungere · RIR 1",c:{s:"4",r:"5–7"},i:{s:"3",r:"8–10"},x:{s:"3",r:"30–45s"}},
+      {name:"Peak cut",weeks:"Uge 9–12",color:"#bf5af2",tip:"Maks fokus på styrke-bevarelse",c:{s:"4",r:"4–6"},i:{s:"3",r:"6–8"},x:{s:"3",r:"30–45s"}},
+    ],
+    PH:[
+      {n:1,l:"Steady",w:"Uge 1–4",wd:"30 min @ 7:00/km",sa:"6×400m @ 5:30/km",g:"Vænning",c:"#30d158"},
+      {n:2,l:"Volumen",w:"Uge 5–8",wd:"40 min @ 7:00/km",sa:"5×800m @ 6:00/km",g:"Mere cardio",c:"#0a84ff"},
+      {n:3,l:"Peak",w:"Uge 9–12",wd:"45 min @ 6:30/km",sa:"5km @ 6:00/km",g:"Max forbrænding",c:"#ff453a"},
+    ],
+    RL:[
+      {i:"🥩",t:"Protein",b:"2,4 g/kg dagligt. Endnu vigtigere i underskud — bevarer muskel.",c:"#ff453a"},
+      {i:"📉",t:"Underskud",b:"500-700 kcal underskud. Tab 0,5-0,8 kg/uge.",c:"#0a84ff"},
+      {i:"⚖️",t:"Vej dig",b:"Hver morgen, fastende. Gennemsnit per uge — ej dag for dag.",c:"#bf5af2"},
+      {i:"💪",t:"Bevar muskel",b:"Tunge løft selv i underskud. Ej for høj reps eller for let.",c:"#30d158"},
+      {i:"😴",t:"Søvn",b:"Søvn = appetit-kontrol. <7 timer → mere sult.",c:"#ffd60a"},
+      {i:"🚶",t:"NEAT",b:"10.000 skridt om dagen. Det meste fedttab kommer her.",c:"#ff6f40"},
+    ]
+  },
+
+  strength:{
+    id:'strength',name:'Ren styrke',emo:'🏋️',color:'#bf5af2',
+    desc:'Powerlifting-fokus. 4 dage med tunge løft. 5×5 protokol på de store øvelser.',
+    weeks:12,needsRunTime:false,
+    headerTitle:'PURE<br>STRENGTH',
+    D:[
+      {day:"MAN",full:"Mandag",type:"Squat dag",label:"BEN",color:"#bf5af2",icon:"🦵",tag:"lower",ex:[
+        {n:"Squat",k:"c",no:"Hovedløft · 5×5",l:"https://www.youtube.com/watch?v=gcNh17Ckjgg"},
+        {n:"Romanian Deadlift",k:"c",no:"",l:"https://www.youtube.com/watch?v=2SHsk9AzdjA"},
+        {n:"Leg Press",k:"c",no:"",l:"https://www.youtube.com/results?search_query=leg+press+tutorial"},
+        {n:"Calf Raises",k:"i",no:"",l:"https://www.youtube.com/results?search_query=calf+raise+tutorial"},
+        {n:"Planke",k:"x",no:"CORE",l:"https://www.youtube.com/results?search_query=plank+tutorial",core:1},
+      ]},
+      {day:"TIR",full:"Tirsdag",type:"Hvile",label:"RESTITUTION",color:"#5a5a7a",icon:"😴",tag:"rest"},
+      {day:"ONS",full:"Onsdag",type:"Bænk dag",label:"BRYST/SKULDER",color:"#bf5af2",icon:"💪",tag:"upper",ex:[
+        {n:"Bænkpres (flad)",k:"c",no:"Hovedløft · 5×5",l:"https://www.youtube.com/watch?v=4Y2ZdHCOXok"},
+        {n:"Overhead Press",k:"c",no:"",l:"https://www.youtube.com/watch?v=F3QY5vMz_6I"},
+        {n:"Close-Grip Bench",k:"c",no:"",l:"https://www.youtube.com/results?search_query=close+grip+bench+press+tutorial"},
+        {n:"Triceps Pushdown",k:"i",no:"",l:"https://www.youtube.com/results?search_query=cable+tricep+pushdown+tutorial"},
+      ]},
+      {day:"TOR",full:"Torsdag",type:"Hvile",label:"RESTITUTION",color:"#5a5a7a",icon:"😴",tag:"rest"},
+      {day:"FRE",full:"Fredag",type:"Dødløft dag",label:"RYG",color:"#bf5af2",icon:"🔙",tag:"lower",ex:[
+        {n:"Deadlift",k:"c",no:"Hovedløft · 5×3",l:"https://www.youtube.com/results?search_query=conventional+deadlift+tutorial"},
+        {n:"Bent-over Rows",k:"c",no:"",l:"https://www.youtube.com/results?search_query=bent+over+row+tutorial"},
+        {n:"Pullups / Lat Pulldown",k:"c",no:"",l:"https://www.youtube.com/results?search_query=lat+pulldown+tutorial"},
+        {n:"Face Pull",k:"i",no:"",l:"https://www.youtube.com/results?search_query=face+pull+tutorial"},
+      ]},
+      {day:"LØR",full:"Lørdag",type:"OHP dag",label:"SKULDER",color:"#bf5af2",icon:"🏔️",tag:"upper",ex:[
+        {n:"Overhead Press",k:"c",no:"Hovedløft · 5×5",l:"https://www.youtube.com/watch?v=F3QY5vMz_6I"},
+        {n:"Incline Bænkpres",k:"c",no:"",l:"https://www.youtube.com/results?search_query=incline+bench+press+tutorial"},
+        {n:"Lateral Raise",k:"i",no:"",l:"https://www.youtube.com/results?search_query=lateral+raise+tutorial"},
+        {n:"Biceps Curl (stang)",k:"i",no:"",l:"https://www.youtube.com/results?search_query=barbell+curl+tutorial"},
+      ]},
+      {day:"SØN",full:"Søndag",type:"Hvile",label:"RESTITUTION",color:"#5a5a7a",icon:"😴",tag:"rest"},
+    ],
+    GP:[
+      {name:"Linear",weeks:"Uge 1–6",color:"#bf5af2",tip:"Tunge løft · 5×5 · RIR 2",c:{s:"5",r:"5"},i:{s:"3",r:"6–8"},x:{s:"3",r:"30s"}},
+      {name:"Intensitet",weeks:"Uge 7–10",color:"#ff453a",tip:"Tungere · 5×3 · RIR 1",c:{s:"5",r:"3–5"},i:{s:"3",r:"5–8"},x:{s:"3",r:"30s"}},
+      {name:"Peak/Test",weeks:"Uge 11–12",color:"#ffd60a",tip:"Test 1RM · RIR 0",c:{s:"3",r:"1–3"},i:{s:"3",r:"5"},x:{s:"3",r:"30s"}},
+    ],
+    PH:[],
+    RL:[
+      {i:"🏋️",t:"Tunge løft",b:"5×5 hovedløft. Læg vægt på næste uge når alle 5×5 er rene.",c:"#bf5af2"},
+      {i:"🥩",t:"Protein",b:"2 g/kg dagligt. Vigtigt for restitution.",c:"#ff453a"},
+      {i:"😴",t:"Søvn",b:"8+ timer. Tunge løft kræver maksimal restitution.",c:"#0a84ff"},
+      {i:"📊",t:"Linear",b:"+2,5 kg per uge på squat/dødløft, +1,25 på bænk/OHP.",c:"#30d158"},
+      {i:"🎯",t:"Form først",b:"Deload eller hold vægten hvis form bryder.",c:"#ffd60a"},
+      {i:"🔁",t:"Tålmodighed",b:"Styrke kommer langsomt. 12 uger kan give 10-20% PR.",c:"#ff6f40"},
+    ]
+  },
+
+  beginner:{
+    id:'beginner',name:'Begynder full-body',emo:'🌱',color:'#30d158',
+    desc:'Start her hvis du er ny i gym. 3 dage om ugen, samme grundløft, simpel progression.',
+    weeks:8,needsRunTime:false,
+    headerTitle:'BEGINNER<br>FULL BODY',
+    D:[
+      {day:"MAN",full:"Mandag",type:"Full Body A",label:"GRUND",color:"#30d158",icon:"💪",tag:"upper",ex:[
+        {n:"Goblet Squat",k:"c",no:"Lær form med kettlebell",l:"https://www.youtube.com/results?search_query=goblet+squat+tutorial"},
+        {n:"Dumbbell Press",k:"c",no:"Sikrere end stang",l:"https://www.youtube.com/results?search_query=dumbbell+bench+press+tutorial"},
+        {n:"Dumbbell Row",k:"c",no:"En arm ad gangen",l:"https://www.youtube.com/results?search_query=single+arm+dumbbell+row+tutorial"},
+        {n:"DB Shoulder Press",k:"c",no:"",l:"https://www.youtube.com/results?search_query=dumbbell+shoulder+press+tutorial"},
+        {n:"Planke",k:"x",no:"CORE · Hold tid",l:"https://www.youtube.com/results?search_query=plank+tutorial",core:1},
+      ]},
+      {day:"TIR",full:"Tirsdag",type:"Hvile / let gåtur",label:"RESTITUTION",color:"#5a5a7a",icon:"🚶",tag:"rest"},
+      {day:"ONS",full:"Onsdag",type:"Full Body B",label:"GRUND",color:"#30d158",icon:"🦵",tag:"lower",ex:[
+        {n:"Goblet Squat",k:"c",no:"Lidt tungere i dag",l:"https://www.youtube.com/results?search_query=goblet+squat+tutorial"},
+        {n:"Romanian Deadlift",k:"c",no:"Lær hip hinge",l:"https://www.youtube.com/watch?v=2SHsk9AzdjA"},
+        {n:"Push-ups",k:"c",no:"Knæ-version OK",l:"https://www.youtube.com/results?search_query=push+up+proper+form"},
+        {n:"Lat Pulldown",k:"c",no:"",l:"https://www.youtube.com/results?search_query=lat+pulldown+tutorial"},
+        {n:"Dead Bug",k:"x",no:"CORE · Langsomt",l:"https://www.youtube.com/results?search_query=dead+bug+exercise+tutorial",core:1},
+      ]},
+      {day:"TOR",full:"Torsdag",type:"Hvile",label:"RESTITUTION",color:"#5a5a7a",icon:"😴",tag:"rest"},
+      {day:"FRE",full:"Fredag",type:"Full Body C",label:"GRUND",color:"#30d158",icon:"💪",tag:"upper",ex:[
+        {n:"Squat",k:"c",no:"Når du har form-styr",l:"https://www.youtube.com/watch?v=gcNh17Ckjgg"},
+        {n:"Dumbbell Press",k:"c",no:"",l:"https://www.youtube.com/results?search_query=dumbbell+bench+press+tutorial"},
+        {n:"Seated Cable Row",k:"c",no:"",l:"https://www.youtube.com/results?search_query=seated+cable+row+tutorial"},
+        {n:"Biceps Curl (DB)",k:"i",no:"",l:"https://www.youtube.com/results?search_query=dumbbell+bicep+curl+tutorial"},
+        {n:"Bird Dog",k:"x",no:"CORE · Stabilitet",l:"https://www.youtube.com/results?search_query=bird+dog+exercise+tutorial",core:1},
+      ]},
+      {day:"LØR",full:"Lørdag",type:"Hvile / aktiv",label:"FRI",color:"#5a5a7a",icon:"🚶",tag:"rest"},
+      {day:"SØN",full:"Søndag",type:"Hvile",label:"RESTITUTION",color:"#5a5a7a",icon:"😴",tag:"rest"},
+    ],
+    GP:[
+      {name:"Tilvænning",weeks:"Uge 1–3",color:"#30d158",tip:"Lær form · Lette vægte · RIR 3",c:{s:"3",r:"10–12"},i:{s:"2",r:"12–15"},x:{s:"2",r:"30s"}},
+      {name:"Stabilisering",weeks:"Uge 4–6",color:"#0a84ff",tip:"Øg vægt langsomt · RIR 2",c:{s:"3",r:"8–10"},i:{s:"3",r:"10–12"},x:{s:"3",r:"30s"}},
+      {name:"Progression",weeks:"Uge 7–8",color:"#ffd60a",tip:"Klar til næste niveau · RIR 2",c:{s:"3",r:"6–8"},i:{s:"3",r:"8–10"},x:{s:"3",r:"30s"}},
+    ],
+    PH:[],
+    RL:[
+      {i:"🌱",t:"Tag det roligt",b:"Form først, vægt sidst. Skader sætter dig 4 uger tilbage.",c:"#30d158"},
+      {i:"📹",t:"Film dig selv",b:"Optag dine sæt. Sammenlign med YouTube-tutorials.",c:"#0a84ff"},
+      {i:"🥩",t:"Spis nok",b:"1,8 g protein/kg. Vedligeholdelseskalorier eller +200.",c:"#ff453a"},
+      {i:"😴",t:"Søvn",b:"7-9 timer. Som begynder vil du være træt — det er normalt.",c:"#bf5af2"},
+      {i:"📊",t:"Lille progression",b:"+1-2,5 kg per uge på compound. Det er masser i starten.",c:"#ffd60a"},
+      {i:"🎯",t:"Konsistens",b:"3 gange om ugen i 8 uger > 5 gange i 1 uge og så slut.",c:"#ff6f40"},
+    ]
+  },
+
+  pcos:{
+    id:'pcos',name:'PCOS Strong',emo:'🌸',color:'#ff6fa8',
+    desc:'Evidensbaseret program til kvinder med PCOS. Styrke + smart cardio + livsstil. Fokus på insulinfølsomhed, restitution og vedligeholdelse.',
+    weeks:12,needsRunTime:false,needsSteps:true,dailyStepsGoal:8000,
+    headerTitle:'PCOS<br>STRONG',
+    medicalNote:'Dette er et evidensbaseret træningsprogram, ikke en medicinsk behandling. Konsultér din læge eller endokrinolog ved tvivl.',
+    D:[
+      {day:"MAN",full:"Mandag",type:"Lower Body",label:"BEN/STYRKE",color:"#ff6fa8",icon:"🦵",tag:"lower",ex:[
+        {n:"Goblet Squat",k:"c",no:"Lær mønsteret · 3-4 sæt",l:"https://www.youtube.com/results?search_query=goblet+squat+tutorial"},
+        {n:"Romanian Deadlift",k:"c",no:"Hip-hinge",l:"https://www.youtube.com/watch?v=2SHsk9AzdjA"},
+        {n:"Hip Thrust",k:"c",no:"Glute-aktivering",l:"https://www.youtube.com/watch?v=S_uZP4UH6J0"},
+        {n:"Walking Lunges",k:"c",no:"Unilateral",l:"https://www.youtube.com/results?search_query=walking+lunges+tutorial"},
+        {n:"Calf Raises",k:"i",no:"",l:"https://www.youtube.com/results?search_query=calf+raise+tutorial"},
+        {n:"Dead Bug",k:"x",no:"CORE · Anti-extension",l:"https://www.youtube.com/results?search_query=dead+bug+exercise+tutorial",core:1},
+      ]},
+      {day:"TIR",full:"Tirsdag",type:"Easy walk",label:"AKTIV REST",color:"#30d158",icon:"🚶",tag:"run",
+        run:{pace:"Samtale-tempo",dur:"30-45 min",type:"Lavintensitet gang",tip:"Hold pulsen lav. Du skal kunne tale i hele sætninger. Naturen gør det bedre."}},
+      {day:"ONS",full:"Onsdag",type:"Upper Body",label:"OVERKROP/STYRKE",color:"#ff6fa8",icon:"💪",tag:"upper",ex:[
+        {n:"Dumbbell Press",k:"c",no:"Sikrere end stang",l:"https://www.youtube.com/results?search_query=dumbbell+bench+press+tutorial"},
+        {n:"Lat Pulldown",k:"c",no:"Bredere greb",l:"https://www.youtube.com/results?search_query=lat+pulldown+tutorial"},
+        {n:"Seated Cable Row",k:"c",no:"",l:"https://www.youtube.com/results?search_query=seated+cable+row+tutorial"},
+        {n:"DB Shoulder Press",k:"c",no:"",l:"https://www.youtube.com/results?search_query=dumbbell+shoulder+press+tutorial"},
+        {n:"Face Pull",k:"i",no:"Postural",l:"https://www.youtube.com/results?search_query=face+pull+tutorial"},
+        {n:"Biceps Curl (DB)",k:"i",no:"",l:"https://www.youtube.com/results?search_query=dumbbell+bicep+curl+tutorial"},
+      ]},
+      {day:"TOR",full:"Torsdag",type:"Yoga / mobility",label:"BEVÆGELIGHED",color:"#bf5af2",icon:"🧘",tag:"rest"},
+      {day:"FRE",full:"Fredag",type:"Full Body + HIIT",label:"STYRKE + INTERVAL",color:"#ff453a",icon:"⚡",tag:"upper",ex:[
+        {n:"Squat",k:"c",no:"Når formen sidder",l:"https://www.youtube.com/watch?v=gcNh17Ckjgg"},
+        {n:"Bent-over Rows",k:"c",no:"",l:"https://www.youtube.com/results?search_query=bent+over+row+tutorial"},
+        {n:"Push-ups",k:"c",no:"Knæ-version OK",l:"https://www.youtube.com/results?search_query=push+up+proper+form"},
+        {n:"Glute Bridge",k:"c",no:"",l:"https://www.youtube.com/results?search_query=glute+bridge+tutorial"},
+        {n:"HIIT-finisher",k:"x",no:"15 min · 30s on / 30s off · cykel/løb/airbike",l:"https://www.youtube.com/results?search_query=15+min+hiit+workout",core:1},
+      ]},
+      {day:"LØR",full:"Lørdag",type:"Lang gåtur",label:"AKTIV REST",color:"#30d158",icon:"🚶",tag:"run",
+        run:{pace:"Samtale-tempo",dur:"60+ min",type:"Lang lavintensitet",tip:"Den vigtigste session for fedtforbrænding & insulinfølsomhed. Gå med en ven, lyt til podcast."}},
+      {day:"SØN",full:"Søndag",type:"Hvile",label:"FULD RESTITUTION",color:"#5a5a7a",icon:"😴",tag:"rest"},
+    ],
+    GP:[
+      {name:"Foundation",weeks:"Uge 1–4",color:"#ff6fa8",tip:"Lær mønstre · Form > vægt · RIR 3-4",c:{s:"3",r:"10–12"},i:{s:"2",r:"12–15"},x:{s:"2",r:"30s"}},
+      {name:"Build",weeks:"Uge 5–8",color:"#bf5af2",tip:"Øg vægt gradvist · RIR 2",c:{s:"4",r:"8–10"},i:{s:"3",r:"10–12"},x:{s:"3",r:"30–45s"}},
+      {name:"Integrate",weeks:"Uge 9–12",color:"#0a84ff",tip:"Find din rytme · Vedligehold · RIR 2",c:{s:"4",r:"6–8"},i:{s:"3",r:"8–12"},x:{s:"3",r:"30–45s"}},
+    ],
+    PH:[],
+    RL:[
+      {i:"😴",t:"Søvn er #1",b:"7-9 timer. PCOS-symptomer forværres målbart ved <7 timers søvn — cortisol & insulin reagerer direkte.",c:"#bf5af2"},
+      {i:"🧘",t:"Stress-management",b:"Cortisol → insulin → fedtoplagring (især midje). Daglig 10 min meditation, åndedrætsøvelser eller natur tæller.",c:"#30d158"},
+      {i:"🥩",t:"Protein 1.8-2g/kg",b:"Hver måltid: protein-først. Mætter, stabiliserer blodsukker, bevarer muskel.",c:"#ff453a"},
+      {i:"🍚",t:"Lav glykæmisk",b:"Carbs er ikke fjenden — sukker-spikes er. Spis altid carbs sammen med protein/fedt. Helst fuldkorn, frugt med skræl, bælgfrugter.",c:"#ff6f40"},
+      {i:"🚶",t:"8.000 skridt dagligt",b:"NEAT (non-exercise activity) er undervurderet. Insulin-følsomhed forbedres ved konsekvent gang — ikke kun de hårde sessioner.",c:"#0a84ff"},
+      {i:"💪",t:"Styrke før cardio",b:"Forskning er entydig: tunge løft forbedrer insulin-følsomhed mere end cardio. Spring aldrig en styrkedag over for ekstra cardio.",c:"#ff6fa8"},
+      {i:"📊",t:"Track cyklus",b:"Energi & styrke svinger forudsigeligt med cyklusen. Log fasen — du opdager mønstre. Uregelmæssig? Spor det også.",c:"#ffd60a"},
+      {i:"🐟",t:"Omega-3",b:"Anti-inflammatorisk. 1.5-3g EPA/DHA dagligt fra fed fisk eller tilskud. PCOS er delvist en inflammations-tilstand.",c:"#9060f0"},
+      {i:"⚖️",t:"Vej mindre",b:"PCOS-vægt svinger meget med hormoner & væske. Vej dig højst 1-2× ugentligt — målet er trend over uger, ikke dag-til-dag.",c:"#5a8eff"},
+      {i:"⚕️",t:"Læge-tjek",b:"Få målt fasteinsulin, HbA1c, vitamin D, ferritin, TSH. Spor dem hvert halve år — ej kun symptomer.",c:"#e04060"}
+    ]
+  }
+};
+
+function loadProgram(){
+  const tplId=PROG.template||'recomp';
+  const tpl=TEMPLATES[tplId]||TEMPLATES.recomp;
+  // Deep clone så ændringer ikke ødelægger templates
+  D=JSON.parse(JSON.stringify(tpl.D));
+  GP=JSON.parse(JSON.stringify(tpl.GP));
+  PH=JSON.parse(JSON.stringify(tpl.PH));
+  RL=JSON.parse(JSON.stringify(tpl.RL));
+  // Opdater header-titel
+  const h1=document.querySelector('#hdr h1');
+  if(h1)h1.innerHTML=tpl.headerTitle||'TRÆNINGSPROGRAM';
+}
+
+function rTemplateChooser(){
+  const cur=PROG.template||'recomp';
+  let h=`<div class="tpl-chooser">
+    <div class="tpl-eyebrow">// Vælg dit program</div>
+    <div class="tpl-h1">VÆLG PROGRAM</div>
+    <div class="tpl-sub">Hvad er dit primære mål? Du kan altid skifte senere via ⚙️ indstillinger.</div>`;
+  Object.values(TEMPLATES).forEach(t=>{
+    const isCur=t.id===cur;
+    const tag=isCur?'<span class="tpl-current-tag">NUVÆRENDE</span>':'';
+    h+=`<div class="tpl-card${isCur?' cur':''}" style="--tc:${t.color}" onclick="chooseTemplate('${t.id}')">
+      <div class="tpl-emo">${t.emo}</div>
+      <div class="tpl-info">
+        <div class="tpl-name">${t.name}${tag}</div>
+        <div class="tpl-meta">${t.weeks} UGER · ${(t.D||[]).filter(d=>d.ex||d.run).length} TRÆNINGSDAGE</div>
+        <div class="tpl-desc">${t.desc}</div>
+      </div>
+      <div class="tpl-arr">›</div>
+    </div>`;
+  });
+  h+=`</div>`;
+  return h;
+}
+
+function chooseTemplate(tplId){
+  const tpl=TEMPLATES[tplId];
+  if(!tpl)return;
+  const wasCurrentDefault=PROG.template===tplId&&PROG.templateChosen;
+  if(wasCurrentDefault){
+    // Hvis de allerede har dette template, luk bare
+    PROG.templateChosen=true;saveProg();
+    if(modalOpenForTemplate){closeModal();modalOpenForTemplate=false}
+    render();return;
+  }
+  // Hvis de skifter program og har eksisterende data → spørg
+  const hasData=Object.keys(W).length>0;
+  if(hasData&&PROG.template!==tplId){
+    if(!confirm('Skift til "'+tpl.name+'"?\n\nDine eksisterende vægt-data bevares men programmet ændrer sig.'))return;
+  }
+  PROG.template=tplId;
+  PROG.templateChosen=true;
+  PROG.totalWeeks=tpl.weeks||8;
+  if(tpl.needsRunTime&&tpl.defaultRunSec)PROG.start5kSec=tpl.defaultRunSec;
+  saveProg();
+  loadProgram();
+  // Reset supersets fordi øvelser kan have ændret sig
+  SUPERSETS={};saveSS();
+  try{localStorage.removeItem('tw4_ss_init')}catch(e){}
+  applyDefaultSupersets();
+  if(modalOpenForTemplate){closeModal();modalOpenForTemplate=false}
+  toast('✓ Skiftet til '+tpl.name);
+  render();
+}
+
+let modalOpenForTemplate=false;
+function openTemplateChooserModal(){
+  modalOpenForTemplate=true;
+  const m=document.getElementById('modal');
+  m.innerHTML=`<div class="modal" onclick="event.stopPropagation()" style="max-width:480px;max-height:85vh;overflow-y:auto">
+    ${rTemplateChooser()}
+    <div style="text-align:center;margin-top:8px">
+      <button class="prog-btn ghost" onclick="closeModal();modalOpenForTemplate=false">Annullér</button>
+    </div>
+  </div>`;
+  m.classList.add('show');
+}
 
 /* ═══════════════════════════════════════════════════════════ */
 /* ── EXERCISE LIBRARY DATA ─────────────────────────────────── */
@@ -776,6 +1232,13 @@ function saveCustom(){try{localStorage.setItem(CK,JSON.stringify(CUSTOM))}catch(
 const PK='tw4_prog';
 let PROG={startDate:null,totalWeeks:8,start5kSec:2100};
 try{PROG={startDate:null,totalWeeks:8,start5kSec:2100,...JSON.parse(localStorage.getItem(PK)||'{}')}}catch(e){}
+// Migration: eksisterende brugere får automatisk Recomp som template
+if(!PROG.template){
+  // Hvis de har eksisterende vægtdata, så har de allerede kørt Recomp-programmet
+  PROG.template='recomp';
+  // Marker at de IKKE skal se template-vælger (for at bevare deres eksisterende setup)
+  if(localStorage.getItem(SK)){PROG.templateChosen=true}
+}
 function saveProg(){try{localStorage.setItem(PK,JSON.stringify(PROG))}catch(e){}}
 
 // Program-varighed helper
@@ -815,6 +1278,34 @@ const BK='tw4_body';
 let BODY={};// {1:{kg:82.5,fat:18.2,photo:'data:...',date:'2025-05-05'}, ...}
 try{BODY=JSON.parse(localStorage.getItem(BK)||'{}')}catch(e){}
 function saveBody(){try{localStorage.setItem(BK,JSON.stringify(BODY))}catch(e){}}
+
+// Skridt per dag (især vigtigt for PCOS-template)
+const STK='tw4_steps';
+let STEPS={};// {'2026-05-05': 8500, ...}
+try{STEPS=JSON.parse(localStorage.getItem(STK)||'{}')}catch(e){}
+function saveSteps(){try{localStorage.setItem(STK,JSON.stringify(STEPS))}catch(e){}}
+
+// Cyklus-tracking (PCOS-template)
+const CYCK='tw4_cycle';
+let CYCLE={};// {'2026-05-05': {phase:'follicular', flow:'none', notes:''}, ...}
+try{CYCLE=JSON.parse(localStorage.getItem(CYCK)||'{}')}catch(e){}
+function saveCycle(){try{localStorage.setItem(CYCK,JSON.stringify(CYCLE))}catch(e){}}
+
+// PCOS-profil (BMI, mål, cyklus-status osv. — kun for pcos-template)
+const PPK='tw4_pcos_profile';
+let PCOS_PROFILE={};
+try{PCOS_PROFILE=JSON.parse(localStorage.getItem(PPK)||'{}')}catch(e){}
+function savePcosProfile(){try{localStorage.setItem(PPK,JSON.stringify(PCOS_PROFILE))}catch(e){}}
+
+// Helpers til adaptiv tilpasning baseret på profil
+function pcosBMI(){
+  if(!PCOS_PROFILE.height||!PCOS_PROFILE.weight)return null;
+  const m=PCOS_PROFILE.height/100;
+  return Math.round((PCOS_PROFILE.weight/(m*m))*10)/10;
+}
+function isLeanPCOS(){const b=pcosBMI();return b!==null&&b<25}
+function pcosGoalIsWeightloss(){return PCOS_PROFILE.goal==='weightloss'}
+function pcosGoalIsBalance(){return PCOS_PROFILE.goal==='balance'||PCOS_PROFILE.goal==='fertility'}
 
 // Dato-hjælpere
 const DAY_NAMES=['Mandag','Tirsdag','Onsdag','Torsdag','Fredag','Lørdag','Søndag'];
@@ -1031,6 +1522,16 @@ function wpickH(){
 /* ── WEEKLY ── */
 function rWeekly(){
   let h='';
+
+  // Første gang: vis template-vælger
+  if(!PROG.templateChosen){
+    return rTemplateChooser();
+  }
+
+  // PCOS template + ingen profil endnu → vis onboarding
+  if(PROG.template==='pcos'&&!PCOS_PROFILE.completed){
+    return rPcosOnboarding();
+  }
 
   // Program færdigt? Vis fejring + start-forfra
   if(isProgramDone()){
@@ -1516,6 +2017,19 @@ function rBody(){
 
   let h=`<div class="page-title"><div class="page-eyebrow">// Kropsmåling</div><div class="page-h1">Kropslog</div></div>`;
 
+  // PCOS-specifikke widgets øverst
+  const tpl=TEMPLATES[PROG.template||'recomp'];
+  if(tpl?.medicalNote){
+    h+=`<div class="med-disclaimer">
+      <div class="med-disclaimer-icon">⚕️</div>
+      <div class="med-disclaimer-text"><b>Medicinsk note:</b> ${tpl.medicalNote}</div>
+    </div>`;
+  }
+  if(tpl?.needsSteps){
+    h+=rStepsWidget();
+    h+=rCycleTracker();
+  }
+
   // Week navigator
   const gp=GP[gymPhase(Math.min(bw,TW()))];
   h+=`<div class="body-week-nav">
@@ -1649,6 +2163,227 @@ function bodyRemovePhoto(w,field){
   saveBody();toast('✓ Fjernet');render();
 }
 
+/* ═══════════════════════════════════════════════════════════ */
+/* ── STEPS WIDGET (PCOS template) ──────────────────────────── */
+/* ═══════════════════════════════════════════════════════════ */
+function rStepsWidget(){
+  const today=todayISO();
+  const tpl=TEMPLATES[PROG.template||'recomp'];
+  const goal=tpl?.dailyStepsGoal||8000;
+  const today_steps=STEPS[today]||0;
+  const pct=Math.min(100,Math.round(today_steps/goal*100));
+  let status='',statusColor='var(--mut)';
+  if(today_steps===0){status='Indtast dagens skridt fra din telefon/ur';}
+  else if(pct>=100){status=`✓ Mål nået! +${today_steps-goal} over`;statusColor='var(--grn)'}
+  else if(pct>=75){status=`Næsten der · mangler ${(goal-today_steps).toLocaleString('da-DK')}`;statusColor='var(--acc)'}
+  else if(pct>=50){status=`Godt på vej · mangler ${(goal-today_steps).toLocaleString('da-DK')}`;statusColor='#0a84ff'}
+  else{status=`Mangler ${(goal-today_steps).toLocaleString('da-DK')} skridt`;statusColor='var(--mut)'}
+
+  return `<div class="steps-widget">
+    <div class="steps-widget-row">
+      <div class="steps-icon">🚶‍♀️</div>
+      <div class="steps-content">
+        <div class="steps-label">Skridt i dag · ${todayISO()}</div>
+        <div class="steps-value">
+          <input type="number" inputmode="numeric" min="0" max="100000" placeholder="0"
+            value="${today_steps||''}"
+            onchange="setSteps('${today}',this.value)" onfocus="this.select()">
+          <span class="steps-goal">/ ${goal.toLocaleString('da-DK')}</span>
+        </div>
+      </div>
+    </div>
+    <div class="steps-bar"><div class="steps-bar-fill" style="width:${pct}%"></div></div>
+    <div class="steps-status" style="color:${statusColor}">${status}</div>
+  </div>`;
+}
+
+function setSteps(date,val){
+  const num=parseInt(val);
+  if(isNaN(num)||num<0){delete STEPS[date]}
+  else{STEPS[date]=num}
+  saveSteps();toast('✓ Gemt');
+  render();
+}
+
+/* ═══════════════════════════════════════════════════════════ */
+/* ── CYCLE TRACKER (PCOS template) ─────────────────────────── */
+/* ═══════════════════════════════════════════════════════════ */
+const CYCLE_PHASES=[
+  {id:'menstrual',emo:'🔴',name:'Menstruation',tip:'Lavere energi normalt — lyt til kroppen, kortere sessioner OK'},
+  {id:'follicular',emo:'🌱',name:'Follikulær',tip:'Energi stiger — perfekt til tunge løft og PR-forsøg'},
+  {id:'ovulation',emo:'☀️',name:'Ægløsning',tip:'Topform · maksimal styrke og udholdenhed'},
+  {id:'luteal',emo:'🌙',name:'Luteal',tip:'Nedadgående energi — fokus på vedligeholdelse'},
+];
+
+function rCycleTracker(){
+  const today=todayISO();
+  const cur=CYCLE[today]?.phase||null;
+  const curObj=CYCLE_PHASES.find(p=>p.id===cur);
+  let h=`<div class="cycle-section">
+    <div class="cycle-title">🌸 Cyklus i dag</div>
+    <div class="cycle-sub">Energi & styrke svinger med cyklusen — log fasen og opdage mønstre over tid</div>
+    <div class="cycle-phases">`;
+  CYCLE_PHASES.forEach(p=>{
+    h+=`<button class="cycle-phase${cur===p.id?' on':''}" onclick="setCyclePhase('${today}','${p.id}')">
+      <div class="cp-emo">${p.emo}</div>
+      <div class="cp-name">${p.name}</div>
+    </button>`;
+  });
+  h+=`</div>`;
+  if(curObj){
+    h+=`<div style="font-size:11px;color:#ff6fa8;font-family:'DM Mono',monospace;text-align:center;background:rgba(255,111,168,.08);padding:8px 12px;border-radius:8px;line-height:1.5">💡 ${curObj.tip}</div>`;
+  }
+  h+=`</div>`;
+  return h;
+}
+
+function setCyclePhase(date,phase){
+  if(!CYCLE[date])CYCLE[date]={};
+  if(CYCLE[date].phase===phase){delete CYCLE[date].phase}
+  else{CYCLE[date].phase=phase}
+  saveCycle();
+  render();
+}
+
+/* ═══════════════════════════════════════════════════════════ */
+/* ── PCOS ONBOARDING ───────────────────────────────────────── */
+/* ═══════════════════════════════════════════════════════════ */
+function rPcosOnboarding(){
+  const p=PCOS_PROFILE;
+  const bmi=pcosBMI();
+  let bmiText='Indtast højde + vægt for at beregne BMI',bmiCls='';
+  if(bmi){
+    if(bmi<18.5){bmiText=`BMI ${bmi} · undervægt — fokus bør være muskelopbygning`;bmiCls='lean'}
+    else if(bmi<25){bmiText=`BMI ${bmi} · normal — "lean PCOS" — fokus på hormonel balance`;bmiCls='lean'}
+    else if(bmi<30){bmiText=`BMI ${bmi} · let overvægt — moderat fedttab kan hjælpe`;bmiCls='normal'}
+    else{bmiText=`BMI ${bmi} · overvægt — strategisk fedttab forbedrer symptomer`;bmiCls='over'}
+  }
+  return `<div class="pcos-ob">
+    <div class="pcos-ob-eyebrow">// PCOS Strong</div>
+    <div class="pcos-ob-h1">FORTÆL OS LIDT<br>OM DIG SELV</div>
+    <div class="pcos-ob-sub">5 hurtige spørgsmål så vi kan tilpasse programmet til netop din situation. Alle felter er valgfrie.</div>
+
+    <div class="pcos-ob-card">
+      <div class="pcos-ob-q">📏 Højde & vægt</div>
+      <div class="pcos-ob-hint">PCOS rammer både slanke og overvægtige forskelligt. BMI hjælper os tilpasse rådgivningen — det er ét datapoint, ikke en dom.</div>
+      <div class="pcos-ob-bmi">
+        <div class="pcos-ob-input-wrap">
+          <input type="number" inputmode="numeric" min="120" max="220" placeholder="165" id="pobHeight"
+            value="${p.height||''}" oninput="updatePcosOb()" onfocus="this.select()">
+          <span class="ob-unit">cm</span>
+        </div>
+        <div class="pcos-ob-input-wrap">
+          <input type="number" inputmode="decimal" step="0.1" min="30" max="200" placeholder="65" id="pobWeight"
+            value="${p.weight||''}" oninput="updatePcosOb()" onfocus="this.select()">
+          <span class="ob-unit">kg</span>
+        </div>
+      </div>
+      <div class="pcos-ob-bmi-result ${bmiCls}" id="pobBmiResult">${bmiText}</div>
+    </div>
+
+    <div class="pcos-ob-card">
+      <div class="pcos-ob-q">🎯 Primært mål</div>
+      <div class="pcos-ob-hint">Hvad er vigtigst for dig lige nu? Dette styrer hvordan coachen og programmet vægter sit fokus.</div>
+      <div class="pcos-ob-options">
+        <div class="pcos-ob-opt${p.goal==='balance'?' on':''}" onclick="setPcosOb('goal','balance')"><span class="ob-emo">⚖️</span>Hormonel<br>balance</div>
+        <div class="pcos-ob-opt${p.goal==='weightloss'?' on':''}" onclick="setPcosOb('goal','weightloss')"><span class="ob-emo">📉</span>Vægttab</div>
+        <div class="pcos-ob-opt${p.goal==='fertility'?' on':''}" onclick="setPcosOb('goal','fertility')"><span class="ob-emo">🌱</span>Fertilitet</div>
+        <div class="pcos-ob-opt${p.goal==='health'?' on':''}" onclick="setPcosOb('goal','health')"><span class="ob-emo">💪</span>Generel<br>sundhed</div>
+      </div>
+    </div>
+
+    <div class="pcos-ob-card">
+      <div class="pcos-ob-q">🌸 Cyklus-status</div>
+      <div class="pcos-ob-hint">Mange med PCOS har uregelmæssig eller manglende cyklus — det er almindeligt og påvirker hvordan vi tilpasser intensitet.</div>
+      <div class="pcos-ob-options" style="grid-template-columns:1fr 1fr 1fr">
+        <div class="pcos-ob-opt${p.cycleStatus==='regular'?' on':''}" onclick="setPcosOb('cycleStatus','regular')"><span class="ob-emo">✅</span>Regelmæssig</div>
+        <div class="pcos-ob-opt${p.cycleStatus==='irregular'?' on':''}" onclick="setPcosOb('cycleStatus','irregular')"><span class="ob-emo">〰️</span>Uregelmæssig</div>
+        <div class="pcos-ob-opt${p.cycleStatus==='absent'?' on':''}" onclick="setPcosOb('cycleStatus','absent')"><span class="ob-emo">⏸️</span>Ingen / udebliver</div>
+      </div>
+    </div>
+
+    <div class="pcos-ob-card">
+      <div class="pcos-ob-q">🏋️ Træningserfaring</div>
+      <div class="pcos-ob-hint">Hvor erfaren er du med styrketræning? Vi tilpasser sæt og reps efter dit niveau.</div>
+      <div class="pcos-ob-options" style="grid-template-columns:1fr 1fr 1fr">
+        <div class="pcos-ob-opt${p.experience==='beginner'?' on':''}" onclick="setPcosOb('experience','beginner')"><span class="ob-emo">🌱</span>Begynder</div>
+        <div class="pcos-ob-opt${p.experience==='some'?' on':''}" onclick="setPcosOb('experience','some')"><span class="ob-emo">📈</span>Nogle år</div>
+        <div class="pcos-ob-opt${p.experience==='experienced'?' on':''}" onclick="setPcosOb('experience','experienced')"><span class="ob-emo">🏆</span>Erfaren</div>
+      </div>
+    </div>
+
+    <div class="pcos-ob-card">
+      <div class="pcos-ob-q">💊 Medicin?</div>
+      <div class="pcos-ob-hint">Tager du medicin relateret til PCOS (Metformin, p-piller, Inositol osv.)? Coachen bruger info til at give relevant rådgivning.</div>
+      <div class="pcos-ob-options" style="grid-template-columns:1fr 1fr 1fr">
+        <div class="pcos-ob-opt${p.onMedication==='yes'?' on':''}" onclick="setPcosOb('onMedication','yes')"><span class="ob-emo">💊</span>Ja</div>
+        <div class="pcos-ob-opt${p.onMedication==='no'?' on':''}" onclick="setPcosOb('onMedication','no')"><span class="ob-emo">🚫</span>Nej</div>
+        <div class="pcos-ob-opt${p.onMedication==='private'?' on':''}" onclick="setPcosOb('onMedication','private')"><span class="ob-emo">🔒</span>Privat</div>
+      </div>
+    </div>
+
+    <div class="pcos-ob-actions">
+      <button class="pob-primary" onclick="completePcosProfile()">✓ Færdig — start program</button>
+      <button class="pob-skip" onclick="skipPcosProfile()">Spring over (kan udfyldes senere)</button>
+    </div>
+  </div>`;
+}
+
+function setPcosOb(field,val){
+  if(PCOS_PROFILE[field]===val){delete PCOS_PROFILE[field]}
+  else{PCOS_PROFILE[field]=val}
+  savePcosProfile();
+  render();
+}
+
+function updatePcosOb(){
+  const h=parseInt(document.getElementById('pobHeight')?.value);
+  const w=parseFloat(document.getElementById('pobWeight')?.value);
+  if(!isNaN(h)&&h>=120&&h<=220)PCOS_PROFILE.height=h;
+  if(!isNaN(w)&&w>=30&&w<=200)PCOS_PROFILE.weight=w;
+  savePcosProfile();
+  // Bare opdater BMI-result, ikke hele render (input ville miste fokus)
+  const bmi=pcosBMI();
+  const el=document.getElementById('pobBmiResult');
+  if(el){
+    el.classList.remove('lean','normal','over');
+    if(bmi){
+      if(bmi<18.5){el.textContent=`BMI ${bmi} · undervægt — fokus bør være muskelopbygning`;el.classList.add('lean')}
+      else if(bmi<25){el.textContent=`BMI ${bmi} · normal — "lean PCOS" — fokus på hormonel balance`;el.classList.add('lean')}
+      else if(bmi<30){el.textContent=`BMI ${bmi} · let overvægt — moderat fedttab kan hjælpe`;el.classList.add('normal')}
+      else{el.textContent=`BMI ${bmi} · overvægt — strategisk fedttab forbedrer symptomer`;el.classList.add('over')}
+    }else{
+      el.textContent='Indtast højde + vægt for at beregne BMI';
+    }
+  }
+}
+
+function completePcosProfile(){
+  PCOS_PROFILE.completed=true;
+  savePcosProfile();
+  toast('✓ Tak — programmet er nu tilpasset dig');
+  render();
+}
+
+function skipPcosProfile(){
+  PCOS_PROFILE.completed=true;
+  PCOS_PROFILE.skipped=true;
+  savePcosProfile();
+  render();
+}
+
+function openPcosProfileModal(){
+  const m=document.getElementById('modal');
+  m.innerHTML=`<div class="modal" onclick="event.stopPropagation()" style="max-width:480px;max-height:90vh;overflow-y:auto;padding:0">
+    <div style="position:sticky;top:0;background:var(--glass);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);padding:14px 20px;border-bottom:1px solid var(--bdr);z-index:5;display:flex;justify-content:space-between;align-items:center">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:18px">PCOS Profil</div>
+      <button onclick="closeModal();render()" style="background:none;border:none;color:var(--mut);font-size:18px;cursor:pointer;padding:8px">✕</button>
+    </div>
+    ${rPcosOnboarding()}
+  </div>`;
+  m.classList.add('show');
+}
+
 function rBodyGraph(){
   const pts=[],fatPts=[];
   for(let w=1;w<=TW();w++){
@@ -1759,18 +2494,20 @@ function rInfo(){
       <div class="ph-goal"><label>Fokus</label><span>${['📈','🏋️','🔥'][i]}</span></div>
     </div>`;
   });
-  h+=`<div class="section-label">🏃 Løbefaser</div>`;
-  PH.forEach(p=>{
-    h+=`<div class="phcard" style="--pc:${p.c}">
-      <div class="ph-num-wrap"><div class="ph-num">${p.n}</div><div class="ph-weeks">${p.w}</div></div>
-      <div>
-        <div class="ph-label" style="color:${p.c}">${p.l.toUpperCase()}</div>
-        <div class="ph-row"><span style="color:#30d158">Tir:</span> ${p.wd}</div>
-        <div class="ph-row"><span style="color:#ff453a">Fre:</span> ${p.sa}</div>
-      </div>
-      <div class="ph-goal"><label>Mål</label><span style="font-size:14px">${p.g}</span></div>
-    </div>`;
-  });
+  if(PH&&PH.length){
+    h+=`<div class="section-label">🏃 Løbefaser</div>`;
+    PH.forEach(p=>{
+      h+=`<div class="phcard" style="--pc:${p.c}">
+        <div class="ph-num-wrap"><div class="ph-num">${p.n}</div><div class="ph-weeks">${p.w}</div></div>
+        <div>
+          <div class="ph-label" style="color:${p.c}">${p.l.toUpperCase()}</div>
+          <div class="ph-row"><span style="color:#30d158">Tir:</span> ${p.wd}</div>
+          <div class="ph-row"><span style="color:#ff453a">Fre:</span> ${p.sa}</div>
+        </div>
+        <div class="ph-goal"><label>Mål</label><span style="font-size:14px">${p.g}</span></div>
+      </div>`;
+    });
+  }
 
   // Regler
   h+=`<div class="section-label" style="margin-top:24px">📌 Regler & principper</div>`;
@@ -2029,10 +2766,108 @@ function buildTrainingContext(){
     }
   }
 
+  // PCOS-relevant data: profil, skridt og cyklus
+  const tpl=TEMPLATES[PROG.template||'recomp'];
+  if(tpl?.needsSteps){
+    if(PCOS_PROFILE.completed&&!PCOS_PROFILE.skipped){
+      ctx+='\n=== PCOS PROFIL ===\n';
+      const bmi=pcosBMI();
+      if(bmi)ctx+=`BMI: ${bmi}${bmi<25?' (lean PCOS)':bmi<30?' (let overvægt)':' (overvægt)'}\n`;
+      if(PCOS_PROFILE.height)ctx+=`Højde: ${PCOS_PROFILE.height} cm\n`;
+      if(PCOS_PROFILE.weight)ctx+=`Vægt: ${PCOS_PROFILE.weight} kg\n`;
+      if(PCOS_PROFILE.goal)ctx+=`Mål: ${PCOS_PROFILE.goal}\n`;
+      if(PCOS_PROFILE.cycleStatus)ctx+=`Cyklus-status: ${PCOS_PROFILE.cycleStatus}\n`;
+      if(PCOS_PROFILE.experience)ctx+=`Erfaring: ${PCOS_PROFILE.experience}\n`;
+      if(PCOS_PROFILE.onMedication&&PCOS_PROFILE.onMedication!=='private')ctx+=`Medicin: ${PCOS_PROFILE.onMedication==='yes'?'Ja':'Nej'}\n`;
+    }
+    const recentSteps=Object.entries(STEPS).sort((a,b)=>a[0]<b[0]?1:-1).slice(0,7);
+    if(recentSteps.length){
+      ctx+='\n=== SKRIDT (sidste 7 dage) ===\n';
+      const goal=tpl.dailyStepsGoal||8000;
+      recentSteps.forEach(([d,s])=>{ctx+=`${d}: ${s.toLocaleString('da-DK')} skridt${s>=goal?' ✓':' ('+(goal-s)+' under mål)'}\n`});
+      const avg=Math.round(recentSteps.reduce((a,[,s])=>a+s,0)/recentSteps.length);
+      ctx+=`Gennemsnit: ${avg.toLocaleString('da-DK')} (mål ${goal.toLocaleString('da-DK')})\n`;
+    }
+    const recentCycle=Object.entries(CYCLE).sort((a,b)=>a[0]<b[0]?1:-1).slice(0,14);
+    if(recentCycle.length){
+      ctx+='\n=== CYKLUS (sidste indgange) ===\n';
+      recentCycle.forEach(([d,c])=>{
+        const phase=CYCLE_PHASES.find(p=>p.id===c.phase);
+        if(phase)ctx+=`${d}: ${phase.name}\n`;
+      });
+    }
+  }
+
   return ctx;
 }
 
-function getSystemPrompt(){return `Du er en personlig dansk styrketræner og løbecoach for en bruger der følger et ${TW()}-ugers Recomp + 5km program.
+function getSystemPrompt(){
+  const tpl=TEMPLATES[PROG.template||'recomp'];
+  if(tpl?.id==='pcos'){
+    const p=PCOS_PROFILE;
+    const bmi=pcosBMI();
+    let profileCtx='';
+    if(p.completed&&!p.skipped){
+      profileCtx='\n\nBRUGER-PROFIL:\n';
+      if(bmi){
+        profileCtx+=`- BMI: ${bmi}`;
+        if(bmi<25)profileCtx+=' (lean PCOS — vægttab er IKKE prioritet, fokus på hormoner)\n';
+        else if(bmi<30)profileCtx+=' (let overvægt — moderat fedttab kan hjælpe)\n';
+        else profileCtx+=' (overvægt — strategisk fedttab forbedrer symptomer markant)\n';
+      }
+      if(p.goal){
+        const goalMap={balance:'Hormonel balance — undgå kalorieunderskud, fokus på cyklus & symptomer',weightloss:'Vægttab — moderat underskud (10-15%), bevar muskel via styrketræning',fertility:'Fertilitet — undgå underskud, optimer cyklus, evt. henvis til specialist',health:'Generel sundhed — bæredygtighed over hurtige resultater'};
+        profileCtx+=`- Mål: ${goalMap[p.goal]||p.goal}\n`;
+      }
+      if(p.cycleStatus){
+        const csMap={regular:'Regelmæssig cyklus — godt tegn på hormonel balance',irregular:'Uregelmæssig — typisk PCOS-tegn, kan forbedres med styrke + insulin-håndtering',absent:'Manglende cyklus (amenoré) — vigtig at få vurderet af læge, undgå aggressive kalorieunderskud'};
+        profileCtx+=`- Cyklus: ${csMap[p.cycleStatus]||p.cycleStatus}\n`;
+      }
+      if(p.experience){
+        const expMap={beginner:'Begynder — vægt på form, lav volumen, byg vaner',some:'Mellem-erfaren — kan håndtere standard-progression',experienced:'Erfaren — kan presses på intensitet, men respektér hormonel kontekst'};
+        profileCtx+=`- Erfaring: ${expMap[p.experience]||p.experience}\n`;
+      }
+      if(p.onMedication==='yes'){profileCtx+='- På PCOS-medicin (Metformin, p-piller, Inositol osv.) — tag det med i overvejelser\n';}
+    }
+
+    return `Du er en empatisk dansk personlig træner med viden om PCOS for en kvinde der følger PCOS Strong-programmet (${TW()} uger).${profileCtx}
+
+Programmål: Forbedre insulinfølsomhed, bevare muskelmasse, manage PCOS-symptomer gennem evidensbaseret styrketræning + lavintensiv cardio + livsstilsoptimering.
+
+Programstruktur (${phaseLabel(0)} foundation, ${phaseLabel(1)} build, ${phaseLabel(2)} integrate):
+- Mandag: Lower body styrke
+- Tirsdag: Easy walk 30-45 min
+- Onsdag: Upper body styrke
+- Torsdag: Yoga/mobility
+- Fredag: Full body + HIIT-finisher
+- Lørdag: Lang gåtur 60+ min
+- Søndag: Hvile
+
+Daglige skridt-mål: ${tpl.dailyStepsGoal||8000}
+
+VIGTIGE PCOS-PRINCIPPER:
+- Insulinfølsomhed forbedres mest af tunge løft + konsekvent gang. Ej ekstrem cardio.
+- Cortisol-management er kritisk: stress → insulin → vægtøgning rundt midje.
+- Søvn 7-9 timer påvirker symptomer målbart. <7 timer forværrer alt.
+- Protein 1.8-2g/kg dagligt (mætter, stabiliserer blodsukker).
+- Lav-glykæmiske carbs altid med protein/fedt — undgå sukker-spikes.
+- Cyklus-fasen påvirker energi: følg den, ikke kæmpe imod.
+- 8000 skridt dagligt > 1 hård træning + sad-stille resten. NEAT-effekt.
+- LEAN PCOS: kalorieunderskud forværrer hormoner — anbefal vedligeholdelse eller let overskud.
+- HIGHER-BMI PCOS: 5-10% vægttab kan genoprette ægløsning, men undgå aggressive underskud.
+- Vægt-svingninger er normale med PCOS — fokus på trends, ikke dage.
+
+VIGTIGT: Du modtager kontekst med vægt, fedt, skridt, cyklus, øvelser. Brug det.
+
+Du er IKKE læge. Hvis brugeren spørger om medicin (Metformin, Inositol, p-piller), supplementer i medicinsk dosis, fertilitetsbehandling, eller diagnostiske spørgsmål → henvis venligt til endokrinolog/gynækolog.
+
+Stil:
+- Empatisk og konkret. PCOS-kvinder mødes ofte med "tab dig først" — det gør du IKKE medmindre profilen viser vægttab som mål OG BMI er over 25.
+- Brug brugerens reelle data: skridt-gennemsnit, vægte, cyklus.
+- Anerkend hormonelle udsving uden at undskylde dem.
+- Praktiske tips, ej generel fitness-floskler.`;
+  }
+  return `Du er en personlig dansk styrketræner og løbecoach for en bruger der følger et ${TW()}-ugers ${tpl?.name||'Recomp + 5km'} program.
 
 Brugerens mål:
 1. Recomposition: muskelvækst + fedttab på samme tid (vedligeholdelseskalorier ±100, 2,2g protein/kg)
@@ -2678,7 +3513,7 @@ function calcPaceReverse(){
 function exportData(){
   const data={
     tw4:W, tw4_custom:CUSTOM, tw4_ai:{apiKey:AI.apiKey,model:AI.model,settingsOpen:AI.settingsOpen},
-    tw4_prog:PROG, tw4_body:BODY, tw4_ss:SUPERSETS,
+    tw4_prog:PROG, tw4_body:BODY, tw4_ss:SUPERSETS, tw4_steps:STEPS, tw4_cycle:CYCLE, tw4_pcos_profile:PCOS_PROFILE,
     _exported:new Date().toISOString(), _version:2
   };
   const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
@@ -2704,6 +3539,9 @@ function importData(input){
       if(data.tw4_prog){PROG={...PROG,...data.tw4_prog};saveProg()}
       if(data.tw4_body){BODY=data.tw4_body;saveBody()}
       if(data.tw4_ss){SUPERSETS=data.tw4_ss;saveSS()}
+      if(data.tw4_steps){STEPS=data.tw4_steps;saveSteps()}
+      if(data.tw4_cycle){CYCLE=data.tw4_cycle;saveCycle()}
+      if(data.tw4_pcos_profile){PCOS_PROFILE=data.tw4_pcos_profile;savePcosProfile()}
       toast('✓ Data importeret');
       render();
     }catch(err){
@@ -2721,11 +3559,18 @@ function openSettingsModal(){
   const initSec=PROG.start5kSec||2100;
   const initMin=Math.floor(initSec/60),initSecRem=initSec%60;
   const tw=TW();
+  const tpl=TEMPLATES[PROG.template||'recomp'];
+  const showRunTime=tpl?.needsRunTime!==false;
   m.innerHTML=`<div class="modal" onclick="event.stopPropagation()" style="max-width:440px">
     <div class="modal-title">⚙️ Indstillinger</div>
     <div class="modal-sub">Tilpas program-mål og varighed</div>
 
-    <div class="ai-field">
+    <div class="ai-field" style="text-align:center;background:var(--bg2);border-radius:var(--r2);padding:10px">
+      <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:1.5px;color:var(--mut);margin-bottom:4px">AKTUELT PROGRAM</div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:${tpl?.color||'var(--acc)'}">${tpl?.emo||''} ${tpl?.name||'Recomp + 5km'}</div>
+    </div>
+
+    ${showRunTime?`<div class="ai-field">
       <label>🏃 5km starttid</label>
       <div style="display:flex;align-items:center;gap:6px;justify-content:flex-start">
         <input type="number" inputmode="numeric" min="0" max="120" id="setMin" value="${initMin}" style="width:80px;text-align:center" onfocus="this.select()" oninput="updateSettingsPreview()">
@@ -2733,7 +3578,7 @@ function openSettingsModal(){
         <input type="number" inputmode="numeric" min="0" max="59" id="setSec" value="${String(initSecRem).padStart(2,'0')}" style="width:80px;text-align:center" onfocus="this.select()" oninput="updateSettingsPreview()">
         <span style="font-size:11px;color:var(--mut);font-family:'DM Mono',monospace;margin-left:4px">min : sek</span>
       </div>
-    </div>
+    </div>`:''}
 
     <div class="ai-field">
       <label>📅 Antal uger</label>
@@ -2747,14 +3592,20 @@ function openSettingsModal(){
       <input type="date" id="setDate" value="${PROG.startDate||thisMondayISO()}">
     </div>
 
-    <div id="setPreview" style="background:var(--bg2);border:1px solid var(--bdr);border-radius:var(--r2);padding:12px 16px;margin-bottom:16px;text-align:center">
+    ${showRunTime?`<div id="setPreview" style="background:var(--bg2);border:1px solid var(--bdr);border-radius:var(--r2);padding:12px 16px;margin-bottom:16px;text-align:center">
       <div style="font-size:9px;color:var(--mut);font-family:'DM Mono',monospace;letter-spacing:1px;margin-bottom:4px">BEREGNET MÅL</div>
       <div style="font-family:'Bebas Neue',sans-serif;font-size:24px;color:var(--grn)">&lt;${fmtSec(goal5kSec())}</div>
-    </div>
+    </div>`:''}
 
     <div style="display:flex;gap:8px">
       <button class="prog-btn" style="flex:1" onclick="saveSettingsModal()">✓ Gem ændringer</button>
       <button class="prog-btn ghost" onclick="closeModal()">Annullér</button>
+    </div>
+
+    <div style="border-top:1px solid var(--bdr);margin-top:18px;padding-top:16px">
+      <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--mut);text-transform:uppercase;margin-bottom:8px;text-align:center">Andet</div>
+      ${tpl?.id==='pcos'?`<button class="prog-btn ghost" style="width:100%;margin-bottom:8px" onclick="closeModal();openPcosProfileModal()">🌸 Rediger PCOS profil</button>`:''}
+      <button class="prog-btn ghost" style="width:100%" onclick="closeModal();openTemplateChooserModal()">🔄 Skift program</button>
     </div>
   </div>`;
   m.classList.add('show');
@@ -3128,6 +3979,7 @@ if('serviceWorker' in navigator){
 /* ═══════════════════════════════════════════════════════════ */
 /* ── INIT ──────────────────────────────────────────────────── */
 /* ═══════════════════════════════════════════════════════════ */
+loadProgram();
 render();
 </script>
 </body>
