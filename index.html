@@ -1035,9 +1035,16 @@ function loadProgram(){
   GP=JSON.parse(JSON.stringify(tpl.GP));
   PH=JSON.parse(JSON.stringify(tpl.PH));
   RL=JSON.parse(JSON.stringify(tpl.RL));
-  // Opdater header-titel
+  // Opdater header-titel — dynamisk distance for løbe-programmer
   const h1=document.querySelector('#hdr h1');
-  if(h1)h1.innerHTML=tpl.headerTitle||'TRÆNINGSPROGRAM';
+  if(h1){
+    let title=tpl.headerTitle||'TRÆNINGSPROGRAM';
+    if(tpl.needsRunTime&&PROG.runDistance){
+      // Erstat "5KM" i headerTitle med faktisk distance
+      title=title.replace(/\d+KM/i,PROG.runDistance+'KM');
+    }
+    h1.innerHTML=title;
+  }
 }
 
 function rTemplateChooser(){
@@ -1231,7 +1238,7 @@ function saveCustom(){try{localStorage.setItem(CK,JSON.stringify(CUSTOM))}catch(
 // Program metadata: startdato, varighed, starttid
 const PK='tw4_prog';
 let PROG={startDate:null,totalWeeks:8,start5kSec:2100};
-try{PROG={startDate:null,totalWeeks:8,start5kSec:2100,...JSON.parse(localStorage.getItem(PK)||'{}')}}catch(e){}
+try{PROG={startDate:null,totalWeeks:8,start5kSec:2100,runDistance:5,...JSON.parse(localStorage.getItem(PK)||'{}')}}catch(e){}
 // Migration: eksisterende brugere får automatisk Recomp som template
 if(!PROG.template){
   // Hvis de har eksisterende vægtdata, så har de allerede kørt Recomp-programmet
@@ -1568,12 +1575,31 @@ function render(){
 }
 
 function updateHeaderWeek(){
-  // Start-tid
+  const tpl=TEMPLATES[PROG.template||'recomp'];
+  const showRun=tpl?.needsRunTime!==false;
+  // Start-tid (kun for løbe-programmer)
   const startEl=document.getElementById('hdrStart');
-  if(startEl)startEl.innerHTML=`<div class="hdr-stat-dot"></div><label>Start</label><b>${fmtSec(PROG.start5kSec||2100)}</b>`;
-  // Mål-tid
+  if(startEl){
+    if(showRun){
+      const dist=PROG.runDistance||5;
+      startEl.style.display='';
+      startEl.innerHTML=`<div class="hdr-stat-dot"></div><label>Start ${dist}km</label><b>${fmtSec(PROG.start5kSec||2100)}</b>`;
+    }else{
+      startEl.style.display='none';
+    }
+  }
+  // Mål-tid (kun for løbe-programmer)
   const goalEl=document.getElementById('hdrGoal');
-  if(goalEl){const g=goal5kSec();goalEl.innerHTML=`<div class="hdr-stat-dot" style="background:var(--grn)"></div><label>Mål</label><b style="color:var(--grn)">&lt;${fmtSec(g)}</b>`}
+  if(goalEl){
+    if(showRun){
+      const g=goal5kSec();
+      const dist=PROG.runDistance||5;
+      goalEl.style.display='';
+      goalEl.innerHTML=`<div class="hdr-stat-dot" style="background:var(--grn)"></div><label>Mål ${dist}km</label><b style="color:var(--grn)">&lt;${fmtSec(g)}</b>`;
+    }else{
+      goalEl.style.display='none';
+    }
+  }
   // Uge / Status
   const el=document.getElementById('hdrWeek');
   if(!el)return;
@@ -1785,28 +1811,23 @@ function rTodayBanner(){
 /* ── PROGRAM SETUP (vælg startdato) ── */
 function rProgSetup(){
   const tm=thisMondayISO();
-  const startMin=Math.floor((PROG.start5kSec||2100)/60);
-  const startSec=(PROG.start5kSec||2100)%60;
   const tw=TW();
   const goalStr=fmtSec(goal5kSec());
   const initSec=PROG.start5kSec||2100;
   const initMin=Math.floor(initSec/60),initSecRem=initSec%60;
+  const tpl=TEMPLATES[PROG.template||'recomp'];
+  const showRun=tpl?.needsRunTime!==false;
+  const dist=PROG.runDistance||5;
   return `<div class="prog-setup">
     <div class="prog-setup-title">⚙️ Opsæt dit program</div>
-    <div class="prog-setup-sub">Tilpas programmet til dig — starttid, varighed og startdato.</div>
-    <div class="body-inputs" style="margin-bottom:16px">
+    <div class="prog-setup-sub">Tilpas programmet til dig${showRun?' — distance, starttid, varighed og startdato.':' — varighed og startdato.'}</div>
+    ${showRun?`<div class="body-inputs" style="margin-bottom:12px;grid-template-columns:1fr 1fr">
       <div class="body-field">
-        <label>🏃 5km starttid</label>
-        <div style="display:flex;align-items:center;gap:6px;justify-content:center">
-          <input type="number" inputmode="numeric" min="0" max="120" placeholder="35" id="progStartMin"
-            value="${initMin}" oninput="updateProgPreview()" style="width:60px"
-            onfocus="this.select()">
-          <span style="font-size:20px;color:var(--mut);font-weight:600">:</span>
-          <input type="number" inputmode="numeric" min="0" max="59" placeholder="00" id="progStartSec"
-            value="${String(initSecRem).padStart(2,'0')}" oninput="updateProgPreview()" style="width:60px"
-            onfocus="this.select()">
-        </div>
-        <div class="bf-unit">min : sek</div>
+        <label>📏 Distance</label>
+        <select id="progDistance" style="font-size:18px;text-align:center;text-align-last:center" onchange="updateProgPreview()">
+          ${[3,5,10,15,21].map(d=>`<option value="${d}"${d===dist?' selected':''}>${d} km</option>`).join('')}
+        </select>
+        <div class="bf-unit">løbe-distance</div>
       </div>
       <div class="body-field">
         <label>📅 Antal uger</label>
@@ -1816,11 +1837,34 @@ function rProgSetup(){
         <div class="bf-unit">varighed</div>
       </div>
     </div>
+    <div class="body-inputs" style="margin-bottom:16px;grid-template-columns:1fr">
+      <div class="body-field">
+        <label>🏃 Starttid på <span id="progDistLabel">${dist}</span> km</label>
+        <div style="display:flex;align-items:center;gap:6px;justify-content:center">
+          <input type="number" inputmode="numeric" min="0" max="200" placeholder="min" id="progStartMin"
+            value="${initMin}" oninput="updateProgPreview()" style="width:60px"
+            onfocus="this.select()">
+          <span style="font-size:20px;color:var(--mut);font-weight:600">:</span>
+          <input type="number" inputmode="numeric" min="0" max="59" placeholder="sek" id="progStartSec"
+            value="${String(initSecRem).padStart(2,'0')}" oninput="updateProgPreview()" style="width:60px"
+            onfocus="this.select()">
+        </div>
+        <div class="bf-unit">min : sek</div>
+      </div>
+    </div>
     <div id="progPreview" style="background:var(--bg2);border:1px solid var(--bdr);border-radius:var(--r2);padding:12px 16px;margin-bottom:16px;text-align:center">
-      <div style="font-size:10px;color:var(--mut);font-family:'DM Mono',monospace;letter-spacing:1px;margin-bottom:6px">BEREGNET MÅL</div>
+      <div style="font-size:10px;color:var(--mut);font-family:'DM Mono',monospace;letter-spacing:1px;margin-bottom:6px">BEREGNET MÅL · ${dist} KM</div>
       <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:var(--grn);letter-spacing:1px">&lt;${goalStr}</div>
       <div style="font-size:11px;color:var(--mut);font-family:'DM Mono',monospace;margin-top:4px">${fmtSec(PROG.start5kSec||2100)} → ${goalStr} på ${tw} uger</div>
-    </div>
+    </div>`:`<div class="body-inputs" style="margin-bottom:16px;grid-template-columns:1fr">
+      <div class="body-field">
+        <label>📅 Antal uger</label>
+        <select id="progWeeks" style="font-size:18px;text-align:center;text-align-last:center">
+          ${[6,8,10,12,16].map(w=>`<option value="${w}"${w===tw?' selected':''}>${w} uger</option>`).join('')}
+        </select>
+        <div class="bf-unit">varighed</div>
+      </div>
+    </div>`}
     <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--mut);letter-spacing:2px;text-transform:uppercase;margin-bottom:8px">Startdato</div>
     <input type="date" class="prog-date-input" id="progDateInput" value="${tm}">
     <div class="btn-row">
@@ -1874,15 +1918,21 @@ function readSetupTime(){
 function updateProgPreview(){
   const sec=readSetupTime();
   const weeksSelect=document.getElementById('progWeeks');
+  const distSelect=document.getElementById('progDistance');
   if(sec&&sec>0)PROG.start5kSec=sec;
   if(weeksSelect){const w=parseInt(weeksSelect.value);if(w&&w>=4)PROG.totalWeeks=w}
+  if(distSelect){const d=parseInt(distSelect.value);if(d&&d>=1)PROG.runDistance=d}
   saveProg(); // gem live så headeren også opdateres
+  loadProgram(); // opdater header-titel med ny distance
   updateHeaderWeek();
+  // Update distance label inline
+  const lbl=document.getElementById('progDistLabel');
+  if(lbl)lbl.textContent=PROG.runDistance||5;
   const goalSec=Math.round((PROG.start5kSec||2100)*(1-Math.min(0.30,0.02*PROG.totalWeeks)));
   const preview=document.getElementById('progPreview');
   if(preview){
     preview.innerHTML=`
-      <div style="font-size:10px;color:var(--mut);font-family:'DM Mono',monospace;letter-spacing:1px;margin-bottom:6px">BEREGNET MÅL</div>
+      <div style="font-size:10px;color:var(--mut);font-family:'DM Mono',monospace;letter-spacing:1px;margin-bottom:6px">BEREGNET MÅL · ${PROG.runDistance||5} KM</div>
       <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:var(--grn);letter-spacing:1px">&lt;${fmtSec(goalSec)}</div>
       <div style="font-size:11px;color:var(--mut);font-family:'DM Mono',monospace;margin-top:4px">${fmtSec(PROG.start5kSec||2100)} → ${fmtSec(goalSec)} på ${PROG.totalWeeks} uger</div>`;
   }
@@ -1893,10 +1943,13 @@ function setProgStart(){
   if(!inp||!inp.value){toast('Vælg en dato');return}
   const sec=readSetupTime();
   const weeksSelect=document.getElementById('progWeeks');
+  const distSelect=document.getElementById('progDistance');
   if(sec&&sec>0)PROG.start5kSec=sec;
   if(weeksSelect){const w=parseInt(weeksSelect.value);if(w&&w>=4)PROG.totalWeeks=w}
+  if(distSelect){const d=parseInt(distSelect.value);if(d&&d>=1)PROG.runDistance=d}
   PROG.startDate=inp.value;
   saveProg();
+  loadProgram();
   const cw=currentWeek();if(cw>=1&&cw<=TW())week=cw;
   toast('✓ Programmet startet');
   render();
@@ -1904,9 +1957,12 @@ function setProgStart(){
 function setProgStartToday(){
   const sec=readSetupTime();
   const weeksSelect=document.getElementById('progWeeks');
+  const distSelect=document.getElementById('progDistance');
   if(sec&&sec>0)PROG.start5kSec=sec;
   if(weeksSelect){const w=parseInt(weeksSelect.value);if(w&&w>=4)PROG.totalWeeks=w}
+  if(distSelect){const d=parseInt(distSelect.value);if(d&&d>=1)PROG.runDistance=d}
   PROG.startDate=thisMondayISO();saveProg();
+  loadProgram();
   toast('✓ Programmet startet');
   render();
 }
@@ -3877,9 +3933,16 @@ function openSettingsModal(){
     </div>
 
     ${showRunTime?`<div class="ai-field">
-      <label>🏃 5km starttid</label>
+      <label>📏 Løbe-distance</label>
+      <select id="setDistance" onchange="updateSettingsPreview()">
+        ${[3,5,10,15,21].map(d=>`<option value="${d}"${d===(PROG.runDistance||5)?' selected':''}>${d} km${d===21?' (halv-marathon)':''}</option>`).join('')}
+      </select>
+    </div>
+
+    <div class="ai-field">
+      <label>🏃 Starttid på ${PROG.runDistance||5} km</label>
       <div style="display:flex;align-items:center;gap:6px;justify-content:flex-start">
-        <input type="number" inputmode="numeric" min="0" max="120" id="setMin" value="${initMin}" style="width:80px;text-align:center" onfocus="this.select()" oninput="updateSettingsPreview()">
+        <input type="number" inputmode="numeric" min="0" max="200" id="setMin" value="${initMin}" style="width:80px;text-align:center" onfocus="this.select()" oninput="updateSettingsPreview()">
         <span style="font-size:20px;color:var(--mut);font-weight:600">:</span>
         <input type="number" inputmode="numeric" min="0" max="59" id="setSec" value="${String(initSecRem).padStart(2,'0')}" style="width:80px;text-align:center" onfocus="this.select()" oninput="updateSettingsPreview()">
         <span style="font-size:11px;color:var(--mut);font-family:'DM Mono',monospace;margin-left:4px">min : sek</span>
@@ -3922,11 +3985,12 @@ function updateSettingsPreview(){
   const min=parseInt(document.getElementById('setMin')?.value);
   const sec=parseInt(document.getElementById('setSec')?.value)||0;
   const weeks=parseInt(document.getElementById('setWeeks')?.value);
+  const dist=parseInt(document.getElementById('setDistance')?.value)||PROG.runDistance||5;
   if(!isNaN(min)&&min>0){
     const tot=min*60+Math.min(sec,59);
     const goal=Math.round(tot*(1-Math.min(0.30,0.02*weeks)));
     const p=document.getElementById('setPreview');
-    if(p)p.innerHTML=`<div style="font-size:9px;color:var(--mut);font-family:'DM Mono',monospace;letter-spacing:1px;margin-bottom:4px">BEREGNET MÅL</div><div style="font-family:'Bebas Neue',sans-serif;font-size:24px;color:var(--grn)">&lt;${fmtSec(goal)}</div><div style="font-size:10px;color:var(--mut);font-family:'DM Mono',monospace;margin-top:3px">${fmtSec(tot)} → ${fmtSec(goal)} på ${weeks} uger</div>`;
+    if(p)p.innerHTML=`<div style="font-size:9px;color:var(--mut);font-family:'DM Mono',monospace;letter-spacing:1px;margin-bottom:4px">BEREGNET MÅL · ${dist} KM</div><div style="font-family:'Bebas Neue',sans-serif;font-size:24px;color:var(--grn)">&lt;${fmtSec(goal)}</div><div style="font-size:10px;color:var(--mut);font-family:'DM Mono',monospace;margin-top:3px">${fmtSec(tot)} → ${fmtSec(goal)} på ${weeks} uger</div>`;
   }
 }
 
@@ -3935,10 +3999,13 @@ function saveSettingsModal(){
   const sec=parseInt(document.getElementById('setSec')?.value)||0;
   const weeks=parseInt(document.getElementById('setWeeks')?.value);
   const date=document.getElementById('setDate')?.value;
+  const dist=parseInt(document.getElementById('setDistance')?.value);
   if(!isNaN(min)&&min>0)PROG.start5kSec=min*60+Math.min(sec,59);
   if(weeks&&weeks>=4)PROG.totalWeeks=weeks;
   if(date)PROG.startDate=date;
+  if(dist&&dist>=1)PROG.runDistance=dist;
   saveProg();
+  loadProgram(); // re-render header med ny distance
   closeModal();
   toast('✓ Indstillinger gemt');
   render();
