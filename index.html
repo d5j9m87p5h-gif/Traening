@@ -591,8 +591,45 @@ input[type=file]{display:none}
 .med-disclaimer-text{font-size:11px;color:var(--mut);line-height:1.5}
 .med-disclaimer-text b{color:#ff453a;font-weight:600}
 
+/* ══ QUICK COACH BUTTON ══ */
+.ai-btn.quick-coach{background:linear-gradient(135deg,#0a84ff,#bf5af2);color:#fff;border:none;font-weight:600;letter-spacing:.5px;box-shadow:0 4px 16px rgba(10,132,255,.25)}
+.ai-btn.quick-coach:active{transform:scale(.96);box-shadow:0 2px 8px rgba(10,132,255,.2)}
+
+/* ══ WELLNESS WIDGET ══ */
+.wellness-widget{background:var(--bg1);border:1px solid var(--bdr);border-radius:var(--r);padding:18px;margin-bottom:16px;box-shadow:var(--shadow)}
+.wellness-title{font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:.5px;margin-bottom:4px}
+.wellness-sub{font-size:11px;color:var(--mut);font-family:'DM Mono',monospace;margin-bottom:14px}
+.wellness-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.wellness-card{background:var(--bg2);border:1px solid var(--bdr);border-radius:var(--r2);padding:14px;text-align:center}
+.wellness-card label{display:block;font-family:'DM Mono',monospace;font-size:9px;letter-spacing:1.5px;color:var(--mut);text-transform:uppercase;margin-bottom:8px}
+.wellness-card .wval{font-family:'Bebas Neue',sans-serif;font-size:32px;line-height:1;margin-bottom:8px}
+.wellness-card .wval-sub{font-size:10px;color:var(--mut);font-family:'DM Mono',monospace;margin-top:2px}
+.wellness-slider-row{display:flex;align-items:center;gap:8px;margin-top:6px}
+.wellness-slider{flex:1;-webkit-appearance:none;appearance:none;height:4px;background:var(--bg3);border-radius:4px;outline:none;cursor:pointer}
+.wellness-slider::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;background:var(--acc);border-radius:50%;cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,.3)}
+.wellness-slider::-moz-range-thumb{width:20px;height:20px;background:var(--acc);border-radius:50%;cursor:pointer;border:none}
+.wellness-stress .wellness-slider::-webkit-slider-thumb{background:#ff453a}
+.wellness-stress .wellness-slider::-moz-range-thumb{background:#ff453a}
+.wellness-emoji{font-size:18px;width:28px;text-align:center}
+
+/* ══ AI ONBOARDING ══ */
+.ai-onboarding{padding:24px 18px;text-align:center;animation:fi .3s ease}
+.aob-icon{font-size:54px;display:block;margin-bottom:12px;animation:bounce 1.5s ease infinite}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+.aob-title{font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:.5px;margin-bottom:8px}
+.aob-sub{font-size:13px;color:var(--mut);line-height:1.6;margin-bottom:24px;max-width:380px;margin-left:auto;margin-right:auto}
+.aob-steps{text-align:left;max-width:420px;margin:0 auto 20px;display:flex;flex-direction:column;gap:14px}
+.aob-step{display:grid;grid-template-columns:36px 1fr;gap:12px;align-items:flex-start;padding:14px;background:var(--bg2);border:1px solid var(--bdr);border-radius:var(--r2)}
+.aob-num{width:32px;height:32px;border-radius:50%;background:var(--acc);color:#000;display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:18px;font-weight:600;flex-shrink:0}
+.aob-txt b{display:block;font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:.5px;color:var(--txt);margin-bottom:3px}
+.aob-txt div{font-size:12px;color:var(--mut);line-height:1.5}
+.aob-txt code{background:var(--bg3);padding:1px 5px;border-radius:4px;font-size:11px;color:var(--blue);font-family:'DM Mono',monospace}
+.aob-cta{background:linear-gradient(135deg,var(--acc),#ff9f0a);color:#000;border:none;padding:14px 28px;border-radius:100px;font-family:'DM Mono',monospace;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;box-shadow:0 6px 20px rgba(255,214,10,.3);min-height:48px}
+.aob-cta:active{transform:scale(.97)}
+.aob-quota{margin-top:16px;font-size:10px;color:var(--mut2);font-family:'DM Mono',monospace}
+
 /* ══ PCOS ONBOARDING ══ */
-.pcos-ob{padding:20px 16px;animation:fi .3s ease}
+.pcos-ob{padding:20px 16px calc(env(safe-area-inset-bottom,20px) + 20px);animation:fi .3s ease}
 .pcos-ob-eyebrow{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:3px;color:#ff6fa8;text-transform:uppercase;text-align:center;margin-bottom:6px}
 .pcos-ob-h1{font-family:'Bebas Neue',sans-serif;font-size:30px;letter-spacing:1px;text-align:center;margin-bottom:8px;line-height:1.1}
 .pcos-ob-sub{font-size:13px;color:var(--mut);font-family:'DM Mono',monospace;text-align:center;margin-bottom:24px;line-height:1.5;padding:0 8px}
@@ -615,10 +652,10 @@ input[type=file]{display:none}
 .pcos-ob-opt.on{background:rgba(255,111,168,.12);border-color:#ff6fa8;color:#ff6fa8}
 .pcos-ob-opt .ob-emo{font-size:18px}
 
-.pcos-ob-actions{display:flex;gap:8px;margin-top:20px;flex-direction:column}
-.pcos-ob-actions .pob-primary{background:#ff6fa8;color:#fff;border:none;font-family:'DM Mono',monospace;font-size:13px;font-weight:600;letter-spacing:1.5px;padding:14px 20px;border-radius:100px;cursor:pointer;text-transform:uppercase;min-height:48px}
+.pcos-ob-actions{display:flex;gap:8px;margin-top:20px;flex-direction:column;padding-bottom:env(safe-area-inset-bottom,16px)}
+.pcos-ob-actions .pob-primary{background:#ff6fa8;color:#fff;border:none;font-family:'DM Mono',monospace;font-size:13px;font-weight:600;letter-spacing:1.5px;padding:14px 20px;border-radius:100px;cursor:pointer;text-transform:uppercase;min-height:52px;width:100%}
 .pcos-ob-actions .pob-primary:active{transform:scale(.97);background:#e8588f}
-.pcos-ob-actions .pob-skip{background:none;border:none;color:var(--mut2);font-family:'DM Mono',monospace;font-size:11px;letter-spacing:1px;padding:10px;cursor:pointer;text-transform:uppercase}
+.pcos-ob-actions .pob-skip{background:none;border:none;color:var(--mut2);font-family:'DM Mono',monospace;font-size:11px;letter-spacing:1px;padding:14px;cursor:pointer;text-transform:uppercase;min-height:44px}
 </style>
 </head>
 <body>
@@ -1292,6 +1329,12 @@ let STEPS={};// {'2026-05-05': 8500, ...}
 try{STEPS=JSON.parse(localStorage.getItem(STK)||'{}')}catch(e){}
 function saveSteps(){try{localStorage.setItem(STK,JSON.stringify(STEPS))}catch(e){}}
 
+// Søvn og stress per dag
+const WLK='tw4_wellness';
+let WELLNESS={};// {'2026-05-05': {sleep:7.5, stress:3}, ...}
+try{WELLNESS=JSON.parse(localStorage.getItem(WLK)||'{}')}catch(e){}
+function saveWellness(){try{localStorage.setItem(WLK,JSON.stringify(WELLNESS))}catch(e){}}
+
 // Cyklus-tracking (PCOS-template)
 const CYCK='tw4_cycle';
 let CYCLE={};// {'2026-05-05': {phase:'follicular', flow:'none', notes:''}, ...}
@@ -1569,7 +1612,22 @@ function render(){
   else if(tab==='weights')c.innerHTML=rLog();
   else if(tab==='graph')c.innerHTML=rGraph();
   else if(tab==='body')c.innerHTML=rBody();
-  else if(tab==='coach')c.innerHTML=rCoach();
+  else if(tab==='coach'){
+    c.innerHTML=rCoach();
+    // Pre-fill med pending prompt fra "Spørg coachen"-knap
+    if(pendingCoachPrompt){
+      const p=pendingCoachPrompt;pendingCoachPrompt=null;
+      setTimeout(()=>{
+        const inp=document.getElementById('aiInput');
+        if(inp&&!inp.disabled){
+          inp.value=p;
+          inp.focus();
+          inp.style.height='auto';
+          inp.style.height=Math.min(inp.scrollHeight,150)+'px';
+        }
+      },100);
+    }
+  }
   else if(tab==='library')c.innerHTML=rLibrary();
   else if(tab==='info')c.innerHTML=rInfo();
 }
@@ -1730,7 +1788,10 @@ function rWeekly(){
       });
       h+=`<div class="tip">💡 <b>Pause:</b> 2–3 min styrke &nbsp;·&nbsp; 60–90 sek isolation &nbsp;·&nbsp; 1–2 reps fra failure</div>`;
       if(exs.some(e=>e.core))h+=`<div class="tcore">🔶 <b>Core-blok</b> – ca. 10 min til sidst &nbsp;·&nbsp; 45–60 sek pause</div>`;
-      h+=`<div style="margin-top:12px;text-align:center"><button class="ai-btn ghost" onclick="go('library')">+ Tilføj øvelse fra bibliotek</button></div>`;
+      h+=`<div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap;justify-content:center">
+        <button class="ai-btn quick-coach" onclick="askCoachAboutToday('${escAttr(d.full)}')">💬 Spørg coachen</button>
+        <button class="ai-btn ghost" onclick="go('library')">+ Tilføj øvelse</button>
+      </div>`;
 
     }else if(d.run){
       h+=wpickH();
@@ -1766,6 +1827,9 @@ function rWeekly(){
           onchange="wch(this)">${escHtml(note)}</textarea>
       </div></div>`;
       h+=renderPaceCalc();
+      h+=`<div style="margin-top:12px;text-align:center">
+        <button class="ai-btn quick-coach" onclick="askCoachAboutToday('${escAttr(d.full)}')">💬 Spørg coachen om dagens løb</button>
+      </div>`;
 
     }else{
       h+=`<div class="rest">
@@ -2164,6 +2228,8 @@ function rBody(){
     h+=rStepsWidget();
     h+=rCycleTracker();
   }
+  // Wellness (søvn + stress) — alle templates
+  h+=rWellnessWidget();
 
   // Week navigator
   const gp=GP[gymPhase(Math.min(bw,TW()))];
@@ -2341,6 +2407,58 @@ function setSteps(date,val){
 }
 
 /* ═══════════════════════════════════════════════════════════ */
+/* ── WELLNESS (Søvn + Stress) ──────────────────────────────── */
+/* ═══════════════════════════════════════════════════════════ */
+function rWellnessWidget(){
+  const today=todayISO();
+  const w=WELLNESS[today]||{};
+  const sleep=w.sleep??null;
+  const stress=w.stress??null;
+  const sleepEmo=sleep===null?'😴':sleep<6?'😩':sleep<7?'😐':sleep<9?'😊':'🌟';
+  const stressEmo=stress===null?'🧘':stress<=2?'😌':stress<=3?'😐':stress<=4?'😬':'😫';
+  const sleepLabel=sleep===null?'—':sleep+' t';
+  const stressLabel=stress===null?'—':stress+'/5';
+  return `<div class="wellness-widget">
+    <div class="wellness-title">🌙 Søvn & stress i dag</div>
+    <div class="wellness-sub">Begge påvirker restitution markant — log det dagligt for bedre coach-rådgivning</div>
+    <div class="wellness-grid">
+      <div class="wellness-card">
+        <label>SØVN i nat</label>
+        <div class="wval">${sleepEmo}</div>
+        <div class="wellness-slider-row">
+          <span class="wellness-emoji">😩</span>
+          <input type="range" class="wellness-slider" min="0" max="12" step="0.5" value="${sleep??7}"
+            oninput="setWellness('${today}','sleep',this.value);document.getElementById('sleepLabel').textContent=this.value+' t'"
+            onchange="render()">
+          <span class="wellness-emoji">🌟</span>
+        </div>
+        <div class="wval-sub" id="sleepLabel">${sleepLabel}</div>
+      </div>
+      <div class="wellness-card wellness-stress">
+        <label>STRESS-NIVEAU</label>
+        <div class="wval">${stressEmo}</div>
+        <div class="wellness-slider-row">
+          <span class="wellness-emoji">😌</span>
+          <input type="range" class="wellness-slider" min="1" max="5" step="1" value="${stress??3}"
+            oninput="setWellness('${today}','stress',this.value);document.getElementById('stressLabel').textContent=this.value+'/5'"
+            onchange="render()">
+          <span class="wellness-emoji">😫</span>
+        </div>
+        <div class="wval-sub" id="stressLabel">${stressLabel}</div>
+      </div>
+    </div>
+  </div>`;
+}
+
+function setWellness(date,field,val){
+  if(!WELLNESS[date])WELLNESS[date]={};
+  const num=parseFloat(val);
+  if(isNaN(num)){delete WELLNESS[date][field]}
+  else{WELLNESS[date][field]=num}
+  saveWellness();
+}
+
+/* ═══════════════════════════════════════════════════════════ */
 /* ── CYCLE TRACKER (PCOS template) ─────────────────────────── */
 /* ═══════════════════════════════════════════════════════════ */
 const CYCLE_PHASES=[
@@ -2496,7 +2614,19 @@ function setProfileField(field,val){
   if(PROFILE[field]===val&&field!=='injuries'){delete PROFILE[field]}
   else{PROFILE[field]=val}
   saveProfile();
-  render();
+  // Hvis vi er i et modal, opdater kun modal-indholdet — ikke hele appen
+  const modalContent=document.getElementById('profileModalContent');
+  if(modalContent){
+    // Find onboarding-div og erstat den
+    const m=document.getElementById('modal');
+    const isPcosModal=modalContent.querySelector('.pcos-ob-eyebrow')?.textContent.includes('PCOS Strong');
+    const headerHTML=modalContent.querySelector('div[style*="position:sticky"]')?.parentElement.innerHTML;
+    // Genbyg modalet med opdateret indhold men bevar struktur
+    if(isPcosModal){openPcosProfileModal()}
+    else{openProfileModal()}
+  }else{
+    render();
+  }
 }
 
 function updateProfileLive(){
@@ -2625,7 +2755,9 @@ function setPcosOb(field,val){
   if(PCOS_PROFILE[field]===val){delete PCOS_PROFILE[field]}
   else{PCOS_PROFILE[field]=val}
   savePcosProfile();
-  render();
+  const modalContent=document.getElementById('profileModalContent');
+  if(modalContent){openPcosProfileModal()}
+  else{render()}
 }
 
 function updatePcosOb(){
@@ -2944,11 +3076,45 @@ function rCoach(){
     </div>
     <div class="ai-msgs" id="aiMsgs">`;
   if(AI.messages.length===0){
-    h+=`<div class="ai-empty">
-      <span class="ae-icon">🤖</span>
-      <div class="ae-title">Klar til at coache dig</div>
-      <div class="ae-sub">${hasKey?'Tryk på en hurtig handling ovenfor<br>eller skriv et spørgsmål nedenfor':'Tilføj din API-nøgle ovenfor for at komme i gang'}</div>
-    </div>`;
+    if(!hasKey){
+      // FULD ONBOARDING når ingen API-nøgle er sat
+      h+=`<div class="ai-onboarding">
+        <span class="aob-icon">🤖</span>
+        <div class="aob-title">Velkommen til din AI Coach</div>
+        <div class="aob-sub">Personlig dansk træningsrådgivning der kender dit program, dine data og din krop. Helt gratis at sætte op — det tager 90 sekunder.</div>
+        <div class="aob-steps">
+          <div class="aob-step">
+            <div class="aob-num">1</div>
+            <div class="aob-txt">
+              <b>Hent gratis API-nøgle</b>
+              <div>Gå til <a href="https://aistudio.google.com/apikey" target="_blank" style="color:var(--blue);text-decoration:underline">aistudio.google.com/apikey</a>, log ind med din Google-konto, og tryk "Create API key". Ingen kreditkort.</div>
+            </div>
+          </div>
+          <div class="aob-step">
+            <div class="aob-num">2</div>
+            <div class="aob-txt">
+              <b>Indsæt nøglen i indstillinger</b>
+              <div>Tryk "Indstillinger" øverst, indsæt nøglen (starter med <code>AIzaSy...</code>), og tryk "Gem".</div>
+            </div>
+          </div>
+          <div class="aob-step">
+            <div class="aob-num">3</div>
+            <div class="aob-txt">
+              <b>Begynd at chatte</b>
+              <div>Coachen kender hele dit program automatisk — øvelser, vægte, fremgang, kropsdata, søvn, alt. Den er din personlige træner i lommen.</div>
+            </div>
+          </div>
+        </div>
+        <button class="aob-cta" onclick="toggleAISettings();setTimeout(()=>document.getElementById('aiKey')?.focus(),300)">⚙️ Åbn indstillinger</button>
+        <div class="aob-quota">📊 Gratis tier: 1500 spørgsmål/dag på Gemini 2.5 Flash — meget mere end nok til daglig coaching</div>
+      </div>`;
+    }else{
+      h+=`<div class="ai-empty">
+        <span class="ae-icon">🤖</span>
+        <div class="ae-title">Klar til at coache dig</div>
+        <div class="ae-sub">Tryk på en hurtig handling ovenfor<br>eller skriv et spørgsmål nedenfor</div>
+      </div>`;
+    }
   }else{
     AI.messages.forEach(m=>{
       h+=`<div class="ai-msg ${m.role==='user'?'user':'bot'}">
@@ -3125,6 +3291,34 @@ function buildTrainingContext(){
       if(first.kg&&last.kg){const d=Math.round((last.kg-first.kg)*10)/10;ctx+=`Vægtændring: ${d>=0?'+':''}${d} kg\n`}
       if(first.fat&&last.fat){const d=Math.round((last.fat-first.fat)*10)/10;ctx+=`Fedtændring: ${d>=0?'+':''}${d}%\n`}
     }
+  }
+
+  // Søvn & stress (sidste 7 dage gennemsnit)
+  const wellnessEntries=Object.entries(WELLNESS).sort((a,b)=>a[0]<b[0]?1:-1).slice(0,7);
+  if(wellnessEntries.length){
+    const sleepArr=wellnessEntries.filter(([,v])=>v.sleep!=null).map(([,v])=>v.sleep);
+    const stressArr=wellnessEntries.filter(([,v])=>v.stress!=null).map(([,v])=>v.stress);
+    ctx+='\n=== SØVN & STRESS (sidste 7 dage) ===\n';
+    if(sleepArr.length){const avg=Math.round(sleepArr.reduce((a,b)=>a+b,0)/sleepArr.length*10)/10;ctx+=`Søvn-gennemsnit: ${avg} timer/nat (${sleepArr.length} dage logget)\n`}
+    if(stressArr.length){const avg=Math.round(stressArr.reduce((a,b)=>a+b,0)/stressArr.length*10)/10;ctx+=`Stress-gennemsnit: ${avg}/5 (${stressArr.length} dage logget)\n`}
+  }
+
+  // Øvelse-noter på tværs af de seneste 4 uger (vigtigt for kontinuerlig coaching)
+  const cwForNotes=currentWeek();
+  const noteEntries=[];
+  for(let w=Math.max(1,cwForNotes-3);w<=Math.min(TW(),cwForNotes);w++){
+    D.filter(d=>d.ex).forEach(d=>{
+      dayEx(d).filter(e=>!e.core).forEach(e=>{
+        const note=getExerciseNote(w,d.full,e.n);
+        if(note&&note.trim()){
+          noteEntries.push(`Uge ${w} · ${d.full} · ${e.n}: ${note.trim().substring(0,150)}`);
+        }
+      });
+    });
+  }
+  if(noteEntries.length){
+    ctx+='\n=== ØVELSE-NOTER (sidste 4 uger) ===\n';
+    ctx+=noteEntries.join('\n')+'\n';
   }
 
   // PCOS-relevant data: profil, skridt og cyklus
@@ -3330,6 +3524,27 @@ async function callClaude(userMessage){
 }
 
 let aiBusy=false;
+
+// Pre-fill prompt der hopper til Coach-tabben med kontekst om dagens træning
+let pendingCoachPrompt=null;
+function askCoachAboutToday(dayFull){
+  const d=D.find(o=>o.full===dayFull);
+  if(!d)return;
+  let prompt='';
+  if(d.run){
+    prompt=`Hjælp mig med dagens løb (${d.full} - ${d.run.type}, ${d.run.dur} @ ${d.run.pace}). Hvordan skal jeg gribe det an?`;
+  }else if(d.ex){
+    const exs=dayEx(d).filter(e=>!e.core);
+    const lastWeekData=exs.map(e=>{
+      const v=week>1?gw(week-1,d.full,e.n):'';
+      return v?`${e.n}: ${maxW(v)} kg`:null;
+    }).filter(Boolean);
+    prompt=`Hjælp mig med dagens ${d.type} (${d.full}). Øvelser: ${exs.map(e=>e.n).join(', ')}. ${lastWeekData.length?'Sidste uge: '+lastWeekData.join(', ')+'.':''} Hvad skal jeg sigte mod i dag?`;
+  }
+  if(!prompt)return;
+  pendingCoachPrompt=prompt;
+  go('coach');
+}
 
 async function sendAIMessage(custom){
   if(aiBusy)return;
@@ -3874,7 +4089,7 @@ function readMinSec(minId,secId){
 function exportData(){
   const data={
     tw4:W, tw4_custom:CUSTOM, tw4_ai:{apiKey:AI.apiKey,model:AI.model,settingsOpen:AI.settingsOpen},
-    tw4_prog:PROG, tw4_body:BODY, tw4_ss:SUPERSETS, tw4_steps:STEPS, tw4_cycle:CYCLE, tw4_pcos_profile:PCOS_PROFILE, tw4_profile:PROFILE,
+    tw4_prog:PROG, tw4_body:BODY, tw4_ss:SUPERSETS, tw4_steps:STEPS, tw4_cycle:CYCLE, tw4_pcos_profile:PCOS_PROFILE, tw4_profile:PROFILE, tw4_wellness:WELLNESS,
     _exported:new Date().toISOString(), _version:2
   };
   const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
@@ -3904,6 +4119,7 @@ function importData(input){
       if(data.tw4_cycle){CYCLE=data.tw4_cycle;saveCycle()}
       if(data.tw4_pcos_profile){PCOS_PROFILE=data.tw4_pcos_profile;savePcosProfile()}
       if(data.tw4_profile){PROFILE=data.tw4_profile;saveProfile()}
+      if(data.tw4_wellness){WELLNESS=data.tw4_wellness;saveWellness()}
       toast('✓ Data importeret');
       render();
     }catch(err){
@@ -4176,12 +4392,36 @@ function rStreak(){
   }
   curStreak=running;
 
+  // Milepæle baseret på BEDSTE streak
+  const milestones=[
+    {d:7,emo:'🥉',name:'1 uge',color:'#cd7f32'},
+    {d:14,emo:'🥈',name:'2 uger',color:'#c0c0c0'},
+    {d:30,emo:'🥇',name:'1 måned',color:'#ffd60a'},
+    {d:60,emo:'🏆',name:'2 måneder',color:'#0a84ff'},
+    {d:100,emo:'💎',name:'100 dage',color:'#bf5af2'}
+  ];
+  const earned=milestones.filter(m=>bestStreak>=m.d);
+  const next=milestones.find(m=>bestStreak<m.d);
+  let milestonesHtml='';
+  if(earned.length||next){
+    milestonesHtml=`<div style="display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin-bottom:12px;padding:10px;background:var(--bg2);border-radius:var(--r2);border:1px solid var(--bdr)">`;
+    earned.forEach(m=>{
+      milestonesHtml+=`<div title="${m.name} streak" style="display:flex;align-items:center;gap:4px;padding:4px 10px;background:${m.color}20;border:1px solid ${m.color}50;border-radius:100px;font-family:'DM Mono',monospace;font-size:10px;font-weight:600;color:${m.color}"><span style="font-size:14px">${m.emo}</span>${m.name}</div>`;
+    });
+    if(next){
+      const remaining=next.d-bestStreak;
+      milestonesHtml+=`<div style="display:flex;align-items:center;gap:4px;padding:4px 10px;background:var(--bg3);border:1px dashed var(--bdr);border-radius:100px;font-family:'DM Mono',monospace;font-size:10px;color:var(--mut2);opacity:.7"><span style="font-size:14px;opacity:.5">${next.emo}</span>${remaining} dag${remaining===1?'':'e'} til</div>`;
+    }
+    milestonesHtml+=`</div>`;
+  }
+
   let h=`<div class="streak-section">
     <div class="streak-title">🔥 Konsistens</div>
     <div class="streak-sub">
       <div>Nuværende streak: <span class="streak-stat">${curStreak} ${curStreak===1?'dag':'dage'}</span></div>
       <div>Bedste: <span class="streak-stat">${bestStreak} ${bestStreak===1?'dag':'dage'}</span></div>
     </div>
+    ${milestonesHtml}
     <div class="streak-grid">
       <div class="streak-day-label"></div>
       <div class="streak-day-label">M</div>
