@@ -1297,15 +1297,89 @@ let PCOS_PROFILE={};
 try{PCOS_PROFILE=JSON.parse(localStorage.getItem(PPK)||'{}')}catch(e){}
 function savePcosProfile(){try{localStorage.setItem(PPK,JSON.stringify(PCOS_PROFILE))}catch(e){}}
 
+// Generel profil (alle templates) — køn, alder, højde, vægt, mål, erfaring, skader
+const PROFK='tw4_profile';
+let PROFILE={};
+try{PROFILE=JSON.parse(localStorage.getItem(PROFK)||'{}')}catch(e){}
+function saveProfile(){try{localStorage.setItem(PROFK,JSON.stringify(PROFILE))}catch(e){}}
+
+// Migration: kopiér delte felter fra PCOS_PROFILE til PROFILE hvis de ikke findes
+(function migrateProfile(){
+  let changed=false;
+  if(PCOS_PROFILE.height&&!PROFILE.height){PROFILE.height=PCOS_PROFILE.height;changed=true}
+  if(PCOS_PROFILE.weight&&!PROFILE.weight){PROFILE.weight=PCOS_PROFILE.weight;changed=true}
+  if(PCOS_PROFILE.experience&&!PROFILE.experience){PROFILE.experience=PCOS_PROFILE.experience;changed=true}
+  // Eksisterende brugere (har data men ej completed-flag) → marker som skipped så ingen forced onboarding
+  if(!PROFILE.completed&&localStorage.getItem(SK)){
+    PROFILE.completed=true;
+    PROFILE.skipped=true;
+    changed=true;
+  }
+  if(changed)saveProfile();
+})();
+
 // Helpers til adaptiv tilpasning baseret på profil
 function pcosBMI(){
-  if(!PCOS_PROFILE.height||!PCOS_PROFILE.weight)return null;
-  const m=PCOS_PROFILE.height/100;
-  return Math.round((PCOS_PROFILE.weight/(m*m))*10)/10;
+  // Læs fra generel profil hvis muligt, ellers PCOS_PROFILE for backwards compat
+  const h=PROFILE.height||PCOS_PROFILE.height;
+  const w=PROFILE.weight||PCOS_PROFILE.weight;
+  if(!h||!w)return null;
+  const m=h/100;
+  return Math.round((w/(m*m))*10)/10;
 }
 function isLeanPCOS(){const b=pcosBMI();return b!==null&&b<25}
 function pcosGoalIsWeightloss(){return PCOS_PROFILE.goal==='weightloss'}
 function pcosGoalIsBalance(){return PCOS_PROFILE.goal==='balance'||PCOS_PROFILE.goal==='fertility'}
+
+// TDEE & kalorie-beregning
+function calcBMR(){
+  const p=PROFILE;
+  if(!p.height||!p.weight||!p.age||!p.gender)return null;
+  // Mifflin-St Jeor formel
+  const base=10*p.weight+6.25*p.height-5*p.age;
+  return p.gender==='male'?Math.round(base+5):Math.round(base-161);
+}
+function calcTDEE(activityMult){
+  const mult=activityMult||1.55; // moderat aktivitet (træner 4-6 dage/uge)
+  const bmr=calcBMR();
+  return bmr?Math.round(bmr*mult):null;
+}
+function calcCalorieTarget(){
+  const tdee=calcTDEE();
+  if(!tdee)return null;
+  const tpl=TEMPLATES[PROG.template||'recomp'];
+  if(!tpl)return tdee;
+  switch(tpl.id){
+    case 'recomp':return tdee; // vedligeholdelseskalorier
+    case 'bulk':return tdee+250; // moderat overskud
+    case 'cut':return tdee-500; // 500 kcal underskud
+    case 'strength':return tdee+150; // let overskud for muskel-bevarelse
+    case 'beginner':return tdee;
+    case 'pcos':
+      // PCOS: tilpas efter BMI og mål
+      const b=pcosBMI();
+      if(PCOS_PROFILE.goal==='balance'||PCOS_PROFILE.goal==='fertility')return tdee;
+      if(b&&b<25)return tdee; // lean PCOS = maintenance
+      if(PCOS_PROFILE.goal==='weightloss'&&b&&b>=25)return tdee-400;
+      return tdee-200; // mild deficit som default
+    default:return tdee;
+  }
+}
+function calcProteinTarget(){
+  const w=PROFILE.weight;
+  if(!w)return null;
+  const tpl=TEMPLATES[PROG.template||'recomp'];
+  if(!tpl)return Math.round(w*2);
+  switch(tpl.id){
+    case 'cut':return Math.round(w*2.4); // bevar muskel i underskud
+    case 'pcos':return Math.round(w*1.9);
+    case 'beginner':return Math.round(w*1.8);
+    case 'bulk':return Math.round(w*2.0);
+    case 'strength':return Math.round(w*2.0);
+    case 'recomp':return Math.round(w*2.2);
+    default:return Math.round(w*2);
+  }
+}
 
 // Dato-hjælpere
 const DAY_NAMES=['Mandag','Tirsdag','Onsdag','Torsdag','Fredag','Lørdag','Søndag'];
@@ -1528,7 +1602,12 @@ function rWeekly(){
     return rTemplateChooser();
   }
 
-  // PCOS template + ingen profil endnu → vis onboarding
+  // Generel profil ej udfyldt → vis profil-onboarding (alle templates)
+  if(!PROFILE.completed){
+    return rProfileOnboarding();
+  }
+
+  // PCOS template + ingen PCOS-specifik profil endnu → vis PCOS-specifik onboarding
   if(PROG.template==='pcos'&&!PCOS_PROFILE.completed){
     return rPcosOnboarding();
   }
@@ -2246,12 +2325,182 @@ function setCyclePhase(date,phase){
 }
 
 /* ═══════════════════════════════════════════════════════════ */
+/* ── PERSONLIG PROFIL (alle templates) ────────────────────── */
+/* ═══════════════════════════════════════════════════════════ */
+function rProfileOnboarding(){
+  const p=PROFILE;
+  const bmi=pcosBMI();
+  let bmiText='';
+  if(bmi){
+    if(bmi<18.5)bmiText=`BMI ${bmi} · undervægt`;
+    else if(bmi<25)bmiText=`BMI ${bmi} · normal`;
+    else if(bmi<30)bmiText=`BMI ${bmi} · let overvægt`;
+    else bmiText=`BMI ${bmi} · overvægt`;
+  }
+  const tdee=calcTDEE();
+  return `<div class="pcos-ob">
+    <div class="pcos-ob-eyebrow">// Personlig profil</div>
+    <div class="pcos-ob-h1">FORTÆL OS LIDT<br>OM DIG SELV</div>
+    <div class="pcos-ob-sub">Valgfrie spørgsmål der gør coach-rådgivning og kalorieforslag præcise. Alt gemmes lokalt på din enhed.</div>
+
+    <div class="pcos-ob-card">
+      <div class="pcos-ob-q">👤 Køn</div>
+      <div class="pcos-ob-hint">Bruges til at beregne realistisk kalorie-behov og styrke-mål.</div>
+      <div class="pcos-ob-options" style="grid-template-columns:1fr 1fr 1fr">
+        <div class="pcos-ob-opt${p.gender==='male'?' on':''}" onclick="setProfileField('gender','male')"><span class="ob-emo">♂️</span>Mand</div>
+        <div class="pcos-ob-opt${p.gender==='female'?' on':''}" onclick="setProfileField('gender','female')"><span class="ob-emo">♀️</span>Kvinde</div>
+        <div class="pcos-ob-opt${p.gender==='private'?' on':''}" onclick="setProfileField('gender','private')"><span class="ob-emo">🔒</span>Privat</div>
+      </div>
+    </div>
+
+    <div class="pcos-ob-card">
+      <div class="pcos-ob-q">🎂 Alder</div>
+      <div class="pcos-ob-hint">Restitution og hormonelle behov ændres med alderen.</div>
+      <div class="pcos-ob-input-wrap" style="max-width:200px;margin:0 auto">
+        <input type="number" inputmode="numeric" min="14" max="100" placeholder="38" id="profAge"
+          value="${p.age||''}" oninput="updateProfileLive()" onfocus="this.select()">
+        <span class="ob-unit">år</span>
+      </div>
+    </div>
+
+    <div class="pcos-ob-card">
+      <div class="pcos-ob-q">📏 Højde & vægt</div>
+      <div class="pcos-ob-hint">Bruges til BMI og kalorie-beregning. Du kan altid opdatere senere.</div>
+      <div class="pcos-ob-bmi">
+        <div class="pcos-ob-input-wrap">
+          <input type="number" inputmode="numeric" min="120" max="220" placeholder="175" id="profHeight"
+            value="${p.height||''}" oninput="updateProfileLive()" onfocus="this.select()">
+          <span class="ob-unit">cm</span>
+        </div>
+        <div class="pcos-ob-input-wrap">
+          <input type="number" inputmode="decimal" step="0.1" min="30" max="200" placeholder="75" id="profWeight"
+            value="${p.weight||''}" oninput="updateProfileLive()" onfocus="this.select()">
+          <span class="ob-unit">kg</span>
+        </div>
+      </div>
+      <div class="pcos-ob-bmi-result${bmi?(bmi<25?' lean':bmi<30?' normal':' over'):''}" id="profBmiResult" style="margin-top:10px">${bmiText||'Indtast højde + vægt'}</div>
+    </div>
+
+    <div class="pcos-ob-card">
+      <div class="pcos-ob-q">🎯 Mål-vægt</div>
+      <div class="pcos-ob-hint">Hvis relevant. Lader appen tracke fremgang mod et konkret mål. Spring over hvis du ikke har et tal.</div>
+      <div class="pcos-ob-input-wrap" style="max-width:200px;margin:0 auto">
+        <input type="number" inputmode="decimal" step="0.1" min="30" max="200" placeholder="—" id="profGoalWeight"
+          value="${p.goalWeight||''}" oninput="updateProfileLive()" onfocus="this.select()">
+        <span class="ob-unit">kg</span>
+      </div>
+    </div>
+
+    <div class="pcos-ob-card">
+      <div class="pcos-ob-q">🏋️ Træningserfaring</div>
+      <div class="pcos-ob-hint">Påvirker volumen og progression. Begyndere skal ej presses som erfarne.</div>
+      <div class="pcos-ob-options" style="grid-template-columns:1fr 1fr 1fr">
+        <div class="pcos-ob-opt${p.experience==='beginner'?' on':''}" onclick="setProfileField('experience','beginner')"><span class="ob-emo">🌱</span>Begynder<br><span style="font-size:8px;opacity:.7">&lt;1 år</span></div>
+        <div class="pcos-ob-opt${p.experience==='some'?' on':''}" onclick="setProfileField('experience','some')"><span class="ob-emo">📈</span>Mellem<br><span style="font-size:8px;opacity:.7">1-3 år</span></div>
+        <div class="pcos-ob-opt${p.experience==='experienced'?' on':''}" onclick="setProfileField('experience','experienced')"><span class="ob-emo">🏆</span>Erfaren<br><span style="font-size:8px;opacity:.7">3+ år</span></div>
+      </div>
+    </div>
+
+    <div class="pcos-ob-card">
+      <div class="pcos-ob-q">⚠️ Skader / begrænsninger</div>
+      <div class="pcos-ob-hint">Fortæl coachen hvis du har skader, ømme led, eller skal undgå bestemte øvelser. Spring over hvis intet relevant.</div>
+      <textarea id="profInjuries" rows="2" placeholder="Fx: 'Højre knæ irriteret ved dybe squats', 'undgå overhead press pga skuldre'…"
+        style="width:100%;background:var(--bg2);border:1.5px solid var(--bdr);color:var(--txt);font-family:inherit;font-size:13px;padding:10px 12px;border-radius:var(--r2);outline:none;resize:vertical;min-height:60px"
+        onchange="setProfileField('injuries',this.value)">${escHtml(p.injuries||'')}</textarea>
+    </div>
+
+    ${tdee?`<div class="pcos-ob-card" style="background:rgba(48,209,88,.08);border-color:rgba(48,209,88,.3)">
+      <div class="pcos-ob-q" style="color:var(--grn)">📊 Beregnet for dig</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;text-align:center;margin-top:8px">
+        <div>
+          <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--mut);letter-spacing:1px">TDEE</div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:24px;color:var(--grn)">${tdee.toLocaleString('da-DK')} kcal</div>
+          <div style="font-size:10px;color:var(--mut);font-family:'DM Mono',monospace;margin-top:2px">vedligeholdelse</div>
+        </div>
+        <div>
+          <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--mut);letter-spacing:1px">PROGRAM-MÅL</div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:24px;color:var(--acc)">${(calcCalorieTarget()||0).toLocaleString('da-DK')} kcal</div>
+          <div style="font-size:10px;color:var(--mut);font-family:'DM Mono',monospace;margin-top:2px">${TEMPLATES[PROG.template||'recomp']?.name||''}</div>
+        </div>
+      </div>
+      ${calcProteinTarget()?`<div style="text-align:center;margin-top:12px;padding-top:12px;border-top:1px solid var(--bdr)">
+        <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--mut);letter-spacing:1px;margin-bottom:2px">PROTEIN-MÅL DAGLIGT</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:#ff453a">${calcProteinTarget()} g</div>
+      </div>`:''}
+    </div>`:''}
+
+    <div class="pcos-ob-actions">
+      <button class="pob-primary" onclick="completeProfile()">✓ Færdig</button>
+      <button class="pob-skip" onclick="skipProfile()">Spring over (kan udfyldes senere)</button>
+    </div>
+  </div>`;
+}
+
+function setProfileField(field,val){
+  if(PROFILE[field]===val&&field!=='injuries'){delete PROFILE[field]}
+  else{PROFILE[field]=val}
+  saveProfile();
+  render();
+}
+
+function updateProfileLive(){
+  const age=parseInt(document.getElementById('profAge')?.value);
+  const h=parseInt(document.getElementById('profHeight')?.value);
+  const w=parseFloat(document.getElementById('profWeight')?.value);
+  const gw=parseFloat(document.getElementById('profGoalWeight')?.value);
+  if(!isNaN(age)&&age>=14&&age<=100)PROFILE.age=age;
+  if(!isNaN(h)&&h>=120&&h<=220)PROFILE.height=h;
+  if(!isNaN(w)&&w>=30&&w<=200)PROFILE.weight=w;
+  if(!isNaN(gw)&&gw>=30&&gw<=200)PROFILE.goalWeight=gw;
+  saveProfile();
+  // Opdater BMI-result inline (uden full render — bevarer fokus)
+  const bmi=pcosBMI();
+  const el=document.getElementById('profBmiResult');
+  if(el){
+    el.classList.remove('lean','normal','over');
+    if(bmi){
+      if(bmi<18.5){el.textContent=`BMI ${bmi} · undervægt`;el.classList.add('lean')}
+      else if(bmi<25){el.textContent=`BMI ${bmi} · normal`;el.classList.add('lean')}
+      else if(bmi<30){el.textContent=`BMI ${bmi} · let overvægt`;el.classList.add('normal')}
+      else{el.textContent=`BMI ${bmi} · overvægt`;el.classList.add('over')}
+    }else{el.textContent='Indtast højde + vægt'}
+  }
+}
+
+function completeProfile(){
+  PROFILE.completed=true;
+  saveProfile();
+  toast('✓ Profil gemt — programmet er nu personligt');
+  render();
+}
+
+function skipProfile(){
+  PROFILE.completed=true;
+  PROFILE.skipped=true;
+  saveProfile();
+  render();
+}
+
+function openProfileModal(){
+  const m=document.getElementById('modal');
+  m.innerHTML=`<div class="modal" onclick="event.stopPropagation()" style="max-width:480px;max-height:90vh;overflow-y:auto;padding:0">
+    <div style="position:sticky;top:0;background:var(--glass);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);padding:14px 20px;border-bottom:1px solid var(--bdr);z-index:5;display:flex;justify-content:space-between;align-items:center">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:18px">👤 Personlig profil</div>
+      <button onclick="closeModal();render()" style="background:none;border:none;color:var(--mut);font-size:18px;cursor:pointer;padding:8px">✕</button>
+    </div>
+    ${rProfileOnboarding()}
+  </div>`;
+  m.classList.add('show');
+}
+
+/* ═══════════════════════════════════════════════════════════ */
 /* ── PCOS ONBOARDING ───────────────────────────────────────── */
 /* ═══════════════════════════════════════════════════════════ */
 function rPcosOnboarding(){
   const p=PCOS_PROFILE;
   const bmi=pcosBMI();
-  let bmiText='Indtast højde + vægt for at beregne BMI',bmiCls='';
+  const hasBasicProfile=PROFILE.height&&PROFILE.weight;
+  let bmiText='Udfyld personlig profil først for BMI-info',bmiCls='';
   if(bmi){
     if(bmi<18.5){bmiText=`BMI ${bmi} · undervægt — fokus bør være muskelopbygning`;bmiCls='lean'}
     else if(bmi<25){bmiText=`BMI ${bmi} · normal — "lean PCOS" — fokus på hormonel balance`;bmiCls='lean'}
@@ -2260,29 +2509,20 @@ function rPcosOnboarding(){
   }
   return `<div class="pcos-ob">
     <div class="pcos-ob-eyebrow">// PCOS Strong</div>
-    <div class="pcos-ob-h1">FORTÆL OS LIDT<br>OM DIG SELV</div>
-    <div class="pcos-ob-sub">5 hurtige spørgsmål så vi kan tilpasse programmet til netop din situation. Alle felter er valgfrie.</div>
+    <div class="pcos-ob-h1">PCOS-SPECIFIKKE<br>SPØRGSMÅL</div>
+    <div class="pcos-ob-sub">3 ekstra spørgsmål kun for PCOS-programmet. Coachen bruger info til empatisk og evidensbaseret rådgivning.</div>
+
+    ${hasBasicProfile?`<div class="pcos-ob-card">
+      <div class="pcos-ob-q">📊 Din BMI-status</div>
+      <div class="pcos-ob-bmi-result ${bmiCls}">${bmiText}</div>
+    </div>`:`<div class="pcos-ob-card" style="background:rgba(255,159,10,.08);border-color:rgba(255,159,10,.3)">
+      <div class="pcos-ob-q" style="color:#ff9f0a">⚠️ Mangler basis-profil</div>
+      <div class="pcos-ob-hint">Udfyld først din personlige profil (køn, alder, højde, vægt) for at få BMI-baseret rådgivning.</div>
+      <button class="pob-primary" style="background:#ff9f0a;color:#000;width:100%;margin-top:8px" onclick="openProfileModal()">📋 Udfyld personlig profil</button>
+    </div>`}
 
     <div class="pcos-ob-card">
-      <div class="pcos-ob-q">📏 Højde & vægt</div>
-      <div class="pcos-ob-hint">PCOS rammer både slanke og overvægtige forskelligt. BMI hjælper os tilpasse rådgivningen — det er ét datapoint, ikke en dom.</div>
-      <div class="pcos-ob-bmi">
-        <div class="pcos-ob-input-wrap">
-          <input type="number" inputmode="numeric" min="120" max="220" placeholder="165" id="pobHeight"
-            value="${p.height||''}" oninput="updatePcosOb()" onfocus="this.select()">
-          <span class="ob-unit">cm</span>
-        </div>
-        <div class="pcos-ob-input-wrap">
-          <input type="number" inputmode="decimal" step="0.1" min="30" max="200" placeholder="65" id="pobWeight"
-            value="${p.weight||''}" oninput="updatePcosOb()" onfocus="this.select()">
-          <span class="ob-unit">kg</span>
-        </div>
-      </div>
-      <div class="pcos-ob-bmi-result ${bmiCls}" id="pobBmiResult">${bmiText}</div>
-    </div>
-
-    <div class="pcos-ob-card">
-      <div class="pcos-ob-q">🎯 Primært mål</div>
+      <div class="pcos-ob-q">🎯 Primært PCOS-mål</div>
       <div class="pcos-ob-hint">Hvad er vigtigst for dig lige nu? Dette styrer hvordan coachen og programmet vægter sit fokus.</div>
       <div class="pcos-ob-options">
         <div class="pcos-ob-opt${p.goal==='balance'?' on':''}" onclick="setPcosOb('goal','balance')"><span class="ob-emo">⚖️</span>Hormonel<br>balance</div>
@@ -2303,17 +2543,7 @@ function rPcosOnboarding(){
     </div>
 
     <div class="pcos-ob-card">
-      <div class="pcos-ob-q">🏋️ Træningserfaring</div>
-      <div class="pcos-ob-hint">Hvor erfaren er du med styrketræning? Vi tilpasser sæt og reps efter dit niveau.</div>
-      <div class="pcos-ob-options" style="grid-template-columns:1fr 1fr 1fr">
-        <div class="pcos-ob-opt${p.experience==='beginner'?' on':''}" onclick="setPcosOb('experience','beginner')"><span class="ob-emo">🌱</span>Begynder</div>
-        <div class="pcos-ob-opt${p.experience==='some'?' on':''}" onclick="setPcosOb('experience','some')"><span class="ob-emo">📈</span>Nogle år</div>
-        <div class="pcos-ob-opt${p.experience==='experienced'?' on':''}" onclick="setPcosOb('experience','experienced')"><span class="ob-emo">🏆</span>Erfaren</div>
-      </div>
-    </div>
-
-    <div class="pcos-ob-card">
-      <div class="pcos-ob-q">💊 Medicin?</div>
+      <div class="pcos-ob-q">💊 PCOS-medicin?</div>
       <div class="pcos-ob-hint">Tager du medicin relateret til PCOS (Metformin, p-piller, Inositol osv.)? Coachen bruger info til at give relevant rådgivning.</div>
       <div class="pcos-ob-options" style="grid-template-columns:1fr 1fr 1fr">
         <div class="pcos-ob-opt${p.onMedication==='yes'?' on':''}" onclick="setPcosOb('onMedication','yes')"><span class="ob-emo">💊</span>Ja</div>
@@ -2479,6 +2709,45 @@ function rBodyCompare(){
 /* ── PHASES ── */
 function rInfo(){
   let h=`<div class="page-title"><div class="page-eyebrow">// Program & principper</div><div class="page-h1">Info</div></div>`;
+
+  // Kalorie/protein-mål (kun hvis profil er udfyldt)
+  const tdee=calcTDEE(),target=calcCalorieTarget(),protein=calcProteinTarget();
+  if(tdee&&target){
+    const tpl=TEMPLATES[PROG.template||'recomp'];
+    const diff=target-tdee;
+    const diffStr=diff===0?'Vedligehold':(diff>0?'+'+diff:diff)+' kcal';
+    const diffColor=diff===0?'var(--blue)':diff>0?'var(--grn)':'#ff9f0a';
+    h+=`<div class="vol-section" style="background:linear-gradient(135deg,rgba(48,209,88,.06),rgba(10,132,255,.06));border-color:rgba(48,209,88,.3)">
+      <div class="vol-title">📊 Dine ernærings-mål</div>
+      <div class="vol-sub">Beregnet ud fra din profil og programmet ${tpl?.emo||''} ${tpl?.name||''}</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px">
+        <div style="background:var(--bg2);border:1px solid var(--bdr);border-radius:var(--r2);padding:14px;text-align:center">
+          <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:1.5px;color:var(--mut);margin-bottom:4px">DAGLIGE KALORIER</div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:30px;color:var(--acc);line-height:1">${target.toLocaleString('da-DK')}</div>
+          <div style="font-size:11px;color:${diffColor};font-family:'DM Mono',monospace;margin-top:4px;font-weight:600">${diffStr}</div>
+          <div style="font-size:9px;color:var(--mut2);font-family:'DM Mono',monospace;margin-top:2px">TDEE: ${tdee.toLocaleString('da-DK')}</div>
+        </div>
+        ${protein?`<div style="background:var(--bg2);border:1px solid var(--bdr);border-radius:var(--r2);padding:14px;text-align:center">
+          <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:1.5px;color:var(--mut);margin-bottom:4px">DAGLIGT PROTEIN</div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:30px;color:var(--red);line-height:1">${protein} g</div>
+          <div style="font-size:11px;color:var(--mut);font-family:'DM Mono',monospace;margin-top:4px">${(protein/PROFILE.weight).toFixed(1)} g/kg</div>
+        </div>`:''}
+      </div>
+      <div style="font-size:11px;color:var(--mut);font-family:'DM Mono',monospace;line-height:1.5;text-align:center">
+        Beregning bruger Mifflin-St Jeor (TDEE) × moderat aktivitet (1.55).<br>Justér i profil hvis aktivitetsniveau er anderledes.
+      </div>
+    </div>`;
+  }else if(!PROFILE.completed||PROFILE.skipped||!PROFILE.height||!PROFILE.weight||!PROFILE.age||!PROFILE.gender){
+    // Banner: opfordring til at udfylde profil
+    h+=`<div style="background:rgba(255,159,10,.08);border:1px solid rgba(255,159,10,.3);border-radius:var(--r);padding:14px;margin-bottom:16px;display:flex;gap:12px;align-items:center">
+      <div style="font-size:24px">📋</div>
+      <div style="flex:1">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:15px;color:#ff9f0a;letter-spacing:.3px">Få personlige kalorie-mål</div>
+        <div style="font-size:11px;color:var(--mut);line-height:1.5;margin-top:2px">Udfyld personlig profil — så beregner appen TDEE og daglige kalorie/protein-mål.</div>
+      </div>
+      <button class="prog-btn" style="font-size:10px;padding:8px 14px;min-height:36px" onclick="openProfileModal()">Udfyld</button>
+    </div>`;
+  }
 
   // Faser
   h+=`<div class="section-label">💪 Gym-faser</div>`;
@@ -2663,7 +2932,31 @@ function buildTrainingContext(){
   const cw=currentWeek();
   const programDone=isProgramDone();
 
-  let ctx='=== I DAG ===\n';
+  let ctx='';
+
+  // === PERSONLIG PROFIL (vises altid hvis udfyldt) ===
+  if(PROFILE.completed&&!PROFILE.skipped){
+    ctx+='=== PERSONLIG PROFIL ===\n';
+    if(PROFILE.gender&&PROFILE.gender!=='private'){ctx+=`Køn: ${PROFILE.gender==='male'?'Mand':'Kvinde'}\n`}
+    if(PROFILE.age)ctx+=`Alder: ${PROFILE.age} år\n`;
+    if(PROFILE.height)ctx+=`Højde: ${PROFILE.height} cm\n`;
+    if(PROFILE.weight)ctx+=`Vægt: ${PROFILE.weight} kg\n`;
+    const bmi=pcosBMI();
+    if(bmi)ctx+=`BMI: ${bmi}\n`;
+    if(PROFILE.goalWeight)ctx+=`Mål-vægt: ${PROFILE.goalWeight} kg\n`;
+    if(PROFILE.experience){
+      const exMap={beginner:'Begynder (<1 år)',some:'Mellem (1-3 år)',experienced:'Erfaren (3+ år)'};
+      ctx+=`Erfaring: ${exMap[PROFILE.experience]||PROFILE.experience}\n`;
+    }
+    if(PROFILE.injuries)ctx+=`Skader/begrænsninger: ${PROFILE.injuries}\n`;
+    const tdee=calcTDEE(),target=calcCalorieTarget(),protein=calcProteinTarget();
+    if(tdee)ctx+=`TDEE: ${tdee} kcal\n`;
+    if(target)ctx+=`Anbefalede daglige kalorier: ${target} kcal\n`;
+    if(protein)ctx+=`Anbefalet protein: ${protein} g/dag\n`;
+    ctx+='\n';
+  }
+
+  ctx+='=== I DAG ===\n';
   ctx+=`Dato: ${todayStr}\n`;
   ctx+=`Dagens dag: ${todayD.full} – ${todayD.type} (${todayD.label})\n`;
   if(todayD.run){
@@ -3513,7 +3806,7 @@ function calcPaceReverse(){
 function exportData(){
   const data={
     tw4:W, tw4_custom:CUSTOM, tw4_ai:{apiKey:AI.apiKey,model:AI.model,settingsOpen:AI.settingsOpen},
-    tw4_prog:PROG, tw4_body:BODY, tw4_ss:SUPERSETS, tw4_steps:STEPS, tw4_cycle:CYCLE, tw4_pcos_profile:PCOS_PROFILE,
+    tw4_prog:PROG, tw4_body:BODY, tw4_ss:SUPERSETS, tw4_steps:STEPS, tw4_cycle:CYCLE, tw4_pcos_profile:PCOS_PROFILE, tw4_profile:PROFILE,
     _exported:new Date().toISOString(), _version:2
   };
   const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
@@ -3542,6 +3835,7 @@ function importData(input){
       if(data.tw4_steps){STEPS=data.tw4_steps;saveSteps()}
       if(data.tw4_cycle){CYCLE=data.tw4_cycle;saveCycle()}
       if(data.tw4_pcos_profile){PCOS_PROFILE=data.tw4_pcos_profile;savePcosProfile()}
+      if(data.tw4_profile){PROFILE=data.tw4_profile;saveProfile()}
       toast('✓ Data importeret');
       render();
     }catch(err){
@@ -3604,6 +3898,7 @@ function openSettingsModal(){
 
     <div style="border-top:1px solid var(--bdr);margin-top:18px;padding-top:16px">
       <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--mut);text-transform:uppercase;margin-bottom:8px;text-align:center">Andet</div>
+      <button class="prog-btn ghost" style="width:100%;margin-bottom:8px" onclick="closeModal();openProfileModal()">👤 Personlig profil</button>
       ${tpl?.id==='pcos'?`<button class="prog-btn ghost" style="width:100%;margin-bottom:8px" onclick="closeModal();openPcosProfileModal()">🌸 Rediger PCOS profil</button>`:''}
       <button class="prog-btn ghost" style="width:100%" onclick="closeModal();openTemplateChooserModal()">🔄 Skift program</button>
     </div>
