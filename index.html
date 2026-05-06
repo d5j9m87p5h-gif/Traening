@@ -43,7 +43,8 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .hdr-eyebrow{font-size:10px;letter-spacing:3px;color:var(--acc);font-family:'DM Mono',monospace;margin-bottom:4px;opacity:.7;text-transform:uppercase}
 #hdr h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(34px,9vw,54px);letter-spacing:1px;line-height:.92;background:linear-gradient(145deg,#ffffff 30%,var(--acc) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .hdr-stats{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}
-.hdr-stat{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);border-radius:100px;padding:6px 14px;display:flex;align-items:center;gap:7px;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.hdr-stat{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);border-radius:100px;padding:6px 14px;display:flex;align-items:center;gap:7px;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);transition:transform .15s var(--ease),background .15s}
+.hdr-stat:active{transform:scale(.94);background:rgba(255,214,10,.12)}
 .hdr-stat-dot{width:6px;height:6px;border-radius:50%;background:var(--acc);flex-shrink:0}
 .hdr-stat label{font-size:10px;color:var(--mut);letter-spacing:.5px;text-transform:uppercase;font-weight:500}
 .hdr-stat b{font-size:12px;font-weight:600;color:var(--acc);font-family:'DM Mono',monospace}
@@ -598,19 +599,20 @@ input[type=file]{display:none}
 /* ══ WELLNESS WIDGET ══ */
 .wellness-widget{background:var(--bg1);border:1px solid var(--bdr);border-radius:var(--r);padding:18px;margin-bottom:16px;box-shadow:var(--shadow)}
 .wellness-title{font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:.5px;margin-bottom:4px}
-.wellness-sub{font-size:11px;color:var(--mut);font-family:'DM Mono',monospace;margin-bottom:14px}
-.wellness-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.wellness-card{background:var(--bg2);border:1px solid var(--bdr);border-radius:var(--r2);padding:14px;text-align:center}
-.wellness-card label{display:block;font-family:'DM Mono',monospace;font-size:9px;letter-spacing:1.5px;color:var(--mut);text-transform:uppercase;margin-bottom:8px}
-.wellness-card .wval{font-family:'Bebas Neue',sans-serif;font-size:32px;line-height:1;margin-bottom:8px}
-.wellness-card .wval-sub{font-size:10px;color:var(--mut);font-family:'DM Mono',monospace;margin-top:2px}
-.wellness-slider-row{display:flex;align-items:center;gap:8px;margin-top:6px}
-.wellness-slider{flex:1;-webkit-appearance:none;appearance:none;height:4px;background:var(--bg3);border-radius:4px;outline:none;cursor:pointer}
+.wellness-sub{font-size:11px;color:var(--mut);font-family:'DM Mono',monospace;margin-bottom:14px;line-height:1.5}
+.wellness-grid{display:grid;grid-template-columns:1fr;gap:10px}
+@media (min-width:520px){.wellness-grid{grid-template-columns:1fr 1fr;gap:12px}}
+.wellness-card{background:var(--bg2);border:1px solid var(--bdr);border-radius:var(--r2);padding:14px 12px;text-align:center;min-width:0}
+.wellness-card label{display:block;font-family:'DM Mono',monospace;font-size:9px;letter-spacing:1.5px;color:var(--mut);text-transform:uppercase;margin-bottom:6px}
+.wellness-card .wval{font-family:'Bebas Neue',sans-serif;font-size:28px;line-height:1;margin-bottom:6px}
+.wellness-card .wval-sub{font-size:11px;color:var(--mut);font-family:'DM Mono',monospace;margin-top:4px;font-weight:600}
+.wellness-slider-row{display:flex;align-items:center;gap:6px;margin-top:6px;width:100%}
+.wellness-slider{flex:1;min-width:0;-webkit-appearance:none;appearance:none;height:4px;background:var(--bg3);border-radius:4px;outline:none;cursor:pointer}
 .wellness-slider::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;background:var(--acc);border-radius:50%;cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,.3)}
 .wellness-slider::-moz-range-thumb{width:20px;height:20px;background:var(--acc);border-radius:50%;cursor:pointer;border:none}
 .wellness-stress .wellness-slider::-webkit-slider-thumb{background:#ff453a}
 .wellness-stress .wellness-slider::-moz-range-thumb{background:#ff453a}
-.wellness-emoji{font-size:18px;width:28px;text-align:center}
+.wellness-emoji{font-size:16px;width:22px;text-align:center;flex-shrink:0}
 
 /* ══ AI ONBOARDING ══ */
 .ai-onboarding{padding:24px 18px;text-align:center;animation:fi .3s ease}
@@ -627,6 +629,34 @@ input[type=file]{display:none}
 .aob-cta{background:linear-gradient(135deg,var(--acc),#ff9f0a);color:#000;border:none;padding:14px 28px;border-radius:100px;font-family:'DM Mono',monospace;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;box-shadow:0 6px 20px rgba(255,214,10,.3);min-height:48px}
 .aob-cta:active{transform:scale(.97)}
 .aob-quota{margin-top:16px;font-size:10px;color:var(--mut2);font-family:'DM Mono',monospace}
+
+/* ══ INTRO / WELCOME FLOW ══ */
+.intro-wrap{position:fixed;inset:0;background:#000;z-index:1500;display:flex;flex-direction:column;animation:fi .4s ease;padding:env(safe-area-inset-top,16px) 0 env(safe-area-inset-bottom,20px)}
+.intro-skip{position:absolute;top:calc(env(safe-area-inset-top,16px) + 12px);right:16px;background:rgba(255,255,255,.06);border:1px solid var(--bdr);color:var(--mut);font-family:'DM Mono',monospace;font-size:10px;font-weight:600;letter-spacing:1.5px;padding:8px 14px;border-radius:100px;cursor:pointer;text-transform:uppercase;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);z-index:5}
+.intro-skip:active{transform:scale(.95);color:var(--txt)}
+.intro-slides{flex:1;overflow:hidden;position:relative;touch-action:pan-y}
+.intro-track{display:flex;height:100%;transition:transform .35s cubic-bezier(.34,1.56,.64,1);will-change:transform}
+.intro-slide{flex:0 0 100%;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 24px;text-align:center}
+.intro-emoji{font-size:88px;margin-bottom:24px;animation:introFloat 2.4s ease-in-out infinite;line-height:1}
+@keyframes introFloat{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-12px) rotate(2deg)}}
+.intro-eyebrow{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:3px;color:var(--acc);text-transform:uppercase;margin-bottom:10px}
+.intro-h1{font-family:'Bebas Neue',sans-serif;font-size:36px;letter-spacing:.5px;line-height:1.05;margin-bottom:14px;max-width:340px}
+.intro-text{font-size:14px;color:var(--mut);line-height:1.6;max-width:340px;margin-bottom:8px}
+.intro-text b{color:var(--txt);font-weight:600}
+.intro-features{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:18px;max-width:380px}
+.intro-feature{background:var(--bg2);border:1px solid var(--bdr);padding:8px 14px;border-radius:100px;font-family:'DM Mono',monospace;font-size:10px;font-weight:600;letter-spacing:1px;color:var(--mut)}
+.intro-feature .if-emo{margin-right:4px;font-size:13px}
+.intro-templates{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:16px;max-width:340px}
+.intro-tpl{background:var(--bg2);border:1.5px solid var(--bdr);border-radius:var(--r2);padding:12px 8px;display:flex;flex-direction:column;align-items:center;gap:4px}
+.intro-tpl-emo{font-size:24px}
+.intro-tpl-name{font-family:'DM Mono',monospace;font-size:8px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--mut);text-align:center;line-height:1.3}
+.intro-footer{padding:16px 24px 0;display:flex;flex-direction:column;align-items:center;gap:14px}
+.intro-dots{display:flex;gap:8px}
+.intro-dot{width:8px;height:8px;border-radius:50%;background:var(--bg3);transition:all .25s var(--ease)}
+.intro-dot.on{background:var(--acc);transform:scale(1.3)}
+.intro-cta{background:var(--acc);color:#000;border:none;padding:16px 28px;border-radius:100px;font-family:'DM Mono',monospace;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;min-width:200px;min-height:52px;box-shadow:0 6px 20px rgba(255,214,10,.3)}
+.intro-cta:active{transform:scale(.97)}
+.intro-cta.final{background:linear-gradient(135deg,var(--acc),#ff9f0a)}
 
 /* ══ RUN GOAL CARD (inline distance/starttid) ══ */
 .run-goal-card{background:linear-gradient(135deg,rgba(48,209,88,.06),rgba(10,132,255,.06));border:1.5px solid rgba(48,209,88,.3);border-radius:var(--r);padding:18px;margin-bottom:16px;box-shadow:var(--shadow)}
@@ -681,9 +711,9 @@ input[type=file]{display:none}
     <div class="hdr-eyebrow">// PERSONLIGT TRÆNINGSPROGRAM</div>
     <h1>RECOMP<br>+ 5KM RUN</h1>
     <div class="hdr-stats" id="hdrStats">
-      <div class="hdr-stat" id="hdrStart"><div class="hdr-stat-dot"></div><label>Start</label><b>35:00</b></div>
-      <div class="hdr-stat" id="hdrGoal"><div class="hdr-stat-dot"></div><label>Mål</label><b>&lt;30:00</b></div>
-      <div class="hdr-stat" id="hdrWeek"><div class="hdr-stat-dot"></div><label>Plan</label><b>8 UGE</b></div>
+      <div class="hdr-stat" id="hdrStart" onclick="openSettingsModal()" style="cursor:pointer"><div class="hdr-stat-dot"></div><label>Start</label><b>35:00</b></div>
+      <div class="hdr-stat" id="hdrGoal" onclick="openSettingsModal()" style="cursor:pointer"><div class="hdr-stat-dot"></div><label>Mål</label><b>&lt;30:00</b></div>
+      <div class="hdr-stat" id="hdrWeek" onclick="openSettingsModal()" style="cursor:pointer"><div class="hdr-stat-dot"></div><label>Plan</label><b>8 UGE</b></div>
     </div>
   </div>
   <div id="tabs">
@@ -701,6 +731,7 @@ input[type=file]{display:none}
 <div id="restTimer" onclick="dismissTimer()"><div class="rt-time">0:00</div><div class="rt-label">Pause</div></div>
 <div id="prToast" class="pr-toast">🏆 NY PR!</div>
 <div id="confetti"></div>
+<div id="introOverlay"></div>
 <div id="chartTooltip"></div>
 <div id="modal" class="modal-bg" onclick="if(event.target.id==='modal')closeModal()"></div>
 
@@ -1088,16 +1119,24 @@ function loadProgram(){
   GP=JSON.parse(JSON.stringify(tpl.GP));
   PH=JSON.parse(JSON.stringify(tpl.PH));
   RL=JSON.parse(JSON.stringify(tpl.RL));
-  // Opdater header-titel — dynamisk distance for løbe-programmer
+  // Opdater header-titel — vis neutral titel hvis bruger ej har valgt program endnu
   const h1=document.querySelector('#hdr h1');
   if(h1){
-    let title=tpl.headerTitle||'TRÆNINGSPROGRAM';
-    if(tpl.needsRunTime&&PROG.runDistance){
-      // Erstat "5KM" i headerTitle med faktisk distance
-      title=title.replace(/\d+KM/i,PROG.runDistance+'KM');
+    if(!PROG.templateChosen){
+      h1.innerHTML='TRÆNINGS<br>PROGRAM';
+    }else{
+      let title=tpl.headerTitle||'TRÆNINGSPROGRAM';
+      if(tpl.needsRunTime&&PROG.runDistance){
+        title=title.replace(/\d+KM/i,PROG.runDistance+'KM');
+      }
+      h1.innerHTML=title;
     }
-    h1.innerHTML=title;
   }
+  // Skjul header-stats og cog hvis program ej valgt
+  const stats=document.getElementById('hdrStats');
+  if(stats)stats.style.display=PROG.templateChosen?'':'none';
+  const cog=document.getElementById('hdrCog');
+  if(cog)cog.style.display=PROG.templateChosen?'':'none';
 }
 
 function rTemplateChooser(){
@@ -1298,6 +1337,10 @@ if(!PROG.template){
   PROG.template='recomp';
   // Marker at de IKKE skal se template-vælger (for at bevare deres eksisterende setup)
   if(localStorage.getItem(SK)){PROG.templateChosen=true}
+}
+// Migration: eksisterende brugere skal ej se intro-flow
+if(PROG.introSeen===undefined){
+  PROG.introSeen=!!(localStorage.getItem(SK)||PROG.templateChosen);
 }
 function saveProg(){try{localStorage.setItem(PK,JSON.stringify(PROG))}catch(e){}}
 
@@ -4270,7 +4313,8 @@ function openSettingsModal(){
       <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--mut);text-transform:uppercase;margin-bottom:8px;text-align:center">Andet</div>
       <button class="prog-btn ghost" style="width:100%;margin-bottom:8px" onclick="closeModal();openProfileModal()">👤 Personlig profil</button>
       ${tpl?.id==='pcos'?`<button class="prog-btn ghost" style="width:100%;margin-bottom:8px" onclick="closeModal();openPcosProfileModal()">🌸 Rediger PCOS profil</button>`:''}
-      <button class="prog-btn ghost" style="width:100%" onclick="closeModal();openTemplateChooserModal()">🔄 Skift program</button>
+      <button class="prog-btn ghost" style="width:100%;margin-bottom:8px" onclick="closeModal();openTemplateChooserModal()">🔄 Skift program</button>
+      <button class="prog-btn ghost" style="width:100%" onclick="closeModal();showIntro()">📖 Se intro igen</button>
     </div>
   </div>`;
   m.classList.add('show');
@@ -4637,6 +4681,182 @@ function exportCSV(){
 }
 
 /* ═══════════════════════════════════════════════════════════ */
+/* ── INTRO FLOW (første gang) ──────────────────────────────── */
+/* ═══════════════════════════════════════════════════════════ */
+let introIdx=0;
+const INTRO_SLIDES=[
+  {
+    eyebrow:'Velkommen',
+    emoji:'💪',
+    h1:'DIN PERSONLIGE TRÆNER<br>I LOMMEN',
+    text:'Et træningsprogram der følger med dig — uge efter uge, sæt efter sæt. Lad os tage den hurtige rundtur (15 sek).',
+    cta:'Næste'
+  },
+  {
+    eyebrow:'6 programmer',
+    emoji:'🎯',
+    h1:'VÆLG DET DER PASSER DIG',
+    text:'Fra ren styrke til PCOS Strong. Hvert program er evidensbaseret med øvelser, faser, regler og mål skåret til formålet.',
+    showTemplates:true,
+    cta:'Næste'
+  },
+  {
+    eyebrow:'AI Coach',
+    emoji:'🤖',
+    h1:'PERSONLIG COACHING<br>PÅ DANSK',
+    text:'En AI-træner der kender dit program, dine vægte, dine fremskridt og din krop. Spørg om hvad som helst — den svarer med dine reelle data.',
+    text2:'Gratis at sætte op via Google AI Studio (1500 spørgsmål/dag).',
+    cta:'Næste'
+  },
+  {
+    eyebrow:'Komplet tracking',
+    emoji:'📊',
+    h1:'TRACK ALT DER<br>BETYDER NOGET',
+    text:'Vægt sæt-for-sæt, kropsfotos, søvn, stress, supersets, PR-fejringer, pause-timer og meget mere — alt på ét sted.',
+    features:[
+      {emo:'🏆',n:'PR fejringer'},
+      {emo:'⏱️',n:'Pause-timer'},
+      {emo:'🔗',n:'Supersets'},
+      {emo:'📷',n:'Progressbilleder'},
+      {emo:'🌙',n:'Søvn & stress'},
+      {emo:'🔥',n:'Streaks'},
+      {emo:'📈',n:'Volumen-graf'},
+      {emo:'🧮',n:'Pace-kalk'}
+    ],
+    cta:'Næste'
+  },
+  {
+    eyebrow:'Privacy-first',
+    emoji:'🔒',
+    h1:'DINE DATA FORBLIVER DINE',
+    text:'Alt gemmes <b>lokalt på din telefon</b>. Ingen konto, ingen tracking, ingen reklamer.',
+    text2:'Du kan downloade en backup når som helst og dele appen med venner uden at de får adgang til dine data.',
+    cta:'Kom i gang →',
+    final:true
+  }
+];
+
+function showIntro(){
+  introIdx=0;
+  renderIntro();
+}
+
+function renderIntro(){
+  const overlay=document.getElementById('introOverlay');
+  if(!overlay)return;
+  let h=`<div class="intro-wrap">
+    <button class="intro-skip" onclick="finishIntro()">Spring over</button>
+    <div class="intro-slides" id="introSlides"
+      ontouchstart="introTouchStart(event)" ontouchmove="introTouchMove(event)" ontouchend="introTouchEnd(event)">
+      <div class="intro-track" id="introTrack" style="transform:translateX(-${introIdx*100}%)">`;
+  INTRO_SLIDES.forEach((s,i)=>{
+    h+=`<div class="intro-slide">
+      <div class="intro-emoji">${s.emoji}</div>
+      <div class="intro-eyebrow">// ${s.eyebrow}</div>
+      <h1 class="intro-h1">${s.h1}</h1>
+      <p class="intro-text">${s.text}</p>`;
+    if(s.text2)h+=`<p class="intro-text" style="font-size:12px;color:var(--mut2);margin-top:6px">${s.text2}</p>`;
+    if(s.showTemplates){
+      h+=`<div class="intro-templates">`;
+      Object.values(TEMPLATES).forEach(t=>{
+        h+=`<div class="intro-tpl" style="border-color:${t.color}40">
+          <div class="intro-tpl-emo">${t.emo}</div>
+          <div class="intro-tpl-name" style="color:${t.color}">${t.name}</div>
+        </div>`;
+      });
+      h+=`</div>`;
+    }
+    if(s.features){
+      h+=`<div class="intro-features">`;
+      s.features.forEach(f=>{
+        h+=`<div class="intro-feature"><span class="if-emo">${f.emo}</span>${f.n}</div>`;
+      });
+      h+=`</div>`;
+    }
+    h+=`</div>`;
+  });
+  h+=`</div>
+    </div>
+    <div class="intro-footer">
+      <div class="intro-dots">
+        ${INTRO_SLIDES.map((_,i)=>`<div class="intro-dot${i===introIdx?' on':''}"></div>`).join('')}
+      </div>
+      <button class="intro-cta${INTRO_SLIDES[introIdx].final?' final':''}" onclick="${INTRO_SLIDES[introIdx].final?'finishIntro()':'introNext()'}">${INTRO_SLIDES[introIdx].cta}</button>
+    </div>
+  </div>`;
+  overlay.innerHTML=h;
+  overlay.style.display='block';
+}
+
+function introNext(){
+  if(introIdx<INTRO_SLIDES.length-1){
+    introIdx++;
+    const track=document.getElementById('introTrack');
+    if(track)track.style.transform=`translateX(-${introIdx*100}%)`;
+    // Update dots and CTA
+    setTimeout(()=>renderIntro(),350);
+  }else{
+    finishIntro();
+  }
+}
+
+function introPrev(){
+  if(introIdx>0){
+    introIdx--;
+    const track=document.getElementById('introTrack');
+    if(track)track.style.transform=`translateX(-${introIdx*100}%)`;
+    setTimeout(()=>renderIntro(),350);
+  }
+}
+
+function finishIntro(){
+  PROG.introSeen=true;
+  saveProg();
+  const overlay=document.getElementById('introOverlay');
+  if(overlay){
+    overlay.style.opacity='0';
+    overlay.style.transition='opacity .3s ease';
+    setTimeout(()=>{
+      overlay.style.display='none';
+      overlay.style.opacity='1';
+      overlay.innerHTML='';
+    },300);
+  }
+  render();
+}
+
+// Swipe-handling for intro
+let introTouchX=null,introTouchY=null;
+function introTouchStart(e){
+  introTouchX=e.touches[0].clientX;
+  introTouchY=e.touches[0].clientY;
+}
+function introTouchMove(e){
+  if(introTouchX===null)return;
+  const dx=e.touches[0].clientX-introTouchX;
+  const dy=e.touches[0].clientY-introTouchY;
+  // Hvis primært vertikal scroll, lad være
+  if(Math.abs(dy)>Math.abs(dx))return;
+  e.preventDefault();
+  const track=document.getElementById('introTrack');
+  if(track)track.style.transform=`translateX(calc(-${introIdx*100}% + ${dx}px))`;
+}
+function introTouchEnd(e){
+  if(introTouchX===null)return;
+  const dx=(e.changedTouches?.[0]?.clientX||0)-introTouchX;
+  const track=document.getElementById('introTrack');
+  if(!track){introTouchX=null;return}
+  if(dx<-60&&introIdx<INTRO_SLIDES.length-1){
+    introIdx++;
+  }else if(dx>60&&introIdx>0){
+    introIdx--;
+  }
+  track.style.transform=`translateX(-${introIdx*100}%)`;
+  setTimeout(()=>renderIntro(),350);
+  introTouchX=null;introTouchY=null;
+}
+
+/* ═══════════════════════════════════════════════════════════ */
 /* ── PWA / OFFLINE SUPPORT ─────────────────────────────────── */
 /* ═══════════════════════════════════════════════════════════ */
 // Inline service worker via Blob URL — caches the app shell after first load
@@ -4674,6 +4894,10 @@ if('serviceWorker' in navigator){
 /* ═══════════════════════════════════════════════════════════ */
 loadProgram();
 render();
+// Vis intro for nye brugere (efter render så app er klar i baggrunden)
+if(!PROG.introSeen){
+  setTimeout(showIntro,100);
+}
 </script>
 </body>
 </html>
