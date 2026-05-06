@@ -628,6 +628,22 @@ input[type=file]{display:none}
 .aob-cta:active{transform:scale(.97)}
 .aob-quota{margin-top:16px;font-size:10px;color:var(--mut2);font-family:'DM Mono',monospace}
 
+/* ══ RUN GOAL CARD (inline distance/starttid) ══ */
+.run-goal-card{background:linear-gradient(135deg,rgba(48,209,88,.06),rgba(10,132,255,.06));border:1.5px solid rgba(48,209,88,.3);border-radius:var(--r);padding:18px;margin-bottom:16px;box-shadow:var(--shadow)}
+.rgc-title{font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:.5px;margin-bottom:14px;text-align:center}
+.rgc-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px}
+.rgc-field{text-align:center}
+.rgc-field label{display:block;font-family:'DM Mono',monospace;font-size:9px;letter-spacing:1.5px;color:var(--mut);text-transform:uppercase;margin-bottom:8px}
+.rgc-field select{width:100%;background:var(--bg);border:1.5px solid var(--bdr);color:var(--txt);font-family:'DM Mono',monospace;font-size:14px;font-weight:500;padding:8px 10px;border-radius:var(--r2);outline:none;text-align:center;text-align-last:center;min-height:44px}
+.rgc-field select:focus{border-color:var(--grn)}
+.rgc-field input{background:var(--bg);border:1.5px solid var(--bdr);color:var(--txt);font-family:'DM Mono',monospace;font-size:15px;font-weight:500;padding:8px 4px;border-radius:var(--r2);outline:none;text-align:center;min-height:44px}
+.rgc-field input:focus{border-color:var(--grn)}
+.rgc-result{display:flex;align-items:center;gap:14px;padding:12px 16px;background:var(--bg2);border:1px solid var(--bdr);border-radius:var(--r2);justify-content:center}
+.rgc-arrow{font-size:24px;color:var(--mut);font-weight:300}
+.rgc-goal-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:1.5px;color:var(--mut);margin-bottom:2px}
+.rgc-goal-time{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:.5px;line-height:1}
+.rgc-goal-pace{font-size:11px;color:var(--mut);font-family:'DM Mono',monospace;margin-top:3px}
+
 /* ══ PCOS ONBOARDING ══ */
 .pcos-ob{padding:20px 16px calc(env(safe-area-inset-bottom,20px) + 20px);animation:fi .3s ease}
 .pcos-ob-eyebrow{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:3px;color:#ff6fa8;text-transform:uppercase;text-align:center;margin-bottom:6px}
@@ -1795,6 +1811,40 @@ function rWeekly(){
 
     }else if(d.run){
       h+=wpickH();
+      // Personlig distance + mål sektion (kun for løbe-programmer der har needsRunTime)
+      const tpl=TEMPLATES[PROG.template||'recomp'];
+      if(tpl?.needsRunTime){
+        const dist=PROG.runDistance||5;
+        const startSec=PROG.start5kSec||2100;
+        const startMin=Math.floor(startSec/60),startSecRem=startSec%60;
+        h+=`<div class="run-goal-card">
+          <div class="rgc-title">🎯 Mit løbe-mål</div>
+          <div class="rgc-row">
+            <div class="rgc-field">
+              <label>📏 Distance</label>
+              <select id="runDistInline" onchange="updateRunGoal()">
+                ${[3,5,10,15,21].map(k=>`<option value="${k}"${k===dist?' selected':''}>${k} km${k===21?' (½M)':''}</option>`).join('')}
+              </select>
+            </div>
+            <div class="rgc-field">
+              <label>🏁 Min starttid</label>
+              <div style="display:flex;align-items:center;gap:4px;justify-content:center">
+                <input type="number" inputmode="numeric" min="0" max="200" id="runStartMin" value="${startMin}" oninput="updateRunGoal()" onfocus="this.select()" style="width:54px">
+                <span style="font-weight:600;color:var(--mut)">:</span>
+                <input type="number" inputmode="numeric" min="0" max="59" id="runStartSec" value="${String(startSecRem).padStart(2,'0')}" oninput="updateRunGoal()" onfocus="this.select()" style="width:54px">
+              </div>
+            </div>
+          </div>
+          <div class="rgc-result" id="runGoalDisplay">
+            <span class="rgc-arrow">→</span>
+            <div>
+              <div class="rgc-goal-label">MÅL EFTER ${TW()} UGER</div>
+              <div class="rgc-goal-time" style="color:${d.color}">&lt;${fmtSec(goal5kSec())}</div>
+              <div class="rgc-goal-pace">~${fmtSec(Math.round(goal5kSec()/dist))} /km</div>
+            </div>
+          </div>
+        </div>`;
+      }
       h+=`<div class="rungrid">
         <div class="rcard"><label>Type</label><div class="rval" style="color:${d.color}">${d.run.type}</div></div>
         <div class="rcard"><label>Mål pace</label><div class="rval" style="color:${d.color}">${d.run.pace}</div></div>
@@ -1977,6 +2027,35 @@ function readSetupTime(){
   const s=parseInt(secInp?.value)||0;
   if(isNaN(m)||m<=0)return null;
   return m*60+Math.min(s,59);
+}
+
+// Inline distance/starttid-redigering fra løbedag
+function updateRunGoal(){
+  const distEl=document.getElementById('runDistInline');
+  const minEl=document.getElementById('runStartMin');
+  const secEl=document.getElementById('runStartSec');
+  if(!distEl||!minEl)return;
+  const dist=parseInt(distEl.value)||5;
+  const min=parseInt(minEl.value);
+  const sec=parseInt(secEl.value)||0;
+  if(!isNaN(min)&&min>0)PROG.start5kSec=min*60+Math.min(sec,59);
+  PROG.runDistance=dist;
+  saveProg();
+  loadProgram();
+  updateHeaderWeek();
+  // Opdater mål-display inline uden full re-render
+  const display=document.getElementById('runGoalDisplay');
+  if(display){
+    const goalSec=goal5kSec();
+    const tw=TW();
+    const dayColor=display.querySelector('.rgc-goal-time')?.style.color||'var(--acc)';
+    display.innerHTML=`<span class="rgc-arrow">→</span>
+      <div>
+        <div class="rgc-goal-label">MÅL EFTER ${tw} UGER</div>
+        <div class="rgc-goal-time" style="color:${dayColor}">&lt;${fmtSec(goalSec)}</div>
+        <div class="rgc-goal-pace">~${fmtSec(Math.round(goalSec/dist))} /km</div>
+      </div>`;
+  }
 }
 
 function updateProgPreview(){
