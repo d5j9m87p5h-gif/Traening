@@ -91,21 +91,25 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .phase-info{font-size:10px;color:var(--mut);font-family:'DM Mono',monospace}
 
 /* ══ EXERCISE TABLE ══ */
-.ex-hd{display:grid;grid-template-columns:1fr 32px 44px 110px 38px;gap:4px 8px;padding:10px 0 6px;border-bottom:1px solid var(--bdr);margin-bottom:4px}
-.ex-hd span{font-size:9px;color:var(--mut2);letter-spacing:2px;text-transform:uppercase;font-family:'DM Mono',monospace}
-.exrow{display:grid;grid-template-columns:1fr 32px 44px 110px 38px;gap:4px 8px;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.04);align-items:center;border-radius:var(--r3);position:relative;transition:background .15s}
-.exrow.core{padding-left:12px;margin-bottom:2px}
-.exrow.core::before{content:'';position:absolute;left:0;top:6px;bottom:6px;width:3px;background:var(--acc);border-radius:3px}
-.exrow.cust{padding-left:12px}
-.exrow.cust::before{content:'';position:absolute;left:0;top:6px;bottom:6px;width:3px;background:var(--pur);border-radius:3px}
-.exn{font-size:13px;font-weight:500;line-height:1.3;color:var(--txt)}
-.exn .cust-tag{display:inline-block;background:rgba(191,90,242,.15);color:var(--pur);font-family:'DM Mono',monospace;font-size:8px;font-weight:600;letter-spacing:1px;padding:2px 6px;border-radius:4px;margin-left:4px;vertical-align:middle}
-.exn .rmx{display:inline-flex;align-items:center;justify-content:center;color:var(--red);font-size:13px;margin-left:4px;cursor:pointer;opacity:.5;padding:0 4px;background:none;border:none;font-family:inherit;min-width:44px;min-height:44px}
+.ex-hd{display:none}
+.exrow{background:var(--bg1);border:1px solid var(--bdr);border-radius:var(--r2);padding:14px;margin-bottom:10px;position:relative;transition:all .15s;display:flex;flex-direction:column;gap:10px}
+.exrow.core{border-left:3px solid var(--acc)}
+.exrow.core::before{display:none}
+.exrow.cust{border-left:3px solid var(--pur)}
+.exrow.cust::before{display:none}
+.exrow-top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;min-width:0}
+.exrow-top>div:first-child{flex:1;min-width:0}
+.exrow-meta{display:flex;align-items:center;gap:14px;font-family:'DM Mono',monospace;font-size:11px;color:var(--mut);letter-spacing:.5px}
+.exrow-meta b{color:var(--txt);font-weight:600}
+.exrow-meta .meta-max{margin-left:auto;color:var(--acc);font-weight:600}
+.exn{font-size:14px;font-weight:600;line-height:1.3;color:var(--txt);display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+.exn .cust-tag{display:inline-block;background:rgba(191,90,242,.15);color:var(--pur);font-family:'DM Mono',monospace;font-size:8px;font-weight:600;letter-spacing:1px;padding:2px 6px;border-radius:4px;vertical-align:middle}
+.exn .rmx{display:inline-flex;align-items:center;justify-content:center;color:var(--red);font-size:13px;cursor:pointer;opacity:.5;padding:0 4px;background:none;border:none;font-family:inherit;min-width:32px;min-height:32px}
 .exn .rmx:hover{opacity:1}
-.exno{font-size:10px;color:var(--mut);font-family:'DM Mono',monospace;margin-top:2px}
-.exs{font-family:'Bebas Neue',sans-serif;font-size:22px;text-align:center;line-height:1}
-.exr{font-size:10px;font-weight:500;text-align:center;font-family:'DM Mono',monospace;line-height:1.3;color:var(--txt)}
-.exkg{display:flex;flex-direction:column;align-items:center;gap:4px}
+.exno{font-size:11px;color:var(--mut);font-family:'DM Mono',monospace;margin-top:4px;line-height:1.4}
+.exs{display:none}
+.exr{display:none}
+.exkg{display:none}
 .wi{background:var(--bg3);border:1.5px solid var(--bdr);color:var(--txt);font-family:'DM Mono',monospace;font-size:14px;font-weight:500;width:72px;padding:8px 4px;border-radius:100px;text-align:center;outline:none;-webkit-appearance:none;transition:all .2s var(--ease);min-height:36px}
 .wi:focus{border-color:var(--acc);background:rgba(255,214,10,.06);box-shadow:0 0 0 3px rgba(255,214,10,.12)}
 .wi::placeholder{color:var(--mut2);font-size:11px;font-weight:400}
@@ -114,25 +118,22 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .dup{font-size:10px;font-weight:600;font-family:'DM Mono',monospace;color:var(--grn)}
 .ddn{font-size:10px;font-weight:600;font-family:'DM Mono',monospace;color:var(--red)}
 .deq{font-size:10px;font-family:'DM Mono',monospace;color:var(--mut)}
-.vl{display:inline-flex;align-items:center;justify-content:center;color:var(--acc);text-decoration:none;font-size:10px;font-family:'DM Mono',monospace;font-weight:500;padding:6px 8px;background:rgba(255,214,10,.08);border-radius:var(--r3);white-space:nowrap;border:1px solid rgba(255,214,10,.15);transition:all .15s;min-width:36px;min-height:36px}
+.vl{display:inline-flex;align-items:center;justify-content:center;color:var(--acc);text-decoration:none;font-size:12px;font-family:'DM Mono',monospace;font-weight:500;padding:6px 10px;background:rgba(255,214,10,.08);border-radius:100px;white-space:nowrap;border:1px solid rgba(255,214,10,.15);transition:all .15s;min-width:36px;min-height:36px;flex-shrink:0}
 .vl:hover{background:rgba(255,214,10,.16)}
 
 /* ══ PER-SET INPUTS ══ */
-.set-expand{
-  grid-column:1/-1;padding:10px 0 6px;
-  animation:slideUp .25s var(--spring);
-}
-.set-row{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
-.set-chip{display:flex;flex-direction:column;align-items:center;gap:3px}
+.set-expand{padding:6px 0 0;animation:slideUp .25s var(--spring)}
+.set-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:flex-start}
+.set-chip{display:flex;flex-direction:column;align-items:center;gap:3px;flex:1;min-width:60px;max-width:90px}
 .set-chip label{font-family:'DM Mono',monospace;font-size:8px;color:var(--mut);letter-spacing:1px}
-.set-chip input{
-  width:56px;padding:7px 4px;border-radius:10px;text-align:center;
-  background:var(--bg3);border:1.5px solid var(--bdr);color:var(--txt);
-  font-family:'DM Mono',monospace;font-size:13px;font-weight:500;
-  outline:none;-webkit-appearance:none;transition:border-color .2s;
-  min-height:36px;
-}
+.set-chip input{width:100%;padding:8px 4px;border-radius:10px;text-align:center;background:var(--bg3);border:1.5px solid var(--bdr);color:var(--txt);font-family:'DM Mono',monospace;font-size:13px;font-weight:500;outline:none;-webkit-appearance:none;transition:border-color .2s;min-height:38px}
 .set-chip input:focus{border-color:var(--acc);box-shadow:0 0 0 2px rgba(255,214,10,.1)}
+
+/* ══ CORE INPUT (sek/antal) ══ */
+.core-input-wrap{display:flex;align-items:center;gap:8px;background:var(--bg3);border:1.5px solid var(--bdr);border-radius:100px;padding:4px 14px 4px 4px;width:fit-content}
+.core-input-wrap .wi{border:none;background:transparent;width:80px;padding:8px 4px;min-height:36px}
+.core-input-wrap .wi:focus{box-shadow:none;background:transparent}
+.core-input-unit{font-family:'DM Mono',monospace;font-size:11px;color:var(--mut);letter-spacing:1px;text-transform:uppercase}
 .set-toggle{
   background:var(--bg2);border:1.5px solid var(--bdr);color:var(--mut);font-size:14px;
   cursor:pointer;padding:0;border-radius:50%;
@@ -152,6 +153,14 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .wpick{display:flex;gap:6px;align-items:center;margin-bottom:16px;flex-wrap:wrap}
 .wpick label{font-size:9px;color:var(--mut);letter-spacing:2px;font-family:'DM Mono',monospace;text-transform:uppercase}
 .wb{padding:7px 12px;border-radius:100px;border:1.5px solid var(--bdr);background:var(--bg2);color:var(--mut);font-family:'DM Mono',monospace;font-size:12px;font-weight:500;cursor:pointer;transition:all .2s var(--ease);min-width:36px;min-height:36px;display:flex;align-items:center;justify-content:center}
+.wb-toggle{padding:7px 12px;border-radius:100px;border:1px dashed var(--bdr);background:transparent;color:var(--mut2);font-family:'DM Mono',monospace;font-size:10px;font-weight:600;letter-spacing:.5px;cursor:pointer;min-height:36px;display:flex;align-items:center;justify-content:center;gap:4px;transition:all .15s var(--ease)}
+.wb-toggle:active{transform:scale(.95);color:var(--acc);border-color:var(--acc)}
+
+/* Kg-summary (klikbar - kan folde sæt sammen) */
+.kg-summary{font-family:'DM Mono',monospace;font-size:13px;color:var(--mut);text-align:center;padding:8px 4px;cursor:pointer;border:1px dashed transparent;border-radius:8px;transition:all .15s var(--ease)}
+.kg-summary:active{background:var(--bg2);border-color:var(--bdr)}
+.core-unit-label{font-size:9px;color:var(--mut2);font-family:'DM Mono',monospace;text-align:center;margin-top:2px;letter-spacing:.5px;text-transform:uppercase}
+.exrow.has-sets .exkg{align-self:start}
 .wb:active{transform:scale(.92)}
 .wb.on{background:var(--acc);color:#000;border-color:var(--acc);font-weight:700}
 
@@ -635,8 +644,8 @@ input[type=file]{display:none}
 .intro-skip{position:absolute;top:calc(env(safe-area-inset-top,16px) + 12px);right:16px;background:rgba(255,255,255,.06);border:1px solid var(--bdr);color:var(--mut);font-family:'DM Mono',monospace;font-size:10px;font-weight:600;letter-spacing:1.5px;padding:8px 14px;border-radius:100px;cursor:pointer;text-transform:uppercase;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);z-index:5}
 .intro-skip:active{transform:scale(.95);color:var(--txt)}
 .intro-slides{flex:1;overflow:hidden;position:relative;touch-action:pan-y}
-.intro-track{display:flex;height:100%;transition:transform .35s cubic-bezier(.34,1.56,.64,1);will-change:transform}
-.intro-slide{flex:0 0 100%;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 24px;text-align:center}
+.intro-track{display:flex;height:100%;transition:transform .35s cubic-bezier(.34,1.56,.64,1);will-change:transform;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.intro-slide{flex:0 0 100%;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 24px;text-align:center;will-change:transform;-webkit-transform:translateZ(0);transform:translateZ(0)}
 .intro-emoji{font-size:88px;margin-bottom:24px;animation:introFloat 2.4s ease-in-out infinite;line-height:1}
 @keyframes introFloat{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-12px) rotate(2deg)}}
 .intro-eyebrow{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:3px;color:var(--acc);text-transform:uppercase;margin-bottom:10px}
@@ -657,6 +666,26 @@ input[type=file]{display:none}
 .intro-cta{background:var(--acc);color:#000;border:none;padding:16px 28px;border-radius:100px;font-family:'DM Mono',monospace;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;min-width:200px;min-height:52px;box-shadow:0 6px 20px rgba(255,214,10,.3)}
 .intro-cta:active{transform:scale(.97)}
 .intro-cta.final{background:linear-gradient(135deg,var(--acc),#ff9f0a)}
+
+/* ══ BODY LOG REMINDER ══ */
+.blr-modal{max-width:380px;text-align:center;padding:28px 24px 20px;animation:fi .3s ease}
+.blr-emoji{font-size:54px;margin-bottom:14px;animation:introFloat 2.4s ease-in-out infinite;display:inline-block}
+.blr-title{font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:.5px;margin-bottom:10px}
+.blr-sub{font-size:13px;color:var(--mut);line-height:1.6;margin-bottom:22px}
+.blr-actions{display:flex;flex-direction:column;gap:8px}
+.blr-skip{margin-top:14px;font-family:'DM Mono',monospace;font-size:10px;color:var(--mut2);letter-spacing:.5px;cursor:pointer;padding:8px;text-decoration:underline;text-underline-offset:3px}
+.blr-skip:active{color:var(--mut)}
+
+/* ══ VIEW MODE TOGGLE (Hele ugen vs Kun i dag) ══ */
+.view-toggle{display:flex;gap:0;background:var(--bg2);border:1px solid var(--bdr);border-radius:100px;padding:3px;margin-bottom:18px;width:fit-content;margin-left:auto;margin-right:auto}
+.vt-opt{flex:1;background:transparent;border:none;color:var(--mut);font-family:'DM Mono',monospace;font-size:11px;font-weight:600;letter-spacing:.5px;padding:8px 16px;border-radius:100px;cursor:pointer;min-height:36px;transition:all .2s var(--ease);white-space:nowrap}
+.vt-opt:active{transform:scale(.96)}
+.vt-opt.on{background:var(--acc);color:#000}
+
+/* ══ DAY SWIPE HINT (Kun i dag mode) ══ */
+.day-swipe-hint{text-align:center;font-family:'DM Mono',monospace;font-size:9px;color:var(--mut2);letter-spacing:1.5px;margin-bottom:8px;opacity:.6;text-transform:uppercase}
+.day-swipe-wrap{touch-action:pan-y;animation:dayFi .25s ease}
+@keyframes dayFi{from{opacity:0;transform:translateX(0)}to{opacity:1;transform:translateX(0)}}
 
 /* ══ RUN GOAL CARD (inline distance/starttid) ══ */
 .run-goal-card{background:linear-gradient(135deg,rgba(48,209,88,.06),rgba(10,132,255,.06));border:1.5px solid rgba(48,209,88,.3);border-radius:var(--r);padding:18px;margin-bottom:16px;box-shadow:var(--shadow)}
@@ -1330,7 +1359,7 @@ function saveCustom(){try{localStorage.setItem(CK,JSON.stringify(CUSTOM))}catch(
 // Program metadata: startdato, varighed, starttid
 const PK='tw4_prog';
 let PROG={startDate:null,totalWeeks:8,start5kSec:2100};
-try{PROG={startDate:null,totalWeeks:8,start5kSec:2100,runDistance:5,...JSON.parse(localStorage.getItem(PK)||'{}')}}catch(e){}
+try{PROG={startDate:null,totalWeeks:8,start5kSec:2100,runDistance:5,viewMode:'today',...JSON.parse(localStorage.getItem(PK)||'{}')}}catch(e){}
 // Migration: eksisterende brugere får automatisk Recomp som template
 if(!PROG.template){
   // Hvis de har eksisterende vægtdata, så har de allerede kørt Recomp-programmet
@@ -1584,6 +1613,49 @@ function go(t){
   document.getElementById('cnt').scrollTop=0;
 }
 function sd(i){sel=sel===i?null:i;render();if(sel!==null)setTimeout(()=>document.querySelector('.det')?.scrollIntoView({behavior:'smooth',block:'start'}),50)}
+
+function setViewMode(mode){
+  PROG.viewMode=mode;
+  saveProg();
+  if(mode==='today')sel=todayDayIdx();
+  else sel=null;
+  render();
+}
+
+// Swipe mellem dage (kun i "Kun i dag" mode)
+let daySwipeX=null,daySwipeY=null,daySwipeTime=0;
+function daySwipeStart(e){
+  const t=e.target;
+  // Ignorer hvis swipe starter på input/button/select
+  if(t.tagName==='INPUT'||t.tagName==='BUTTON'||t.tagName==='SELECT'||t.tagName==='TEXTAREA'||t.tagName==='A')return;
+  daySwipeX=e.touches[0].clientX;
+  daySwipeY=e.touches[0].clientY;
+  daySwipeTime=Date.now();
+}
+function daySwipeMove(e){
+  if(daySwipeX===null)return;
+  const dy=e.touches[0].clientY-daySwipeY;
+  const dx=e.touches[0].clientX-daySwipeX;
+  // Hvis primært vertikal scroll, drop swipe
+  if(Math.abs(dy)>Math.abs(dx)){daySwipeX=null;return}
+}
+function daySwipeEnd(e){
+  if(daySwipeX===null)return;
+  const dx=(e.changedTouches?.[0]?.clientX||0)-daySwipeX;
+  const elapsed=Date.now()-daySwipeTime;
+  const isSwipe=Math.abs(dx)>60||(Math.abs(dx)>30&&elapsed<200);
+  if(isSwipe){
+    if(dx<0){
+      // Swipe venstre = næste dag
+      sel=(sel+1)%7;
+    }else{
+      // Swipe højre = forrige dag
+      sel=(sel-1+7)%7;
+    }
+    render();
+  }
+  daySwipeX=null;daySwipeY=null;
+}
 function goToTodayDetail(idx){
   sel=idx;render();
   setTimeout(()=>{
@@ -1595,7 +1667,7 @@ function goToTodayDetail(idx){
   },50);
 }
 function sw2(w){week=w;render()}
-function wch(el){const w=+el.dataset.w,d=el.dataset.d,n=el.dataset.n;sw(w,d,n,el.value);el.classList.remove('fl');void el.offsetWidth;el.classList.add('fl');setTimeout(()=>el.classList.remove('fl'),550)}
+function wch(el){const w=+el.dataset.w,d=el.dataset.d,n=el.dataset.n;sw(w,d,n,el.value);el.classList.remove('fl');void el.offsetWidth;el.classList.add('fl');setTimeout(()=>el.classList.remove('fl'),550);maybeShowBodyLogReminder()}
 function diffH(d){if(d===null)return'';const cl=d>0?'dup':d<0?'ddn':'deq',s=d>0?`▲+${d}`:d<0?`▼${d}`:'=0';return`<div class="${cl}">${s}</div>`}
 
 // Sæt-for-sæt funktioner
@@ -1612,10 +1684,18 @@ function wchAll(el){
   if(restType)startRestTimer(restType);
   checkAndCelebratePR(d,n,arr);
   el.classList.remove('fl');void el.offsetWidth;el.classList.add('fl');setTimeout(()=>el.classList.remove('fl'),550);
+  maybeShowBodyLogReminder();
   if(selExRow===d+'__'+n)render();
 }
 function toggleSetRow(key){
   selExRow=selExRow===key?null:key;
+  render();
+}
+function toggleSetCollapsed(key){
+  // Toggle between expanded (default) and collapsed
+  const collapsedKey='collapsed__'+key;
+  if(selExRow===collapsedKey)selExRow=null;
+  else selExRow=collapsedKey;
   render();
 }
 function renderSetInputs(w,day,name,numSets){
@@ -1623,7 +1703,8 @@ function renderSetInputs(w,day,name,numSets){
   const arr=parseW(val);
   let h=`<div class="set-expand"><div class="set-row">`;
   for(let s=0;s<numSets;s++){
-    const sv=s<arr.length?arr[s]:'';
+    const rawV=s<arr.length?arr[s]:0;
+    const sv=rawV>0?rawV:''; // 0 og NaN vises som tom
     h+=`<div class="set-chip">
       <label>S${s+1}</label>
       <input type="number" inputmode="decimal" step="0.5" min="0" placeholder="—" value="${sv}"
@@ -1638,10 +1719,9 @@ function wchSet(w,day,name,idx,numSets,val){
   const current=gw(w,day,name);
   const arr=parseW(current);
   const num=parseFloat(val);
-  if(isNaN(num))return;
   while(arr.length<numSets)arr.push(0);
-  arr[idx]=num;
-  for(let i=0;i<arr.length;i++){if(arr[i]===0)arr[i]=num}
+  // Tomt input = ryd kun dette ene sæt
+  arr[idx]=isNaN(num)?0:num;
   const newVal=arr.join(',');
   sw(w,day,name,newVal);
   // Find exercise type for timer
@@ -1655,6 +1735,7 @@ function wchSet(w,day,name,idx,numSets,val){
     }
   }
   checkAndCelebratePR(day,name,newVal);
+  maybeShowBodyLogReminder();
   render();
 }
 
@@ -1730,10 +1811,25 @@ function updateHeaderWeek(){
   }
 }
 
+let wpickExpanded=false;
 function wpickH(){
+  const tw=TW();
+  if(tw<=1)return '';
   let h='<div class="wpick"><label>Uge</label>';
-  for(let w=1;w<=TW();w++)h+=`<button class="wb${week===w?' on':''}" onclick="sw2(${w})">${w}</button>`;
+  if(wpickExpanded){
+    // Vis alle uger
+    for(let w=1;w<=tw;w++)h+=`<button class="wb${week===w?' on':''}" onclick="sw2(${w})">${w}</button>`;
+    h+=`<button class="wb-toggle" onclick="toggleWpick()" title="Skjul andre uger">▴</button>`;
+  }else{
+    // Vis kun nuværende uge + fold-ud knap
+    h+=`<button class="wb on">${week}</button>`;
+    h+=`<button class="wb-toggle" onclick="toggleWpick()" title="Se alle uger">Se uger ▾</button>`;
+  }
   return h+'</div>';
+}
+function toggleWpick(){
+  wpickExpanded=!wpickExpanded;
+  render();
 }
 
 /* ── WEEKLY ── */
@@ -1768,20 +1864,38 @@ function rWeekly(){
     h+=rTodayBanner();
   }
 
-  // Day grid
-  const todayIdx=todayDayIdx();
-  h+='<div class="dgrid">';
-  D.forEach((d,i)=>{
-    const isToday=i===todayIdx&&PROG.startDate&&!isProgramDone();
-    h+=`<div class="dc${sel===i?' on':''}" style="--col:${d.color}" onclick="sd(${i})">
-      <span class="di">${d.icon}</span>
-      <div class="da">${d.day}${isToday?' <span style="color:'+d.color+';font-size:10px">●</span>':''}</div>
-      <div class="dl">${d.label}</div>
+  // Layout-toggle: Kun i dag vs Hele ugen (kun synlig hvis programmet er startet)
+  if(PROG.startDate&&!isProgramDone()){
+    h+=`<div class="view-toggle">
+      <button class="vt-opt${PROG.viewMode!=='full'?' on':''}" onclick="setViewMode('today')">📍 Kun i dag</button>
+      <button class="vt-opt${PROG.viewMode==='full'?' on':''}" onclick="setViewMode('full')">📅 Hele ugen</button>
     </div>`;
-  });
-  h+='</div>';
+  }
+
+  // Day grid (skjules i "Kun i dag" mode hvis programmet er startet)
+  const todayIdx=todayDayIdx();
+  const hideDayGrid=PROG.viewMode!=='full'&&PROG.startDate&&!isProgramDone();
+  if(!hideDayGrid){
+    h+='<div class="dgrid">';
+    D.forEach((d,i)=>{
+      const isToday=i===todayIdx&&PROG.startDate&&!isProgramDone();
+      h+=`<div class="dc${sel===i?' on':''}" style="--col:${d.color}" onclick="sd(${i})">
+        <span class="di">${d.icon}</span>
+        <div class="da">${d.day}${isToday?' <span style="color:'+d.color+';font-size:10px">●</span>':''}</div>
+        <div class="dl">${d.label}</div>
+      </div>`;
+    });
+    h+='</div>';
+  }
+  // I "Kun i dag" mode auto-vælg dagens dag hvis intet er valgt
+  if(hideDayGrid&&sel===null)sel=todayIdx;
   if(sel!==null){
     const d=D[sel];
+    // I "Kun i dag" mode: wrap detail i swipe-container med hint
+    if(hideDayGrid){
+      h+=`<div class="day-swipe-hint">‹ Swipe for at skifte dag ›</div>`;
+      h+=`<div class="day-swipe-wrap" ontouchstart="daySwipeStart(event)" ontouchmove="daySwipeMove(event)" ontouchend="daySwipeEnd(event)">`;
+    }
     h+=`<div class="det">
       <div class="det-head">
         <div class="det-icon">${d.icon}</div>
@@ -1805,7 +1919,7 @@ function rWeekly(){
           <span class="wt-time">0:00</span>
         </div>
       </div>`;
-      h+=`<div class="ex-hd"><span>Øvelse</span><span>Sæt</span><span>Reps</span><span>Kg – uge ${week}</span><span>Se</span></div>`;
+      // Card-baseret layout — header er ikke længere relevant
       exs.forEach((e,exIdx)=>{
         const sr=exSR(e,week),v=gw(week,d.full,e.n),dv=df(week,d.full,e.n);
         const numSets=parseInt(sr.s)||3;
@@ -1813,7 +1927,8 @@ function rWeekly(){
         const cls=isCust?'cust':(e.core?'core':'');
         const rmBtn=isCust?`<button class="rmx" onclick="removeCustomEx('${escAttr(d.full)}','${escAttr(e.n)}')" title="Fjern">×</button>`:'';
         const custTag=isCust?'<span class="cust-tag">EGEN</span>':'';
-        const isExpanded=selExRow===d.full+'__'+e.n;
+        // Sæt-felter vises altid for ikke-core øvelser
+        const showSetInputs=!e.core;
         const displayVal=summaryW(v)||'';
         const mainVal=maxW(v);
         const inSS=isInSuperset(d.full,exIdx);
@@ -1827,21 +1942,38 @@ function rWeekly(){
         const noteBtn=`<button class="note-btn${hasNote?' has':''}" onclick="toggleNote('${escAttr(noteKey)}')" title="Note">${hasNote?'📝':'✎'}</button>`;
         const est1rm=!e.core?estimateExercise1RM(week,d.full,e.n,e):null;
         const rmDisplay=est1rm?`<div class="est-1rm">est. 1RM: <b>${est1rm} kg</b></div>`:'';
-        h+=`<div class="exrow${cls?' '+cls:''}">
-          <div><div class="exn">${e.n}${custTag}${ssTag}${prBadge}${ssBtn}${noteBtn}${rmBtn}</div>${e.no?`<div class="exno">${e.no}</div>`:''}${rmDisplay}</div>
-          <div class="exs" style="color:${d.color}">${sr.s}</div>
-          <div class="exr">${sr.r}</div>
-          <div class="exkg">
-            <div style="display:flex;align-items:center;gap:2px">
-              <input class="wi" type="number" inputmode="decimal" placeholder="kg" min="0" step="0.5"
-                value="${!isNaN(mainVal)?mainVal:''}" data-w="${week}" data-d="${d.full}" data-n="${escAttr(e.n)}" data-sets="${numSets}" data-t="${e.k||'c'}" data-idx="${exIdx}"
-                onchange="wchAll(this)" onfocus="this.select()">
-              <button class="set-toggle" onclick="toggleSetRow('${escAttr(d.full)}__${escAttr(e.n)}')" title="Sæt-detaljer">${isExpanded?'▴':'⋯'}</button>
+        h+=`<div class="exrow${cls?' '+cls:''}${showSetInputs?' has-sets':''}">
+          <div class="exrow-top">
+            <div>
+              <div class="exn">${e.n}${custTag}${ssTag}${prBadge}${ssBtn}${noteBtn}${rmBtn}</div>
+              ${e.no?`<div class="exno">${e.no}</div>`:''}
             </div>
+            <a class="vl" href="${e.l}" target="_blank">▶ Video</a>
+          </div>
+          <div class="exrow-meta">
+            <span><b style="color:${d.color}">${sr.s}</b> sæt</span>
+            <span><b>${sr.r}</b> reps</span>
+            ${(()=>{
+              if(!mainVal||isNaN(mainVal)||mainVal<=0)return '<span class="meta-max" style="color:var(--mut2);opacity:.6">— ikke logget</span>';
+              if(e.core){
+                const repsKeywords=['crunch','raise','twist','sit-up','sit up','rollout','bird dog','wheel'];
+                const nm=e.n.toLowerCase();
+                const isReps=e.unit==='reps'||(!e.unit&&repsKeywords.some(k=>nm.includes(k)));
+                return '<span class=\"meta-max\">'+mainVal+' '+(isReps?'reps':'sek')+'</span>';
+              }
+              return '<span class=\"meta-max\">max '+mainVal+' kg</span>';
+            })()}
             ${diffH(dv)}
           </div>
-          <a class="vl" href="${e.l}" target="_blank">▶</a>
-          ${isExpanded?renderSetInputs(week,d.full,e.n,numSets):''}
+          ${rmDisplay||''}
+          ${e.core?(()=>{
+            const repsKeywords=['crunch','raise','twist','sit-up','sit up','rollout','bird dog','wheel'];
+            const nm=e.n.toLowerCase();
+            const isReps=e.unit==='reps'||(!e.unit&&repsKeywords.some(k=>nm.includes(k)));
+            const unitLabel=isReps?'antal':'sek';
+            return '<div class=\"core-input-wrap\"><input class=\"wi\" type=\"number\" inputmode=\"numeric\" placeholder=\"0\" min=\"0\" step=\"1\" value=\"'+(!isNaN(mainVal)&&mainVal>0?mainVal:'')+'\" data-w=\"'+week+'\" data-d=\"'+escAttr(d.full)+'\" data-n=\"'+escAttr(e.n)+'\" data-sets=\"1\" data-t=\"'+(e.k||'x')+'\" data-idx=\"'+exIdx+'\" onchange=\"wchAll(this)\" onfocus=\"this.select()\"><span class=\"core-input-unit\">'+unitLabel+'</span></div>';
+          })():''}
+          ${showSetInputs?renderSetInputs(week,d.full,e.n,numSets):''}
           ${noteOpen?renderNotePopup(week,d.full,e.n):''}
         </div>`;
       });
@@ -1932,6 +2064,10 @@ function rWeekly(){
       </div>`;
     }
     h+='</div>';
+    // Luk swipe-wrap hvis vi er i "Kun i dag" mode
+    if(hideDayGrid){
+      h+=`</div>`;
+    }
   }else{
     h+=`<div class="hint"><span class="hint-icon">👆</span>Tryk på en dag<br>for øvelser og videolinks</div>`;
   }
@@ -1940,10 +2076,24 @@ function rWeekly(){
 
 /* ── TODAY BANNER ── */
 function rTodayBanner(){
-  const idx=todayDayIdx();
+  // Vis valgt dag (sel) hvis den findes, ellers dagens dag
+  const realToday=todayDayIdx();
+  const idx=sel!==null?sel:realToday;
   const d=D[idx];
   const cw=currentWeek();
-  const today=new Date().toLocaleDateString('da-DK',{weekday:'long',day:'numeric',month:'long'});
+  const isToday=idx===realToday;
+  // Beregn dato for den valgte dag
+  let dateLabel='';
+  if(PROG.startDate){
+    const start=new Date(PROG.startDate);
+    const startDayIdx=(start.getDay()+6)%7;
+    const daysDiff=(cw-1)*7+(idx-startDayIdx);
+    const targetDate=new Date(start);
+    targetDate.setDate(start.getDate()+daysDiff);
+    dateLabel=targetDate.toLocaleDateString('da-DK',{weekday:'long',day:'numeric',month:'long'});
+  }else{
+    dateLabel=new Date().toLocaleDateString('da-DK',{weekday:'long',day:'numeric',month:'long'});
+  }
   const exs=dayEx(d);
   let summary='';
   if(d.run){
@@ -1954,10 +2104,12 @@ function rTodayBanner(){
   }else{
     summary='Hvile · Søvn 7-9 timer · Let gåtur er fint';
   }
-  return `<div class="today-banner" style="--tc:${d.color}" onclick="goToTodayDetail(${idx})">
+  const prefix=isToday?'I dag':d.full;
+  return `<div class="today-banner" style="--tc:${d.color}" onclick="goToTodayDetail(${idx})"
+    ontouchstart="bannerSwipeStart(event)" ontouchmove="bannerSwipeMove(event)" ontouchend="bannerSwipeEnd(event)">
     <div class="tb-icon">${d.icon}</div>
     <div class="tb-text">
-      <div class="tb-eyebrow"><span class="pulse"></span>I dag · ${today} · Uge ${cw}</div>
+      <div class="tb-eyebrow"><span class="pulse"></span>${prefix} · ${dateLabel} · Uge ${cw}</div>
       <div class="tb-title">${d.type}</div>
       <div class="tb-sub">${summary}</div>
     </div>
@@ -1965,9 +2117,36 @@ function rTodayBanner(){
   </div>`;
 }
 
+// Swipe på i-dag-banneret
+let bannerSwipeX=null,bannerSwipeY=null,bannerSwipeTime=0;
+function bannerSwipeStart(e){
+  bannerSwipeX=e.touches[0].clientX;
+  bannerSwipeY=e.touches[0].clientY;
+  bannerSwipeTime=Date.now();
+}
+function bannerSwipeMove(e){
+  if(bannerSwipeX===null)return;
+  const dy=e.touches[0].clientY-bannerSwipeY;
+  const dx=e.touches[0].clientX-bannerSwipeX;
+  if(Math.abs(dy)>Math.abs(dx)){bannerSwipeX=null;return}
+}
+function bannerSwipeEnd(e){
+  if(bannerSwipeX===null)return;
+  const dx=(e.changedTouches?.[0]?.clientX||0)-bannerSwipeX;
+  const elapsed=Date.now()-bannerSwipeTime;
+  const isSwipe=Math.abs(dx)>60||(Math.abs(dx)>30&&elapsed<200);
+  if(isSwipe){
+    const cur=sel!==null?sel:todayDayIdx();
+    if(dx<0)sel=(cur+1)%7;
+    else sel=(cur-1+7)%7;
+    render();
+  }
+  bannerSwipeX=null;bannerSwipeY=null;
+}
+
 /* ── PROGRAM SETUP (vælg startdato) ── */
 function rProgSetup(){
-  const tm=thisMondayISO();
+  const tm=todayISO(); // default = i dag, ikke mandag
   const tw=TW();
   const goalStr=fmtSec(goal5kSec());
   const initSec=PROG.start5kSec||2100;
@@ -2026,7 +2205,7 @@ function rProgSetup(){
     <input type="date" class="prog-date-input" id="progDateInput" value="${tm}">
     <div class="btn-row">
       <button class="prog-btn" onclick="setProgStart()">✓ Start programmet</button>
-      <button class="prog-btn ghost" onclick="setProgStartToday()">Start i denne uge</button>
+      <button class="prog-btn ghost" onclick="setProgStartToday()">📅 Start i dag</button>
     </div>
   </div>`;
 }
@@ -2147,14 +2326,14 @@ function setProgStartToday(){
   if(sec&&sec>0)PROG.start5kSec=sec;
   if(weeksSelect){const w=parseInt(weeksSelect.value);if(w&&w>=4)PROG.totalWeeks=w}
   if(distSelect){const d=parseInt(distSelect.value);if(d&&d>=1)PROG.runDistance=d}
-  PROG.startDate=thisMondayISO();saveProg();
+  PROG.startDate=todayISO();saveProg();
   loadProgram();
-  toast('✓ Programmet startet');
+  toast('✓ Programmet startet i dag');
   render();
 }
 function restartProgram(){
-  if(!confirm('Start et nyt forløb?\n\nDine eksisterende data bevares – men programmet starter forfra fra denne mandag.')){return}
-  PROG.startDate=thisMondayISO();saveProg();
+  if(!confirm('Start et nyt forløb?\n\nDine eksisterende data bevares – men programmet starter forfra fra i dag.')){return}
+  PROG.startDate=todayISO();saveProg();
   week=1;
   toast('✓ Nyt forløb startet');
   render();
@@ -4039,6 +4218,57 @@ function getPR(day,exName){
   return best||0;
 }
 
+// Storage for at huske hvilke uger vi har vist body-log reminder
+const BLR_KEY='tw4_bodylog_reminder_shown';
+function getBodyLogShownWeeks(){
+  try{return JSON.parse(localStorage.getItem(BLR_KEY)||'[]')}catch(e){return[]}
+}
+function markBodyLogShown(week){
+  const arr=getBodyLogShownWeeks();
+  if(!arr.includes(week)){arr.push(week);try{localStorage.setItem(BLR_KEY,JSON.stringify(arr))}catch(e){}}
+}
+
+function maybeShowBodyLogReminder(){
+  const cw=currentWeek();
+  if(!cw||cw<1||cw>TW())return;
+  // Allerede vist denne uge?
+  if(getBodyLogShownWeeks().includes(cw))return;
+  // Allerede udfyldt for denne uge?
+  const bd=BODY[cw];
+  if(bd&&(bd.kg||bd.fat||bd.photoBody||bd.photoScale))return;
+  // Vis kun én gang — efter en lille forsinkelse så bruger først ser deres logning
+  setTimeout(()=>{
+    // Dobbelt-tjek (de kunne have udfyldt mens de var i gang)
+    const bd2=BODY[cw];
+    if(bd2&&(bd2.kg||bd2.fat||bd2.photoBody||bd2.photoScale))return;
+    showBodyLogReminderModal(cw);
+    markBodyLogShown(cw);
+  },1500);
+}
+
+function showBodyLogReminderModal(week){
+  const m=document.getElementById('modal');
+  m.innerHTML=`<div class="modal blr-modal" onclick="event.stopPropagation()">
+    <div class="blr-emoji">📷</div>
+    <div class="blr-title">Husk dit kropslog</div>
+    <div class="blr-sub">Det er uge ${week} — har du vejet dig denne uge?<br>Det tager 10 sekunder og giver coachen vigtig data.</div>
+    <div class="blr-actions">
+      <button class="prog-btn" onclick="closeModal();go('body')">📷 Log nu</button>
+      <button class="prog-btn ghost" onclick="closeModal()">Senere</button>
+    </div>
+    <div class="blr-skip" onclick="dismissBodyLogReminderForever()">Vis ikke disse påmindelser</div>
+  </div>`;
+  m.classList.add('show');
+}
+
+function dismissBodyLogReminderForever(){
+  // Marker alle uger som "vist" så reminder aldrig dukker op igen
+  const allWeeks=Array.from({length:TW()},(_,i)=>i+1);
+  try{localStorage.setItem(BLR_KEY,JSON.stringify(allWeeks))}catch(e){}
+  closeModal();
+  toast('Påmindelser slået fra');
+}
+
 function checkAndCelebratePR(day,exName,newVal){
   const newMax=maxW(newVal);
   if(isNaN(newMax)||newMax<=0)return;
@@ -4296,7 +4526,7 @@ function openSettingsModal(){
 
     <div class="ai-field">
       <label>📆 Startdato</label>
-      <input type="date" id="setDate" value="${PROG.startDate||thisMondayISO()}">
+      <input type="date" id="setDate" value="${PROG.startDate||todayISO()}">
     </div>
 
     ${showRunTime?`<div id="setPreview" style="background:var(--bg2);border:1px solid var(--bdr);border-radius:var(--r2);padding:12px 16px;margin-bottom:16px;text-align:center">
@@ -4744,11 +4974,12 @@ function showIntro(){
 function renderIntro(){
   const overlay=document.getElementById('introOverlay');
   if(!overlay)return;
+  introIdx=0;
   let h=`<div class="intro-wrap">
     <button class="intro-skip" onclick="finishIntro()">Spring over</button>
     <div class="intro-slides" id="introSlides"
       ontouchstart="introTouchStart(event)" ontouchmove="introTouchMove(event)" ontouchend="introTouchEnd(event)">
-      <div class="intro-track" id="introTrack" style="transform:translateX(-${introIdx*100}%)">`;
+      <div class="intro-track" id="introTrack" style="transform:translateX(0)">`;
   INTRO_SLIDES.forEach((s,i)=>{
     h+=`<div class="intro-slide">
       <div class="intro-emoji">${s.emoji}</div>
@@ -4779,9 +5010,9 @@ function renderIntro(){
     </div>
     <div class="intro-footer">
       <div class="intro-dots">
-        ${INTRO_SLIDES.map((_,i)=>`<div class="intro-dot${i===introIdx?' on':''}"></div>`).join('')}
+        ${INTRO_SLIDES.map((_,i)=>`<div class="intro-dot${i===0?' on':''}"></div>`).join('')}
       </div>
-      <button class="intro-cta${INTRO_SLIDES[introIdx].final?' final':''}" onclick="${INTRO_SLIDES[introIdx].final?'finishIntro()':'introNext()'}">${INTRO_SLIDES[introIdx].cta}</button>
+      <button class="intro-cta${INTRO_SLIDES[0].final?' final':''}" onclick="${INTRO_SLIDES[0].final?'finishIntro()':'introNext()'}">${INTRO_SLIDES[0].cta}</button>
     </div>
   </div>`;
   overlay.innerHTML=h;
@@ -4791,10 +5022,7 @@ function renderIntro(){
 function introNext(){
   if(introIdx<INTRO_SLIDES.length-1){
     introIdx++;
-    const track=document.getElementById('introTrack');
-    if(track)track.style.transform=`translateX(-${introIdx*100}%)`;
-    // Update dots and CTA
-    setTimeout(()=>renderIntro(),350);
+    updateIntroPosition();
   }else{
     finishIntro();
   }
@@ -4803,9 +5031,28 @@ function introNext(){
 function introPrev(){
   if(introIdx>0){
     introIdx--;
-    const track=document.getElementById('introTrack');
-    if(track)track.style.transform=`translateX(-${introIdx*100}%)`;
-    setTimeout(()=>renderIntro(),350);
+    updateIntroPosition();
+  }
+}
+
+// Opdater kun track-position, dots og CTA — uden full re-render
+function updateIntroPosition(){
+  const track=document.getElementById('introTrack');
+  if(track){
+    track.style.transition='transform .35s cubic-bezier(.34,1.56,.64,1)';
+    track.style.transform=`translateX(-${introIdx*100}%)`;
+  }
+  // Opdater dots
+  document.querySelectorAll('.intro-dot').forEach((dot,i)=>{
+    dot.classList.toggle('on',i===introIdx);
+  });
+  // Opdater CTA-knap
+  const cta=document.querySelector('.intro-cta');
+  if(cta){
+    const slide=INTRO_SLIDES[introIdx];
+    cta.textContent=slide.cta;
+    cta.classList.toggle('final',!!slide.final);
+    cta.onclick=slide.final?finishIntro:introNext;
   }
 }
 
@@ -4826,33 +5073,43 @@ function finishIntro(){
 }
 
 // Swipe-handling for intro
-let introTouchX=null,introTouchY=null;
+let introTouchX=null,introTouchY=null,introTouchTime=0;
 function introTouchStart(e){
   introTouchX=e.touches[0].clientX;
   introTouchY=e.touches[0].clientY;
+  introTouchTime=Date.now();
+  // Disable transition under drag for smooth følge-bevægelse
+  const track=document.getElementById('introTrack');
+  if(track)track.style.transition='none';
 }
 function introTouchMove(e){
   if(introTouchX===null)return;
   const dx=e.touches[0].clientX-introTouchX;
   const dy=e.touches[0].clientY-introTouchY;
-  // Hvis primært vertikal scroll, lad være
-  if(Math.abs(dy)>Math.abs(dx))return;
-  e.preventDefault();
+  // Hvis primært vertikal scroll, ignorer
+  if(Math.abs(dy)>Math.abs(dx)&&Math.abs(dy)>10)return;
+  if(Math.abs(dx)>10)e.preventDefault();
   const track=document.getElementById('introTrack');
-  if(track)track.style.transform=`translateX(calc(-${introIdx*100}% + ${dx}px))`;
+  if(!track)return;
+  // Begræns drag ved ender
+  let dragDx=dx;
+  if(introIdx===0&&dx>0)dragDx=dx*0.3;
+  if(introIdx===INTRO_SLIDES.length-1&&dx<0)dragDx=dx*0.3;
+  track.style.transform=`translateX(calc(-${introIdx*100}% + ${dragDx}px))`;
 }
 function introTouchEnd(e){
   if(introTouchX===null)return;
   const dx=(e.changedTouches?.[0]?.clientX||0)-introTouchX;
+  const elapsed=Date.now()-introTouchTime;
+  const isSwipe=Math.abs(dx)>50||(Math.abs(dx)>20&&elapsed<200);
   const track=document.getElementById('introTrack');
   if(!track){introTouchX=null;return}
-  if(dx<-60&&introIdx<INTRO_SLIDES.length-1){
+  if(isSwipe&&dx<0&&introIdx<INTRO_SLIDES.length-1){
     introIdx++;
-  }else if(dx>60&&introIdx>0){
+  }else if(isSwipe&&dx>0&&introIdx>0){
     introIdx--;
   }
-  track.style.transform=`translateX(-${introIdx*100}%)`;
-  setTimeout(()=>renderIntro(),350);
+  updateIntroPosition();
   introTouchX=null;introTouchY=null;
 }
 
@@ -4893,11 +5150,33 @@ if('serviceWorker' in navigator){
 /* ── INIT ──────────────────────────────────────────────────── */
 /* ═══════════════════════════════════════════════════════════ */
 loadProgram();
+// Auto-set til den aktuelle uge baseret på startdato
+if(PROG.startDate){
+  const cw=currentWeek();
+  if(cw>=1&&cw<=TW())week=cw;
+}
+// Auto-vælg dagens dag hvis "Kun i dag"-mode er aktiveret
+if(PROG.viewMode==='today'&&PROG.startDate&&!isProgramDone()){
+  sel=todayDayIdx();
+}
 render();
 // Vis intro for nye brugere (efter render så app er klar i baggrunden)
 if(!PROG.introSeen){
   setTimeout(showIntro,100);
 }
+
+// Auto-opdater til ny uge når app kommer i forgrunden (efter pause)
+document.addEventListener('visibilitychange',()=>{
+  if(document.visibilityState==='visible'&&PROG.startDate){
+    const cw=currentWeek();
+    if(cw>=1&&cw<=TW()&&cw!==week){
+      week=cw;
+      // Også re-vælg dagens dag hvis "Kun i dag"-mode
+      if(PROG.viewMode==='today'&&!isProgramDone())sel=todayDayIdx();
+      render();
+    }
+  }
+});
 </script>
 </body>
 </html>
