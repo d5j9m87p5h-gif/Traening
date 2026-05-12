@@ -348,6 +348,13 @@ input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-
 
 /* ══ LIBRARY ══ */
 .lib-search{display:flex;gap:8px;margin-bottom:14px}
+.lib-actions{display:flex;flex-direction:column;gap:8px;margin-bottom:16px}
+.lib-action-btn{background:var(--bg2);border:1.5px solid var(--bdr);color:var(--txt);font-family:'DM Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.5px;padding:14px 18px;border-radius:var(--r2);cursor:pointer;min-height:48px;display:flex;align-items:center;justify-content:center;gap:8px;transition:all .15s var(--ease)}
+.lib-action-btn:active{transform:scale(.97)}
+.lib-action-btn.primary{background:rgba(255,214,10,.08);border-color:rgba(255,214,10,.3);color:var(--acc)}
+.lib-action-btn.primary:active{background:rgba(255,214,10,.15)}
+.lib-action-btn.ai{background:linear-gradient(135deg,rgba(10,132,255,.1),rgba(191,90,242,.1));border-color:rgba(191,90,242,.3);color:#a070ff}
+.lib-action-btn.ai:active{background:linear-gradient(135deg,rgba(10,132,255,.18),rgba(191,90,242,.18))}
 .lib-search input{flex:1;background:var(--bg2);border:1.5px solid var(--bdr);color:var(--txt);font-family:'DM Sans',sans-serif;font-size:14px;padding:12px 16px;border-radius:100px;outline:none;transition:border-color .2s,box-shadow .2s}
 .lib-search input:focus{border-color:var(--pur);box-shadow:0 0 0 3px rgba(191,90,242,.12)}
 .lib-search input::placeholder{color:var(--mut2)}
@@ -486,6 +493,9 @@ input[type=file]{display:none}
 #hdrCog{position:absolute;top:calc(var(--st) + 14px);right:14px;z-index:5;width:40px;height:40px;border-radius:50%;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.06);color:var(--mut);font-size:18px;cursor:pointer;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);transition:all .2s var(--ease);display:flex;align-items:center;justify-content:center}
 #hdrCog:active{transform:scale(.9) rotate(45deg)}
 #hdrCog:hover{color:var(--acc);border-color:var(--acc)}
+#hdrInfo{position:absolute;top:calc(var(--st) + 14px);right:62px;z-index:5;width:40px;height:40px;border-radius:50%;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.06);color:var(--mut);font-size:16px;cursor:pointer;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);transition:all .2s var(--ease);display:flex;align-items:center;justify-content:center}
+#hdrInfo:active{transform:scale(.9)}
+#hdrInfo:hover{color:var(--blue);border-color:var(--blue)}
 
 /* ══ NOTES POPUP ══ */
 .note-btn{background:none;border:none;color:var(--mut);cursor:pointer;font-size:14px;padding:4px;opacity:.5;transition:opacity .15s;min-width:28px;min-height:28px}
@@ -687,6 +697,23 @@ input[type=file]{display:none}
 .day-swipe-wrap{touch-action:pan-y;animation:dayFi .25s ease}
 @keyframes dayFi{from{opacity:0;transform:translateX(0)}to{opacity:1;transform:translateX(0)}}
 
+/* ══ WEIGHT TAB SWIPE (Log vs Graf) ══ */
+.weight-swipe-hint{text-align:center;font-family:'DM Mono',monospace;font-size:9px;color:var(--mut2);letter-spacing:1.5px;margin-bottom:12px;opacity:.5;text-transform:uppercase}
+.weight-swipe-wrap{touch-action:pan-y;animation:dayFi .25s ease}
+
+/* ══ WELLNESS PROMPT MODAL ══ */
+.wellness-modal{max-width:400px;padding:28px 22px 22px;animation:fi .3s ease;text-align:center}
+.wm-emoji{font-size:48px;margin-bottom:12px;animation:introFloat 2.4s ease-in-out infinite;display:inline-block}
+.wm-title{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:.5px;margin-bottom:8px}
+.wm-sub{font-size:12px;color:var(--mut);line-height:1.5;margin-bottom:20px}
+.wm-card{background:var(--bg2);border:1px solid var(--bdr);border-radius:var(--r2);padding:14px;margin-bottom:10px}
+.wm-label{display:block;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:1.5px;color:var(--mut);text-transform:uppercase;margin-bottom:10px}
+.wm-slider-wrap{display:flex;align-items:center;gap:8px;width:100%}
+.wm-emo{font-size:18px;width:24px;flex-shrink:0;text-align:center}
+.wm-val{font-family:'Bebas Neue',sans-serif;font-size:18px;color:var(--acc);margin-top:8px}
+.wellness-stress .wm-val{color:#ff453a}
+.wm-actions{display:flex;flex-direction:column;gap:8px;margin-top:6px}
+
 /* ══ RUN GOAL CARD (inline distance/starttid) ══ */
 .run-goal-card{background:linear-gradient(135deg,rgba(48,209,88,.06),rgba(10,132,255,.06));border:1.5px solid rgba(48,209,88,.3);border-radius:var(--r);padding:18px;margin-bottom:16px;box-shadow:var(--shadow)}
 .rgc-title{font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:.5px;margin-bottom:14px;text-align:center}
@@ -736,6 +763,7 @@ input[type=file]{display:none}
 <body>
 <div id="app">
   <div id="hdr">
+    <button id="hdrInfo" onclick="openInfoModal()" title="Info & program-detaljer">ℹ️</button>
     <button id="hdrCog" onclick="openSettingsModal()" title="Indstillinger">⚙️</button>
     <div class="hdr-eyebrow">// PERSONLIGT TRÆNINGSPROGRAM</div>
     <h1>RECOMP<br>+ 5KM RUN</h1>
@@ -748,11 +776,8 @@ input[type=file]{display:none}
   <div id="tabs">
     <button class="tab on" onclick="go('weekly')"><span class="tab-icon">📋</span>Skema</button>
     <button class="tab" onclick="go('weights')"><span class="tab-icon">⚖️</span>Vægt</button>
-    <button class="tab" onclick="go('graph')"><span class="tab-icon">📊</span>Graf</button>
-    <button class="tab" onclick="go('body')"><span class="tab-icon">📷</span>Krop</button>
     <button class="tab" onclick="go('coach')"><span class="tab-icon">🤖</span>Coach</button>
     <button class="tab" onclick="go('library')"><span class="tab-icon">📚</span>Bibliotek</button>
-    <button class="tab" onclick="go('info')"><span class="tab-icon">ℹ️</span>Info</button>
   </div>
   <div id="cnt"></div>
 </div>
@@ -1612,7 +1637,18 @@ function go(t){
   render();
   document.getElementById('cnt').scrollTop=0;
 }
-function sd(i){sel=sel===i?null:i;render();if(sel!==null)setTimeout(()=>document.querySelector('.det')?.scrollIntoView({behavior:'smooth',block:'start'}),50)}
+function sd(i){
+  sel=sel===i?null:i;
+  render();
+  if(sel!==null){
+    setTimeout(()=>document.querySelector('.det')?.scrollIntoView({behavior:'smooth',block:'start'}),50);
+    // Hvis det er en træningsdag, prompt for wellness (kun én gang per dag)
+    const d=D[sel];
+    if(d&&(d.ex||d.run)){
+      setTimeout(()=>maybeShowWellnessPrompt(),300);
+    }
+  }
+}
 
 function setViewMode(mode){
   PROG.viewMode=mode;
@@ -1749,11 +1785,11 @@ function render(){
   updateHeaderWeek();
   const c=document.getElementById('cnt');
   if(tab==='weekly')c.innerHTML=rWeekly();
-  else if(tab==='weights')c.innerHTML=rLog();
-  else if(tab==='graph')c.innerHTML=rGraph();
-  else if(tab==='body')c.innerHTML=rBody();
+  else if(tab==='weights')c.innerHTML=rWeightsCombined();
+  else if(tab==='graph'){tab='weights';c.innerHTML=rWeightsCombined()}
+  else if(tab==='body'){tab='coach';c.innerHTML=rCoachCombined();coachSubView='body'}
   else if(tab==='coach'){
-    c.innerHTML=rCoach();
+    c.innerHTML=rCoachCombined();
     // Pre-fill med pending prompt fra "Spørg coachen"-knap
     if(pendingCoachPrompt){
       const p=pendingCoachPrompt;pendingCoachPrompt=null;
@@ -1769,7 +1805,8 @@ function render(){
     }
   }
   else if(tab==='library')c.innerHTML=rLibrary();
-  else if(tab==='info')c.innerHTML=rInfo();
+  else if(tab==='info'){tab='weekly';c.innerHTML=rWeekly();setTimeout(()=>openInfoModal(),100)}
+  else c.innerHTML=rWeekly();
 }
 
 function updateHeaderWeek(){
@@ -2338,9 +2375,68 @@ function restartProgram(){
   toast('✓ Nyt forløb startet');
   render();
 }
+// Combined Vægt+Graf med sub-tab toggle
+let weightSubView='log'; // 'log' eller 'graph'
+function rWeightsCombined(){
+  let h=`<div class="page-title">
+    <div class="page-eyebrow">// Vægt-tracking</div>
+    <div class="page-h1">${weightSubView==='log'?'Vægtlog':'Fremgang'}</div>
+  </div>`;
+  // Sub-tab toggle
+  h+=`<div class="view-toggle" style="margin-bottom:18px">
+    <button class="vt-opt${weightSubView==='log'?' on':''}" onclick="setWeightSubView('log')">📋 Log</button>
+    <button class="vt-opt${weightSubView==='graph'?' on':''}" onclick="setWeightSubView('graph')">📊 Graf</button>
+  </div>`;
+  h+=`<div class="weight-swipe-hint">‹ Swipe for at skifte ›</div>`;
+  h+=`<div class="weight-swipe-wrap" ontouchstart="weightSwipeStart(event)" ontouchmove="weightSwipeMove(event)" ontouchend="weightSwipeEnd(event)">`;
+  if(weightSubView==='log'){
+    h+=rLogContent();
+  }else{
+    h+=rGraphContent();
+  }
+  h+=`</div>`;
+  return h;
+}
+
+function setWeightSubView(v){
+  weightSubView=v;
+  render();
+}
+
+// Swipe mellem Log og Graf
+let weightSwipeX=null,weightSwipeY=null,weightSwipeTime=0;
+function weightSwipeStart(e){
+  const t=e.target;
+  if(t.tagName==='INPUT'||t.tagName==='BUTTON'||t.tagName==='SELECT'||t.tagName==='TEXTAREA'||t.tagName==='A')return;
+  weightSwipeX=e.touches[0].clientX;
+  weightSwipeY=e.touches[0].clientY;
+  weightSwipeTime=Date.now();
+}
+function weightSwipeMove(e){
+  if(weightSwipeX===null)return;
+  const dy=e.touches[0].clientY-weightSwipeY;
+  const dx=e.touches[0].clientX-weightSwipeX;
+  if(Math.abs(dy)>Math.abs(dx)){weightSwipeX=null;return}
+}
+function weightSwipeEnd(e){
+  if(weightSwipeX===null)return;
+  const dx=(e.changedTouches?.[0]?.clientX||0)-weightSwipeX;
+  const elapsed=Date.now()-weightSwipeTime;
+  const isSwipe=Math.abs(dx)>60||(Math.abs(dx)>30&&elapsed<200);
+  if(isSwipe){
+    if(dx<0&&weightSubView==='log'){weightSubView='graph';render()}
+    else if(dx>0&&weightSubView==='graph'){weightSubView='log';render()}
+  }
+  weightSwipeX=null;weightSwipeY=null;
+}
+
 function rLog(){
   let h='<div class="page-title"><div class="page-eyebrow">// Data</div><div class="page-h1">Vægtlog</div></div>';
-  h+=wpickH();
+  h+=rLogContent();
+  return h;
+}
+function rLogContent(){
+  let h=wpickH();
   D.filter(d=>d.ex).forEach(d=>{
     const gp=GP[gymPhase(week)];
     const exs=dayEx(d);
@@ -2399,6 +2495,11 @@ function rLog(){
 
 /* ── GRAPH ── */
 function rGraph(){
+  let h=`<div class="page-title"><div class="page-eyebrow">// Statistik</div><div class="page-h1">Fremgang</div></div>`;
+  h+=rGraphContent();
+  return h;
+}
+function rGraphContent(){
   const gymExs=[];
   D.filter(d=>d.ex).forEach(d=>{
     dayEx(d).filter(e=>!e.core).forEach(e=>{
@@ -2456,8 +2557,7 @@ function rGraph(){
   const firstVal=filled[0],lastVal=filled[filled.length-1];
   const totalGain=filled.length>=2?Math.round((lastVal-firstVal)*10)/10:null;
 
-  let h=`<div class="page-title"><div class="page-eyebrow">// Statistik</div><div class="page-h1">Fremgang</div></div>`;
-  h+=`<div class="ex-picker">`;
+  let h=`<div class="ex-picker">`;
   gymExs.forEach((e,i)=>{
     const on=i===selGraph;
     h+=`<button class="expill${on?' on':''}" style="${on?`background:${e.color}22;border-color:${e.color};color:${e.color}`:''}" onclick="selGraph=${i};render()">${e.n}</button>`;
@@ -2529,8 +2629,6 @@ function rBody(){
     h+=rStepsWidget();
     h+=rCycleTracker();
   }
-  // Wellness (søvn + stress) — alle templates
-  h+=rWellnessWidget();
 
   // Week navigator
   const gp=GP[gymPhase(Math.min(bw,TW()))];
@@ -2757,6 +2855,71 @@ function setWellness(date,field,val){
   if(isNaN(num)){delete WELLNESS[date][field]}
   else{WELLNESS[date][field]=num}
   saveWellness();
+}
+
+// Wellness popup ved træningsdag (én gang per dag)
+const WPK='tw4_wellness_prompted';
+function getWellnessPromptedDates(){try{return JSON.parse(localStorage.getItem(WPK)||'[]')}catch(e){return[]}}
+function markWellnessPrompted(date){
+  const arr=getWellnessPromptedDates();
+  if(!arr.includes(date)){arr.push(date);try{localStorage.setItem(WPK,JSON.stringify(arr))}catch(e){}}
+}
+
+function maybeShowWellnessPrompt(){
+  const today=todayISO();
+  // Allerede vist i dag?
+  if(getWellnessPromptedDates().includes(today))return;
+  // Allerede udfyldt i dag?
+  const w=WELLNESS[today]||{};
+  if(w.sleep!=null||w.stress!=null)return;
+  // Vis modal
+  showWellnessModal(today);
+  markWellnessPrompted(today);
+}
+
+function showWellnessModal(date){
+  const m=document.getElementById('modal');
+  m.innerHTML=`<div class="modal wellness-modal" onclick="event.stopPropagation()">
+    <div class="wm-emoji">🌙</div>
+    <div class="wm-title">Hvordan er din restitution?</div>
+    <div class="wm-sub">Tag 10 sekunder — det forbedrer din coach's rådgivning markant</div>
+    <div class="wm-card">
+      <label class="wm-label">😴 Søvn i nat</label>
+      <div class="wm-slider-wrap">
+        <span class="wm-emo">😩</span>
+        <input type="range" class="wellness-slider" id="wmSleep" min="0" max="12" step="0.5" value="7"
+          oninput="document.getElementById('wmSleepVal').textContent=this.value+' t'">
+        <span class="wm-emo">🌟</span>
+      </div>
+      <div class="wm-val" id="wmSleepVal">7 t</div>
+    </div>
+    <div class="wm-card wellness-stress">
+      <label class="wm-label">🧘 Stress-niveau</label>
+      <div class="wm-slider-wrap">
+        <span class="wm-emo">😌</span>
+        <input type="range" class="wellness-slider" id="wmStress" min="1" max="5" step="1" value="3"
+          oninput="document.getElementById('wmStressVal').textContent=this.value+'/5'">
+        <span class="wm-emo">😫</span>
+      </div>
+      <div class="wm-val" id="wmStressVal">3/5</div>
+    </div>
+    <div class="wm-actions">
+      <button class="prog-btn" onclick="saveWellnessFromModal('${date}')">✓ Gem og start træning</button>
+      <button class="prog-btn ghost" onclick="closeModal()">Spring over</button>
+    </div>
+  </div>`;
+  m.classList.add('show');
+}
+
+function saveWellnessFromModal(date){
+  const sleep=parseFloat(document.getElementById('wmSleep').value);
+  const stress=parseInt(document.getElementById('wmStress').value);
+  if(!WELLNESS[date])WELLNESS[date]={};
+  WELLNESS[date].sleep=sleep;
+  WELLNESS[date].stress=stress;
+  saveWellness();
+  closeModal();
+  toast('✓ Gemt — god træning');
 }
 
 /* ═══════════════════════════════════════════════════════════ */
@@ -3208,6 +3371,22 @@ function rBodyCompare(){
 }
 
 /* ── PHASES ── */
+function openInfoModal(){
+  const m=document.getElementById('modal');
+  m.innerHTML=`<div class="modal" onclick="event.stopPropagation()" style="max-width:520px;max-height:90vh;overflow-y:auto;padding:0;position:relative" id="profileModalContent">
+    <div class="modal-grabber" style="position:sticky;top:0;background:var(--glass);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);padding:8px 20px 0;z-index:6;text-align:center;cursor:grab"
+      ontouchstart="modalSwipeStart(event)" ontouchmove="modalSwipeMove(event)" ontouchend="modalSwipeEnd(event)">
+      <div style="width:40px;height:4px;background:var(--bdr);border-radius:2px;margin:0 auto 8px"></div>
+    </div>
+    <div style="position:sticky;top:20px;background:var(--glass);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);padding:6px 20px 14px;border-bottom:1px solid var(--bdr);z-index:5;display:flex;justify-content:space-between;align-items:center">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:18px">ℹ️ Program & info</div>
+      <button onclick="closeModal()" style="background:var(--bg2);border:1px solid var(--bdr);color:var(--mut);font-size:18px;cursor:pointer;width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center">✕</button>
+    </div>
+    <div style="padding:0 20px 20px">${rInfo()}</div>
+  </div>`;
+  m.classList.add('show');
+}
+
 function rInfo(){
   let h=`<div class="page-title"><div class="page-eyebrow">// Program & principper</div><div class="page-h1">Info</div></div>`;
 
@@ -3308,6 +3487,59 @@ function rInfo(){
 /* ═══════════════════════════════════════════════════════════ */
 /* ── AI COACH ──────────────────────────────────────────────── */
 /* ═══════════════════════════════════════════════════════════ */
+// Combined Coach + Krop med sub-tab
+let coachSubView='coach'; // 'coach' eller 'body'
+function rCoachCombined(){
+  let h=`<div class="page-title" style="padding-bottom:0">
+    <div class="page-eyebrow">// ${coachSubView==='coach'?'AI Coach':'Krop & måling'}</div>
+  </div>`;
+  // Sub-tab toggle
+  h+=`<div class="view-toggle" style="margin-bottom:14px">
+    <button class="vt-opt${coachSubView==='coach'?' on':''}" onclick="setCoachSubView('coach')">🤖 Coach</button>
+    <button class="vt-opt${coachSubView==='body'?' on':''}" onclick="setCoachSubView('body')">📷 Krop</button>
+  </div>`;
+  h+=`<div class="coach-swipe-wrap" ontouchstart="coachSwipeStart(event)" ontouchmove="coachSwipeMove(event)" ontouchend="coachSwipeEnd(event)">`;
+  if(coachSubView==='coach'){
+    h+=rCoach();
+  }else{
+    h+=rBody();
+  }
+  h+=`</div>`;
+  return h;
+}
+
+function setCoachSubView(v){
+  coachSubView=v;
+  render();
+}
+
+// Swipe mellem Coach og Krop
+let coachSwipeX=null,coachSwipeY=null,coachSwipeTime=0;
+function coachSwipeStart(e){
+  const t=e.target;
+  if(t.tagName==='INPUT'||t.tagName==='BUTTON'||t.tagName==='SELECT'||t.tagName==='TEXTAREA'||t.tagName==='A')return;
+  coachSwipeX=e.touches[0].clientX;
+  coachSwipeY=e.touches[0].clientY;
+  coachSwipeTime=Date.now();
+}
+function coachSwipeMove(e){
+  if(coachSwipeX===null)return;
+  const dy=e.touches[0].clientY-coachSwipeY;
+  const dx=e.touches[0].clientX-coachSwipeX;
+  if(Math.abs(dy)>Math.abs(dx)){coachSwipeX=null;return}
+}
+function coachSwipeEnd(e){
+  if(coachSwipeX===null)return;
+  const dx=(e.changedTouches?.[0]?.clientX||0)-coachSwipeX;
+  const elapsed=Date.now()-coachSwipeTime;
+  const isSwipe=Math.abs(dx)>60||(Math.abs(dx)>30&&elapsed<200);
+  if(isSwipe){
+    if(dx<0&&coachSubView==='coach'){coachSubView='body';render()}
+    else if(dx>0&&coachSubView==='body'){coachSubView='coach';render()}
+  }
+  coachSwipeX=null;coachSwipeY=null;
+}
+
 function rCoach(){
   const hasKey=AI.apiKey&&AI.apiKey.trim().length>10;
   let h=`<div class="page-title"><div class="page-eyebrow">// Personlig analyse</div><div class="page-h1">AI Coach</div></div>`;
@@ -3985,6 +4217,12 @@ let libQuery='', libFilter='all';
 function rLibrary(){
   let h=`<div class="page-title"><div class="page-eyebrow">// Søg, find, tilføj</div><div class="page-h1">Bibliotek</div></div>`;
 
+  // Action knapper
+  h+=`<div class="lib-actions">
+    <button class="lib-action-btn primary" onclick="openCreateCustomModal()">➕ Tilføj egen øvelse</button>
+    <button class="lib-action-btn ai" onclick="openAiExerciseModal()">🤖 Lad coachen finde en øvelse</button>
+  </div>`;
+
   h+=`<div class="lib-search">
     <input type="text" id="libQ" value="${escAttr(libQuery)}" placeholder="🔍 Søg øvelse…" oninput="libSearch(this.value)">
   </div>`;
@@ -4133,6 +4371,194 @@ function modalSwipeEnd(e){
     c.style.transform='translateY(0)';
   }
   modalSwipeStartY=null;
+}
+
+/* ═══════════════════════════════════════════════════════════ */
+/* ── CUSTOM EXERCISE MODAL ─────────────────────────────────── */
+/* ═══════════════════════════════════════════════════════════ */
+function openCreateCustomModal(prefill){
+  const m=document.getElementById('modal');
+  const trainingDays=D.filter(d=>d.ex).map(d=>({day:d.full,label:d.label,color:d.color}));
+  // Pre-fyld dropdown med dagens dag hvis muligt
+  const todayD=D[todayDayIdx()];
+  const defaultDay=(todayD&&todayD.ex)?todayD.full:(trainingDays[0]?.day||'Mandag');
+  const p=prefill||{};
+  m.innerHTML=`<div class="modal" onclick="event.stopPropagation()" style="max-width:440px;max-height:90vh;overflow-y:auto" id="profileModalContent">
+    <div class="modal-grabber" style="position:sticky;top:0;background:var(--glass);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);padding:8px 20px 0;z-index:6;text-align:center;cursor:grab"
+      ontouchstart="modalSwipeStart(event)" ontouchmove="modalSwipeMove(event)" ontouchend="modalSwipeEnd(event)">
+      <div style="width:40px;height:4px;background:var(--bdr);border-radius:2px;margin:0 auto 8px"></div>
+    </div>
+    <div style="position:sticky;top:20px;background:var(--glass);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);padding:6px 20px 14px;border-bottom:1px solid var(--bdr);z-index:5;display:flex;justify-content:space-between;align-items:center">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:18px">➕ Tilføj egen øvelse</div>
+      <button onclick="closeModal()" style="background:var(--bg2);border:1px solid var(--bdr);color:var(--mut);font-size:18px;cursor:pointer;width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center">✕</button>
+    </div>
+    <div style="padding:18px 22px 22px">
+      <div class="ai-field">
+        <label>Navn på øvelse</label>
+        <input type="text" id="cxName" value="${escAttr(p.name||'')}" placeholder="fx Dumbbell Pullover">
+      </div>
+      <div class="ai-field">
+        <label>Type</label>
+        <select id="cxType">
+          <option value="c"${p.type==='c'||!p.type?' selected':''}>Compound (tunge grundløft)</option>
+          <option value="i"${p.type==='i'?' selected':''}>Isolation (enkelt-led øvelser)</option>
+          <option value="x"${p.type==='x'?' selected':''}>Core / Funktionel</option>
+        </select>
+      </div>
+      <div class="ai-field">
+        <label>Tilføj til dag</label>
+        <select id="cxDay">
+          ${trainingDays.map(td=>`<option value="${td.day}"${td.day===(p.day||defaultDay)?' selected':''}>${td.day} — ${td.label}</option>`).join('')}
+        </select>
+      </div>
+      <div class="ai-field">
+        <label>Note (valgfri)</label>
+        <input type="text" id="cxNote" value="${escAttr(p.note||'')}" placeholder="fx 'Bredt greb · spænd skulderblade'">
+      </div>
+      <div class="ai-field">
+        <label>YouTube-link (valgfri)</label>
+        <input type="text" id="cxLink" value="${escAttr(p.link||'')}" placeholder="https://youtube.com/...">
+      </div>
+      <div style="display:flex;gap:8px;margin-top:8px">
+        <button class="prog-btn" style="flex:1" onclick="saveCustomEx()">✓ Tilføj øvelse</button>
+        <button class="prog-btn ghost" onclick="closeModal()">Annullér</button>
+      </div>
+    </div>
+  </div>`;
+  m.classList.add('show');
+}
+
+function saveCustomEx(){
+  const name=document.getElementById('cxName').value.trim();
+  const type=document.getElementById('cxType').value;
+  const day=document.getElementById('cxDay').value;
+  const note=document.getElementById('cxNote').value.trim();
+  const link=document.getElementById('cxLink').value.trim();
+  if(!name){toast('Indtast et navn');return}
+  if(!CUSTOM[day])CUSTOM[day]=[];
+  // Tjek for duplikat
+  if(CUSTOM[day].some(e=>e.n===name)){
+    toast('Øvelse findes allerede på '+day);return;
+  }
+  const finalLink=link||`https://www.youtube.com/results?search_query=${encodeURIComponent(name+' exercise tutorial')}`;
+  CUSTOM[day].push({
+    n:name,
+    k:type,
+    no:note||'',
+    l:finalLink,
+    custom:true,
+    core:type==='x'?1:0
+  });
+  try{localStorage.setItem(CK,JSON.stringify(CUSTOM))}catch(e){}
+  closeModal();
+  toast('✓ '+name+' tilføjet til '+day);
+}
+
+/* ═══════════════════════════════════════════════════════════ */
+/* ── AI-FORESLÅET ØVELSE ───────────────────────────────────── */
+/* ═══════════════════════════════════════════════════════════ */
+function openAiExerciseModal(){
+  const m=document.getElementById('modal');
+  const hasKey=AI.apiKey&&AI.apiKey.trim().length>10;
+  if(!hasKey){
+    m.innerHTML=`<div class="modal" onclick="event.stopPropagation()" style="max-width:400px;padding:24px;text-align:center">
+      <div style="font-size:42px;margin-bottom:10px">🔒</div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;margin-bottom:8px">AI Coach kræves</div>
+      <div style="font-size:12px;color:var(--mut);line-height:1.5;margin-bottom:20px">Du skal have en gratis Gemini API-nøgle for at bruge denne funktion. Gå til Coach-fanen for at sætte det op.</div>
+      <button class="prog-btn" onclick="closeModal();go('coach')">🤖 Gå til Coach</button>
+      <button class="prog-btn ghost" style="margin-top:8px;width:100%" onclick="closeModal()">Annullér</button>
+    </div>`;
+    m.classList.add('show');
+    return;
+  }
+  m.innerHTML=`<div class="modal" onclick="event.stopPropagation()" style="max-width:440px;max-height:90vh;overflow-y:auto" id="profileModalContent">
+    <div class="modal-grabber" style="position:sticky;top:0;background:var(--glass);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);padding:8px 20px 0;z-index:6;text-align:center;cursor:grab"
+      ontouchstart="modalSwipeStart(event)" ontouchmove="modalSwipeMove(event)" ontouchend="modalSwipeEnd(event)">
+      <div style="width:40px;height:4px;background:var(--bdr);border-radius:2px;margin:0 auto 8px"></div>
+    </div>
+    <div style="position:sticky;top:20px;background:var(--glass);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);padding:6px 20px 14px;border-bottom:1px solid var(--bdr);z-index:5;display:flex;justify-content:space-between;align-items:center">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:18px">🤖 AI finder en øvelse</div>
+      <button onclick="closeModal()" style="background:var(--bg2);border:1px solid var(--bdr);color:var(--mut);font-size:18px;cursor:pointer;width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center">✕</button>
+    </div>
+    <div style="padding:18px 22px 22px">
+      <div style="font-size:12px;color:var(--mut);line-height:1.6;margin-bottom:14px">
+        Beskriv hvad du leder efter — så foreslår coachen en passende øvelse med YouTube-link.
+      </div>
+      <div class="ai-field">
+        <label>Hvad har du brug for?</label>
+        <textarea id="aixDesc" rows="3" placeholder="Fx: 'En øvelse for nedre ryg, ingen vægte' eller 'Øvelse til skulderomgang som beskytter et irriteret AC-led'"
+          style="width:100%;background:var(--bg2);border:1.5px solid var(--bdr);color:var(--txt);font-family:inherit;font-size:13px;padding:10px 12px;border-radius:var(--r2);outline:none;resize:vertical;min-height:80px"></textarea>
+      </div>
+      <div id="aixResult" style="display:none"></div>
+      <div style="display:flex;gap:8px;margin-top:14px">
+        <button class="prog-btn" id="aixBtn" style="flex:1" onclick="askAiForExercise()">🤖 Find øvelse</button>
+        <button class="prog-btn ghost" onclick="closeModal()">Annullér</button>
+      </div>
+    </div>
+  </div>`;
+  m.classList.add('show');
+  setTimeout(()=>document.getElementById('aixDesc')?.focus(),100);
+}
+
+async function askAiForExercise(){
+  const desc=document.getElementById('aixDesc')?.value.trim();
+  if(!desc){toast('Beskriv hvad du leder efter');return}
+  const btn=document.getElementById('aixBtn');
+  const result=document.getElementById('aixResult');
+  btn.disabled=true;
+  btn.innerHTML='<span class="typing-dot"></span> Tænker…';
+  result.style.display='block';
+  result.innerHTML='<div style="text-align:center;padding:20px;color:var(--mut);font-size:12px">Coachen finder en øvelse…</div>';
+
+  const prompt=`Brugeren beder om hjælp til at finde en træningsøvelse. Beskrivelse: "${desc}"
+
+Foreslå ÉN konkret øvelse. Svar KUN med JSON i dette format (ingen markdown, ingen forklaring udenfor):
+{
+  "name": "Navn på øvelsen (engelsk er ok)",
+  "type": "c" eller "i" eller "x" (c=compound, i=isolation, x=core/funktionel),
+  "note": "Kort tip om udførelse (max 60 tegn på dansk)",
+  "youtube_search": "Søgeterm der finder en god tutorial på YouTube"
+}`;
+
+  try{
+    const reply=await callClaude(prompt);
+    // Parse JSON fra svaret
+    let json=null;
+    try{
+      const m=reply.match(/\{[\s\S]*\}/);
+      if(m)json=JSON.parse(m[0]);
+    }catch(e){}
+    if(!json||!json.name){
+      result.innerHTML='<div style="background:rgba(255,69,58,.1);border:1px solid rgba(255,69,58,.3);border-radius:var(--r2);padding:12px;font-size:12px;color:var(--red)">Kunne ikke parse svaret. Prøv igen med en anden beskrivelse.</div>';
+      btn.disabled=false;
+      btn.textContent='🤖 Find øvelse';
+      return;
+    }
+    const ytLink=`https://www.youtube.com/results?search_query=${encodeURIComponent(json.youtube_search||json.name+' tutorial')}`;
+    const typeLabel={c:'Compound',i:'Isolation',x:'Core/Funktionel'}[json.type]||'Compound';
+    result.innerHTML=`<div style="background:linear-gradient(135deg,rgba(10,132,255,.08),rgba(191,90,242,.08));border:1px solid rgba(191,90,242,.3);border-radius:var(--r2);padding:16px;margin-top:14px">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;margin-bottom:6px">${escHtml(json.name)}</div>
+      <div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:1px;color:#a070ff;margin-bottom:10px">${typeLabel.toUpperCase()}</div>
+      ${json.note?`<div style="font-size:12px;color:var(--mut);line-height:1.5;margin-bottom:10px">💡 ${escHtml(json.note)}</div>`:''}
+      <a href="${ytLink}" target="_blank" style="display:inline-block;color:var(--acc);text-decoration:none;font-family:'DM Mono',monospace;font-size:11px;font-weight:600;padding:6px 12px;background:rgba(255,214,10,.1);border-radius:100px;border:1px solid rgba(255,214,10,.2);margin-bottom:14px">▶ Se på YouTube</a>
+      <div style="display:flex;gap:8px">
+        <button class="prog-btn" style="flex:1" onclick="addAiSuggestionToLib('${escAttr(json.name)}','${json.type||'c'}','${escAttr(json.note||'')}','${escAttr(ytLink)}')">✓ Tilføj til program</button>
+        <button class="prog-btn ghost" onclick="document.getElementById('aixResult').style.display='none';document.getElementById('aixBtn').disabled=false;document.getElementById('aixBtn').textContent='🤖 Find øvelse'">Prøv igen</button>
+      </div>
+    </div>`;
+    btn.disabled=false;
+    btn.textContent='🤖 Find øvelse';
+  }catch(e){
+    result.innerHTML=`<div style="background:rgba(255,69,58,.1);border:1px solid rgba(255,69,58,.3);border-radius:var(--r2);padding:12px;font-size:12px;color:var(--red)">Fejl: ${escHtml(e.message||'Kunne ikke kontakte coachen')}</div>`;
+    btn.disabled=false;
+    btn.textContent='🤖 Find øvelse';
+  }
+}
+
+function addAiSuggestionToLib(name,type,note,link){
+  // Åbn custom-create modal med pre-fyldte data
+  closeModal();
+  setTimeout(()=>openCreateCustomModal({name,type,note,link}),300);
 }
 
 function addCustomEx(libIdx,dayFull){
@@ -5171,9 +5597,19 @@ document.addEventListener('visibilitychange',()=>{
     const cw=currentWeek();
     if(cw>=1&&cw<=TW()&&cw!==week){
       week=cw;
-      // Også re-vælg dagens dag hvis "Kun i dag"-mode
       if(PROG.viewMode==='today'&&!isProgramDone())sel=todayDayIdx();
       render();
+    }
+    // Aften-påmindelse: efter kl. 19 og wellness ej logget i dag
+    const now=new Date();
+    if(now.getHours()>=19){
+      const today=todayISO();
+      const w=WELLNESS[today]||{};
+      const hasLogged=w.sleep!=null||w.stress!=null;
+      const wasPrompted=getWellnessPromptedDates().includes(today);
+      if(!hasLogged&&!wasPrompted){
+        setTimeout(()=>maybeShowWellnessPrompt(),500);
+      }
     }
   }
 });
