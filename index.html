@@ -134,6 +134,30 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .core-input-wrap .wi{border:none;background:transparent;width:80px;padding:8px 4px;min-height:36px}
 .core-input-wrap .wi:focus{box-shadow:none;background:transparent}
 .core-input-unit{font-family:'DM Mono',monospace;font-size:11px;color:var(--mut);letter-spacing:1px;text-transform:uppercase}
+
+/* ══ HISTORY STRIP (sidste ugers data per øvelse) ══ */
+.hist-strip{display:flex;align-items:center;gap:10px;padding:10px 12px;background:linear-gradient(135deg,rgba(10,132,255,.08),rgba(48,209,88,.04));border:1px solid rgba(10,132,255,.2);border-radius:var(--r2);margin-top:2px;flex-wrap:wrap}
+.hist-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:1.5px;color:var(--blue);font-weight:700;display:flex;align-items:center;gap:4px}
+.hist-cells{display:flex;gap:6px;flex:1;min-width:0;flex-wrap:wrap}
+.hist-cell{display:flex;flex-direction:column;align-items:center;gap:1px;padding:5px 10px;background:var(--bg2);border-radius:8px;min-width:44px;border:1px solid var(--bdr)}
+.hist-cell.latest{background:rgba(10,132,255,.15);border-color:rgba(10,132,255,.4)}
+.hist-w{font-family:'DM Mono',monospace;font-size:8px;color:var(--mut2);letter-spacing:.5px;font-weight:600}
+.hist-cell.latest .hist-w{color:var(--blue)}
+.hist-v{font-family:'DM Mono',monospace;font-size:13px;color:var(--txt);font-weight:600}
+.hist-cell.latest .hist-v{color:var(--blue)}
+.hist-suggest{font-family:'DM Mono',monospace;font-size:11px;color:var(--grn);font-weight:700;letter-spacing:.3px;margin-left:auto;white-space:nowrap;background:rgba(48,209,88,.1);padding:4px 10px;border-radius:100px;border:1px solid rgba(48,209,88,.25)}
+
+/* ══ SWAP EXERCISE ══ */
+.swap-btn{background:rgba(10,132,255,.1);border:1px solid rgba(10,132,255,.25);color:var(--blue);font-family:'DM Mono',monospace;font-size:10px;font-weight:600;letter-spacing:.3px;padding:4px 8px;border-radius:6px;cursor:pointer;margin-left:4px;min-width:32px;min-height:32px;display:inline-flex;align-items:center;justify-content:center}
+.swap-btn:active{transform:scale(.93)}
+.swap-btn.on{background:rgba(255,159,10,.15);border-color:rgba(255,159,10,.4);color:#ff9f0a}
+.swap-tag{display:inline-block;background:rgba(255,159,10,.15);color:#ff9f0a;font-family:'DM Mono',monospace;font-size:8px;font-weight:600;letter-spacing:1px;padding:2px 6px;border-radius:4px;vertical-align:middle}
+.swap-alt-list{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
+.swap-alt{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--bg2);border:1px solid var(--bdr);border-radius:var(--r2);cursor:pointer;transition:all .15s var(--ease)}
+.swap-alt:active{transform:scale(.98);background:var(--bg3);border-color:var(--blue)}
+.swap-alt-name{font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:.3px;line-height:1.1}
+.swap-alt-desc{font-size:10px;color:var(--mut);font-family:'DM Mono',monospace;margin-top:3px;line-height:1.3}
+.swap-alt-arr{color:var(--mut2);font-size:18px;flex-shrink:0}
 .set-toggle{
   background:var(--bg2);border:1.5px solid var(--bdr);color:var(--mut);font-size:14px;
   cursor:pointer;padding:0;border-radius:50%;
@@ -1381,6 +1405,12 @@ let CUSTOM={};
 try{CUSTOM=JSON.parse(localStorage.getItem(CK)||'{}')}catch(e){}
 function saveCustom(){try{localStorage.setItem(CK,JSON.stringify(CUSTOM))}catch(e){}}
 
+// Erstatninger: {dayFull: {originalName: {n,k,no,l,custom?}}}
+const SWK='tw4_swaps';
+let SWAPS_EX={};
+try{SWAPS_EX=JSON.parse(localStorage.getItem(SWK)||'{}')}catch(e){}
+function saveSwaps(){try{localStorage.setItem(SWK,JSON.stringify(SWAPS_EX))}catch(e){}}
+
 // Program metadata: startdato, varighed, starttid
 const PK='tw4_prog';
 let PROG={startDate:null,totalWeeks:8,start5kSec:2100};
@@ -1590,7 +1620,19 @@ function df(w,d,n){if(w<2)return null;const c=maxW(gw(w,d,n)),p=maxW(gw(w-1,d,n)
 let selExRow=null; // which exercise row is expanded for per-set input
 
 // merge default + custom exercises for a day
-function dayEx(d){if(!d.ex)return null;return [...d.ex,...(CUSTOM[d.full]||[])]}
+function dayEx(d){
+  if(!d.ex)return null;
+  const swaps=SWAPS_EX[d.full]||{};
+  // Anvend erstatninger på template-øvelser
+  const swapped=d.ex.map(e=>{
+    if(swaps[e.n]){
+      // Bevar core/k-attribut fra original hvis ikke specificeret i swap
+      return {...e,...swaps[e.n],originalName:e.n,swapped:true};
+    }
+    return e;
+  });
+  return [...swapped,...(CUSTOM[d.full]||[])];
+}
 
 // Programmets nuværende uge — først via startdato, ellers fra seneste data
 function currentWeek(){
@@ -1734,6 +1776,63 @@ function toggleSetCollapsed(key){
   else selExRow=collapsedKey;
   render();
 }
+// Render kompakt historik-strip med sidste 2-3 ugers data for en øvelse
+function renderHistoryStrip(day,name,exDef){
+  const cw=week;
+  if(cw<2)return '';
+  // Saml op til 3 sidste uger med data
+  const history=[];
+  for(let w=cw-1;w>=1&&history.length<3;w--){
+    const v=gw(w,day,name);
+    if(v){
+      const max=maxW(v);
+      if(!isNaN(max)&&max>0){
+        history.push({week:w,max:max,full:v});
+      }
+    }
+  }
+  if(history.length===0)return '';
+  // Tjek om det er core (anden enhed)
+  const isCore=exDef.core;
+  const repsKeywords=['crunch','raise','twist','sit-up','sit up','rollout','bird dog','wheel'];
+  const nm=name.toLowerCase();
+  const isReps=isCore&&(exDef.unit==='reps'||(!exDef.unit&&repsKeywords.some(k=>nm.includes(k))));
+  const unit=isCore?(isReps?'reps':'sek'):'kg';
+  // Foreslå næste vægt (kun for ikke-core)
+  let suggestion='';
+  if(!isCore&&history.length>=1){
+    const lastMax=history[0].max;
+    // Foreslå +2.5 kg for compound, +1.25 for isolation (rundet)
+    const isCompound=exDef.k==='c';
+    const increment=isCompound?2.5:1.25;
+    const next=Math.round((lastMax+increment)*4)/4;
+    suggestion=`<span class="hist-suggest">→ Prøv ${next} ${unit}</span>`;
+  }else if(isCore&&history.length>=1){
+    const lastMax=history[0].max;
+    const next=Math.round(lastMax*1.1);
+    suggestion=`<span class="hist-suggest">→ Prøv ${next} ${unit}</span>`;
+  }
+  // Vis trend-pil hvis vi har 2+ datapunkter
+  let trendIcon='';
+  if(history.length>=2){
+    const newest=history[0].max;
+    const older=history[history.length-1].max;
+    if(newest>older)trendIcon='<span style="color:var(--grn);margin-left:4px">↗</span>';
+    else if(newest<older)trendIcon='<span style="color:#ff9f0a;margin-left:4px">↘</span>';
+    else trendIcon='<span style="color:var(--mut);margin-left:4px">→</span>';
+  }
+  let h=`<div class="hist-strip">
+    <div class="hist-label">📊 SIDSTE${trendIcon}</div>
+    <div class="hist-cells">`;
+  // Vis i kronologisk rækkefølge (ældst først)
+  history.reverse().forEach((item,i)=>{
+    const isLast=i===history.length-1;
+    h+=`<div class="hist-cell${isLast?' latest':''}"><div class="hist-w">U${item.week}</div><div class="hist-v">${item.max}</div></div>`;
+  });
+  h+=`</div>${suggestion}</div>`;
+  return h;
+}
+
 function renderSetInputs(w,day,name,numSets){
   const val=gw(w,day,name);
   const arr=parseW(val);
@@ -1973,6 +2072,8 @@ function rWeekly(){
         const showPR=!e.core&&isPR(d.full,e.n,week)&&mainVal>0;
         const prBadge=showPR?'<span class="pr-badge">🏆 PR</span>':'';
         const ssBtn=!e.core?`<button class="ss-btn${inSS?' on':''}" onclick="toggleSuperset('${escAttr(d.full)}',${exIdx})" title="${inSS?'Fjern superset':'Markér som superset'}">${inSS?'×SS':'+SS'}</button>`:'';
+        const swapBtn=!e.custom&&!e.core?`<button class="swap-btn${e.swapped?' on':''}" onclick="openSwapModal('${escAttr(d.full)}','${escAttr(e.originalName||e.n)}')" title="${e.swapped?'Erstattet — tap for at ændre':'Erstat med alternativ'}">${e.swapped?'⇆':'⇆'}</button>`:'';
+        const swapTag=e.swapped?'<span class="swap-tag">ERSTATTET</span>':'';
         const noteKey=d.full+'__'+e.n;
         const hasNote=!!getExerciseNote(week,d.full,e.n);
         const noteOpen=selExRow==='note__'+noteKey;
@@ -1982,7 +2083,8 @@ function rWeekly(){
         h+=`<div class="exrow${cls?' '+cls:''}${showSetInputs?' has-sets':''}">
           <div class="exrow-top">
             <div>
-              <div class="exn">${e.n}${custTag}${ssTag}${prBadge}${ssBtn}${noteBtn}${rmBtn}</div>
+              <div class="exn">${e.n}${custTag}${swapTag}${ssTag}${prBadge}${ssBtn}${swapBtn}${noteBtn}${rmBtn}</div>
+              ${e.swapped?`<div class="exno" style="color:var(--mut2)">⇆ Erstatter "${escHtml(e.originalName)}"</div>`:''}
               ${e.no?`<div class="exno">${e.no}</div>`:''}
             </div>
             <a class="vl" href="${e.l}" target="_blank">▶ Video</a>
@@ -2002,6 +2104,7 @@ function rWeekly(){
             })()}
             ${diffH(dv)}
           </div>
+          ${week>=2?renderHistoryStrip(d.full,e.originalName||e.n,e):''}
           ${rmDisplay||''}
           ${e.core?(()=>{
             const repsKeywords=['crunch','raise','twist','sit-up','sit up','rollout','bird dog','wheel'];
@@ -4561,6 +4664,185 @@ function addAiSuggestionToLib(name,type,note,link){
   setTimeout(()=>openCreateCustomModal({name,type,note,link}),300);
 }
 
+/* ═══════════════════════════════════════════════════════════ */
+/* ── SWAP EXERCISE MODAL ───────────────────────────────────── */
+/* ═══════════════════════════════════════════════════════════ */
+// Muskelgruppe-detection fra øvelsesnavn (simpel heuristik)
+function guessExerciseMuscle(name){
+  const n=name.toLowerCase();
+  if(/(bænk|press|chest|fly|push.*up|push up|dumbbell press|incline)/.test(n))return 'chest';
+  if(/(row|pull|lat|chin|deadlift|dødløft|hyperexten)/.test(n))return 'back';
+  if(/(squat|leg|lunge|hip thrust|calf|glute|bulgarian|rdl|romanian)/.test(n))return 'legs';
+  if(/(shoulder|overhead|ohp|lateral|raise|face pull|shrug)/.test(n))return 'shoulders';
+  if(/(curl|biceps|triceps|extension|kickback|pushdown)/.test(n))return 'arms';
+  if(/(crunch|plank|core|ab |abs|leg raise|twist|rollout|dead bug)/.test(n))return 'core';
+  return null;
+}
+
+function openSwapModal(dayFull,exName){
+  const m=document.getElementById('modal');
+  const muscle=guessExerciseMuscle(exName);
+  // Find alternativer fra biblioteket samme muskelgruppe
+  let alternatives=[];
+  if(muscle&&typeof LIB!=='undefined'){
+    alternatives=LIB.filter(e=>e.m===muscle&&e.n.toLowerCase()!==exName.toLowerCase()).slice(0,8);
+  }
+  const isCurrentlySwapped=SWAPS_EX[dayFull]&&SWAPS_EX[dayFull][exName];
+  const muscleLabel={chest:'Bryst',back:'Ryg',legs:'Ben',shoulders:'Skuldre',arms:'Arme',core:'Core'}[muscle]||'Generelt';
+  
+  m.innerHTML=`<div class="modal" onclick="event.stopPropagation()" style="max-width:480px;max-height:90vh;overflow-y:auto;padding:0" id="profileModalContent">
+    <div class="modal-grabber" style="position:sticky;top:0;background:var(--glass);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);padding:8px 20px 0;z-index:6;text-align:center;cursor:grab"
+      ontouchstart="modalSwipeStart(event)" ontouchmove="modalSwipeMove(event)" ontouchend="modalSwipeEnd(event)">
+      <div style="width:40px;height:4px;background:var(--bdr);border-radius:2px;margin:0 auto 8px"></div>
+    </div>
+    <div style="position:sticky;top:20px;background:var(--glass);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);padding:6px 20px 14px;border-bottom:1px solid var(--bdr);z-index:5;display:flex;justify-content:space-between;align-items:center">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:18px">⇆ Erstat øvelse</div>
+      <button onclick="closeModal()" style="background:var(--bg2);border:1px solid var(--bdr);color:var(--mut);font-size:18px;cursor:pointer;width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center">✕</button>
+    </div>
+    <div style="padding:18px 22px 22px">
+      <div style="background:var(--bg2);border:1px solid var(--bdr);border-radius:var(--r2);padding:12px 14px;margin-bottom:14px">
+        <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:1.5px;color:var(--mut);margin-bottom:4px">ORIGINAL · ${muscleLabel.toUpperCase()}</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:20px">${escHtml(exName)}</div>
+      </div>
+
+      ${isCurrentlySwapped?`<button class="prog-btn ghost" style="width:100%;margin-bottom:14px;color:var(--red);border-color:rgba(255,69,58,.3)" onclick="removeSwap('${escAttr(dayFull)}','${escAttr(exName)}')">↺ Vend tilbage til original</button>`:''}
+
+      <div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:1.5px;color:var(--mut);margin-bottom:8px">FORSLAG FRA BIBLIOTEK</div>
+      ${alternatives.length>0?`<div class="swap-alt-list">${alternatives.map(alt=>`
+        <div class="swap-alt" onclick="applySwap('${escAttr(dayFull)}','${escAttr(exName)}','${escAttr(alt.n)}','${escAttr(alt.desc||'')}','${escAttr(alt.url||'')}')">
+          <div style="flex:1">
+            <div class="swap-alt-name">${escHtml(alt.n)}</div>
+            ${alt.desc?`<div class="swap-alt-desc">${escHtml(alt.desc.slice(0,60))}${alt.desc.length>60?'…':''}</div>`:''}
+          </div>
+          <span class="swap-alt-arr">›</span>
+        </div>`).join('')}</div>`:`<div style="font-size:12px;color:var(--mut);text-align:center;padding:14px;background:var(--bg2);border-radius:var(--r2);margin-bottom:14px">Ingen automatiske forslag</div>`}
+
+      <div style="margin-top:18px;padding-top:14px;border-top:1px solid var(--bdr)">
+        <div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:1.5px;color:var(--mut);margin-bottom:8px">ANDRE MULIGHEDER</div>
+        ${AI.apiKey?`<button class="lib-action-btn ai" style="width:100%;margin-bottom:8px" onclick="askAiForSwap('${escAttr(dayFull)}','${escAttr(exName)}')">🤖 Spørg coachen om et alternativ</button>`:''}
+        <button class="lib-action-btn" style="width:100%" onclick="openCustomSwapForm('${escAttr(dayFull)}','${escAttr(exName)}')">✏️ Skriv din egen erstatning</button>
+      </div>
+    </div>
+  </div>`;
+  m.classList.add('show');
+}
+
+function applySwap(dayFull,originalName,newName,desc,link){
+  if(!SWAPS_EX[dayFull])SWAPS_EX[dayFull]={};
+  SWAPS_EX[dayFull][originalName]={
+    n:newName,
+    no:desc||'',
+    l:link||`https://www.youtube.com/results?search_query=${encodeURIComponent(newName+' tutorial')}`
+  };
+  saveSwaps();
+  closeModal();
+  toast('✓ Erstattet med '+newName);
+  render();
+}
+
+function removeSwap(dayFull,originalName){
+  if(SWAPS_EX[dayFull]){
+    delete SWAPS_EX[dayFull][originalName];
+    if(Object.keys(SWAPS_EX[dayFull]).length===0)delete SWAPS_EX[dayFull];
+    saveSwaps();
+  }
+  closeModal();
+  toast('✓ Vendt tilbage til original');
+  render();
+}
+
+function openCustomSwapForm(dayFull,originalName){
+  const m=document.getElementById('modal');
+  m.innerHTML=`<div class="modal" onclick="event.stopPropagation()" style="max-width:420px;padding:0" id="profileModalContent">
+    <div class="modal-grabber" style="position:sticky;top:0;background:var(--glass);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);padding:8px 20px 0;z-index:6;text-align:center"
+      ontouchstart="modalSwipeStart(event)" ontouchmove="modalSwipeMove(event)" ontouchend="modalSwipeEnd(event)">
+      <div style="width:40px;height:4px;background:var(--bdr);border-radius:2px;margin:0 auto 8px"></div>
+    </div>
+    <div style="padding:14px 22px 22px">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:18px;margin-bottom:14px">✏️ Skriv erstatning</div>
+      <div style="font-size:12px;color:var(--mut);margin-bottom:14px">Erstatter "${escHtml(originalName)}" med:</div>
+      <div class="ai-field">
+        <label>Navn</label>
+        <input type="text" id="swName" placeholder="fx Goblet Squat">
+      </div>
+      <div class="ai-field">
+        <label>Note (valgfri)</label>
+        <input type="text" id="swNote" placeholder="fx 'Lettere på knæene'">
+      </div>
+      <div style="display:flex;gap:8px;margin-top:8px">
+        <button class="prog-btn" style="flex:1" onclick="saveCustomSwap('${escAttr(dayFull)}','${escAttr(originalName)}')">✓ Erstat</button>
+        <button class="prog-btn ghost" onclick="openSwapModal('${escAttr(dayFull)}','${escAttr(originalName)}')">‹ Tilbage</button>
+      </div>
+    </div>
+  </div>`;
+  setTimeout(()=>document.getElementById('swName')?.focus(),100);
+}
+
+function saveCustomSwap(dayFull,originalName){
+  const name=document.getElementById('swName')?.value.trim();
+  const note=document.getElementById('swNote')?.value.trim();
+  if(!name){toast('Indtast et navn');return}
+  applySwap(dayFull,originalName,name,note,'');
+}
+
+async function askAiForSwap(dayFull,originalName){
+  if(!AI.apiKey){toast('AI-nøgle mangler');return}
+  const m=document.getElementById('modal');
+  m.innerHTML=`<div class="modal" onclick="event.stopPropagation()" style="max-width:420px;padding:0" id="profileModalContent">
+    <div style="padding:20px;text-align:center">
+      <div style="font-size:42px;margin-bottom:8px">🤖</div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:18px;margin-bottom:8px">Coachen tænker…</div>
+      <div style="font-size:12px;color:var(--mut)">Finder et alternativ til ${escHtml(originalName)}</div>
+    </div>
+  </div>`;
+  m.classList.add('show');
+
+  const prompt=`Brugeren vil erstatte øvelsen "${originalName}" med et alternativ. Foreslå én konkret alternativ øvelse der træner samme primære muskelgruppe. Vælg noget der adskiller sig fra originalen (anderledes udstyr, vinkel, eller bevægelsesmønster).
+
+Svar KUN med JSON:
+{
+  "name": "Navn på alternativ øvelse",
+  "reason": "Kort begrundelse på dansk (max 80 tegn) - hvorfor er det et godt alternativ",
+  "youtube_search": "Søgeterm til YouTube tutorial"
+}`;
+
+  try{
+    const reply=await callClaude(prompt);
+    let json=null;
+    try{
+      const mt=reply.match(/\{[\s\S]*\}/);
+      if(mt)json=JSON.parse(mt[0]);
+    }catch(e){}
+    if(!json||!json.name){
+      m.innerHTML=`<div class="modal" onclick="event.stopPropagation()" style="max-width:420px;padding:24px;text-align:center">
+        <div style="font-size:32px;margin-bottom:8px">😕</div>
+        <div style="font-size:13px;color:var(--mut);margin-bottom:16px">Coachen kunne ikke finde et alternativ. Prøv igen eller skriv selv.</div>
+        <button class="prog-btn" onclick="openSwapModal('${escAttr(dayFull)}','${escAttr(originalName)}')">‹ Tilbage</button>
+      </div>`;
+      return;
+    }
+    const ytLink=`https://www.youtube.com/results?search_query=${encodeURIComponent(json.youtube_search||json.name)}`;
+    m.innerHTML=`<div class="modal" onclick="event.stopPropagation()" style="max-width:440px;padding:0" id="profileModalContent">
+      <div style="padding:22px">
+        <div style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:1.5px;color:#a070ff;margin-bottom:6px">// Coachen foreslår</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:24px;margin-bottom:8px">${escHtml(json.name)}</div>
+        <div style="font-size:13px;color:var(--mut);line-height:1.6;margin-bottom:14px">💡 ${escHtml(json.reason||'')}</div>
+        <a href="${ytLink}" target="_blank" style="display:inline-block;color:var(--acc);text-decoration:none;font-family:'DM Mono',monospace;font-size:11px;padding:6px 12px;background:rgba(255,214,10,.1);border-radius:100px;border:1px solid rgba(255,214,10,.2);margin-bottom:18px">▶ Se på YouTube</a>
+        <div style="display:flex;gap:8px">
+          <button class="prog-btn" style="flex:1" onclick="applySwap('${escAttr(dayFull)}','${escAttr(originalName)}','${escAttr(json.name)}','${escAttr(json.reason||'')}','${escAttr(ytLink)}')">✓ Brug denne</button>
+          <button class="prog-btn ghost" onclick="askAiForSwap('${escAttr(dayFull)}','${escAttr(originalName)}')">🔄 Anden</button>
+          <button class="prog-btn ghost" onclick="openSwapModal('${escAttr(dayFull)}','${escAttr(originalName)}')">‹ Tilbage</button>
+        </div>
+      </div>
+    </div>`;
+  }catch(e){
+    m.innerHTML=`<div class="modal" onclick="event.stopPropagation()" style="max-width:420px;padding:24px;text-align:center">
+      <div style="font-size:13px;color:var(--red);margin-bottom:16px">Fejl: ${escHtml(e.message||'Ukendt')}</div>
+      <button class="prog-btn" onclick="openSwapModal('${escAttr(dayFull)}','${escAttr(originalName)}')">‹ Tilbage</button>
+    </div>`;
+  }
+}
+
 function addCustomEx(libIdx,dayFull){
   const ex=LIB[libIdx];
   if(!ex)return;
@@ -4867,6 +5149,7 @@ function readMinSec(minId,secId){
 function exportData(){
   const data={
     tw4:W, tw4_custom:CUSTOM, tw4_ai:{apiKey:AI.apiKey,model:AI.model,settingsOpen:AI.settingsOpen},
+    tw4_swaps:SWAPS_EX,
     tw4_prog:PROG, tw4_body:BODY, tw4_ss:SUPERSETS, tw4_steps:STEPS, tw4_cycle:CYCLE, tw4_pcos_profile:PCOS_PROFILE, tw4_profile:PROFILE, tw4_wellness:WELLNESS,
     _exported:new Date().toISOString(), _version:2
   };
@@ -4895,6 +5178,7 @@ function importData(input){
       if(data.tw4_ss){SUPERSETS=data.tw4_ss;saveSS()}
       if(data.tw4_steps){STEPS=data.tw4_steps;saveSteps()}
       if(data.tw4_cycle){CYCLE=data.tw4_cycle;saveCycle()}
+      if(data.tw4_swaps){SWAPS_EX=data.tw4_swaps;saveSwaps()}
       if(data.tw4_pcos_profile){PCOS_PROFILE=data.tw4_pcos_profile;savePcosProfile()}
       if(data.tw4_profile){PROFILE=data.tw4_profile;saveProfile()}
       if(data.tw4_wellness){WELLNESS=data.tw4_wellness;saveWellness()}
