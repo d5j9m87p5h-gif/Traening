@@ -284,6 +284,39 @@ input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-
 .tb-sub{font-size:12px;color:var(--mut);font-family:'DM Mono',monospace;margin-top:4px;line-height:1.4}
 .tb-arrow{font-size:20px;color:var(--tc);flex-shrink:0;opacity:.4}
 
+/* ══ FLEX-MODE BANNER ══ */
+.flex-banner{background:linear-gradient(135deg,var(--tc)14 0%,var(--tc)06 100%);border:1px solid var(--tc)30;border-radius:var(--r);padding:16px 18px;margin-bottom:14px;display:flex;align-items:center;gap:14px;cursor:pointer;position:relative;overflow:hidden;transition:transform .2s var(--ease);box-shadow:0 4px 24px var(--tc)10}
+.flex-banner::before{content:'';position:absolute;top:0;left:0;bottom:0;width:4px;background:var(--tc)}
+.flex-banner:active{transform:scale(.98)}
+.flex-banner.complete{--tc:#30d158;background:linear-gradient(135deg,rgba(48,209,88,.12),rgba(48,209,88,.04));border-color:rgba(48,209,88,.3);cursor:default}
+.flex-banner.complete:active{transform:none}
+.flex-banner.done{--tc:#ffd60a;background:linear-gradient(135deg,rgba(255,214,10,.15),rgba(255,214,10,.05));border-color:rgba(255,214,10,.35);cursor:default}
+.flex-banner.done:active{transform:none}
+.flex-banner-icon{font-size:32px;flex-shrink:0;width:56px;height:56px;display:flex;align-items:center;justify-content:center;background:var(--tc)18;border-radius:var(--r2);border:1px solid var(--tc)25}
+.flex-banner-text{flex:1;min-width:0}
+.fb-eyebrow{font-size:9px;letter-spacing:3px;color:var(--tc);font-family:'DM Mono',monospace;text-transform:uppercase;margin-bottom:4px;display:flex;align-items:center;gap:6px}
+.fb-eyebrow .pulse{width:6px;height:6px;border-radius:50%;background:var(--tc);animation:pls 2s infinite ease-in-out}
+.fb-title{font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:.5px;line-height:1;color:var(--txt)}
+.fb-sub{font-size:12px;color:var(--mut);font-family:'DM Mono',monospace;margin-top:4px;line-height:1.4}
+
+/* ══ FLEX QUEUE ══ */
+.flex-queue{background:var(--bg1);border:1px solid var(--bdr);border-radius:var(--r2);padding:12px 14px;margin-bottom:16px}
+.flex-queue-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:1.5px;color:var(--mut);margin-bottom:8px;font-weight:600}
+.flex-queue-list{display:flex;flex-direction:column;gap:6px}
+.flex-queue-item{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--bg2);border:1px solid var(--bdr);border-radius:10px;cursor:pointer;transition:all .15s var(--ease)}
+.flex-queue-item:active{transform:scale(.98);background:var(--bg3)}
+
+/* ══ FLEX-MODE TOGGLE (i settings) ══ */
+.flex-mode-info{display:flex;flex-direction:column;gap:8px}
+.fm-option{display:flex;align-items:center;gap:12px;padding:14px;background:var(--bg2);border:1.5px solid var(--bdr);border-radius:var(--r2);cursor:pointer;transition:all .15s var(--ease)}
+.fm-option:active{transform:scale(.98)}
+.fm-option.on{border-color:var(--acc);background:rgba(255,214,10,.05)}
+.fm-emo{font-size:22px;flex-shrink:0}
+.fm-content{flex:1;min-width:0}
+.fm-title{font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:.3px;line-height:1.2;margin-bottom:3px}
+.fm-desc{font-size:11px;color:var(--mut);line-height:1.4}
+.fm-check{font-size:18px;color:var(--acc);font-weight:600;flex-shrink:0}
+
 /* ══ PROGRAM SETUP/DONE ══ */
 .prog-setup{background:var(--bg1);border:1px solid var(--bdr);border-radius:var(--r);padding:24px 20px;margin-bottom:16px;text-align:center;position:relative;overflow:hidden;box-shadow:var(--shadow)}
 .prog-setup::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--acc),transparent)}
@@ -417,19 +450,6 @@ input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-
 .modal-bg.show{display:flex}
 .modal{background:var(--bg1);border:1px solid var(--bdr);border-radius:var(--r) var(--r) 0 0;width:100%;max-width:480px;padding:24px 20px calc(var(--sb) + 24px);animation:slup .35s var(--spring);box-shadow:0 -8px 40px rgba(0,0,0,.5)}
 @media (min-width:520px){.modal-bg{align-items:center;padding:16px}.modal{border-radius:var(--r);max-width:420px}}
-
-/* ══ VIDEO MODAL ══ */
-.video-modal{padding:0;max-width:600px;background:#000;border:none;overflow:hidden}
-@media (min-width:520px){.video-modal{border-radius:var(--r);max-width:720px}}
-.video-header{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;background:rgba(0,0,0,.85);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,.08)}
-.video-title{font-family:'Bebas Neue',sans-serif;font-size:16px;color:#fff;letter-spacing:.3px;max-width:80%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.video-close{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);color:#fff;font-size:16px;cursor:pointer;width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:all .15s var(--ease)}
-.video-close:active{transform:scale(.92);background:rgba(255,255,255,.2)}
-.video-frame-wrap{position:relative;width:100%;padding-bottom:56.25%;background:#000}
-.video-frame{position:absolute;top:0;left:0;width:100%;height:100%;border:0}
-.video-actions{padding:12px 18px;background:rgba(0,0,0,.85);text-align:center;border-top:1px solid rgba(255,255,255,.08)}
-.video-yt-link{color:rgba(255,255,255,.7);text-decoration:none;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.5px;padding:6px 12px;border-radius:100px;display:inline-block;border:1px solid rgba(255,255,255,.15);transition:all .15s}
-.video-yt-link:active{background:rgba(255,255,255,.1);color:#fff}
 @keyframes slup{from{transform:translateY(40px);opacity:0}to{transform:translateY(0);opacity:1}}
 .modal-title{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:.5px;margin-bottom:6px}
 .modal-sub{font-size:12px;color:var(--mut);font-family:'DM Mono',monospace;margin-bottom:18px}
@@ -1436,7 +1456,7 @@ function saveSwaps(){try{localStorage.setItem(SWK,JSON.stringify(SWAPS_EX))}catc
 // Program metadata: startdato, varighed, starttid
 const PK='tw4_prog';
 let PROG={startDate:null,totalWeeks:8,start5kSec:2100};
-try{PROG={startDate:null,totalWeeks:8,start5kSec:2100,runDistance:5,viewMode:'today',...JSON.parse(localStorage.getItem(PK)||'{}')}}catch(e){}
+try{PROG={startDate:null,totalWeeks:8,start5kSec:2100,runDistance:5,viewMode:'today',flexMode:false,...JSON.parse(localStorage.getItem(PK)||'{}')}}catch(e){}
 // Migration: eksisterende brugere får automatisk Recomp som template
 if(!PROG.template){
   // Hvis de har eksisterende vægtdata, så har de allerede kørt Recomp-programmet
@@ -1676,6 +1696,50 @@ function currentWeek(){
   return 1;
 }
 function isProgramDone(){return PROG.startDate&&weekFromStart()>TW()}
+
+// ── FLEX-MODE helpers ──
+// Tjek om en træningsdag har data logget i en given uge
+function isDayLogged(w,dayFull){
+  const d=D.find(x=>x.full===dayFull);
+  if(!d)return false;
+  if(d.ex){
+    return dayEx(d).some(e=>{
+      const v=gw(w,d.full,e.n);
+      return v&&maxW(v)>0;
+    });
+  }
+  if(d.run){
+    return ['tid','pace','km'].some(k=>gw(w,d.full,k));
+  }
+  return false;
+}
+
+// Returner alle ikke-loggede træningsdage i indeværende uge (i programmets rækkefølge)
+function getPendingSessions(w){
+  return D.filter(d=>d.ex||d.run).filter(d=>!isDayLogged(w,d.full));
+}
+
+// I flex-mode: hvad er "næste session" lige nu?
+function getNextFlexSession(){
+  const w=currentWeek();
+  const pending=getPendingSessions(w);
+  return pending[0]||null; // null = ugen er færdig
+}
+
+// I flex-mode beregnes uge ud fra antal komplette sessioner
+function flexCurrentWeek(){
+  if(!PROG.startDate)return 1;
+  const sessionsPerWeek=D.filter(d=>d.ex||d.run).length;
+  if(sessionsPerWeek===0)return 1;
+  // Tæl total loggede sessioner på tværs af alle uger
+  let totalLogged=0;
+  for(let w=1;w<=TW();w++){
+    D.filter(d=>d.ex||d.run).forEach(d=>{
+      if(isDayLogged(w,d.full))totalLogged++;
+    });
+  }
+  return Math.min(Math.floor(totalLogged/sessionsPerWeek)+1,TW());
+}
 
 let tt;
 function toast(msg){
@@ -2019,11 +2083,15 @@ function rWeekly(){
   }
   // I gang: vis dagens træning som banner
   else{
-    h+=rTodayBanner();
+    if(PROG.flexMode){
+      h+=rFlexBanner();
+    }else{
+      h+=rTodayBanner();
+    }
   }
 
-  // Layout-toggle: Kun i dag vs Hele ugen (kun synlig hvis programmet er startet)
-  if(PROG.startDate&&!isProgramDone()){
+  // Layout-toggle: kun i kalender-mode (skjules i flex)
+  if(PROG.startDate&&!isProgramDone()&&!PROG.flexMode){
     h+=`<div class="view-toggle">
       <button class="vt-opt${PROG.viewMode!=='full'?' on':''}" onclick="setViewMode('today')">📍 Kun i dag</button>
       <button class="vt-opt${PROG.viewMode==='full'?' on':''}" onclick="setViewMode('full')">📅 Hele ugen</button>
@@ -2032,7 +2100,12 @@ function rWeekly(){
 
   // Day grid (skjules i "Kun i dag" mode hvis programmet er startet)
   const todayIdx=todayDayIdx();
-  const hideDayGrid=PROG.viewMode!=='full'&&PROG.startDate&&!isProgramDone();
+  // I flex-mode skjules grid og næste session vælges automatisk
+  const hideDayGrid=(PROG.flexMode||PROG.viewMode!=='full')&&PROG.startDate&&!isProgramDone();
+  if(PROG.flexMode&&sel===null){
+    const next=getNextFlexSession();
+    if(next)sel=D.findIndex(d=>d.full===next.full);
+  }
   if(!hideDayGrid){
     h+='<div class="dgrid">';
     D.forEach((d,i)=>{
@@ -2110,7 +2183,7 @@ function rWeekly(){
               ${e.swapped?`<div class="exno" style="color:var(--mut2)">⇆ Erstatter "${escHtml(e.originalName)}"</div>`:''}
               ${e.no?`<div class="exno">${e.no}</div>`:''}
             </div>
-            <a class="vl" href="${e.l}" target="_blank" onclick="openVideo(event,'${escAttr(e.l)}','${escAttr(e.n)}')">▶ Video</a>
+            <a class="vl" href="${e.l}" target="_blank">▶ Video</a>
           </div>
           <div class="exrow-meta">
             <span><b style="color:${d.color}">${sr.s}</b> sæt</span>
@@ -2238,6 +2311,59 @@ function rWeekly(){
 }
 
 /* ── TODAY BANNER ── */
+// FLEX-MODE banner: viser næste session i køen i stedet for dagens dag
+function rFlexBanner(){
+  const cw=flexCurrentWeek();
+  const next=getNextFlexSession();
+  if(!next){
+    // Ugen er færdig
+    if(cw>=TW()&&isProgramDone()){
+      return `<div class="flex-banner done">
+        <div class="flex-banner-icon">🏆</div>
+        <div class="flex-banner-text">
+          <div class="fb-eyebrow"><span class="pulse"></span>Program færdigt</div>
+          <div class="fb-title">Tillykke!</div>
+          <div class="fb-sub">Alle ${TW()} uger gennemført</div>
+        </div>
+      </div>`;
+    }
+    return `<div class="flex-banner complete">
+      <div class="flex-banner-icon">✅</div>
+      <div class="flex-banner-text">
+        <div class="fb-eyebrow">// Uge ${cw} fuldført</div>
+        <div class="fb-title">Hvile-tid</div>
+        <div class="fb-sub">Du har lavet alle sessions denne uge · Næste uge starter når du logger igen</div>
+      </div>
+    </div>`;
+  }
+  const pending=getPendingSessions(cw);
+  const idx=D.findIndex(d=>d.full===next.full);
+  const sessionsThisWeek=D.filter(d=>d.ex||d.run).length;
+  const completedThisWeek=sessionsThisWeek-pending.length;
+  return `<div class="flex-banner" style="--tc:${next.color}" onclick="goToTodayDetail(${idx})">
+    <div class="flex-banner-icon">${next.icon}</div>
+    <div class="flex-banner-text">
+      <div class="fb-eyebrow"><span class="pulse"></span>Næste session · Uge ${cw} (${completedThisWeek}/${sessionsThisWeek})</div>
+      <div class="fb-title">${next.type}</div>
+      <div class="fb-sub">${next.label}${pending.length>1?` · ${pending.length-1} flere venter i køen`:''}</div>
+    </div>
+    <div class="tb-arrow">›</div>
+  </div>
+  ${pending.length>1?`<div class="flex-queue">
+    <div class="flex-queue-label">📋 RESTERENDE I UGE ${cw}</div>
+    <div class="flex-queue-list">
+      ${pending.slice(1).map((d,i)=>`<div class="flex-queue-item" onclick="goToTodayDetail(${D.findIndex(x=>x.full===d.full)})">
+        <span style="font-size:16px">${d.icon}</span>
+        <div style="flex:1;min-width:0">
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:.3px">${d.type}</div>
+          <div style="font-size:9px;color:var(--mut);font-family:'DM Mono',monospace;letter-spacing:.5px">${d.label.toUpperCase()}</div>
+        </div>
+        <span style="color:var(--mut2);font-size:14px">›</span>
+      </div>`).join('')}
+    </div>
+  </div>`:''}`;
+}
+
 function rTodayBanner(){
   // Vis valgt dag (sel) hvis den findes, ellers dagens dag
   const realToday=todayDayIdx();
@@ -3925,6 +4051,15 @@ function buildTrainingContext(){
 
   let ctx='';
 
+  // === TRÆNINGSSTIL ===
+  if(PROG.flexMode){
+    const cw=flexCurrentWeek();
+    const pending=getPendingSessions(cw);
+    ctx+='=== TRÆNINGSSTIL ===\n';
+    ctx+=`Flex-mode aktiveret: Brugeren træner når hun/han har tid, ikke på faste ugedage.\n`;
+    ctx+=`Status: Uge ${cw} · ${pending.length} sessions tilbage\n\n`;
+  }
+
   // === PERSONLIG PROFIL (vises altid hvis udfyldt) ===
   if(PROFILE.completed&&!PROFILE.skipped){
     ctx+='=== PERSONLIG PROFIL ===\n';
@@ -4810,54 +4945,6 @@ function guessExerciseMuscle(name){
   return null;
 }
 
-/* ═══════════════════════════════════════════════════════════ */
-/* ── EMBEDDED VIDEO PLAYER ─────────────────────────────────── */
-/* ═══════════════════════════════════════════════════════════ */
-// Udled YouTube video-ID fra et link (returner null hvis det er en søgning)
-function getYoutubeId(url){
-  if(!url)return null;
-  // Direkte video: ?v=VIDEOID
-  let m=url.match(/[?&]v=([a-zA-Z0-9_-]{11})/);
-  if(m)return m[1];
-  // Kort link: youtu.be/VIDEOID
-  m=url.match(/youtu\.be\/([a-zA-Z0-9_-]{11})/);
-  if(m)return m[1];
-  // Embed: /embed/VIDEOID
-  m=url.match(/youtube\.com\/embed\/([a-zA-Z0-9_-]{11})/);
-  if(m)return m[1];
-  // Shorts: /shorts/VIDEOID
-  m=url.match(/youtube\.com\/shorts\/([a-zA-Z0-9_-]{11})/);
-  if(m)return m[1];
-  return null;
-}
-
-function openVideo(ev,url,exName){
-  if(ev)ev.preventDefault();
-  const id=getYoutubeId(url);
-  if(!id){
-    // Søgning eller ukendt link — åbn i ny tab
-    window.open(url,'_blank');
-    return;
-  }
-  // Embed direkte video i modal
-  const m=document.getElementById('modal');
-  m.innerHTML=`<div class="modal video-modal" onclick="event.stopPropagation()">
-    <div class="video-header">
-      <div class="video-title">${escHtml(exName||'Video')}</div>
-      <button class="video-close" onclick="closeModal()">✕</button>
-    </div>
-    <div class="video-frame-wrap">
-      <iframe class="video-frame" src="https://www.youtube.com/embed/${id}?autoplay=1&rel=0&modestbranding=1"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        allowfullscreen></iframe>
-    </div>
-    <div class="video-actions">
-      <a class="video-yt-link" href="${url}" target="_blank" rel="noopener">↗ Åben i YouTube</a>
-    </div>
-  </div>`;
-  m.classList.add('show');
-}
-
 function openSwapModal(dayFull,exName){
   const m=document.getElementById('modal');
   const muscle=guessExerciseMuscle(exName);
@@ -5429,6 +5516,28 @@ function openSettingsModal(){
     </div>
 
     <div style="border-top:1px solid var(--bdr);margin-top:18px;padding-top:16px">
+      <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--mut);text-transform:uppercase;margin-bottom:10px;text-align:center">Træningsstil</div>
+      <div class="flex-mode-info">
+        <div class="fm-option${!PROG.flexMode?' on':''}" onclick="setFlexMode(false)">
+          <div class="fm-emo">📅</div>
+          <div class="fm-content">
+            <div class="fm-title">Kalender-mode</div>
+            <div class="fm-desc">Mandag = Upper A, Onsdag = Lower A osv. Følg de faste ugedage.</div>
+          </div>
+          ${!PROG.flexMode?'<div class="fm-check">✓</div>':''}
+        </div>
+        <div class="fm-option${PROG.flexMode?' on':''}" onclick="setFlexMode(true)">
+          <div class="fm-emo">🔄</div>
+          <div class="fm-content">
+            <div class="fm-title">Flex-mode</div>
+            <div class="fm-desc">Træn når du har tid. Programmet vises som en kø — ugen rykker først til næste når alle sessions er logget.</div>
+          </div>
+          ${PROG.flexMode?'<div class="fm-check">✓</div>':''}
+        </div>
+      </div>
+    </div>
+
+    <div style="border-top:1px solid var(--bdr);margin-top:18px;padding-top:16px">
       <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--mut);text-transform:uppercase;margin-bottom:8px;text-align:center">Andet</div>
       <button class="prog-btn ghost" style="width:100%;margin-bottom:8px" onclick="closeModal();openProfileModal()">👤 Personlig profil</button>
       ${tpl?.id==='pcos'?`<button class="prog-btn ghost" style="width:100%;margin-bottom:8px" onclick="closeModal();openPcosProfileModal()">🌸 Rediger PCOS profil</button>`:''}
@@ -5437,6 +5546,13 @@ function openSettingsModal(){
     </div>
   </div>`;
   m.classList.add('show');
+}
+
+function setFlexMode(enabled){
+  PROG.flexMode=enabled;
+  saveProg();
+  toast(enabled?'✓ Flex-mode aktiveret':'✓ Kalender-mode aktiveret');
+  openSettingsModal(); // refresh modal
 }
 
 function updateSettingsPreview(){
