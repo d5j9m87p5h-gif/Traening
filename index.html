@@ -417,6 +417,19 @@ input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-
 .modal-bg.show{display:flex}
 .modal{background:var(--bg1);border:1px solid var(--bdr);border-radius:var(--r) var(--r) 0 0;width:100%;max-width:480px;padding:24px 20px calc(var(--sb) + 24px);animation:slup .35s var(--spring);box-shadow:0 -8px 40px rgba(0,0,0,.5)}
 @media (min-width:520px){.modal-bg{align-items:center;padding:16px}.modal{border-radius:var(--r);max-width:420px}}
+
+/* ══ VIDEO MODAL ══ */
+.video-modal{padding:0;max-width:600px;background:#000;border:none;overflow:hidden}
+@media (min-width:520px){.video-modal{border-radius:var(--r);max-width:720px}}
+.video-header{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;background:rgba(0,0,0,.85);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,.08)}
+.video-title{font-family:'Bebas Neue',sans-serif;font-size:16px;color:#fff;letter-spacing:.3px;max-width:80%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.video-close{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);color:#fff;font-size:16px;cursor:pointer;width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:all .15s var(--ease)}
+.video-close:active{transform:scale(.92);background:rgba(255,255,255,.2)}
+.video-frame-wrap{position:relative;width:100%;padding-bottom:56.25%;background:#000}
+.video-frame{position:absolute;top:0;left:0;width:100%;height:100%;border:0}
+.video-actions{padding:12px 18px;background:rgba(0,0,0,.85);text-align:center;border-top:1px solid rgba(255,255,255,.08)}
+.video-yt-link{color:rgba(255,255,255,.7);text-decoration:none;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.5px;padding:6px 12px;border-radius:100px;display:inline-block;border:1px solid rgba(255,255,255,.15);transition:all .15s}
+.video-yt-link:active{background:rgba(255,255,255,.1);color:#fff}
 @keyframes slup{from{transform:translateY(40px);opacity:0}to{transform:translateY(0);opacity:1}}
 .modal-title{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:.5px;margin-bottom:6px}
 .modal-sub{font-size:12px;color:var(--mut);font-family:'DM Mono',monospace;margin-bottom:18px}
@@ -619,6 +632,15 @@ input[type=file]{display:none}
 
 /* ══ CYCLE TRACKER ══ */
 .cycle-section{background:var(--bg1);border:1px solid var(--bdr);border-radius:var(--r);padding:18px;margin-bottom:16px}
+
+/* Cyklus-pille (kompakt visning øverst i dagens detalje) */
+.cycle-pill{display:flex;align-items:center;gap:10px;padding:10px 14px;background:linear-gradient(135deg,rgba(255,105,180,.08),rgba(191,90,242,.08));border:1px solid rgba(255,105,180,.2);border-radius:100px;margin-bottom:14px;cursor:pointer;flex-wrap:wrap;transition:all .15s var(--ease)}
+.cycle-pill:active{transform:scale(.98)}
+.cycle-pill-emo{font-size:18px}
+.cycle-pill-text{font-family:'DM Mono',monospace;font-size:11px;color:#ff69b4;letter-spacing:.3px}
+.cycle-pill-text b{color:var(--txt);font-weight:600}
+.cycle-pill-tip{font-size:10px;color:var(--mut);font-family:'DM Mono',monospace;flex:1;min-width:0;line-height:1.4;margin-left:auto;opacity:.85}
+@media(max-width:380px){.cycle-pill-tip{display:none}}
 .cycle-title{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:.5px;margin-bottom:4px}
 .cycle-sub{font-size:11px;color:var(--mut);font-family:'DM Mono',monospace;margin-bottom:14px}
 .cycle-phases{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:12px}
@@ -2033,6 +2055,7 @@ function rWeekly(){
       h+=`<div class="day-swipe-wrap" ontouchstart="daySwipeStart(event)" ontouchmove="daySwipeMove(event)" ontouchend="daySwipeEnd(event)">`;
     }
     h+=`<div class="det">
+      ${rCyclePill()}
       <div class="det-head">
         <div class="det-icon">${d.icon}</div>
         <div>
@@ -2087,7 +2110,7 @@ function rWeekly(){
               ${e.swapped?`<div class="exno" style="color:var(--mut2)">⇆ Erstatter "${escHtml(e.originalName)}"</div>`:''}
               ${e.no?`<div class="exno">${e.no}</div>`:''}
             </div>
-            <a class="vl" href="${e.l}" target="_blank">▶ Video</a>
+            <a class="vl" href="${e.l}" target="_blank" onclick="openVideo(event,'${escAttr(e.l)}','${escAttr(e.n)}')">▶ Video</a>
           </div>
           <div class="exrow-meta">
             <span><b style="color:${d.color}">${sr.s}</b> sæt</span>
@@ -3035,6 +3058,41 @@ const CYCLE_PHASES=[
   {id:'luteal',emo:'🌙',name:'Luteal',tip:'Nedadgående energi — fokus på vedligeholdelse'},
 ];
 
+// Auto-prediction af cyklus-dag og fase baseret på PROFILE.lastPeriodDate
+function getCurrentCycleDay(){
+  if(!PROFILE.cycleTrackingEnabled||!PROFILE.lastPeriodDate)return null;
+  const last=new Date(PROFILE.lastPeriodDate);
+  const today=new Date();
+  last.setHours(0,0,0,0);today.setHours(0,0,0,0);
+  const daysDiff=Math.floor((today-last)/(1000*60*60*24));
+  if(daysDiff<0)return null;
+  const len=PROFILE.cycleLength||28;
+  return (daysDiff%len)+1;
+}
+
+function getCurrentCyclePhase(){
+  const day=getCurrentCycleDay();
+  if(day===null)return null;
+  const len=PROFILE.cycleLength||28;
+  // Standard 4-fase mapping (skaleret til cyklus-længde)
+  if(day<=5)return CYCLE_PHASES.find(p=>p.id==='menstrual');
+  if(day<=Math.floor(len*0.46))return CYCLE_PHASES.find(p=>p.id==='follicular');
+  if(day<=Math.floor(len*0.57))return CYCLE_PHASES.find(p=>p.id==='ovulation');
+  return CYCLE_PHASES.find(p=>p.id==='luteal');
+}
+
+// Render kompakt cyklus-pille til dagens detaljer
+function rCyclePill(){
+  const phase=getCurrentCyclePhase();
+  const day=getCurrentCycleDay();
+  if(!phase||day===null)return '';
+  return `<div class="cycle-pill" onclick="openCycleSettingsModal()">
+    <span class="cycle-pill-emo">${phase.emo}</span>
+    <span class="cycle-pill-text"><b>Dag ${day}</b> · ${phase.name} fase</span>
+    <span class="cycle-pill-tip">${phase.tip}</span>
+  </div>`;
+}
+
 function rCycleTracker(){
   const today=todayISO();
   const cur=CYCLE[today]?.phase||null;
@@ -3170,6 +3228,42 @@ function rProfileOnboarding(){
       </div>`:''}
     </div>`:''}
 
+    ${p.gender==='female'?`<div class="pcos-ob-card" style="border-color:rgba(255,105,180,.25);background:linear-gradient(135deg,rgba(255,105,180,.04),rgba(191,90,242,.04))">
+      <div class="pcos-ob-q">🌸 Cyklus-tracking <span style="font-size:10px;color:var(--mut);font-weight:normal">(valgfrit)</span></div>
+      <div class="pcos-ob-hint">Energi, styrke og restitution svinger med menstruationscyklusen. Hvis du aktiverer det, viser appen automatisk hvilken fase du er i — og coachen tager højde for det.</div>
+      <div class="pcos-ob-options" style="grid-template-columns:1fr 1fr;margin-top:10px">
+        <div class="pcos-ob-opt${p.cycleTrackingEnabled?' on':''}" onclick="setProfileField('cycleTrackingEnabled',true)">
+          <span class="ob-emo">✓</span>Aktivér
+        </div>
+        <div class="pcos-ob-opt${p.cycleTrackingEnabled===false||p.cycleTrackingEnabled===undefined?' on':''}" onclick="setProfileField('cycleTrackingEnabled',false)">
+          <span class="ob-emo">✕</span>Fravælg
+        </div>
+      </div>
+      ${p.cycleTrackingEnabled?`
+        <div style="margin-top:14px">
+          <label style="font-family:'DM Mono',monospace;font-size:10px;color:var(--mut);letter-spacing:1px;display:block;margin-bottom:6px">FØRSTE DAG AF SIDSTE MENSTRUATION</label>
+          <input type="date" id="profLastPeriod" value="${p.lastPeriodDate||''}" max="${todayISO()}"
+            onchange="setProfileDate('lastPeriodDate',this.value)"
+            style="width:100%;background:var(--bg2);border:1.5px solid var(--bdr);color:var(--txt);font-family:inherit;font-size:13px;padding:10px 12px;border-radius:var(--r2);outline:none">
+          <div style="margin-top:10px">
+            <label style="font-family:'DM Mono',monospace;font-size:10px;color:var(--mut);letter-spacing:1px;display:block;margin-bottom:6px">CYKLUS-LÆNGDE (gennemsnitlig)</label>
+            <div style="display:flex;align-items:center;gap:8px">
+              <input type="number" inputmode="numeric" min="21" max="40" placeholder="28" id="profCycleLen"
+                value="${p.cycleLength||28}" onchange="setProfileNumber('cycleLength',this.value)"
+                style="flex:1;background:var(--bg2);border:1.5px solid var(--bdr);color:var(--txt);font-family:inherit;font-size:13px;padding:10px 12px;border-radius:var(--r2);outline:none">
+              <span style="font-family:'DM Mono',monospace;font-size:11px;color:var(--mut)">dage</span>
+            </div>
+          </div>
+          ${getCurrentCycleDay()?`<div class="pcos-ob-bmi-result lean" style="margin-top:12px">
+            ${getCurrentCyclePhase().emo} I dag: <b>Dag ${getCurrentCycleDay()} · ${getCurrentCyclePhase().name} fase</b>
+          </div>`:''}
+          <div style="font-size:10px;color:var(--mut);margin-top:10px;line-height:1.5">
+            💡 Har du uregelmæssig cyklus (PCOS, p-piller, perimenopause)? Du kan fravælge automatik og bruge cyklus-trackeren manuelt.
+          </div>
+        </div>
+      `:''}
+    </div>`:''}
+
     <div class="pcos-ob-actions">
       <button class="pob-primary" onclick="completeProfile()">✓ Færdig</button>
       <button class="pob-skip" onclick="skipProfile()">Spring over (kan udfyldes senere)</button>
@@ -3194,6 +3288,33 @@ function setProfileField(field,val){
   }else{
     render();
   }
+}
+
+function setProfileDate(field,val){
+  if(!val){delete PROFILE[field]}
+  else{PROFILE[field]=val}
+  saveProfile();
+  // Genåbn profil-modal for at vise opdateret fase-info
+  const modalContent=document.getElementById('profileModalContent');
+  if(modalContent)openProfileModal();
+}
+
+function setProfileNumber(field,val){
+  const n=parseInt(val);
+  if(isNaN(n)){delete PROFILE[field]}
+  else{PROFILE[field]=n}
+  saveProfile();
+  const modalContent=document.getElementById('profileModalContent');
+  if(modalContent)openProfileModal();
+}
+
+// Shortcut: åben profil-modal og scroll til cyklus-sektion
+function openCycleSettingsModal(){
+  openProfileModal();
+  setTimeout(()=>{
+    const lastPeriodInput=document.getElementById('profLastPeriod');
+    if(lastPeriodInput)lastPeriodInput.scrollIntoView({behavior:'smooth',block:'center'});
+  },200);
 }
 
 function updateProfileLive(){
@@ -3823,6 +3944,16 @@ function buildTrainingContext(){
     if(tdee)ctx+=`TDEE: ${tdee} kcal\n`;
     if(target)ctx+=`Anbefalede daglige kalorier: ${target} kcal\n`;
     if(protein)ctx+=`Anbefalet protein: ${protein} g/dag\n`;
+    // Cyklus-info hvis aktiveret (kun kvinder)
+    if(PROFILE.gender==='female'&&PROFILE.cycleTrackingEnabled&&PROFILE.lastPeriodDate){
+      const day=getCurrentCycleDay();
+      const phase=getCurrentCyclePhase();
+      if(day&&phase){
+        ctx+=`Cyklus: Dag ${day}/${PROFILE.cycleLength||28} · ${phase.name} fase\n`;
+        ctx+=`  → ${phase.tip}\n`;
+        ctx+='  Bemærk: Individuelle forskelle er store. Spørg brugeren hvordan hun konkret oplever fasen.\n';
+      }
+    }
     ctx+='\n';
   }
 
@@ -4677,6 +4808,54 @@ function guessExerciseMuscle(name){
   if(/(curl|biceps|triceps|extension|kickback|pushdown)/.test(n))return 'arms';
   if(/(crunch|plank|core|ab |abs|leg raise|twist|rollout|dead bug)/.test(n))return 'core';
   return null;
+}
+
+/* ═══════════════════════════════════════════════════════════ */
+/* ── EMBEDDED VIDEO PLAYER ─────────────────────────────────── */
+/* ═══════════════════════════════════════════════════════════ */
+// Udled YouTube video-ID fra et link (returner null hvis det er en søgning)
+function getYoutubeId(url){
+  if(!url)return null;
+  // Direkte video: ?v=VIDEOID
+  let m=url.match(/[?&]v=([a-zA-Z0-9_-]{11})/);
+  if(m)return m[1];
+  // Kort link: youtu.be/VIDEOID
+  m=url.match(/youtu\.be\/([a-zA-Z0-9_-]{11})/);
+  if(m)return m[1];
+  // Embed: /embed/VIDEOID
+  m=url.match(/youtube\.com\/embed\/([a-zA-Z0-9_-]{11})/);
+  if(m)return m[1];
+  // Shorts: /shorts/VIDEOID
+  m=url.match(/youtube\.com\/shorts\/([a-zA-Z0-9_-]{11})/);
+  if(m)return m[1];
+  return null;
+}
+
+function openVideo(ev,url,exName){
+  if(ev)ev.preventDefault();
+  const id=getYoutubeId(url);
+  if(!id){
+    // Søgning eller ukendt link — åbn i ny tab
+    window.open(url,'_blank');
+    return;
+  }
+  // Embed direkte video i modal
+  const m=document.getElementById('modal');
+  m.innerHTML=`<div class="modal video-modal" onclick="event.stopPropagation()">
+    <div class="video-header">
+      <div class="video-title">${escHtml(exName||'Video')}</div>
+      <button class="video-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="video-frame-wrap">
+      <iframe class="video-frame" src="https://www.youtube.com/embed/${id}?autoplay=1&rel=0&modestbranding=1"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen></iframe>
+    </div>
+    <div class="video-actions">
+      <a class="video-yt-link" href="${url}" target="_blank" rel="noopener">↗ Åben i YouTube</a>
+    </div>
+  </div>`;
+  m.classList.add('show');
 }
 
 function openSwapModal(dayFull,exName){
