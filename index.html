@@ -202,6 +202,70 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 
 /* ══ RUN CARDS ══ */
 .rungrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px}
+
+/* ══ EVIDENSBASERET LØBE-UI ══ */
+.run-phase-banner{display:flex;align-items:center;gap:12px;padding:14px 16px;background:linear-gradient(135deg,var(--pc)15,var(--pc)05);border:1px solid var(--pc)35;border-radius:var(--r2);margin-bottom:14px;border-left:4px solid var(--pc)}
+.rpb-icon{font-size:26px;flex-shrink:0;width:48px;height:48px;display:flex;align-items:center;justify-content:center;background:var(--pc)20;border-radius:50%}
+.rpb-text{flex:1;min-width:0}
+.rpb-eyebrow{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--pc);margin-bottom:2px;font-weight:600}
+.rpb-title{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:.3px;line-height:1.1;margin-bottom:3px}
+.rpb-sub{font-size:11px;color:var(--mut);line-height:1.4}
+
+.run-prescription{background:var(--bg1);border:1px solid var(--bdr);border-radius:var(--r);padding:18px;margin-bottom:16px;border-left:4px solid var(--rc)}
+.rp-header{display:flex;align-items:center;gap:14px;margin-bottom:16px;padding-bottom:14px;border-bottom:1px solid var(--bdr)}
+.rp-type-emoji{font-size:36px;flex-shrink:0;width:60px;height:60px;display:flex;align-items:center;justify-content:center;background:var(--rc)15;border-radius:50%;border:1px solid var(--rc)30}
+.rp-type{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:.5px;line-height:1.1;color:var(--rc)}
+.rp-type-cat{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:1px;color:var(--mut);margin-top:4px;text-transform:uppercase}
+
+.rp-targets{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px}
+.rp-target{background:var(--bg2);border:1px solid var(--bdr);border-radius:var(--r2);padding:14px 12px;text-align:center}
+.rp-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:1.5px;color:var(--mut);margin-bottom:6px;text-transform:uppercase;font-weight:600}
+.rp-value{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:.3px;color:var(--txt);line-height:1}
+.rp-extra{font-family:'DM Mono',monospace;font-size:10px;color:var(--mut2);margin-top:6px}
+.rp-delta{font-family:'DM Mono',monospace;font-size:10px;font-weight:600;margin-top:6px;display:inline-block;padding:2px 8px;border-radius:100px}
+.rp-delta.down{color:var(--grn);background:rgba(48,209,88,.1)}
+.rp-delta.up{color:#ff9f0a;background:rgba(255,159,10,.1)}
+
+.rp-tip{padding:10px 14px;border-radius:var(--r2);font-size:12px;line-height:1.5}
+
+/* ══ WARMUP/MAIN/COOLDOWN BLOCKS ══ */
+.rp-blocks{display:flex;flex-direction:column;gap:8px;margin-bottom:14px}
+.rp-block{display:flex;gap:12px;align-items:flex-start;padding:12px 14px;background:var(--bg2);border-radius:var(--r2);border:1px solid var(--bdr);border-left:3px solid var(--bdr);position:relative}
+.rp-block.warmup{border-left-color:#ff9f0a;background:rgba(255,159,10,.04)}
+.rp-block.main{border-left-color:var(--rc);background:var(--rc)08}
+.rp-block.cooldown{border-left-color:#30d158;background:rgba(48,209,88,.04)}
+.rp-block-num{flex-shrink:0;width:26px;height:26px;border-radius:50%;background:var(--bg3);border:1.5px solid var(--bdr);display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:11px;font-weight:700;color:var(--mut)}
+.rp-block.warmup .rp-block-num{background:rgba(255,159,10,.15);border-color:#ff9f0a;color:#ff9f0a}
+.rp-block.main .rp-block-num{background:var(--rc)20;border-color:var(--rc);color:var(--rc)}
+.rp-block.cooldown .rp-block-num{background:rgba(48,209,88,.15);border-color:#30d158;color:#30d158}
+.rp-block-content{flex:1;min-width:0}
+.rp-block-title{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:1.5px;color:var(--mut);font-weight:700;margin-bottom:4px;text-transform:uppercase}
+.rp-block-detail{font-size:13px;line-height:1.4;color:var(--txt)}
+.rp-block-detail b{font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:.3px;color:var(--txt)}
+.rp-block-extra{font-size:10px;font-family:'DM Mono',monospace;color:var(--mut2);margin-top:4px;line-height:1.4}
+
+/* ══ INTERVAL REST CARD (pause-info) ══ */
+.interval-rest-card{margin-top:10px;background:rgba(10,132,255,.06);border:1px solid rgba(10,132,255,.2);border-radius:10px;padding:10px 12px}
+.irc-row{display:flex;align-items:center;gap:10px}
+.irc-icon{font-size:18px;flex-shrink:0}
+.irc-text{flex:1;min-width:0}
+.irc-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:1.5px;color:var(--blue);font-weight:700;margin-bottom:2px;text-transform:uppercase}
+.irc-value{font-size:12px;color:var(--txt);line-height:1.4}
+.irc-value b{font-family:'Bebas Neue',sans-serif;font-size:16px;color:var(--blue);letter-spacing:.3px}
+
+.rp-total{text-align:center;font-family:'DM Mono',monospace;font-size:11px;color:var(--mut);letter-spacing:1px;padding:10px;background:var(--bg2);border-radius:var(--r2);border:1px dashed var(--bdr);margin-bottom:14px}
+.rp-total b{font-family:'Bebas Neue',sans-serif;font-size:16px;color:var(--rc);letter-spacing:.5px}
+
+/* ══ RUN INFO BUTTONS ══ */
+.run-info-btn{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:50%;border:1px solid var(--bdr);background:var(--bg3);color:var(--mut);font-family:Georgia,serif;font-style:italic;font-weight:600;font-size:11px;cursor:pointer;padding:0;margin-left:4px;vertical-align:middle;transition:all .15s var(--ease);line-height:1}
+.run-info-btn:active{transform:scale(.88);color:var(--acc);border-color:var(--acc)}
+.run-info-btn.small{width:16px;height:16px;font-size:10px}
+
+.run-info-modal{max-width:480px;max-height:85vh;overflow-y:auto;padding:0}
+.run-info-body{padding:18px 22px 28px;font-size:13px;line-height:1.6;color:var(--txt)}
+.run-info-body p{margin:0 0 12px}
+.run-info-body p:last-child{margin-bottom:0}
+.run-info-body b{color:var(--acc);font-weight:600}
 .rcard{background:var(--bg2);border-radius:var(--r2);padding:16px;border:1px solid var(--bdr);box-shadow:inset 0 1px 0 rgba(255,255,255,.04)}
 .rcard label{font-size:9px;color:var(--mut);letter-spacing:2px;text-transform:uppercase;font-family:'DM Mono',monospace;display:block;margin-bottom:6px}
 .rcard .rval{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:.5px}
@@ -1581,11 +1645,337 @@ function parseSec(str){
 
 // Beregn realistisk 5km-mål baseret på starttid og programlængde
 // ~1.5-2% forbedring per uge for motionister, med aftagende effekt
+/* ═══════════════════════════════════════════════════════════ */
+/* ── EVIDENSBASERET LØBEMOTOR ──────────────────────────────── */
+/* Daniels VDOT, Pfitzinger, Magness — polariseret periodisering */
+/* ═══════════════════════════════════════════════════════════ */
+
+// Daniels-style improvement curve (s-formet, ikke lineær).
+// Realistisk forbedring afhænger af startpunkt — begyndere forbedrer sig mere.
+function getMaxImprovementPct(startSec,distance){
+  // Pace per km i sekunder
+  const startPacePerKm=startSec/distance;
+  // Hvis du allerede løber meget hurtigt (≤4:00/km), er fremgang sværere
+  if(startPacePerKm<=240)return 0.06;  // 6% (eksempelvis 16:00 → 15:00 på 5km)
+  if(startPacePerKm<=300)return 0.10;  // 10% (eksempelvis 25:00 → 22:30)
+  if(startPacePerKm<=360)return 0.15;  // 15% (30:00 → 25:30)
+  if(startPacePerKm<=420)return 0.20;  // 20% begynder (35:00 → 28:00)
+  return 0.25;                          // 25% absolut begynder
+}
+
+// Beregn slutmål baseret på realistisk forbedring
 function goal5kSec(){
   const s=PROG.start5kSec||2100;
   const w=TW();
-  const improvement=Math.min(0.30,0.02*w); // maks 30% forbedring
-  return Math.round(s*(1-improvement));
+  const dist=PROG.runDistance||5;
+  // Skalér forbedring efter program-længde — 12 uger giver mere end 4 uger
+  const lengthFactor=Math.min(1,w/12);
+  const maxPct=getMaxImprovementPct(s,dist);
+  const actualPct=maxPct*lengthFactor;
+  return Math.round(s*(1-actualPct));
+}
+
+// S-formet interpolation: langsom start (base), hurtig midten, lille slutning (taper)
+function getRacePaceForWeek(wk){
+  const start=PROG.start5kSec||2100;
+  const end=goal5kSec();
+  const totalWeeks=TW();
+  if(totalWeeks<=1)return end;
+  // Normaliseret position 0-1
+  const t=(wk-1)/(totalWeeks-1);
+  // Sigmoid-kurve: langsom de første 25%, hurtigere midten, plateau de sidste 10%
+  const s=1/(1+Math.exp(-6*(t-0.5)));
+  // Pace per km i sekunder
+  const startPpk=start/(PROG.runDistance||5);
+  const endPpk=end/(PROG.runDistance||5);
+  return Math.round(startPpk+(endPpk-startPpk)*s);
+}
+
+// Fase-bestemmelse for periodisering
+function getRunPhase(wk){
+  const tw=TW();
+  const t=wk/tw;
+  if(t<=0.33)return 'base';     // Base building — easy + long
+  if(t<=0.67)return 'build';    // Build — tilføj tempo
+  if(t<=0.90)return 'peak';     // Peak — VO2max intervaller
+  return 'taper';                // Taper — reducer volumen
+}
+
+// Klassificér løbe-type fra template-streng
+function classifyRunType(typeStr){
+  if(!typeStr)return 'easy';
+  const s=typeStr.toLowerCase();
+  if(s.includes('interval'))return 'interval';
+  if(s.includes('tempo')||s.includes('threshold'))return 'tempo';
+  if(s.includes('lang')||s.includes('long'))return 'long';
+  if(s.includes('restitution')||s.includes('recovery'))return 'recovery';
+  if(s.includes('steady')||s.includes('cardio'))return 'steady';
+  if(s.includes('lavintensitet')||s.includes('samtale')||s.includes('gang'))return 'walk';
+  return 'easy';
+}
+
+// Beregn pace per km for en given uge + løbe-type (sekunder per km)
+function getPaceForRunType(wk,runType){
+  const racePace=getRacePaceForWeek(wk); // sek per km på race-pace
+  // Daniels/Pfitzinger pace-offsets fra current race pace:
+  const offsets={
+    recovery: 105,  // +105 sek/km (rolig samtale)
+    walk:     180,  // +180 sek/km (gå-tempo)
+    easy:      75,  // +75 sek/km (samtale-tempo)
+    long:      60,  // +60 sek/km (lang udholdenhed)
+    steady:    35,  // +35 sek/km (marathon-pace)
+    tempo:     12,  // +12 sek/km (laktat-tærskel)
+    interval: -10   // -10 sek/km (VO2max, 3-5 min effort)
+  };
+  return racePace+(offsets[runType]||0);
+}
+
+// Beregn varighed (i minutter) baseret på fase, type, og brugerens niveau
+function getDurationForRun(wk,runType){
+  const phase=getRunPhase(wk);
+  const tw=TW();
+  // Hvor langt vi er nået (0-1) for progression
+  const progress=wk/tw;
+  // Basisvarigheder per type (minutter) — skaleres med progression
+  const base={
+    recovery: 25,
+    walk:     35,
+    easy:     30,
+    long:     45,
+    steady:   30,
+    tempo:    25,
+    interval: 22  // typisk 5-8x intervaller
+  };
+  let dur=base[runType]||30;
+  // Volumen vokser med base-fase, plateauer i build/peak, falder i taper
+  let multiplier=1;
+  if(phase==='base'){multiplier=0.85+(progress*3)*0.30}      // 0.85 → 1.15
+  else if(phase==='build'){multiplier=1.15+((progress-0.33)*3)*0.15}  // 1.15 → 1.30
+  else if(phase==='peak'){multiplier=1.30}                    // hold
+  else if(phase==='taper'){multiplier=0.65}                   // 35% reduktion
+  // For long runs vokser de mere aggressivt op til peak
+  if(runType==='long'&&phase!=='taper'){
+    multiplier*=1+progress*0.4; // bliver gradvist længere
+  }
+  return Math.round(dur*multiplier);
+}
+
+// Beregn intervalløb-detaljer (antal x distance)
+function getIntervalStructure(wk){
+  const phase=getRunPhase(wk);
+  const tw=TW();
+  const progress=wk/tw;
+  // Begynd med 4×400m, byg op til 6×800m i peak
+  if(phase==='base')return {reps:4,dist:400,rest:90};
+  if(phase==='build'){
+    if(progress<0.5)return {reps:5,dist:400,rest:90};
+    return {reps:6,dist:400,rest:90};
+  }
+  if(phase==='peak'){
+    if(progress<0.85)return {reps:5,dist:600,rest:120};
+    return {reps:6,dist:800,rest:180};
+  }
+  // Taper — kort, skarp
+  return {reps:4,dist:400,rest:120};
+}
+
+// Beregn opvarmning for løbe-type (returner null hvis ingen behøves)
+function getWarmupForRunType(wk,runType){
+  if(runType!=='interval'&&runType!=='tempo')return null;
+  const phase=getRunPhase(wk);
+  const racePace=getRacePaceForWeek(wk);
+  // Warmup pace = easy pace (+75 sek/km)
+  const warmupPace=racePace+75;
+  // Varighed afhænger af type og fase
+  let dur;
+  if(runType==='interval'){
+    if(phase==='base')dur=10;
+    else if(phase==='build')dur=12;
+    else if(phase==='peak')dur=15;
+    else dur=10; // taper
+  }else{ // tempo
+    if(phase==='base')dur=8;
+    else dur=10;
+  }
+  // Strides ved interval-træning (springes over i taper for at undgå træthed)
+  let strides=null;
+  if(runType==='interval'&&phase!=='taper'){
+    let count=4;
+    if(phase==='base')count=3;     // begynd let
+    else if(phase==='build')count=4;
+    else if(phase==='peak')count=6;
+    strides={count,distance:30};
+  }
+  return {
+    dur,
+    pacePerKm:warmupPace,
+    pacePerKmFmt:fmtSec(warmupPace),
+    strides
+  };
+}
+
+// Beregn nedløb for løbe-type
+function getCooldownForRunType(wk,runType){
+  if(runType!=='interval'&&runType!=='tempo')return null;
+  const racePace=getRacePaceForWeek(wk);
+  // Cooldown pace = recovery pace (+105 sek/km, endnu lavere)
+  const cooldownPace=racePace+105;
+  let dur;
+  if(runType==='interval'){
+    const phase=getRunPhase(wk);
+    if(phase==='peak')dur=12;
+    else dur=10;
+  }else{ // tempo
+    dur=8;
+  }
+  return {
+    dur,
+    pacePerKm:cooldownPace,
+    pacePerKmFmt:fmtSec(cooldownPace)
+  };
+}
+
+// Hovedfunktion: returner komplet løbe-plan for en specifik uge + dag
+function getRunPlan(wk,dayRunDef){
+  const runType=classifyRunType(dayRunDef.type);
+  const pacePerKm=getPaceForRunType(wk,runType);
+  const dur=getDurationForRun(wk,runType);
+  const phase=getRunPhase(wk);
+  let format='dur';
+  let intervalsInfo=null;
+  if(runType==='interval'){
+    format='intervals';
+    intervalsInfo=getIntervalStructure(wk);
+  }
+  let paceDelta=0;
+  if(wk>1){
+    const prevPace=getPaceForRunType(wk-1,runType);
+    paceDelta=pacePerKm-prevPace;
+  }
+  // Opvarmning og nedløb (kun for interval og tempo)
+  const warmup=getWarmupForRunType(wk,runType);
+  const cooldown=getCooldownForRunType(wk,runType);
+  // Total varighed inkl warmup/cooldown
+  let totalDur=dur;
+  if(warmup)totalDur+=warmup.dur;
+  if(cooldown)totalDur+=cooldown.dur;
+  return {
+    type:runType,
+    typeLabel:dayRunDef.type,
+    pacePerKm,
+    pacePerKmFmt:fmtSec(pacePerKm),
+    dur,
+    durFmt:dur+' min',
+    totalDur,
+    warmup,
+    cooldown,
+    phase,
+    phaseLabel:{base:'Base-fase',build:'Build-fase',peak:'Peak-fase',taper:'Taper'}[phase],
+    format,
+    intervalsInfo,
+    paceDelta,
+    tip:dayRunDef.tip||'',
+    phaseContext:getPhaseContext(phase,runType)
+  };
+}
+
+// Forklarende tekst per fase + type
+function getPhaseContext(phase,runType){
+  const contexts={
+    'base-easy':'Byg base. Pace skal være så rolig at du kan tale i hele sætninger.',
+    'base-long':'Tid på fødderne > tempo. Det her bygger udholdenhed.',
+    'base-recovery':'Aktiv hvile. Lavere puls = bedre restitution til næste hårde session.',
+    'build-tempo':'Komfortabelt hårdt. Du kan kun sige 2-3 ord ad gangen.',
+    'build-steady':'Marathon-pace zone — solid fundament for hurtigere løb.',
+    'build-long':'Tilføj 5-10 min hver 2. uge. Brug det til at finde din rytme.',
+    'peak-interval':'Højeste intensitet. Det her gør dig hurtigere på alle distancer.',
+    'peak-tempo':'Lige ved din laktat-tærskel — kroppen lærer at klare længere på hard pace.',
+    'taper-easy':'Reducer volumen, behold intensitet. Du skal være frisk til race-day.',
+    'taper-interval':'Korte, skarpe — for at holde nervesystemet skarpt uden træthed.'
+  };
+  return contexts[phase+'-'+runType]||contexts[phase+'-easy']||'';
+}
+
+// Forklarende tekster for løbe-koncepter (info-knapper)
+const RUN_INFO={
+  warmup:{
+    title:'🔥 Opvarmning',
+    body:'<p><b>Hvorfor?</b> Kolde muskler præsterer dårligere og er mere skadestilbøjelige. Hjerte-kar-systemet skal også gradvist op i tempo for at intervaller og tempo-løb kan udføres på rette intensitet.</p><p><b>Hvordan?</b> Roligt løb hvor du nemt kan tale i hele sætninger. Pulsen skal stige gradvist over 10-15 minutter.</p><p><b>Hvor længe?</b> 10-15 min for VO2max-intervaller. 8-10 min for tempo-løb. Jo hårdere session, jo længere opvarmning.</p><p style="color:var(--mut);font-size:11px;margin-top:10px">📚 Daniels Running Formula, Pfitzinger Advanced Marathoning</p>'
+  },
+  strides:{
+    title:'⚡ Strides',
+    body:'<p><b>Hvad er det?</b> 30 meter accelerationer (IKKE sprint). Du starter roligt, accelererer gradvist, holder 90% fart i nogle sekunder, og bremser blødt af.</p><p><b>Hvorfor?</b> Vækker det neuromuskulære system, forbereder kroppen på hurtige bevægelser, og forbedrer løbe-økonomi. De skader ikke, men gør dig markant skarpere før intervaller.</p><p><b>Hvordan?</b> 4-6 stykker à 30m med fuld restitution mellem (gå/jog tilbage). De skal føles næsten "lette". Du må ikke være forpustet bagefter.</p><p><b>Hvornår?</b> Lige efter opvarmning, før hovedsessionen. Aldrig som hovedtræning.</p>'
+  },
+  cooldown:{
+    title:'💚 Nedløb',
+    body:'<p><b>Hvorfor?</b> Pulsen skal ikke stoppe brat — det stresser hjertet unødigt. Easy løb hjælper kroppen med at fjerne mælkesyre hurtigere og giver bedre restitution til næste session.</p><p><b>Hvordan?</b> Endnu roligere end opvarmning. Du skal kunne synge en sang uden problemer. Pulsen falder gradvist.</p><p><b>Hvor længe?</b> 8-15 min afhængigt af hvor hård sessionen var.</p><p><b>Effekt:</b> Studier viser at aktiv restitution efter intens træning forbedrer præstation 24-48 timer senere sammenlignet med at stoppe brat.</p>'
+  },
+  interval:{
+    title:'⚡ VO2max-intervaller',
+    body:'<p><b>Hvad?</b> Korte løb (400-800m typisk) på 90-95% af din maksimale puls med easy jog mellem. Det er den hårdeste type træning du laver.</p><p><b>Hvorfor?</b> Forbedrer VO2max — din krops evne til at bruge ilt. Det er den enkeltfaktor der gør dig hurtigere på 5k og 10k.</p><p><b>Hvor hårdt?</b> Du skal kunne lige akkurat tale 2-3 ord ad gangen. Hvis du kan tale i hele sætninger, løber du for langsomt. Hvis du ikke kan tale, for hurtigt.</p><p><b>Pause:</b> 90 sek easy jog mellem 400m-intervaller. 2-3 min mellem 800m. Pausen skal være længere end intervallet er kort.</p><p><b>Frekvens:</b> Max 1-2 gange per uge. Mere = overtræning.</p>'
+  },
+  rest:{
+    title:'⏸️ Pause mellem intervaller',
+    body:'<p><b>Hvad?</b> Tiden mellem dine hårde intervaller — også kaldet "rest interval" eller "recovery jog".</p><p><b>Skal jeg stoppe helt?</b> Nej. Easy jog er langt bedre end at stå stille. Det holder pulsen i et godt range og gør at næste interval ikke kommer for chokerende.</p><p><b>Hvor længe?</b><br>• 400m intervaller: <b>90 sek</b><br>• 600m intervaller: <b>2 min</b><br>• 800m intervaller: <b>2-3 min</b></p><p><b>Hvor hårdt?</b> Meget roligt — pulsen skal falde tilbage til ~70% af max. Hvis du stadig er forpustet når næste interval skal starte, har du holdt pause for kort eller løbet intervallet for hårdt.</p><p><b>Tip:</b> Sæt timer på din ur. Det fjerner gæt og gør sessionen meget mere effektiv.</p>'
+  },
+  tempo:{
+    title:'🔥 Tempo-løb (threshold)',
+    body:'<p><b>Hvad?</b> 20-30 min sammenhængende løb lige ved din mælkesyre-tærskel (laktat-threshold). Det er "komfortabelt hårdt".</p><p><b>Hvorfor?</b> Hæver tærsklen hvor mælkesyre begynder at ophobe sig. Resultat: du kan løbe hurtigere længere før du brænder ud.</p><p><b>Hvor hårdt?</b> Du kan kun sige 2-4 ord ad gangen. Ikke så hård at du må stoppe efter 5 min, men hård nok til at du må koncentrere dig.</p><p><b>Pace:</b> 10-15 sek/km langsommere end din 5k race-pace. For en 25 min 5k-løber: tempo ~5:15/km.</p><p><b>Frekvens:</b> 1 gang per uge er typisk perfekt.</p>'
+  },
+  easy:{
+    title:'🏃‍♀️ Easy run',
+    body:'<p><b>Hvad?</b> Roligt løb hvor du nemt kan tale i hele sætninger.</p><p><b>Hvorfor?</b> Bygger aerob base, forbedrer fedtforbrænding, styrker sener og ledbånd uden at stresse kroppen. 80% af alt løb bør være easy.</p><p><b>Pace:</b> 60-90 sek/km langsommere end din 5k race-pace.</p><p><b>Vigtigt:</b> De fleste hobby-løbere løber deres easy runs for hurtigt. Det er den enkeltste fejl der holder folk tilbage. Easy skal være EASY.</p>'
+  },
+  long:{
+    title:'🏃 Long run',
+    body:'<p><b>Hvad?</b> Den længste tur i ugen. Bygger udholdenhed og mental sejhed.</p><p><b>Hvorfor?</b> Det er her du udvikler din evne til at holde fart i længere tid. Også glykogen-lager, fedtforbrænding og kapillær-tæthed.</p><p><b>Pace:</b> 60-75 sek/km langsommere end 5k race-pace. Hvis du er i tvivl: TAG DET ROLIGT.</p><p><b>Progression:</b> Vokser med 5-10% per uge. Aldrig spring fra 8km til 15km — øg langsomt.</p>'
+  },
+  recovery:{
+    title:'💚 Restitutionsløb',
+    body:'<p><b>Hvad?</b> Meget roligt løb dagen efter en hård session.</p><p><b>Hvorfor?</b> Aktiv restitution hjælper kroppen med at fjerne affaldsstoffer og øge blodgennemstrømning til musklerne. Bedre end fuld hvile.</p><p><b>Pace:</b> 90-120 sek/km langsommere end race-pace. Det skal føles næsten pinligt langsomt.</p><p><b>Varighed:</b> 20-40 min er rigeligt. Mere = belastende, ikke restituerende.</p>'
+  },
+  steady:{
+    title:'🏃‍♀️ Steady run / Marathon pace',
+    body:'<p><b>Hvad?</b> Komfortabel men målrettet pace — den hastighed du kunne holde for en marathon.</p><p><b>Hvorfor?</b> Bygger udholdenhed på en hurtigere pace end easy. God forbedring af løbe-økonomi.</p><p><b>Pace:</b> 30-45 sek/km langsommere end 5k race-pace.</p><p><b>Hvor hårdt?</b> Du kan tale i korte sætninger uden problemer, men du må koncentrere dig.</p>'
+  },
+  walk:{
+    title:'🚶 Lavintensitets-gang',
+    body:'<p><b>Hvad?</b> Rask gang i samtale-tempo. Ikke løb, ikke nordic walking — bare en god, rask gåtur.</p><p><b>Hvorfor for PCOS?</b> Lavintensitets-cardio er den mest evidensbaserede intervention for insulinfølsomhed. Stresser ikke binyrerne (modsat HIIT som kan forværre kortisol-respons hos kvinder med PCOS).</p><p><b>Varighed:</b> Lange ture (45-90 min) er det "magiske" range for PCOS-fordel.</p><p><b>Tempo:</b> Du skal kunne tale i hele sætninger. Hvis du puster, er det for hårdt.</p>'
+  },
+  'phase-base':{
+    title:'🏗️ Base-fase',
+    body:'<p><b>Hvad?</b> Den første 30-35% af programmet. Fokus på easy løb og lange ture — lav intensitet, gradvis volumen-opbygning.</p><p><b>Hvorfor?</b> Forskning viser at den aerobe base er fundamentet for ALT andet. Uden den vil intervaller ikke give de samme resultater.</p><p><b>Hvad indgår?</b> Easy runs, long runs, evt. 4×400m korte intervaller for at vænne sig til hurtigere bevægelse — men ikke hovedfokus.</p><p><b>Føler du dig dårlig?</b> Hvis du føler det er "for let", så er det netop pointen. Easy skal være easy.</p>'
+  },
+  'phase-build':{
+    title:'⚙️ Build-fase',
+    body:'<p><b>Hvad?</b> Programmet bliver hårdere. Tempo-løb introduceres, intervaller bliver længere.</p><p><b>Hvorfor?</b> Kroppen er nu klar til mere intensitet. Det er her du begynder at se stor pace-forbedring.</p><p><b>Hvad indgår?</b> Tempo-løb (1 gang/uge), længere intervaller (5-6×400m), fortsat easy/long runs.</p><p><b>Vigtigt:</b> Lyt til kroppen. Bliver du forkølet eller meget træt, tag en deload-uge (-30% volumen).</p>'
+  },
+  'phase-peak':{
+    title:'🔥 Peak-fase',
+    body:'<p><b>Hvad?</b> Højeste belastning i programmet. VO2max-intervaller (5-6×600-800m) på toppen.</p><p><b>Hvorfor?</b> Det er her den finale finpudsning sker. Du er på din hårdeste sammenhængende træning.</p><p><b>Restitution er kritisk:</b> 7-9 timers søvn er ikke til diskussion. Spis godt, drik vand, undgå alkohol.</p><p><b>Advarsel:</b> Hvis du føler dig syg eller meget træt — tag en hviledag. Forskellen på peak-form og overtræning er tynd.</p>'
+  },
+  'phase-taper':{
+    title:'🎯 Taper',
+    body:'<p><b>Hvad?</b> De sidste 5-10% af programmet. Volumen falder 30-50%, men intensitet holdes.</p><p><b>Hvorfor?</b> Kroppen restituerer fra peak-fasen og super-kompenserer. Du bliver hurtigere ved at træne MINDRE i denne periode.</p><p><b>Almindelige fejl:</b> Folk panikker og træner mere i taper. Det er præcis det modsatte af hvad der virker. Tro på processen.</p><p><b>Hvad indgår?</b> Korte easy runs, måske 1 kort skarp interval-session. Mest restitution.</p>'
+  }
+};
+
+function openRunInfo(key){
+  const info=RUN_INFO[key];
+  if(!info)return;
+  const m=document.getElementById('modal');
+  m.innerHTML=`<div class="modal run-info-modal" onclick="event.stopPropagation()">
+    <div class="modal-grabber" style="position:sticky;top:0;background:var(--glass);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);padding:8px 20px 0;z-index:6;text-align:center"
+      ontouchstart="modalSwipeStart(event)" ontouchmove="modalSwipeMove(event)" ontouchend="modalSwipeEnd(event)">
+      <div style="width:40px;height:4px;background:var(--bdr);border-radius:2px;margin:0 auto 8px"></div>
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:6px 22px 14px;border-bottom:1px solid var(--bdr)">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:.5px">${info.title}</div>
+      <button onclick="closeModal()" style="background:var(--bg2);border:1px solid var(--bdr);color:var(--mut);font-size:18px;cursor:pointer;width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center">✕</button>
+    </div>
+    <div class="run-info-body">${info.body}</div>
+  </div>`;
+  m.classList.add('show');
 }
 
 // Kropsdata: vægt, fedtprocent, foto per uge
@@ -2407,15 +2797,110 @@ function rWeekly(){
       </div>`;
 
     }else if(d.run){
+      // ─── EVIDENSBASERET LØBEPLAN ───
       h+=wpickH();
-      // Personlig distance + mål sektion (kun for løbe-programmer der har needsRunTime)
-      const tpl=TEMPLATES[PROG.template||'recomp'];
-      if(tpl?.needsRunTime){
+      const plan=getRunPlan(week,d.run);
+      const phaseColors={base:'#0a84ff',build:'#ffd60a',peak:'#ff453a',taper:'#30d158'};
+      const phaseColor=phaseColors[plan.phase];
+      const tpl2=TEMPLATES[PROG.template||'recomp'];
+      const hasGoal=tpl2?.needsRunTime;
+
+      // Fase-banner øverst
+      h+=`<div class="run-phase-banner" style="--pc:${phaseColor}">
+        <div class="rpb-icon">${plan.phase==='base'?'🏗️':plan.phase==='build'?'⚙️':plan.phase==='peak'?'🔥':'🎯'}</div>
+        <div class="rpb-text">
+          <div class="rpb-eyebrow">// Fase · uge ${week}/${TW()}</div>
+          <div class="rpb-title">${plan.phaseLabel} <button class="run-info-btn" onclick="openRunInfo('phase-${plan.phase}')" aria-label="Forklaring om fase">i</button></div>
+          <div class="rpb-sub">${plan.phaseContext}</div>
+        </div>
+      </div>`;
+
+      // Hoved-prescriptionskort
+      h+=`<div class="run-prescription" style="--rc:${d.color}">
+        <div class="rp-header">
+          <span class="rp-type-emoji">${plan.type==='interval'?'⚡':plan.type==='tempo'?'🔥':plan.type==='long'?'🏃':plan.type==='recovery'?'💚':plan.type==='walk'?'🚶':'🏃‍♀️'}</span>
+          <div>
+            <div class="rp-type">${plan.typeLabel}</div>
+            <div class="rp-type-cat">${{
+              easy:'Easy run · 60-70% HRmax',
+              long:'Long run · 65-75% HRmax',
+              recovery:'Recovery · 60-65% HRmax',
+              steady:'Steady · 75-82% HRmax',
+              tempo:'Threshold · 82-87% HRmax',
+              interval:'VO2max · 90-95% HRmax',
+              walk:'Walking · 55-65% HRmax'
+            }[plan.type]||''}</div>
+          </div>
+        </div>
+
+        ${(plan.warmup||plan.cooldown)?`
+          <div class="rp-blocks">
+            ${plan.warmup?`<div class="rp-block warmup">
+              <div class="rp-block-num">1</div>
+              <div class="rp-block-content">
+                <div class="rp-block-title">🔥 OPVARMNING <button class="run-info-btn" onclick="openRunInfo('warmup')" aria-label="Forklaring om opvarmning">i</button></div>
+                <div class="rp-block-detail">Easy løb @ ${plan.warmup.pacePerKmFmt}/km · <b>${plan.warmup.dur} min</b></div>
+                ${plan.warmup.strides?`<div class="rp-block-extra">+ ${plan.warmup.strides.count} strides à ${plan.warmup.strides.distance}m <button class="run-info-btn small" onclick="openRunInfo('strides')" aria-label="Hvad er strides?">i</button></div>`:''}
+              </div>
+            </div>`:''}
+            <div class="rp-block main">
+              <div class="rp-block-num">${plan.warmup?'2':'1'}</div>
+              <div class="rp-block-content">
+                <div class="rp-block-title">${plan.type==='interval'?'⚡ INTERVALLER':'🎯 HOVED-SESSION'} <button class="run-info-btn" onclick="openRunInfo('${plan.type}')" aria-label="Forklaring">i</button></div>
+                <div class="rp-block-detail">${plan.format==='intervals'?
+                  `<b>${plan.intervalsInfo.reps}×${plan.intervalsInfo.dist}m</b> @ ${plan.pacePerKmFmt}/km`:
+                  `<b>${plan.dur} min</b> @ ${plan.pacePerKmFmt}/km`}</div>
+                ${plan.format==='intervals'?`<div class="interval-rest-card">
+                  <div class="irc-row">
+                    <span class="irc-icon">⏸️</span>
+                    <div class="irc-text">
+                      <div class="irc-label">PAUSE MELLEM INTERVALLER</div>
+                      <div class="irc-value"><b>${plan.intervalsInfo.rest} sek</b> · easy jog (ikke stop)</div>
+                    </div>
+                    <button class="run-info-btn" onclick="openRunInfo('rest')" aria-label="Hvorfor pause?">i</button>
+                  </div>
+                </div>`:''}
+                ${plan.paceDelta!==0?`<div class="rp-delta ${plan.paceDelta<0?'down':'up'}" style="margin-top:6px">${plan.paceDelta<0?'−':'+'}${Math.abs(plan.paceDelta)} sek/km fra sidste uge</div>`:''}
+              </div>
+            </div>
+            ${plan.cooldown?`<div class="rp-block cooldown">
+              <div class="rp-block-num">${plan.warmup?'3':'2'}</div>
+              <div class="rp-block-content">
+                <div class="rp-block-title">💚 NEDLØB <button class="run-info-btn" onclick="openRunInfo('cooldown')" aria-label="Forklaring om nedløb">i</button></div>
+                <div class="rp-block-detail">Easy løb @ ${plan.cooldown.pacePerKmFmt}/km · <b>${plan.cooldown.dur} min</b></div>
+                <div class="rp-block-extra">Lad pulsen gradvist falde — det her hjælper restitution</div>
+              </div>
+            </div>`:''}
+          </div>
+          <div class="rp-total">⏱️ Total: <b>~${plan.totalDur} min</b></div>
+        `:`
+          <div class="rp-targets">
+            <div class="rp-target">
+              <div class="rp-label">Mål-pace <button class="run-info-btn" onclick="openRunInfo('${plan.type}')" aria-label="Forklaring">i</button></div>
+              <div class="rp-value">${plan.pacePerKmFmt} /km</div>
+              ${plan.paceDelta!==0?`<div class="rp-delta ${plan.paceDelta<0?'down':'up'}">${plan.paceDelta<0?'−':'+'}${Math.abs(plan.paceDelta)} sek/km fra sidste uge</div>`:''}
+            </div>
+            <div class="rp-target">
+              <div class="rp-label">Varighed</div>
+              <div class="rp-value">${plan.dur} min</div>
+              <div class="rp-extra">~${Math.round((plan.dur*60)/plan.pacePerKm*10)/10} km</div>
+            </div>
+          </div>
+        `}
+
+        ${plan.tip?`<div class="rp-tip" style="background:${d.color}12;border:1px solid ${d.color}30;color:${d.color}">💡 ${plan.tip}</div>`:''}
+      </div>`;
+
+      // Mål-kort hvis programmet er race-orienteret
+      if(hasGoal){
         const dist=PROG.runDistance||5;
         const startSec=PROG.start5kSec||2100;
         const startMin=Math.floor(startSec/60),startSecRem=startSec%60;
+        const goalSec=goal5kSec();
+        const weeksRemaining=TW()-week+1;
+        const improvementPct=Math.round((1-goalSec/startSec)*100*10)/10;
         h+=`<div class="run-goal-card">
-          <div class="rgc-title">🎯 Mit løbe-mål</div>
+          <div class="rgc-title">🎯 Mit ${dist} km mål</div>
           <div class="rgc-row">
             <div class="rgc-field">
               <label>📏 Distance</label>
@@ -2435,19 +2920,14 @@ function rWeekly(){
           <div class="rgc-result" id="runGoalDisplay">
             <span class="rgc-arrow">→</span>
             <div>
-              <div class="rgc-goal-label">MÅL EFTER ${TW()} UGER</div>
-              <div class="rgc-goal-time" style="color:${d.color}">&lt;${fmtSec(goal5kSec())}</div>
-              <div class="rgc-goal-pace">~${fmtSec(Math.round(goal5kSec()/dist))} /km</div>
+              <div class="rgc-goal-label">SLUTMÅL · ${TW()} UGER (~${improvementPct}% hurtigere)</div>
+              <div class="rgc-goal-time" style="color:${d.color}">&lt;${fmtSec(goalSec)}</div>
+              <div class="rgc-goal-pace">${fmtSec(Math.round(goalSec/dist))} /km · ${weeksRemaining} uger tilbage</div>
             </div>
           </div>
         </div>`;
       }
-      h+=`<div class="rungrid">
-        <div class="rcard"><label>Type</label><div class="rval" style="color:${d.color}">${d.run.type}</div></div>
-        <div class="rcard"><label>Mål pace</label><div class="rval" style="color:${d.color}">${d.run.pace}</div></div>
-        <div class="rcard"><label>Varighed</label><div class="rval" style="color:${d.color}">${d.run.dur}</div></div>
-        <div class="rtip" style="background:${d.color}10;border:1px solid ${d.color}25;color:${d.color}cc">💡 ${d.run.tip}</div>
-      </div>`;
+
       const rf=[{k:'tid',label:'Tid (min:sek)',ph:'28:30'},{k:'pace',label:'Faktisk pace (min/km)',ph:'5:42'},{k:'km',label:'Distance (km)',ph:'5.2'}];
       h+=`<div class="runlog">
         <div class="runlog-head" style="background:${d.color}15;border-bottom:1px solid ${d.color}25">
@@ -2572,7 +3052,14 @@ function rTodayBanner(){
   const exs=dayEx(d);
   let summary='';
   if(d.run){
-    summary=`${d.run.dur} @ ${d.run.pace} · ${d.run.type}`;
+    const plan=getRunPlan(cw,d.run);
+    if(plan.format==='intervals'){
+      summary=`${plan.intervalsInfo.reps}×${plan.intervalsInfo.dist}m @ ${plan.pacePerKmFmt}/km · ~${plan.totalDur} min total`;
+    }else if(plan.warmup||plan.cooldown){
+      summary=`${plan.dur} min tempo @ ${plan.pacePerKmFmt}/km · ~${plan.totalDur} min total`;
+    }else{
+      summary=`${plan.dur} min @ ${plan.pacePerKmFmt}/km · ${plan.typeLabel}`;
+    }
   }else if(exs){
     const compounds=exs.filter(e=>!e.core).slice(0,3).map(e=>e.n).join(', ');
     summary=`${exs.filter(e=>!e.core).length} øvelser · ${compounds}${exs.filter(e=>!e.core).length>3?'…':''}`;
