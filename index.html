@@ -38,16 +38,23 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
   padding:calc(var(--st) + 16px) 20px 16px;flex-shrink:0;position:relative;z-index:10;
   background:var(--glass);-webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px);
   border-bottom:1px solid rgba(255,255,255,.08);
+  transition:padding .3s var(--ease);
 }
 #hdr::before{content:'';position:absolute;top:-60px;right:-30px;width:200px;height:200px;background:radial-gradient(circle,rgba(255,214,10,.08) 0%,transparent 65%);pointer-events:none}
-.hdr-eyebrow{font-size:10px;letter-spacing:3px;color:var(--acc);font-family:'DM Mono',monospace;margin-bottom:4px;opacity:.7;text-transform:uppercase}
-#hdr h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(34px,9vw,54px);letter-spacing:1px;line-height:.92;background:linear-gradient(145deg,#ffffff 30%,var(--acc) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.hdr-stats{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}
+.hdr-eyebrow{font-size:10px;letter-spacing:3px;color:var(--acc);font-family:'DM Mono',monospace;margin-bottom:4px;opacity:.7;text-transform:uppercase;transition:all .3s var(--ease);max-height:20px;overflow:hidden}
+#hdr h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(34px,9vw,54px);letter-spacing:1px;line-height:.92;background:linear-gradient(145deg,#ffffff 30%,var(--acc) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;transition:font-size .3s var(--ease)}
+.hdr-stats{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap;transition:all .3s var(--ease);max-height:60px;overflow:hidden;opacity:1}
 .hdr-stat{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);border-radius:100px;padding:6px 14px;display:flex;align-items:center;gap:7px;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);transition:transform .15s var(--ease),background .15s}
 .hdr-stat:active{transform:scale(.94);background:rgba(255,214,10,.12)}
 .hdr-stat-dot{width:6px;height:6px;border-radius:50%;background:var(--acc);flex-shrink:0}
 .hdr-stat label{font-size:10px;color:var(--mut);letter-spacing:.5px;text-transform:uppercase;font-weight:500}
 .hdr-stat b{font-size:12px;font-weight:600;color:var(--acc);font-family:'DM Mono',monospace}
+
+/* Kompakt header ved scroll */
+#hdr.compact{padding-top:calc(var(--st) + 10px);padding-bottom:10px}
+#hdr.compact .hdr-eyebrow{max-height:0;margin-bottom:0;opacity:0}
+#hdr.compact h1{font-size:24px;line-height:1}
+#hdr.compact .hdr-stats{max-height:0;margin-top:0;opacity:0}
 
 /* ══ TABS (iOS bottom bar) ══ */
 #tabs{position:fixed;bottom:0;left:0;right:0;z-index:100;background:var(--glass);-webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px);border-top:1px solid rgba(255,255,255,.08);display:flex;justify-content:space-around;padding:6px 4px calc(var(--sb) + 4px);box-shadow:var(--shadow-up)}
@@ -92,7 +99,9 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 
 /* ══ EXERCISE TABLE ══ */
 .ex-hd{display:none}
-.exrow{background:var(--bg1);border:1px solid var(--bdr);border-radius:var(--r2);padding:14px;margin-bottom:10px;position:relative;transition:all .15s;display:flex;flex-direction:column;gap:10px}
+.exrow{background:var(--bg1);border:1px solid var(--bdr);border-radius:var(--r2);padding:16px;margin-bottom:12px;position:relative;transition:all .15s;display:flex;flex-direction:column;gap:10px;box-shadow:0 1px 3px rgba(0,0,0,.2)}
+.exrow:active{border-color:var(--bdr2)}
+.exrow.has-sets{box-shadow:0 2px 8px rgba(0,0,0,.25)}
 .exrow.core{border-left:3px solid var(--acc)}
 .exrow.core::before{display:none}
 .exrow.cust{border-left:3px solid var(--pur)}
@@ -189,7 +198,8 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .wpick{display:flex;gap:6px;align-items:center;margin-bottom:16px;flex-wrap:wrap}
 .wpick label{font-size:9px;color:var(--mut);letter-spacing:2px;font-family:'DM Mono',monospace;text-transform:uppercase}
 .wb{padding:7px 12px;border-radius:100px;border:1.5px solid var(--bdr);background:var(--bg2);color:var(--mut);font-family:'DM Mono',monospace;font-size:12px;font-weight:500;cursor:pointer;transition:all .2s var(--ease);min-width:36px;min-height:36px;display:flex;align-items:center;justify-content:center}
-.wb-toggle{padding:7px 12px;border-radius:100px;border:1px dashed var(--bdr);background:transparent;color:var(--mut2);font-family:'DM Mono',monospace;font-size:10px;font-weight:600;letter-spacing:.5px;cursor:pointer;min-height:36px;display:flex;align-items:center;justify-content:center;gap:4px;transition:all .15s var(--ease)}
+.wb-toggle{padding:8px 16px;border-radius:100px;border:1.5px solid var(--bdr);background:var(--bg2);color:var(--acc);font-family:'DM Mono',monospace;font-size:11px;font-weight:600;letter-spacing:.5px;cursor:pointer;min-height:38px;display:flex;align-items:center;justify-content:center;gap:5px;transition:all .15s var(--ease)}
+.wb-toggle:active{transform:scale(.95);background:rgba(255,214,10,.12);border-color:var(--acc)}
 .wb-toggle:active{transform:scale(.95);color:var(--acc);border-color:var(--acc)}
 
 /* Kg-summary (klikbar - kan folde sæt sammen) */
@@ -399,10 +409,23 @@ input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-
 .prog-setup-title{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:.5px;margin-bottom:8px}
 .prog-setup-sub{font-size:12px;color:var(--mut);line-height:1.7;margin-bottom:16px}
 .prog-setup .btn-row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:12px}
-.prog-btn{background:var(--acc);color:#000;border:none;font-family:'DM Mono',monospace;font-size:11px;font-weight:700;letter-spacing:1.5px;padding:12px 20px;border-radius:100px;cursor:pointer;text-transform:uppercase;transition:transform .15s var(--spring);min-height:44px}
-.prog-btn:active{transform:scale(.95)}
-.prog-btn.ghost{background:transparent;color:var(--mut);border:1.5px solid var(--bdr)}
+.prog-btn{background:linear-gradient(180deg,var(--acc) 0%,var(--acc2) 100%);color:#000;border:none;font-family:'DM Mono',monospace;font-size:11px;font-weight:700;letter-spacing:1.5px;padding:14px 20px;border-radius:100px;cursor:pointer;text-transform:uppercase;transition:transform .15s var(--spring),box-shadow .15s;min-height:48px;box-shadow:0 4px 16px rgba(255,214,10,.25),inset 0 1px 0 rgba(255,255,255,.3)}
+.prog-btn:active{transform:scale(.95);box-shadow:0 2px 8px rgba(255,214,10,.2)}
+.prog-btn.ghost{background:var(--bg2);color:var(--txt);border:1.5px solid var(--bdr);box-shadow:none}
+.prog-btn.ghost:active{background:var(--bg3);border-color:var(--mut)}
 .prog-btn.ghost:hover{color:var(--txt);border-color:var(--mut)}
+
+/* Fyld-alle-sæt knap (sparer klik) */
+.fill-all-btn{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;margin-top:10px;padding:11px;background:rgba(48,209,88,.1);border:1.5px dashed rgba(48,209,88,.4);border-radius:var(--r2);color:var(--grn);font-family:'DM Mono',monospace;font-size:11px;font-weight:600;letter-spacing:.5px;cursor:pointer;transition:all .15s var(--ease);min-height:44px}
+.fill-all-btn:active{transform:scale(.97);background:rgba(48,209,88,.18)}
+
+/* ══ EXERCISE ACTION BAR (tydeligere knapper) ══ */
+.ex-actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px;padding-top:12px;border-top:1px solid var(--bdr)}
+.ex-act{display:inline-flex;align-items:center;gap:4px;padding:7px 12px;background:var(--bg2);border:1px solid var(--bdr);border-radius:100px;color:var(--mut);font-family:'DM Mono',monospace;font-size:10px;font-weight:600;letter-spacing:.3px;cursor:pointer;transition:all .15s var(--ease);min-height:36px}
+.ex-act:active{transform:scale(.94)}
+.ex-act.on{background:rgba(255,214,10,.12);border-color:rgba(255,214,10,.4);color:var(--acc)}
+.ex-act.danger{color:var(--red);border-color:rgba(255,69,58,.25)}
+.ex-act.danger:active{background:rgba(255,69,58,.12)}
 .prog-date-input{background:var(--bg);border:1.5px solid var(--bdr);color:var(--txt);font-family:'DM Mono',monospace;font-size:14px;padding:10px 14px;border-radius:var(--r2);outline:none;text-align:center;margin:10px 0}
 .prog-date-input:focus{border-color:var(--acc);box-shadow:0 0 0 3px rgba(255,214,10,.1)}
 .prog-done{background:linear-gradient(150deg,rgba(255,69,58,.06) 0%,rgba(255,214,10,.08) 50%,rgba(48,209,88,.06) 100%);border:1px solid rgba(255,214,10,.2);border-radius:var(--r);padding:24px 20px;margin-bottom:16px;text-align:center;position:relative;overflow:hidden;box-shadow:var(--shadow)}
@@ -2405,12 +2428,8 @@ function renderHistoryStrip(day,name,exDef){
   if(cw<2)return '';
   // Detekter type
   const isCore=exDef.core;
-  const repsKeywords=['crunch','raise','twist','sit-up','sit up','rollout','bird dog','wheel'];
-  const nm=name.toLowerCase();
-  const isReps=isCore&&(exDef.unit==='reps'||(!exDef.unit&&repsKeywords.some(k=>nm.includes(k))));
-  const isTimeBased=isCore&&!isReps;
-  // For tid-baserede: vis sæt-completion historik
-  if(isTimeBased){
+  // For ALLE core-øvelser: vis sæt-completion historik (afkryds-baseret)
+  if(isCore){
     const numSets=parseInt(exDef.numSets)||3;
     const history=[];
     for(let w=cw-1;w>=1&&history.length<3;w--){
@@ -2429,7 +2448,6 @@ function renderHistoryStrip(day,name,exDef){
       const isFull=item.done===item.total;
       h+=`<div class="hist-cell${isLast?' latest':''}"><div class="hist-w">U${item.week}</div><div class="hist-v" style="color:${isFull?'var(--grn)':'var(--txt)'}">${item.done}/${item.total}</div></div>`;
     });
-    // Suggestion: hvis sidste ikke var fuld, opfordr til alle
     const last=history[history.length-1];
     if(last.done<last.total){
       h+=`<span class="hist-suggest">→ Tag alle ${last.total} i denne uge</span>`;
@@ -2485,6 +2503,10 @@ function renderHistoryStrip(day,name,exDef){
 function renderSetInputs(w,day,name,numSets){
   const val=gw(w,day,name);
   const arr=parseW(val);
+  const firstVal=arr.length>0&&arr[0]>0?arr[0]:null;
+  // Tjek om sættene er forskellige (så "fyld alle" giver mening)
+  const filledCount=arr.filter(v=>v>0).length;
+  const showFillAll=firstVal!==null&&filledCount<numSets;
   let h=`<div class="set-expand"><div class="set-row">`;
   for(let s=0;s<numSets;s++){
     const rawV=s<arr.length?arr[s]:0;
@@ -2496,8 +2518,22 @@ function renderSetInputs(w,day,name,numSets){
         onfocus="this.select()">
     </div>`;
   }
-  h+=`</div></div>`;
+  h+=`</div>`;
+  if(showFillAll){
+    h+=`<button class="fill-all-btn" onclick="fillAllSets(${w},'${escAttr(day)}','${escAttr(name)}',${numSets},${firstVal})">
+      ⤵ Brug ${firstVal} kg på alle ${numSets} sæt
+    </button>`;
+  }
+  h+=`</div>`;
   return h;
+}
+
+function fillAllSets(w,day,name,numSets,val){
+  const arr=Array(numSets).fill(val);
+  sw(w,day,name,arr.join(','));
+  checkAndCelebratePR(day,name,arr.join(','));
+  toast('✓ '+val+' kg på alle sæt');
+  render();
 }
 function wchSet(w,day,name,idx,numSets,val){
   const current=gw(w,day,name);
@@ -2617,6 +2653,26 @@ function toggleWpick(){
   render();
 }
 
+// Dato-label til detalje-header i "Kun i dag" mode (erstatter banneret)
+function dayContextLabel(dayIdx){
+  const realToday=todayDayIdx();
+  const d=D[dayIdx];
+  const cw=currentWeek();
+  const isToday=dayIdx===realToday;
+  let dateLabel='';
+  if(PROG.startDate){
+    const start=new Date(PROG.startDate);
+    const startDayIdx=(start.getDay()+6)%7;
+    const daysDiff=(cw-1)*7+(dayIdx-startDayIdx);
+    const targetDate=new Date(start);
+    targetDate.setDate(start.getDate()+daysDiff);
+    dateLabel=targetDate.toLocaleDateString('da-DK',{weekday:'long',day:'numeric',month:'long'});
+  }else{
+    dateLabel=d.full;
+  }
+  return (isToday?'I dag · ':'')+dateLabel;
+}
+
 /* ── WEEKLY ── */
 function rWeekly(){
   let h='';
@@ -2649,7 +2705,12 @@ function rWeekly(){
     if(PROG.flexMode){
       h+=rFlexBanner();
     }else{
-      h+=rTodayBanner();
+      // I "Kun i dag" mode er banner overflødigt — detaljen vises alligevel.
+      // Vis kun banner i "Hele ugen" mode (hvor detalje ikke auto-åbnes).
+      const willShowDetailForToday=PROG.viewMode!=='full'&&PROG.startDate&&!isProgramDone();
+      if(!willShowDetailForToday){
+        h+=rTodayBanner();
+      }
     }
   }
 
@@ -2695,7 +2756,7 @@ function rWeekly(){
       <div class="det-head">
         <div class="det-icon">${d.icon}</div>
         <div>
-          <div class="det-sub">${d.full}</div>
+          <div class="det-sub">${hideDayGrid?dayContextLabel(sel):d.full}</div>
           <div class="det-title">${d.type}</div>
         </div>
         <div class="badge" style="background:${d.color}22;color:${d.color};border:1px solid ${d.color}44">${d.label}</div>
@@ -2727,22 +2788,25 @@ function rWeekly(){
         const displayVal=summaryW(v)||'';
         const mainVal=maxW(v);
         const inSS=isInSuperset(d.full,exIdx);
-        const ssTag=inSS?'<span class="ss-tag">SS</span>':'';
         const showPR=!e.core&&isPR(d.full,e.n,week)&&mainVal>0;
         const prBadge=showPR?'<span class="pr-badge">🏆 PR</span>':'';
-        const ssBtn=!e.core?`<button class="ss-btn${inSS?' on':''}" onclick="toggleSuperset('${escAttr(d.full)}',${exIdx})" title="${inSS?'Fjern superset':'Markér som superset'}">${inSS?'×SS':'+SS'}</button>`:'';
-        const swapBtn=!e.custom&&!e.core?`<button class="swap-btn${e.swapped?' on':''}" onclick="openSwapModal('${escAttr(d.full)}','${escAttr(e.originalName||e.n)}')" title="${e.swapped?'Erstattet — tap for at ændre':'Erstat med alternativ'}">${e.swapped?'⇆':'⇆'}</button>`:'';
         const swapTag=e.swapped?'<span class="swap-tag">ERSTATTET</span>':'';
         const noteKey=d.full+'__'+e.n;
         const hasNote=!!getExerciseNote(week,d.full,e.n);
         const noteOpen=selExRow==='note__'+noteKey;
-        const noteBtn=`<button class="note-btn${hasNote?' has':''}" onclick="toggleNote('${escAttr(noteKey)}')" title="Note">${hasNote?'📝':'✎'}</button>`;
         const est1rm=!e.core?estimateExercise1RM(week,d.full,e.n,e):null;
         const rmDisplay=est1rm?`<div class="est-1rm">est. 1RM: <b>${est1rm} kg</b></div>`:'';
+        // Handlings-knapper samlet i tydelig bar
+        const actionBar=`<div class="ex-actions">
+          ${!e.core?`<button class="ex-act${inSS?' on':''}" onclick="toggleSuperset('${escAttr(d.full)}',${exIdx})">${inSS?'✓ Superset':'+ Superset'}</button>`:''}
+          ${!e.custom&&!e.core?`<button class="ex-act${e.swapped?' on':''}" onclick="openSwapModal('${escAttr(d.full)}','${escAttr(e.originalName||e.n)}')">⇆ Skift</button>`:''}
+          <button class="ex-act${hasNote?' on':''}" onclick="toggleNote('${escAttr(noteKey)}')">${hasNote?'📝 Note':'✎ Note'}</button>
+          ${isCust?`<button class="ex-act danger" onclick="removeCustomEx('${escAttr(d.full)}','${escAttr(e.n)}')">🗑 Fjern</button>`:''}
+        </div>`;
         h+=`<div class="exrow${cls?' '+cls:''}${showSetInputs?' has-sets':''}">
           <div class="exrow-top">
             <div>
-              <div class="exn">${e.n}${custTag}${swapTag}${ssTag}${prBadge}${ssBtn}${swapBtn}${noteBtn}${rmBtn}</div>
+              <div class="exn">${e.n}${custTag}${swapTag}${prBadge}</div>
               ${e.swapped?`<div class="exno" style="color:var(--mut2)">⇆ Erstatter "${escHtml(e.originalName)}"</div>`:''}
               ${e.no?`<div class="exno">${e.no}</div>`:''}
             </div>
@@ -2753,19 +2817,10 @@ function rWeekly(){
             <span><b>${sr.r}</b> reps</span>
             ${(()=>{
               if(e.core){
-                const repsKeywords=['crunch','raise','twist','sit-up','sit up','rollout','bird dog','wheel'];
-                const nm=e.n.toLowerCase();
-                const isReps=e.unit==='reps'||(!e.unit&&repsKeywords.some(k=>nm.includes(k)));
-                if(!isReps){
-                  // Tid-baseret: vis x/y sæt gennemført
-                  const done=countCompletedSets(gw(week,d.full,e.n),numSets);
-                  if(done===0)return '<span class="meta-max" style="color:var(--mut2);opacity:.6">— 0/'+numSets+' sæt</span>';
-                  if(done===numSets)return '<span class="meta-max" style="color:var(--grn)">✓ '+done+'/'+numSets+' sæt</span>';
-                  return '<span class="meta-max">'+done+'/'+numSets+' sæt</span>';
-                }
-                // Reps-baseret: vis max
-                if(!mainVal||isNaN(mainVal)||mainVal<=0)return '<span class="meta-max" style="color:var(--mut2);opacity:.6">— ikke logget</span>';
-                return '<span class=\"meta-max\">'+mainVal+' reps</span>';
+                const done=countCompletedSets(gw(week,d.full,e.n),numSets);
+                if(done===0)return '<span class="meta-max" style="color:var(--mut2);opacity:.6">— 0/'+numSets+' sæt</span>';
+                if(done===numSets)return '<span class="meta-max" style="color:var(--grn)">✓ '+done+'/'+numSets+' sæt</span>';
+                return '<span class="meta-max">'+done+'/'+numSets+' sæt</span>';
               }
               if(!mainVal||isNaN(mainVal)||mainVal<=0)return '<span class="meta-max" style="color:var(--mut2);opacity:.6">— ikke logget</span>';
               return '<span class=\"meta-max\">max '+mainVal+' kg</span>';
@@ -2774,19 +2829,10 @@ function rWeekly(){
           </div>
           ${week>=2?renderHistoryStrip(d.full,e.originalName||e.n,e):''}
           ${rmDisplay||''}
-          ${e.core?(()=>{
-            const repsKeywords=['crunch','raise','twist','sit-up','sit up','rollout','bird dog','wheel'];
-            const nm=e.n.toLowerCase();
-            const isReps=e.unit==='reps'||(!e.unit&&repsKeywords.some(k=>nm.includes(k)));
-            if(!isReps){
-              // Tid-baseret core → render sæt-checkmark cirkler
-              return renderCoreCheckmarks(week,d.full,e.n,numSets);
-            }
-            // Reps-baseret core → behold input
-            return '<div class=\"core-input-wrap\"><input class=\"wi\" type=\"number\" inputmode=\"numeric\" placeholder=\"0\" min=\"0\" step=\"1\" value=\"'+(!isNaN(mainVal)&&mainVal>0?mainVal:'')+'\" data-w=\"'+week+'\" data-d=\"'+escAttr(d.full)+'\" data-n=\"'+escAttr(e.n)+'\" data-sets=\"1\" data-t=\"'+(e.k||'x')+'\" data-idx=\"'+exIdx+'\" onchange=\"wchAll(this)\" onfocus=\"this.select()\"><span class=\"core-input-unit\">antal</span></div>';
-          })():''}
+          ${e.core?renderCoreCheckmarks(week,d.full,e.n,numSets):''}
           ${showSetInputs?renderSetInputs(week,d.full,e.n,numSets):''}
           ${noteOpen?renderNotePopup(week,d.full,e.n):''}
+          ${actionBar}
         </div>`;
       });
       h+=`<div class="tip">💡 <b>Pause:</b> 2–3 min styrke &nbsp;·&nbsp; 60–90 sek isolation &nbsp;·&nbsp; 1–2 reps fra failure</div>`;
@@ -2891,7 +2937,8 @@ function rWeekly(){
         ${plan.tip?`<div class="rp-tip" style="background:${d.color}12;border:1px solid ${d.color}30;color:${d.color}">💡 ${plan.tip}</div>`:''}
       </div>`;
 
-      // Mål-kort hvis programmet er race-orienteret
+      // Mål-kort bygges til variabel — placeres EFTER log (indtastning er vigtigst)
+      let goalCard='';
       if(hasGoal){
         const dist=PROG.runDistance||5;
         const startSec=PROG.start5kSec||2100;
@@ -2899,7 +2946,7 @@ function rWeekly(){
         const goalSec=goal5kSec();
         const weeksRemaining=TW()-week+1;
         const improvementPct=Math.round((1-goalSec/startSec)*100*10)/10;
-        h+=`<div class="run-goal-card">
+        goalCard=`<div class="run-goal-card">
           <div class="rgc-title">🎯 Mit ${dist} km mål</div>
           <div class="rgc-row">
             <div class="rgc-field">
@@ -2953,6 +3000,8 @@ function rWeekly(){
           data-w="${week}" data-d="${d.full}" data-n="note"
           onchange="wch(this)">${escHtml(note)}</textarea>
       </div></div>`;
+      // Mål-kort placeres HER — efter loggen (sekundær reference)
+      h+=goalCard;
       h+=renderPaceCalc();
       h+=`<div style="margin-top:12px;text-align:center">
         <button class="ai-btn quick-coach" onclick="askCoachAboutToday('${escAttr(d.full)}')">💬 Spørg coachen om dagens løb</button>
@@ -6866,6 +6915,25 @@ render();
 if(!PROG.introSeen){
   setTimeout(showIntro,100);
 }
+
+// Kompakt header når man scroller i indhold
+(function(){
+  const cnt=document.getElementById('cnt');
+  const hdr=document.getElementById('hdr');
+  if(cnt&&hdr){
+    let ticking=false;
+    cnt.addEventListener('scroll',()=>{
+      if(!ticking){
+        requestAnimationFrame(()=>{
+          if(cnt.scrollTop>40)hdr.classList.add('compact');
+          else hdr.classList.remove('compact');
+          ticking=false;
+        });
+        ticking=true;
+      }
+    },{passive:true});
+  }
+})();
 
 // Auto-opdater til ny uge når app kommer i forgrunden (efter pause)
 document.addEventListener('visibilitychange',()=>{
