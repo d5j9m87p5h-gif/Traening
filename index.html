@@ -874,12 +874,28 @@ input[type=file]{display:none}
 
 /* ══ VIEW MODE TOGGLE (Hele ugen vs Kun i dag) ══ */
 .view-toggle{display:flex;gap:0;background:var(--bg2);border:1px solid var(--bdr);border-radius:100px;padding:3px;margin-bottom:18px;width:fit-content;margin-left:auto;margin-right:auto}
+
+/* Hop til i dag-knap (når man ser anden dag) */
+.today-jump-wrap{display:flex;justify-content:center;margin-bottom:14px}
+.today-jump{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;background:var(--bg2);border:1.5px solid var(--bdr);border-radius:100px;color:var(--acc);font-family:'DM Mono',monospace;font-size:11px;font-weight:600;letter-spacing:.5px;cursor:pointer;transition:all .15s var(--ease);min-height:38px}
+.today-jump:active{transform:scale(.95);background:rgba(255,214,10,.12);border-color:var(--acc)}
 .vt-opt{flex:1;background:transparent;border:none;color:var(--mut);font-family:'DM Mono',monospace;font-size:11px;font-weight:600;letter-spacing:.5px;padding:8px 16px;border-radius:100px;cursor:pointer;min-height:36px;transition:all .2s var(--ease);white-space:nowrap}
 .vt-opt:active{transform:scale(.96)}
 .vt-opt.on{background:var(--acc);color:#000}
 
 /* ══ DAY SWIPE HINT (Kun i dag mode) ══ */
 .day-swipe-hint{text-align:center;font-family:'DM Mono',monospace;font-size:9px;color:var(--mut2);letter-spacing:1.5px;margin-bottom:8px;opacity:.6;text-transform:uppercase}
+
+/* Kompakt dag-stribe i "Kun i dag" mode — gør alle dage direkte tappable */
+.day-strip{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;margin-bottom:12px;background:var(--bg2);border:1px solid var(--bdr);border-radius:var(--r2);padding:3px}
+.ds-day{position:relative;display:flex;flex-direction:column;align-items:center;gap:1px;padding:5px 1px;background:transparent;border:none;border-radius:8px;color:var(--mut);cursor:pointer;transition:all .15s var(--ease);min-height:42px}
+.ds-day:active{transform:scale(.92)}
+.ds-day.on{background:var(--col);color:#000;font-weight:700}
+.ds-day.on .ds-icon{filter:none}
+.ds-day.today:not(.on){background:rgba(255,214,10,.08);color:var(--acc)}
+.ds-icon{font-size:13px;line-height:1;filter:grayscale(.3)}
+.ds-name{font-family:'DM Mono',monospace;font-size:8px;font-weight:600;letter-spacing:.3px}
+.ds-dot{position:absolute;top:2px;right:2px;width:4px;height:4px;border-radius:50%}
 .day-swipe-wrap{touch-action:pan-y;animation:dayFi .25s ease}
 @keyframes dayFi{from{opacity:0;transform:translateX(0)}to{opacity:1;transform:translateX(0)}}
 
@@ -2346,7 +2362,14 @@ function setViewMode(mode){
   render();
 }
 
-// Swipe mellem dage (kun i "Kun i dag" mode)
+// Hop direkte til dagens dag
+function jumpToToday(){
+  sel=todayDayIdx();
+  render();
+  setTimeout(()=>document.querySelector('.det')?.scrollIntoView({behavior:'smooth',block:'start'}),50);
+}
+
+// Swipe mellem dage
 let daySwipeX=null,daySwipeY=null,daySwipeTime=0;
 function daySwipeStart(e){
   const t=e.target;
@@ -2700,63 +2723,59 @@ function rWeekly(){
   else if(!PROG.startDate){
     h+=rProgSetup();
   }
-  // I gang: vis dagens træning som banner
+  // I gang: detalje vises nu altid direkte, så top-banner er overflødigt
   else{
     if(PROG.flexMode){
       h+=rFlexBanner();
-    }else{
-      // I "Kun i dag" mode er banner overflødigt — detaljen vises alligevel.
-      // Vis kun banner i "Hele ugen" mode (hvor detalje ikke auto-åbnes).
-      const willShowDetailForToday=PROG.viewMode!=='full'&&PROG.startDate&&!isProgramDone();
-      if(!willShowDetailForToday){
-        h+=rTodayBanner();
-      }
     }
+    // Ingen banner i kalender-mode — dag-stribe + detalje vises i stedet
   }
 
-  // Layout-toggle: kun i kalender-mode (skjules i flex)
-  if(PROG.startDate&&!isProgramDone()&&!PROG.flexMode){
-    h+=`<div class="view-toggle">
-      <button class="vt-opt${PROG.viewMode!=='full'?' on':''}" onclick="setViewMode('today')">📍 Kun i dag</button>
-      <button class="vt-opt${PROG.viewMode==='full'?' on':''}" onclick="setViewMode('full')">📅 Hele ugen</button>
-    </div>`;
-  }
-
-  // Day grid (skjules i "Kun i dag" mode hvis programmet er startet)
+  // Day grid altid kompakt med detalje under (uafhængigt af viewMode nu)
   const todayIdx=todayDayIdx();
   // I flex-mode skjules grid og næste session vælges automatisk
-  const hideDayGrid=(PROG.flexMode||PROG.viewMode!=='full')&&PROG.startDate&&!isProgramDone();
+  const hideDayGrid=PROG.flexMode&&PROG.startDate&&!isProgramDone();
   if(PROG.flexMode&&sel===null){
     const next=getNextFlexSession();
     if(next)sel=D.findIndex(d=>d.full===next.full);
   }
+  // Auto-vælg dagens dag hvis intet er valgt (når program er i gang)
+  if(!hideDayGrid&&sel===null&&PROG.startDate&&!isProgramDone())sel=todayIdx;
   if(!hideDayGrid){
-    h+='<div class="dgrid">';
+    // Vis altid kompakt dag-stribe — bruger kan tappe enhver dag direkte
+    h+='<div class="day-strip">';
     D.forEach((d,i)=>{
       const isToday=i===todayIdx&&PROG.startDate&&!isProgramDone();
-      h+=`<div class="dc${sel===i?' on':''}" style="--col:${d.color}" onclick="sd(${i})">
-        <span class="di">${d.icon}</span>
-        <div class="da">${d.day}${isToday?' <span style="color:'+d.color+';font-size:10px">●</span>':''}</div>
-        <div class="dl">${d.label}</div>
-      </div>`;
+      const isSel=sel===i;
+      h+=`<button class="ds-day${isSel?' on':''}${isToday?' today':''}" style="--col:${d.color}" onclick="sd(${i})">
+        <span class="ds-icon">${d.icon}</span>
+        <span class="ds-name">${d.day}</span>
+        ${isToday?'<span class="ds-dot" style="background:'+d.color+'"></span>':''}
+      </button>`;
     });
     h+='</div>';
   }
-  // I "Kun i dag" mode auto-vælg dagens dag hvis intet er valgt
-  if(hideDayGrid&&sel===null)sel=todayIdx;
+
+  // "Hop til i dag"-knap: vises EFTER day-strip når man ser anden dag
+  if(PROG.startDate&&!isProgramDone()&&!PROG.flexMode){
+    const realToday=todayDayIdx();
+    if(sel!==null&&sel!==realToday){
+      h+=`<div class="today-jump-wrap">
+        <button class="today-jump" onclick="jumpToToday()">📍 Hop til i dag</button>
+      </div>`;
+    }
+  }
   if(sel!==null){
     const d=D[sel];
-    // I "Kun i dag" mode: wrap detail i swipe-container med hint
-    if(hideDayGrid){
-      h+=`<div class="day-swipe-hint">‹ Swipe for at skifte dag ›</div>`;
-      h+=`<div class="day-swipe-wrap" ontouchstart="daySwipeStart(event)" ontouchmove="daySwipeMove(event)" ontouchend="daySwipeEnd(event)">`;
-    }
+    // Swipe-container med hint så man kan swipe mellem dage
+    h+=`<div class="day-swipe-hint">‹ Swipe for at skifte dag ›</div>`;
+    h+=`<div class="day-swipe-wrap" ontouchstart="daySwipeStart(event)" ontouchmove="daySwipeMove(event)" ontouchend="daySwipeEnd(event)">`;
     h+=`<div class="det">
       ${rCyclePill()}
       <div class="det-head">
         <div class="det-icon">${d.icon}</div>
         <div>
-          <div class="det-sub">${hideDayGrid?dayContextLabel(sel):d.full}</div>
+          <div class="det-sub">${dayContextLabel(sel)}</div>
           <div class="det-title">${d.type}</div>
         </div>
         <div class="badge" style="background:${d.color}22;color:${d.color};border:1px solid ${d.color}44">${d.label}</div>
@@ -3015,12 +3034,8 @@ function rWeekly(){
       </div>`;
     }
     h+='</div>';
-    // Luk swipe-wrap hvis vi er i "Kun i dag" mode
-    if(hideDayGrid){
-      h+=`</div>`;
-    }
-  }else{
-    h+=`<div class="hint"><span class="hint-icon">👆</span>Tryk på en dag<br>for øvelser og videolinks</div>`;
+    // Luk altid swipe-wrap (vi bruger den nu for alle dage)
+    h+=`</div>`;
   }
   return h;
 }
@@ -6906,8 +6921,8 @@ if(PROG.startDate){
   const cw=currentWeek();
   if(cw>=1&&cw<=TW())week=cw;
 }
-// Auto-vælg dagens dag hvis "Kun i dag"-mode er aktiveret
-if(PROG.viewMode==='today'&&PROG.startDate&&!isProgramDone()){
+// Default: åbn altid på dagens dag når program er i gang
+if(PROG.startDate&&!isProgramDone()&&!PROG.flexMode){
   sel=todayDayIdx();
 }
 render();
@@ -6941,7 +6956,7 @@ document.addEventListener('visibilitychange',()=>{
     const cw=currentWeek();
     if(cw>=1&&cw<=TW()&&cw!==week){
       week=cw;
-      if(PROG.viewMode==='today'&&!isProgramDone())sel=todayDayIdx();
+      if(!isProgramDone()&&!PROG.flexMode)sel=todayDayIdx();
       render();
     }
     // Aften-påmindelse: efter kl. 19 og wellness ej logget i dag
