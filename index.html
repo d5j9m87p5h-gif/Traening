@@ -57,7 +57,24 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 #hdr::before{content:'';position:absolute;top:-60px;right:-30px;width:200px;height:200px;background:radial-gradient(circle,rgba(255,214,10,.08) 0%,transparent 65%);pointer-events:none}
 .hdr-eyebrow{font-size:10px;letter-spacing:3px;color:var(--acc);font-family:'DM Mono',monospace;margin-bottom:4px;opacity:.7;text-transform:uppercase;transition:all .3s var(--ease);max-height:20px;overflow:hidden}
 #hdr h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(34px,9vw,54px);letter-spacing:1px;line-height:.92;background:linear-gradient(145deg,#ffffff 30%,var(--acc) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;transition:font-size .3s var(--ease)}
-.hdr-stats{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap;transition:all .3s var(--ease);max-height:60px;overflow:hidden;opacity:1}
+.hdr-stats{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap;transition:all .3s var(--ease);max-height:120px;overflow:hidden;opacity:1}
+
+/* ══ PROGRESS HERO ══ */
+.progress-hero{display:flex;align-items:center;gap:18px;width:100%;cursor:pointer}
+.phero-ring{width:76px;height:76px;position:relative;flex-shrink:0}
+.phero-ring svg{transform:rotate(-90deg)}
+.phr-bg{stroke:var(--bg3);fill:none;stroke-width:6}
+.phr-fill{stroke:var(--acc);fill:none;stroke-width:6;stroke-linecap:round;filter:drop-shadow(0 0 5px var(--acc-glow));transition:stroke-dashoffset .8s var(--ease)}
+.phr-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.phr-pct{font-family:'Bebas Neue',sans-serif;font-size:21px;line-height:1;letter-spacing:.3px}
+.phr-sub{font-family:'DM Mono',monospace;font-size:8px;color:var(--mut);letter-spacing:.6px;text-transform:uppercase;margin-top:2px}
+.phero-stats{flex:1;display:flex;flex-direction:column;min-width:0}
+.ph-stat{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:5px 0;border-bottom:1px solid var(--sep)}
+.ph-stat:last-child{border-bottom:none}
+.ph-stat-l{font-size:12px;color:var(--mut);font-weight:500}
+.ph-stat-v{font-family:'DM Mono',monospace;font-size:13px;font-weight:500;letter-spacing:-.2px;white-space:nowrap}
+.ph-stat-v.grn{color:var(--grn)}
+.ph-stat-v.acc{color:var(--acc)}
 .hdr-stat{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);border-radius:100px;padding:6px 14px;display:flex;align-items:center;gap:7px;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);transition:transform .15s var(--ease),background .15s}
 .hdr-stat:active{transform:scale(.94);background:rgba(255,214,10,.12)}
 .hdr-stat-dot{width:6px;height:6px;border-radius:50%;background:var(--acc);flex-shrink:0}
@@ -107,6 +124,96 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 
 /* ══ PHASE BANNER ══ */
 .phase-banner{display:flex;align-items:center;gap:12px;padding:12px 16px;border-radius:var(--r2);margin-bottom:16px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06)}
+
+/* ══ HJEMME-TRÆNING ══ */
+.home-toggle{width:100%;display:flex;align-items:center;justify-content:center;gap:8px;padding:12px 16px;margin-bottom:12px;background:var(--bg2);border:1.5px dashed var(--bdr2);border-radius:var(--r2);color:var(--mut);font-family:'DM Mono',monospace;font-size:11px;font-weight:600;letter-spacing:.5px;cursor:pointer;min-height:46px;transition:all .2s var(--ease)}
+.home-toggle:active{transform:scale(.98)}
+.home-toggle.on{background:color-mix(in srgb,var(--blue) 12%,transparent);border:1.5px solid color-mix(in srgb,var(--blue) 40%,transparent);color:var(--blue)}
+.home-toggle .ic{width:15px;height:15px}
+.home-alt{margin:10px 0 4px;padding:10px 12px;background:color-mix(in srgb,var(--blue) 8%,var(--bg2));border-left:3px solid var(--blue);border-radius:var(--r3)}
+.home-alt-head{display:flex;align-items:center;gap:8px;margin-bottom:4px}
+.home-alt-head .ic{width:14px;height:14px;color:var(--blue);flex-shrink:0}
+.home-alt-head b{font-size:13px;font-weight:600;flex:1}
+.home-alt-vid{font-family:'DM Mono',monospace;font-size:10px;color:var(--blue);text-decoration:none;letter-spacing:.5px;white-space:nowrap}
+.home-alt-note{font-size:11px;color:var(--mut);line-height:1.5}
+.home-equip{display:flex;align-items:center;gap:8px;margin:-4px 0 12px;padding:0 4px}
+.home-equip-label{font-family:'DM Mono',monospace;font-size:10px;color:var(--mut2);letter-spacing:1px;text-transform:uppercase}
+.he-chip{background:var(--bg2);border:1.5px solid var(--bdr);color:var(--mut);font-family:'DM Mono',monospace;font-size:11px;font-weight:600;letter-spacing:.3px;padding:8px 14px;border-radius:100px;cursor:pointer;min-height:36px;transition:all .2s var(--ease)}
+.he-chip:active{transform:scale(.95)}
+.he-chip.on{background:color-mix(in srgb,var(--blue) 15%,transparent);border-color:var(--blue);color:var(--blue)}
+
+/* ══ MOBILITY ══ */
+.mob-card{width:100%;display:flex;align-items:center;gap:14px;padding:16px;margin-top:14px;background:color-mix(in srgb,var(--grn) 7%,var(--bg1));border:1px solid color-mix(in srgb,var(--grn) 25%,transparent);border-radius:var(--r2);cursor:pointer;text-align:left;font-family:inherit;color:var(--txt);transition:transform .15s var(--ease)}
+.mob-card:active{transform:scale(.98)}
+.mob-card-icon{font-size:28px}
+.mob-card-text{flex:1}
+.mob-card-text b{display:block;font-size:15px;font-weight:600;margin-bottom:2px}
+.mob-card-text small{font-family:'DM Mono',monospace;font-size:10px;color:var(--mut);letter-spacing:.3px}
+.mob-card-arrow{font-size:22px;color:var(--mut2)}
+.mob-modal{max-width:440px;max-height:85vh;overflow-y:auto;padding:22px 18px;position:relative}
+.modal-x{position:absolute;top:12px;right:12px;width:34px;height:34px;border-radius:50%;background:var(--bg3);border:none;color:var(--mut);font-size:14px;cursor:pointer;z-index:2}
+.mob-head{margin-bottom:16px;padding-right:36px}
+.mob-title{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:.5px;margin-bottom:4px}
+.mob-sub{font-family:'DM Mono',monospace;font-size:11px;color:var(--mut);letter-spacing:.3px}
+.mob-back{background:none;border:none;color:var(--acc);font-family:'DM Mono',monospace;font-size:12px;cursor:pointer;padding:0;margin-bottom:8px;letter-spacing:.5px}
+.mob-routine{width:100%;display:flex;align-items:center;gap:12px;padding:14px;margin-bottom:8px;background:var(--bg2);border:1px solid var(--sep);border-left:3px solid var(--mc);border-radius:var(--r3);cursor:pointer;text-align:left;font-family:inherit;color:var(--txt);transition:transform .15s var(--ease)}
+.mob-routine:active{transform:scale(.98)}
+.mob-r-icon{font-size:24px}
+.mob-r-text{flex:1;min-width:0}
+.mob-r-text b{display:block;font-size:15px;font-weight:600}
+.mob-r-text small{font-family:'DM Mono',monospace;font-size:10px;color:var(--mc);letter-spacing:.3px;display:block;margin:2px 0}
+.mob-r-text em{font-style:normal;font-size:11px;color:var(--mut);line-height:1.4;display:block}
+.mob-r-arrow{font-size:20px;color:var(--mut2)}
+.mob-ex{display:flex;align-items:flex-start;gap:12px;padding:12px 4px;border-bottom:1px solid var(--sep)}
+.mob-ex.done{opacity:.55}
+.mob-ex.done .mob-ex-n{text-decoration:line-through}
+.mob-check{width:32px;height:32px;border-radius:50%;border:2px solid var(--mc);background:transparent;color:#000;font-size:15px;font-weight:700;cursor:pointer;flex-shrink:0;transition:all .15s var(--ease);display:flex;align-items:center;justify-content:center}
+.mob-ex.done .mob-check{background:var(--mc)}
+.mob-check:active{transform:scale(.88)}
+.mob-ex-text{flex:1;min-width:0}
+.mob-ex-n{font-size:14px;font-weight:600;margin-bottom:2px}
+.mob-ex-r{font-family:'DM Mono',monospace;font-size:10px;color:var(--acc);letter-spacing:.3px;font-weight:500;margin-left:4px}
+.mob-ex-no{font-size:12px;color:var(--mut);line-height:1.45}
+.mob-ex-vid{font-size:12px;color:var(--blue);text-decoration:none;padding:6px 10px;background:var(--bg3);border-radius:100px;flex-shrink:0}
+.mob-complete{text-align:center;padding:16px;margin-top:12px;background:color-mix(in srgb,var(--grn) 10%,transparent);border-radius:var(--r2);font-size:14px;font-weight:600;color:var(--grn)}
+
+/* ══ LØBERUTE ══ */
+.route-btn{width:100%;display:flex;align-items:center;justify-content:center;gap:8px;padding:14px 16px;margin-top:12px;background:color-mix(in srgb,var(--grn) 8%,var(--bg1));border:1px solid color-mix(in srgb,var(--grn) 28%,transparent);border-radius:var(--r2);color:var(--grn);font-family:'DM Mono',monospace;font-size:11px;font-weight:600;letter-spacing:.4px;cursor:pointer;min-height:48px;transition:transform .15s var(--ease)}
+.route-btn:active{transform:scale(.98)}
+.route-btn .ic{width:16px;height:16px}
+.route-modal{max-width:440px;max-height:88vh;overflow-y:auto;padding:22px 18px;position:relative}
+.route-status{font-family:'DM Mono',monospace;font-size:12px;color:var(--mut);margin:8px 0 12px;letter-spacing:.3px}
+.route-map{width:100%;height:300px;border-radius:var(--r2);background:var(--bg2);overflow:hidden}
+.route-stats{display:flex;gap:8px;margin:14px 0}
+.route-stat{flex:1;background:var(--bg2);border-radius:var(--r3);padding:10px;text-align:center}
+.route-stat b{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:.4px;display:block;line-height:1;color:var(--acc)}
+.route-stat small{font-family:'DM Mono',monospace;font-size:9px;color:var(--mut);letter-spacing:.6px;text-transform:uppercase;margin-top:4px;display:block}
+.route-btns{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.route-setup{font-size:13px;line-height:1.6;color:var(--mut)}
+.route-setup p{margin-bottom:10px}
+.route-setup b{color:var(--txt)}
+.route-setup a{color:var(--blue)}
+.route-setup ol{margin:0 0 14px 18px}
+.route-setup li{margin-bottom:6px}
+.route-setup input{width:100%;background:var(--bg2);border:1.5px solid var(--bdr);color:var(--txt);font-family:'DM Mono',monospace;font-size:13px;padding:12px 14px;border-radius:var(--r3);outline:none;margin-bottom:12px}
+.route-setup input:focus{border-color:var(--acc)}
+
+/* ══ GUIDET LØB ══ */
+.guide-btn{width:100%;display:flex;align-items:center;justify-content:center;gap:8px;padding:14px 16px;margin-top:8px;background:color-mix(in srgb,var(--blue) 9%,var(--bg1));border:1px solid color-mix(in srgb,var(--blue) 30%,transparent);border-radius:var(--r2);color:var(--blue);font-family:'DM Mono',monospace;font-size:11px;font-weight:600;letter-spacing:.4px;cursor:pointer;min-height:48px;transition:transform .15s var(--ease)}
+.guide-btn:active{transform:scale(.98)}
+.rg-modal{max-width:400px;padding:28px 22px;text-align:center;background:#000}
+.rg-status{font-family:'DM Mono',monospace;font-size:11px;color:var(--mut);letter-spacing:.3px;margin-bottom:18px;line-height:1.5}
+.rg-time{font-family:'Bebas Neue',sans-serif;font-size:76px;line-height:1;letter-spacing:1px;margin-bottom:16px;font-variant-numeric:tabular-nums}
+.rg-row{display:flex;gap:10px;margin-bottom:22px}
+.rg-stat{flex:1;background:var(--bg1);border-radius:var(--r2);padding:14px 8px}
+.rg-stat b{font-family:'Bebas Neue',sans-serif;font-size:32px;letter-spacing:.5px;display:block;line-height:1;color:var(--acc)}
+.rg-stat small{font-family:'DM Mono',monospace;font-size:9px;color:var(--mut);letter-spacing:.8px;text-transform:uppercase;margin-top:5px;display:block}
+.rg-btns{display:flex;gap:10px;justify-content:center;margin-bottom:14px;flex-wrap:wrap}
+.rg-start{background:linear-gradient(180deg,var(--grn),#28a745);color:#000;border:none;font-family:'DM Mono',monospace;font-size:13px;font-weight:700;letter-spacing:1.5px;padding:16px 40px;border-radius:100px;cursor:pointer;text-transform:uppercase;min-height:54px;box-shadow:0 6px 20px rgba(50,215,75,.3)}
+.rg-start:active{transform:scale(.95)}
+.rg-pause{background:var(--bg3);color:var(--txt);border:none;font-family:'DM Mono',monospace;font-size:12px;font-weight:700;letter-spacing:1px;padding:14px 24px;border-radius:100px;cursor:pointer;min-height:50px}
+.rg-stop{background:linear-gradient(180deg,var(--red),#d63030);color:#fff;border:none;font-family:'DM Mono',monospace;font-size:12px;font-weight:700;letter-spacing:1px;padding:14px 24px;border-radius:100px;cursor:pointer;min-height:50px}
+.rg-note{font-family:'DM Mono',monospace;font-size:9px;color:var(--mut2);letter-spacing:.3px;line-height:1.6}
 .phase-banner::before{display:none}
 .phase-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;box-shadow:0 0 8px currentColor}
 .phase-name{font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:1px}
@@ -148,10 +255,27 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 /* ══ PER-SET INPUTS ══ */
 .set-expand{padding:6px 0 0;animation:slideUp .25s var(--spring)}
 .set-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:flex-start}
-.set-chip{display:flex;flex-direction:column;align-items:center;gap:3px;flex:1;min-width:60px;max-width:90px}
-.set-chip label{font-family:'DM Mono',monospace;font-size:8px;color:var(--mut);letter-spacing:1px}
-.set-chip input{width:100%;padding:8px 4px;border-radius:10px;text-align:center;background:var(--bg3);border:1.5px solid var(--bdr);color:var(--txt);font-family:'DM Mono',monospace;font-size:13px;font-weight:500;outline:none;-webkit-appearance:none;transition:border-color .2s;min-height:38px}
-.set-chip input:focus{border-color:var(--acc);box-shadow:0 0 0 2px rgba(255,214,10,.1)}
+.set-chip{display:flex;flex-direction:column;align-items:center;gap:0;flex:1;min-width:60px;max-width:90px;background:var(--bg-input);border:1.5px solid transparent;border-radius:14px;padding:8px 4px 6px;transition:all .2s var(--ease)}
+.set-chip.filled{background:color-mix(in srgb,var(--grn) 8%,var(--bg-input))}
+.set-chip:has(input:focus){background:var(--acc-dim);border-color:var(--acc)}
+.set-chip label{font-family:'DM Mono',monospace;font-size:8px;color:var(--mut2);letter-spacing:1px}
+.set-chip input{width:100%;padding:2px 2px 0;border-radius:0;text-align:center;background:transparent;border:none;color:var(--txt);font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:.5px;outline:none;-webkit-appearance:none;min-height:32px}
+.set-chip input::placeholder{color:var(--mut2);opacity:.5}
+
+/* ══ METRICS GRID (sæt/reps/max) ══ */
+.metrics{display:grid;grid-template-columns:repeat(3,1fr);background:var(--bg2);border-radius:var(--r2);overflow:hidden;margin:10px 0 4px}
+.metric{padding:10px 6px;text-align:center;border-right:1px solid var(--sep)}
+.metric:last-child{border-right:none}
+.metric-num{font-family:'Bebas Neue',sans-serif;font-size:23px;line-height:1;letter-spacing:.4px}
+.metric-num.muted{color:var(--mut2)}
+.metric-num.grn{color:var(--grn)}
+.metric-num small{font-family:'DM Mono',monospace;font-size:11px;color:var(--mut);font-weight:400;margin-left:2px}
+.metric-cap{font-family:'DM Mono',monospace;font-size:8px;color:var(--mut);letter-spacing:1px;text-transform:uppercase;margin-top:4px}
+
+/* ══ ØVELSE DONE-STATE ══ */
+.exrow{position:relative}
+.exrow.done{border-color:color-mix(in srgb,var(--grn) 28%,transparent)!important}
+.exrow.done::after{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--grn);border-radius:3px 0 0 3px}
 
 /* ══ CORE INPUT (sek/antal) ══ */
 .core-input-wrap{display:flex;align-items:center;gap:8px;background:var(--bg3);border:1.5px solid var(--bdr);border-radius:100px;padding:4px 14px 4px 4px;width:fit-content}
@@ -679,6 +803,13 @@ input[type=file]{display:none}
 
 /* ══ EXPORT/IMPORT ══ */
 .backup-section{background:var(--bg1);border:1px solid var(--bdr);border-radius:var(--r);padding:18px;margin-top:20px;box-shadow:var(--shadow)}
+
+/* ══ BACKUP REMINDER MODAL ══ */
+.backup-reminder-modal{max-width:360px;text-align:center;padding:28px 24px 22px}
+.brm-icon{font-size:44px;margin-bottom:12px}
+.brm-title{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:.5px;margin-bottom:10px}
+.brm-body{font-size:13px;line-height:1.6;color:var(--mut);margin-bottom:20px}
+.brm-btns{display:flex;flex-direction:column;gap:8px}
 .backup-title{font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:.5px;margin-bottom:8px}
 .backup-sub{font-size:11px;color:var(--mut);font-family:'DM Mono',monospace;margin-bottom:14px;line-height:1.6}
 .backup-btns{display:flex;gap:8px;flex-wrap:wrap}
@@ -938,6 +1069,8 @@ input[type=file]{display:none}
 .day-label{font-family:'DM Mono',monospace;font-size:10px;font-weight:500;letter-spacing:.5px;text-transform:uppercase}
 .day .live-dot{position:absolute;top:6px;right:7px;width:5px;height:5px;border-radius:50%;background:var(--dc,var(--acc));z-index:2;box-shadow:0 0 6px var(--dc,var(--acc))}
 .day.on .live-dot{background:#000;box-shadow:none}
+.day .done-dot{position:absolute;bottom:3px;right:5px;width:13px;height:13px;border-radius:50%;background:var(--grn);color:#000;font-size:8px;font-weight:800;display:flex;align-items:center;justify-content:center;z-index:2}
+.day.on .done-dot{background:#000;color:var(--grn)}
 .day-swipe-wrap{touch-action:pan-y;animation:dayFi .25s ease}
 @keyframes dayFi{from{opacity:0;transform:translateX(0)}to{opacity:1;transform:translateX(0)}}
 
@@ -1011,10 +1144,7 @@ input[type=file]{display:none}
     <button id="hdrCog" onclick="openSettingsModal()" title="Indstillinger"><svg class="ic sm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v4m0 14v4M4.2 4.2l2.8 2.8m10 10l2.8 2.8M1 12h4m14 0h4M4.2 19.8l2.8-2.8m10-10l2.8-2.8"/></svg></button>
     <div class="hdr-eyebrow">// PERSONLIGT TRÆNINGSPROGRAM</div>
     <h1>RECOMP<br>+ 5KM RUN</h1>
-    <div class="hdr-stats" id="hdrStats">
-      <div class="hdr-stat" id="hdrGoal" onclick="openSettingsModal()" style="cursor:pointer"><div class="hdr-stat-dot"></div><label>Mål</label><b>&lt;30:00</b></div>
-      <div class="hdr-stat" id="hdrWeek" onclick="openSettingsModal()" style="cursor:pointer"><div class="hdr-stat-dot"></div><label>Uge</label><b>1 / 8</b></div>
-    </div>
+    <div class="hdr-stats" id="hdrStats"></div>
   </div>
   <div id="tabs">
     <button class="tab on" onclick="go('weekly')"><span class="tab-icon"><svg class="ic" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2.5"/><path d="M8.5 8h7M8.5 12h7M8.5 16h4"/></svg></span>Skema</button>
@@ -2359,6 +2489,486 @@ function dayEx(d){
   return [...swapped,...(CUSTOM[d.full]||[])];
 }
 
+/* ═══ HJEMME-TRÆNING ═══ */
+// Toggle per uge+dag: vis hjemme-alternativer når man ikke har center
+const HOME_KEY='tw4_home_days';
+let HOME_DAYS={};
+try{HOME_DAYS=JSON.parse(localStorage.getItem(HOME_KEY)||'{}')}catch(e){}
+function saveHomeDays(){try{localStorage.setItem(HOME_KEY,JSON.stringify(HOME_DAYS))}catch(e){}}
+function isHomeDay(w,day){return !!HOME_DAYS[w+'__'+day]}
+function toggleHomeDay(w,day){
+  const k=w+'__'+day;
+  if(HOME_DAYS[k])delete HOME_DAYS[k];else HOME_DAYS[k]=1;
+  saveHomeDays();
+  render();
+}
+
+// Udstyrsvalg hjemme: 'bw' (kun kropsvægt) eller 'db' (har håndvægte/vægte)
+const HOME_EQUIP_KEY='tw4_home_equip';
+let HOME_EQUIP=localStorage.getItem(HOME_EQUIP_KEY)||'bw';
+function setHomeEquip(v){HOME_EQUIP=v;try{localStorage.setItem(HOME_EQUIP_KEY,v)}catch(e){}render()}
+
+// Hjemme-alternativer per øvelse — bw: kropsvægt, db: med håndvægte
+const HOME_ALT={
+  'Bænkpres (flad)':{
+    bw:{n:'Push-ups (evt. m. rygsæk)',no:'Vægt i rygsæk for progression. Langsom sænkning.',l:'https://www.youtube.com/results?search_query=push+up+progression+weighted'},
+    db:{n:'Gulv-pres m. håndvægte',no:'Ligg på gulvet, pres håndvægtene op. Tungere end push-ups.',l:'https://www.youtube.com/results?search_query=dumbbell+floor+press'}},
+  'Incline Bænkpres':{
+    bw:{n:'Pike push-ups / fødder hævet',no:'Fødder på stol rammer øvre bryst/skuldre.',l:'https://www.youtube.com/results?search_query=decline+push+up+feet+elevated'},
+    db:{n:'Incline DB-pres (ryg mod sofa/puder)',no:'Læn overkroppen 30-45° op ad sofaen, pres skråt op.',l:'https://www.youtube.com/results?search_query=incline+dumbbell+press+home+couch'}},
+  'Skulderpres':{
+    bw:{n:'Pike push-ups',no:'Hofte højt, tryk mod lodret. Sværere: fødder på stol.',l:'https://www.youtube.com/results?search_query=pike+push+up+tutorial'},
+    db:{n:'Stående DB skulderpres',no:'Samme øvelse som i centeret — pres til strakte arme.',l:'https://www.youtube.com/results?search_query=standing+dumbbell+shoulder+press'}},
+  'Sidehæv':{
+    bw:{n:'Sidehæv m. flasker/elastik',no:'Vandflasker eller elastik under fødderne.',l:'https://www.youtube.com/results?search_query=lateral+raise+resistance+band'},
+    db:{n:'DB sidehæv',no:'Identisk med centeret — let vægt, høj kontrol.',l:'https://www.youtube.com/results?search_query=dumbbell+lateral+raise'}},
+  'Triceps pushdown':{
+    bw:{n:'Diamond push-ups / dips på stol',no:'Hænder samlet under brystet, albuer tæt.',l:'https://www.youtube.com/results?search_query=diamond+push+up+chair+dips'},
+    db:{n:'Overhead triceps extension m. DB',no:'Én håndvægt bag hovedet, stræk armene op.',l:'https://www.youtube.com/results?search_query=dumbbell+overhead+triceps+extension'}},
+  'Rows (maskine/stang)':{
+    bw:{n:'Rows m. håndklæde i dørkarm / rygsæk-row',no:'Læn tilbage, træk mod dørkarmen. Eller tung rygsæk.',l:'https://www.youtube.com/results?search_query=towel+door+row+bodyweight'},
+    db:{n:'One-arm DB row',no:'Én hånd på stol/sofa, ro håndvægten til hoften.',l:'https://www.youtube.com/results?search_query=one+arm+dumbbell+row'}},
+  'Lat pulldown':{
+    bw:{n:'Pull-ups / dørkarm-træk',no:'Har du en pull-up bar er den bedst. Ellers negativ-reps.',l:'https://www.youtube.com/results?search_query=pull+up+progression+beginner'},
+    db:{n:'DB pullover',no:'Ligg på ryggen, sænk vægten bag hovedet med let bøjede arme.',l:'https://www.youtube.com/results?search_query=dumbbell+pullover+floor'}},
+  'Bicep curls':{
+    bw:{n:'Curls m. rygsæk/flasker',no:'Fyld en rygsæk med bøger. Langsom kontrol.',l:'https://www.youtube.com/results?search_query=backpack+bicep+curls'},
+    db:{n:'DB curls',no:'Identisk med centeret. Skift evt. til hammer curls for variation.',l:'https://www.youtube.com/results?search_query=dumbbell+bicep+curl'}},
+  'Face pulls':{
+    bw:{n:'Band pull-aparts / reverse fly m. flasker',no:'Elastik i brysthøjde, træk til ansigt.',l:'https://www.youtube.com/results?search_query=band+pull+apart+reverse+fly'},
+    db:{n:'Bent-over reverse fly m. DB',no:'Foroverbøjet, løft vægtene ud til siden. Let vægt.',l:'https://www.youtube.com/results?search_query=bent+over+reverse+fly+dumbbell'}},
+  'Squat (stang)':{
+    bw:{n:'Goblet squat m. rygsæk / pistol-progression',no:'Tung rygsæk foran brystet. Dyb og kontrolleret.',l:'https://www.youtube.com/results?search_query=goblet+squat+backpack+home'},
+    db:{n:'DB goblet squat',no:'Hold én tung håndvægt mod brystet, squat dybt.',l:'https://www.youtube.com/results?search_query=dumbbell+goblet+squat'}},
+  'Hack Squat':{
+    bw:{n:'Bulgarian split squat',no:'Bagerste fod på stol. Rygsæk for ekstra vægt.',l:'https://www.youtube.com/results?search_query=bulgarian+split+squat+home'},
+    db:{n:'DB Bulgarian split squat',no:'Håndvægte i hænderne, bagerste fod på stol. Quad-fokus.',l:'https://www.youtube.com/results?search_query=dumbbell+bulgarian+split+squat'}},
+  'Rumænsk dødløft':{
+    bw:{n:'Single-leg RDL m. rygsæk',no:'Ét ben ad gangen giver sværhedsgrad uden tung vægt.',l:'https://www.youtube.com/results?search_query=single+leg+rdl+bodyweight'},
+    db:{n:'DB rumænsk dødløft',no:'Samme bevægelse som i centeret — vægtene glider langs benene.',l:'https://www.youtube.com/results?search_query=dumbbell+romanian+deadlift'}},
+  'Sumo Deadlift':{
+    bw:{n:'Glute bridge / hip thrust m. rygsæk',no:'Skulderblade på sofa, vægt over hoften.',l:'https://www.youtube.com/results?search_query=hip+thrust+home+backpack'},
+    db:{n:'DB sumo squat/dødløft',no:'Én tung håndvægt lodret mellem benene, bred stance.',l:'https://www.youtube.com/results?search_query=dumbbell+sumo+squat'}},
+  'Leg press':{
+    bw:{n:'Step-ups på stol',no:'Kontrolleret op/ned. Rygsæk for progression.',l:'https://www.youtube.com/results?search_query=step+up+exercise+home'},
+    db:{n:'DB step-ups / DB lunges',no:'Håndvægte i hænderne, step op på stol eller lunges.',l:'https://www.youtube.com/results?search_query=dumbbell+step+up'}},
+  'Leg curls':{
+    bw:{n:'Nordic curl-progression / sliding leg curl',no:'Hæle på håndklæde på glat gulv, træk ind.',l:'https://www.youtube.com/results?search_query=sliding+leg+curl+towel'},
+    db:{n:'DB leg curl (liggende)',no:'Ligg på maven, klem håndvægten mellem fødderne, bøj knæene.',l:'https://www.youtube.com/results?search_query=dumbbell+leg+curl+lying'}},
+  'Leg extensions':{
+    bw:{n:'Sissy squat-progression / wall sit',no:'Wall sit 45-60 sek som alternativ.',l:'https://www.youtube.com/results?search_query=sissy+squat+wall+sit+home'},
+    db:{n:'DB leg extension (siddende)',no:'Sid på stol, klem håndvægt mellem fødderne, stræk knæene.',l:'https://www.youtube.com/results?search_query=seated+dumbbell+leg+extension'}},
+  'Læghæv':{
+    bw:{n:'Læghæv på trappetrin',no:'Fuld stræk i bunden. Ét ben for sværhedsgrad.',l:'https://www.youtube.com/results?search_query=single+leg+calf+raise+stairs'},
+    db:{n:'DB læghæv på trappetrin',no:'Håndvægt i hånden, ét ben ad gangen for max belastning.',l:'https://www.youtube.com/results?search_query=dumbbell+single+leg+calf+raise'}},
+  'Walking Lunges':{
+    bw:{n:'Lunges på stedet / baglæns',no:'Samme øvelse — ingen udstyr nødvendigt.',l:'https://www.youtube.com/results?search_query=reverse+lunge+home'},
+    db:{n:'DB walking lunges',no:'Håndvægte i hænderne — identisk med centeret.',l:'https://www.youtube.com/results?search_query=dumbbell+walking+lunges'}}
+};
+
+// Generisk fallback ud fra keywords i øvelsesnavnet
+function homeAlternative(e){
+  const eq=HOME_EQUIP==='db'?'db':'bw';
+  const hit=HOME_ALT[e.n]||( e.originalName&&HOME_ALT[e.originalName]);
+  if(hit)return hit[eq]||hit.bw;
+  const n=e.n.toLowerCase();
+  if(e.core)return null; // core-øvelser kan allerede laves hjemme
+  const db=eq==='db';
+  if(/pres|press|bænk|bench|push/.test(n))return db
+    ?{n:'DB-pres variation (gulv/incline)',no:'Gulv-pres eller incline mod sofaen.',l:'https://www.youtube.com/results?search_query=dumbbell+press+home'}
+    :{n:'Push-up variation',no:'Vælg sværhedsgrad: knæ → normal → fødder hævet → rygsæk.',l:'https://www.youtube.com/results?search_query=push+up+progression'};
+  if(/row|træk|pull|lat/.test(n))return db
+    ?{n:'One-arm DB row / DB pullover',no:'Én hånd på stol, ro vægten til hoften.',l:'https://www.youtube.com/results?search_query=one+arm+dumbbell+row'}
+    :{n:'Row m. håndklæde/rygsæk eller pull-ups',no:'Dørkarm-rows eller tung rygsæk-row.',l:'https://www.youtube.com/results?search_query=bodyweight+row+home'};
+  if(/squat|ben|leg|lunge/.test(n))return db
+    ?{n:'DB goblet squat / DB lunges',no:'Tung håndvægt mod brystet eller i hænderne.',l:'https://www.youtube.com/results?search_query=dumbbell+leg+workout+home'}
+    :{n:'Squat/lunge-variation m. rygsæk',no:'Goblet squat, split squat eller step-ups.',l:'https://www.youtube.com/results?search_query=leg+workout+home+bodyweight'};
+  if(/dødløft|deadlift|rdl|hip/.test(n))return db
+    ?{n:'DB RDL / DB hip thrust',no:'Vægtene glider langs benene, eller vægt over hoften.',l:'https://www.youtube.com/results?search_query=dumbbell+rdl'}
+    :{n:'Hip thrust / single-leg RDL',no:'Rygsæk over hoften eller ét ben ad gangen.',l:'https://www.youtube.com/results?search_query=hip+hinge+home'};
+  if(/curl|bicep/.test(n))return db
+    ?{n:'DB curls / hammer curls',no:'Identisk med centeret.',l:'https://www.youtube.com/results?search_query=dumbbell+curl+variations'}
+    :{n:'Curls m. rygsæk/flasker',no:'Rygsæk med bøger, langsom kontrol.',l:'https://www.youtube.com/results?search_query=home+bicep+workout'};
+  if(/triceps|dip/.test(n))return db
+    ?{n:'Overhead DB extension / DB kickbacks',no:'Én vægt bag hovedet eller foroverbøjet kickback.',l:'https://www.youtube.com/results?search_query=dumbbell+triceps+home'}
+    :{n:'Diamond push-ups / stol-dips',no:'Albuer tæt på kroppen.',l:'https://www.youtube.com/results?search_query=triceps+home+workout'};
+  if(/skulder|shoulder|hæv|raise|delt/.test(n))return db
+    ?{n:'DB skulderpres / DB sidehæv',no:'Samme øvelser som centeret.',l:'https://www.youtube.com/results?search_query=dumbbell+shoulder+workout'}
+    :{n:'Pike push-ups / flaske-hæv',no:'Vandflasker eller elastik.',l:'https://www.youtube.com/results?search_query=shoulder+workout+home'};
+  return db
+    ?{n:'DB-alternativ',no:'Spørg AI-coachen om det bedste håndvægt-alternativ.',l:'https://www.youtube.com/results?search_query='+encodeURIComponent(e.n+' dumbbell alternative')}
+    :{n:'Kropsvægt-alternativ',no:'Spørg AI-coachen om det bedste hjemme-alternativ til denne øvelse.',l:'https://www.youtube.com/results?search_query='+encodeURIComponent(e.n+' bodyweight alternative')};
+}
+
+/* ═══ MOBILITY-MODUL ═══ */
+// Selvstændige mobility-rutiner — kan køres uafhængigt af programmet
+const MOBILITY_ROUTINES=[
+  {id:'morgen',n:'Morgen-flow',dur:'8 min',icon:'☀️',c:'#ffd60a',desc:'Vågn kroppen op — perfekt før arbejde eller træning.',ex:[
+    {n:'Cat-cow',r:'10 reps',no:'Rund og svaj ryggen roligt i takt med vejrtrækningen.',l:'https://www.youtube.com/results?search_query=cat+cow+stretch'},
+    {n:"World's greatest stretch",r:'5 /side',no:'Dybt lunge-stræk med rotation — rammer hele kroppen.',l:'https://www.youtube.com/results?search_query=worlds+greatest+stretch'},
+    {n:'Downward dog → cobra',r:'8 reps',no:'Flyd mellem de to positioner, mærk bagkæde og mave.',l:'https://www.youtube.com/results?search_query=downward+dog+to+cobra+flow'},
+    {n:'Deep squat hold',r:'60 sek',no:'Sid i bunden af en squat, brug albuerne til at presse knæene ud.',l:'https://www.youtube.com/results?search_query=deep+squat+hold+mobility'},
+    {n:'Thorakal rotation',r:'8 /side',no:'På alle fire, hånd bag hovedet, rotér albuen mod loftet.',l:'https://www.youtube.com/results?search_query=quadruped+thoracic+rotation'}
+  ]},
+  {id:'hofte',n:'Hofte & underkrop',dur:'10 min',icon:'🦵',c:'#ff9f0a',desc:'Til stramme hofter — ideel efter bendage eller meget siddearbejde.',ex:[
+    {n:'90/90 hip switch',r:'8 /side',no:'Sid med begge ben i 90°, rotér fra side til side.',l:'https://www.youtube.com/results?search_query=90+90+hip+switch'},
+    {n:'Couch stretch',r:'60 sek /side',no:'Bagerste fod op ad væg/sofa, hoften frem. Intens — vejrtræk roligt.',l:'https://www.youtube.com/results?search_query=couch+stretch+hip+flexor'},
+    {n:'Deep squat pry',r:'60 sek',no:'I bunden af squat, skub knæene ud og skift vægt side til side.',l:'https://www.youtube.com/results?search_query=deep+squat+pry'},
+    {n:'Hamstring scoops',r:'10 /side',no:'Strakt ben frem, "grav" hænderne mod tæerne i gang.',l:'https://www.youtube.com/results?search_query=hamstring+scoops+dynamic'},
+    {n:'Ankel-rok',r:'12 /side',no:'Knæ over tå, hælen i gulvet — vigtig for squat-dybde.',l:'https://www.youtube.com/results?search_query=ankle+dorsiflexion+mobility'},
+    {n:'Pigeon stretch',r:'60 sek /side',no:'Forreste ben bøjet foran, sænk dig ned over det.',l:'https://www.youtube.com/results?search_query=pigeon+pose+stretch'}
+  ]},
+  {id:'skulder',n:'Skulder & overkrop',dur:'10 min',icon:'💪',c:'#0a84ff',desc:'Bedre pres-teknik og mindre kontornakke.',ex:[
+    {n:'Wall slides',r:'10 reps',no:'Ryg mod væg, glid armene op uden at miste kontakt.',l:'https://www.youtube.com/results?search_query=wall+slides+shoulder'},
+    {n:'Thorakal extension over stol',r:'8 reps',no:'Skulderbladene på stolekanten, læn overkroppen bagover.',l:'https://www.youtube.com/results?search_query=thoracic+extension+chair'},
+    {n:'Dørkarm bryst-stræk',r:'45 sek /side',no:'Underarm på karmen, træd frem til stræk i brystet.',l:'https://www.youtube.com/results?search_query=doorway+pec+stretch'},
+    {n:'Håndklæde-dislocates',r:'10 reps',no:'Bredt greb om håndklæde, før det over hovedet og bagom.',l:'https://www.youtube.com/results?search_query=shoulder+dislocates+towel'},
+    {n:'Thread the needle',r:'8 /side',no:'På alle fire, før armen under kroppen med rotation.',l:'https://www.youtube.com/results?search_query=thread+the+needle+stretch'},
+    {n:'Dead hang',r:'30-60 sek',no:'Hæng i en stang hvis muligt — dekomprimerer skuldre og ryg.',l:'https://www.youtube.com/results?search_query=dead+hang+benefits'}
+  ]},
+  {id:'resti',n:'Restitution — fuld krop',dur:'15 min',icon:'🧘',c:'#32d74b',desc:'Rolig gennemgang af hele kroppen — perfekt på hviledage.',ex:[
+    {n:'Cat-cow',r:'10 reps',no:'Blødt tempo, følg vejrtrækningen.',l:'https://www.youtube.com/results?search_query=cat+cow+stretch'},
+    {n:"Child's pose",r:'60 sek',no:'Sid på hælene, stræk armene langt frem, slap af i ryggen.',l:'https://www.youtube.com/results?search_query=childs+pose'},
+    {n:'Liggende spinal twist',r:'45 sek /side',no:'På ryggen, knæ over til siden, skuldre i gulvet.',l:'https://www.youtube.com/results?search_query=supine+spinal+twist'},
+    {n:'Figure-4 stræk',r:'60 sek /side',no:'På ryggen, ankel over modsat knæ, træk benet ind.',l:'https://www.youtube.com/results?search_query=figure+4+stretch'},
+    {n:'Couch stretch',r:'45 sek /side',no:'Hoftebøjerne — de strammeste muskler hos de fleste.',l:'https://www.youtube.com/results?search_query=couch+stretch'},
+    {n:'Hamstring-stræk m. håndklæde',r:'45 sek /side',no:'På ryggen, håndklæde om foden, strakt ben op.',l:'https://www.youtube.com/results?search_query=supine+hamstring+stretch+towel'},
+    {n:'Deep squat hold',r:'60 sek',no:'Afslut i bunden — mærk hvor meget løsere du er.',l:'https://www.youtube.com/results?search_query=deep+squat+hold'}
+  ]}
+];
+
+const MOB_KEY='tw4_mobility';
+let MOB={};// {"2026-07-16__morgen":"1,1,0,..", ...} + {"log":["2026-07-16__morgen",...]}
+try{MOB=JSON.parse(localStorage.getItem(MOB_KEY)||'{}')}catch(e){}
+function saveMob(){try{localStorage.setItem(MOB_KEY,JSON.stringify(MOB))}catch(e){}}
+function mobDoneCount(){return (MOB.log||[]).length}
+let mobOpenRoutine=null;
+
+function openMobilityModal(routineId){
+  mobOpenRoutine=routineId||null;
+  renderMobilityModal();
+}
+function renderMobilityModal(){
+  const m=document.getElementById('modal');
+  let inner='';
+  if(!mobOpenRoutine){
+    // Rutine-oversigt
+    inner=`<div class="mob-head">
+      <div class="mob-title">Mobility & smidighed</div>
+      <div class="mob-sub">Kør når som helst — uafhængigt af dit program. ${mobDoneCount()>0?mobDoneCount()+' sessioner gennemført.':''}</div>
+    </div>`;
+    MOBILITY_ROUTINES.forEach(r=>{
+      inner+=`<button class="mob-routine" style="--mc:${r.c}" onclick="openMobilityModal('${r.id}')">
+        <span class="mob-r-icon">${r.icon}</span>
+        <span class="mob-r-text"><b>${r.n}</b><small>${r.dur} · ${r.ex.length} øvelser</small><em>${r.desc}</em></span>
+        <span class="mob-r-arrow">›</span>
+      </button>`;
+    });
+  }else{
+    const r=MOBILITY_ROUTINES.find(x=>x.id===mobOpenRoutine);
+    const dateKey=todayISO()+'__'+r.id;
+    const checks=(MOB[dateKey]||'').split(',');
+    const doneN=checks.filter(c=>c==='1').length;
+    const allDone=doneN===r.ex.length;
+    inner=`<div class="mob-head">
+      <button class="mob-back" onclick="openMobilityModal()">‹ Rutiner</button>
+      <div class="mob-title" style="color:${r.c}">${r.icon} ${r.n}</div>
+      <div class="mob-sub">${r.dur} · ${doneN}/${r.ex.length} gennemført i dag</div>
+    </div>`;
+    r.ex.forEach((e,i)=>{
+      const done=checks[i]==='1';
+      inner+=`<div class="mob-ex${done?' done':''}">
+        <button class="mob-check" style="--mc:${r.c}" onclick="toggleMobEx('${r.id}',${i},${r.ex.length})">${done?'✓':''}</button>
+        <div class="mob-ex-text">
+          <div class="mob-ex-n">${e.n} <span class="mob-ex-r">${e.r}</span></div>
+          <div class="mob-ex-no">${e.no}</div>
+        </div>
+        <a class="mob-ex-vid" href="${e.l}" target="_blank">▶</a>
+      </div>`;
+    });
+    if(allDone)inner+=`<div class="mob-complete">🎉 Rutine gennemført — kroppen takker dig!</div>`;
+  }
+  m.innerHTML=`<div class="modal mob-modal" onclick="event.stopPropagation()">
+    <button class="modal-x" onclick="closeModal()">✕</button>
+    ${inner}
+  </div>`;
+  m.classList.add('show');
+}
+function toggleMobEx(rid,idx,total){
+  const dateKey=todayISO()+'__'+rid;
+  const checks=(MOB[dateKey]||Array(total).fill('0').join(',')).split(',');
+  while(checks.length<total)checks.push('0');
+  const wasAllDone=checks.every(c=>c==='1');
+  checks[idx]=checks[idx]==='1'?'0':'1';
+  MOB[dateKey]=checks.join(',');
+  // Log gennemført rutine (én gang per dag+rutine)
+  const nowAllDone=checks.every(c=>c==='1');
+  if(nowAllDone&&!wasAllDone){
+    if(!MOB.log)MOB.log=[];
+    if(!MOB.log.includes(dateKey))MOB.log.push(dateKey);
+  }
+  saveMob();
+  renderMobilityModal();
+}
+
+/* ═══ LØBERUTE-GENERATOR ═══ */
+// OpenRouteService round-trip API + Leaflet/OSM kort — kræver gratis ORS-nøgle
+const ORS_KEY='tw4_ors_key';
+let ORS=localStorage.getItem(ORS_KEY)||'';
+function saveOrsKey(v){ORS=(v||'').trim();try{localStorage.setItem(ORS_KEY,ORS)}catch(e){}}
+let routeMap=null,routeLayer=null,routeTargetKm=5,routeSeed=1;
+
+function loadLeaflet(){
+  return new Promise((res,rej)=>{
+    if(window.L){res();return}
+    const css=document.createElement('link');
+    css.rel='stylesheet';css.href='https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
+    document.head.appendChild(css);
+    const s=document.createElement('script');
+    s.src='https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
+    s.onload=()=>res();s.onerror=()=>rej(new Error('Kunne ikke hente kort-bibliotek'));
+    document.head.appendChild(s);
+  });
+}
+
+function openRouteModal(km){
+  routeTargetKm=km||5;
+  routeSeed=Math.floor(Math.random()*100);
+  const m=document.getElementById('modal');
+  if(!ORS){
+    // Setup-view: forklar + nøgle-input
+    m.innerHTML=`<div class="modal route-modal" onclick="event.stopPropagation()">
+      <button class="modal-x" onclick="closeModal()">✕</button>
+      <div class="mob-title">🗺️ Løberuter</div>
+      <div class="route-setup">
+        <p>Appen kan generere cirkulære løberuter fra din position — i præcis den længde dagens træning kræver.</p>
+        <p>Det kræver en <b>gratis</b> nøgle fra OpenRouteService (2 min at oprette):</p>
+        <ol>
+          <li>Gå til <a href="https://openrouteservice.org/dev/#/signup" target="_blank">openrouteservice.org</a> og opret konto</li>
+          <li>Kopiér din API-nøgle fra dashboardet</li>
+          <li>Indsæt den herunder</li>
+        </ol>
+        <input type="password" id="orsKeyInput" placeholder="Indsæt ORS-nøgle…" autocomplete="off">
+        <button class="ai-btn" onclick="saveOrsKey(document.getElementById('orsKeyInput').value);openRouteModal(${routeTargetKm})">Gem & find rute</button>
+      </div>
+    </div>`;
+    m.classList.add('show');
+    return;
+  }
+  m.innerHTML=`<div class="modal route-modal" onclick="event.stopPropagation()">
+    <button class="modal-x" onclick="closeModal()">✕</button>
+    <div class="mob-title">🗺️ Din løberute</div>
+    <div class="route-status" id="routeStatus">📍 Finder din position…</div>
+    <div id="routeMapEl" class="route-map"></div>
+    <div class="route-stats" id="routeStats"></div>
+    <div class="route-btns">
+      <button class="ai-btn" onclick="regenRoute()">🔄 Ny variant</button>
+      <button class="ai-btn ghost" onclick="clearOrsKey()">Skift nøgle</button>
+    </div>
+  </div>`;
+  m.classList.add('show');
+  findAndDrawRoute();
+}
+function clearOrsKey(){saveOrsKey('');openRouteModal(routeTargetKm)}
+function regenRoute(){routeSeed=Math.floor(Math.random()*100);findAndDrawRoute()}
+
+function findAndDrawRoute(){
+  const st=document.getElementById('routeStatus');
+  if(!navigator.geolocation){if(st)st.textContent='⚠️ Din browser understøtter ikke lokation';return}
+  navigator.geolocation.getCurrentPosition(async pos=>{
+    const lat=pos.coords.latitude,lon=pos.coords.longitude;
+    if(st)st.textContent='🧭 Beregner '+routeTargetKm+' km rute…';
+    try{
+      const resp=await fetch('https://api.openrouteservice.org/v2/directions/foot-walking/geojson',{
+        method:'POST',
+        headers:{'Authorization':ORS,'Content-Type':'application/json'},
+        body:JSON.stringify({
+          coordinates:[[lon,lat]],
+          options:{round_trip:{length:Math.round(routeTargetKm*1000),points:5,seed:routeSeed}}
+        })
+      });
+      if(!resp.ok){
+        throw new Error(resp.status===401||resp.status===403?'Ugyldig nøgle — tjek den under "Skift nøgle"':'Rutetjeneste-fejl ('+resp.status+')');
+      }
+      const geo=await resp.json();
+      await loadLeaflet();
+      const mapEl=document.getElementById('routeMapEl');
+      if(!mapEl)return;
+      if(routeMap){routeMap.remove();routeMap=null}
+      routeMap=L.map(mapEl,{zoomControl:false});
+      L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© OpenStreetMap',maxZoom:19}).addTo(routeMap);
+      routeLayer=L.geoJSON(geo,{style:{color:'#ffd60a',weight:4,opacity:.9}}).addTo(routeMap);
+      L.circleMarker([lat,lon],{radius:7,color:'#32d74b',fillColor:'#32d74b',fillOpacity:1}).addTo(routeMap).bindPopup('Start/mål');
+      routeMap.fitBounds(routeLayer.getBounds(),{padding:[24,24]});
+      const sum=geo.features?.[0]?.properties?.summary;
+      const distKm=sum?(sum.distance/1000).toFixed(1):routeTargetKm;
+      const durMin=sum?Math.round(sum.duration/60):null;
+      if(st)st.textContent='✓ Rute klar — følg den gule linje';
+      const stats=document.getElementById('routeStats');
+      if(stats)stats.innerHTML=`<div class="route-stat"><b>${distKm}</b><small>km</small></div>
+        ${durMin?`<div class="route-stat"><b>~${durMin}</b><small>min gang</small></div>`:''}
+        <div class="route-stat"><b>Rundtur</b><small>start = mål</small></div>`;
+    }catch(err){
+      if(st)st.textContent='⚠️ '+err.message;
+    }
+  },err=>{
+    if(st)st.textContent='⚠️ Kunne ikke få din position — tillad lokation i Safari-indstillinger';
+  },{enableHighAccuracy:true,timeout:10000});
+}
+
+/* ═══ GUIDET LØB ═══ */
+// GPS-tracking + dansk stemme-guidning i høretelefoner + wake lock + auto-log
+// OBS: iOS tillader ikke baggrundskørsel for web-apps — skærmen holdes vågen i stedet
+const RG={active:false,paused:false,day:null,targetKm:5,startTs:0,pausedMs:0,pauseStart:0,dist:0,lastPos:null,lastKmAnnounced:0,watchId:null,timerId:null,wakeLock:null};
+
+function rgSpeak(txt){
+  try{
+    if(!('speechSynthesis' in window))return;
+    const u=new SpeechSynthesisUtterance(txt);
+    u.lang='da-DK';u.rate=1.02;u.volume=1;
+    speechSynthesis.speak(u);
+  }catch(e){}
+}
+function rgFmtTime(sec){
+  sec=Math.round(sec);
+  const m=Math.floor(sec/60),s=sec%60;
+  return m+':'+String(s).padStart(2,'0');
+}
+function rgFmtTimeSpoken(sec){
+  sec=Math.round(sec);
+  const m=Math.floor(sec/60),s=sec%60;
+  return m+' minutter og '+s+' sekunder';
+}
+function rgElapsed(){
+  if(!RG.startTs)return 0;
+  const now=RG.paused?RG.pauseStart:Date.now();
+  return (now-RG.startTs-RG.pausedMs)/1000;
+}
+function rgHaversine(a,b){
+  const R=6371000,rad=Math.PI/180;
+  const dLat=(b.lat-a.lat)*rad,dLon=(b.lon-a.lon)*rad;
+  const x=Math.sin(dLat/2)**2+Math.cos(a.lat*rad)*Math.cos(b.lat*rad)*Math.sin(dLon/2)**2;
+  return 2*R*Math.asin(Math.sqrt(x));
+}
+
+function openRunGuide(day,targetKm){
+  RG.day=day;RG.targetKm=targetKm||5;
+  const m=document.getElementById('modal');
+  m.innerHTML=`<div class="modal rg-modal" onclick="event.stopPropagation()">
+    <div class="rg-status" id="rgStatus">Klar — tryk start og læg telefonen i lommen (skærm forbliver tændt)</div>
+    <div class="rg-time" id="rgTime">0:00</div>
+    <div class="rg-row">
+      <div class="rg-stat"><b id="rgKm">0.00</b><small>km</small></div>
+      <div class="rg-stat"><b id="rgPace">–:––</b><small>pace /km</small></div>
+    </div>
+    <div class="rg-btns" id="rgBtns">
+      <button class="rg-start" onclick="startRunGuide()">▶ Start</button>
+      <button class="ai-btn ghost" onclick="cancelRunGuide()">Luk</button>
+    </div>
+    <div class="rg-note">Stemme-splits ved hver km · Auto-log ved stop · Virker med skærm tændt (iOS-krav for web-apps)</div>
+  </div>`;
+  m.classList.add('show');
+}
+
+async function startRunGuide(){
+  RG.active=true;RG.paused=false;RG.startTs=Date.now();RG.pausedMs=0;RG.dist=0;RG.lastPos=null;RG.lastKmAnnounced=0;
+  rgSpeak('Guidet løb startet. God tur!'); // user-gesture unlock af TTS
+  // Wake lock — hold skærmen vågen
+  try{RG.wakeLock=await navigator.wakeLock?.request('screen')}catch(e){}
+  document.addEventListener('visibilitychange',rgReacquireWake);
+  // GPS
+  if(navigator.geolocation){
+    RG.watchId=navigator.geolocation.watchPosition(rgOnPos,()=>{},{enableHighAccuracy:true,maximumAge:1000,timeout:15000});
+  }
+  RG.timerId=setInterval(rgTick,1000);
+  // Skift UI til kørende
+  const btns=document.getElementById('rgBtns');
+  if(btns)btns.innerHTML=`<button class="rg-pause" onclick="pauseRunGuide()" id="rgPauseBtn">⏸ Pause</button>
+    <button class="rg-stop" onclick="stopRunGuide()">■ Stop & log</button>`;
+  const st=document.getElementById('rgStatus');
+  if(st)st.textContent='🏃 Løb i gang — telefonen må gerne i lommen';
+}
+async function rgReacquireWake(){
+  if(RG.active&&document.visibilityState==='visible'){
+    try{RG.wakeLock=await navigator.wakeLock?.request('screen')}catch(e){}
+  }
+}
+function rgOnPos(pos){
+  if(!RG.active||RG.paused)return;
+  if(pos.coords.accuracy>35)return; // ignorér upræcise målinger
+  const p={lat:pos.coords.latitude,lon:pos.coords.longitude,t:Date.now()};
+  if(RG.lastPos){
+    const d=rgHaversine(RG.lastPos,p);
+    const dt=(p.t-RG.lastPos.t)/1000;
+    if(dt>0&&d/dt<7){ // <7 m/s = realistisk løb, filtrér GPS-hop
+      RG.dist+=d;
+    }
+  }
+  RG.lastPos=p;
+}
+function rgTick(){
+  if(!RG.active||RG.paused)return;
+  const el=rgElapsed();
+  const km=RG.dist/1000;
+  const t=document.getElementById('rgTime');if(t)t.textContent=rgFmtTime(el);
+  const k=document.getElementById('rgKm');if(k)k.textContent=km.toFixed(2);
+  const p=document.getElementById('rgPace');
+  if(p)p.textContent=km>0.05?rgFmtTime(el/km):'–:––';
+  // Km-split annoncering
+  const whole=Math.floor(km);
+  if(whole>RG.lastKmAnnounced&&whole>=1){
+    RG.lastKmAnnounced=whole;
+    const pace=rgFmtTime(el/km).replace(':',' minutter ')+' sekunder';
+    rgSpeak(whole+' kilometer. Tid: '+rgFmtTimeSpoken(el)+'. Gennemsnitspace: '+pace+' per kilometer.');
+    // Halvvejs/målnær opmuntring
+    if(whole===Math.floor(RG.targetKm/2))rgSpeak('Du er halvvejs. Stærkt arbejde!');
+    if(RG.targetKm-km<=1&&RG.targetKm-km>0.5)rgSpeak('Under én kilometer til målet. Hold tempoet!');
+  }
+}
+function pauseRunGuide(){
+  if(!RG.paused){
+    RG.paused=true;RG.pauseStart=Date.now();
+    rgSpeak('Pause.');
+    const b=document.getElementById('rgPauseBtn');if(b)b.textContent='▶ Fortsæt';
+    if(b)b.onclick=pauseRunGuide;
+  }else{
+    RG.pausedMs+=Date.now()-RG.pauseStart;
+    RG.paused=false;
+    rgSpeak('Fortsætter.');
+    const b=document.getElementById('rgPauseBtn');if(b)b.textContent='⏸ Pause';
+  }
+}
+function rgCleanup(){
+  RG.active=false;
+  if(RG.watchId!=null){try{navigator.geolocation.clearWatch(RG.watchId)}catch(e){}RG.watchId=null}
+  if(RG.timerId){clearInterval(RG.timerId);RG.timerId=null}
+  try{RG.wakeLock?.release()}catch(e){}
+  RG.wakeLock=null;
+  document.removeEventListener('visibilitychange',rgReacquireWake);
+}
+function cancelRunGuide(){rgCleanup();closeModal()}
+function stopRunGuide(){
+  const el=rgElapsed();
+  const km=RG.dist/1000;
+  rgCleanup();
+  if(km<0.1||el<60){
+    // For kort til at logge
+    closeModal();toast('Løb stoppet (for kort til at logge)');return;
+  }
+  const tidStr=rgFmtTime(el);
+  const paceStr=rgFmtTime(el/km);
+  const kmStr=km.toFixed(2);
+  rgSpeak('Løb gennemført. '+kmStr.replace('.',' komma ')+' kilometer på '+rgFmtTimeSpoken(el)+'. Godt arbejde!');
+  // Auto-log i dagens felter
+  sw(week,RG.day,'tid',tidStr);
+  sw(week,RG.day,'pace',paceStr);
+  sw(week,RG.day,'km',kmStr);
+  closeModal();
+  toast('✓ Logget: '+kmStr+' km · '+tidStr+' · '+paceStr+'/km');
+  maybeShowDayComplete(week,RG.day);
+  render();
+}
+
 // Programmets nuværende uge — først via startdato, ellers fra seneste data
 function currentWeek(){
   if(PROG.startDate){
@@ -2632,7 +3242,7 @@ function renderSetInputs(w,day,name,numSets){
   for(let s=0;s<numSets;s++){
     const rawV=s<arr.length?arr[s]:0;
     const sv=rawV>0?rawV:''; // 0 og NaN vises som tom
-    h+=`<div class="set-chip">
+    h+=`<div class="set-chip${rawV>0?' filled':''}">
       <label>S${s+1}</label>
       <input type="number" inputmode="decimal" step="0.5" min="0" placeholder="—" value="${sv}"
         onchange="wchSet(${w},'${escAttr(day)}','${escAttr(name)}',${s},${numSets},this.value)"
@@ -2716,32 +3326,68 @@ function render(){
   else c.innerHTML=rWeekly();
 }
 
+// Nuværende streak (samme logik som rStreak, home-aware)
+function calcCurrentStreak(){
+  if(!PROG.startDate)return 0;
+  const start=new Date(PROG.startDate+'T00:00:00');
+  const today=new Date();today.setHours(0,0,0,0);start.setHours(0,0,0,0);
+  const todayIdx=Math.floor((today-start)/86400000);
+  const dayMap={};
+  for(let w=1;w<=TW();w++){
+    D.forEach((d,di)=>{
+      const exs=dayEx(d);
+      let hasData=false;
+      if(exs){hasData=exs.some(e=>gw(w,d.full,e.n)||gw(w,d.full,'HOME__'+e.n))}
+      else if(d.run){hasData=['tid','pace','km'].some(k=>gw(w,d.full,k))}
+      if(hasData)dayMap[(w-1)*7+di]=1;
+    });
+  }
+  let running=0;
+  for(let i=0;i<=Math.min(todayIdx,TW()*7-1);i++){
+    if(dayMap[i])running++;else running=0;
+  }
+  return running;
+}
+
 function updateHeaderWeek(){
+  const el=document.getElementById('hdrStats');
+  if(!el)return;
   const tpl=TEMPLATES[PROG.template||'recomp'];
   const showRun=tpl?.needsRunTime!==false;
-  // Mål-tid (kun for løbe-programmer)
-  const goalEl=document.getElementById('hdrGoal');
-  if(goalEl){
-    if(showRun){
-      const g=goal5kSec();
-      const dist=PROG.runDistance||5;
-      goalEl.style.display='';
-      goalEl.innerHTML=`<div class="hdr-stat-dot" style="background:var(--grn)"></div><label>Mål ${dist}km</label><b style="color:var(--grn)">&lt;${fmtSec(g)}</b>`;
-    }else{
-      goalEl.style.display='none';
-    }
-  }
-  // Uge / Status
-  const el=document.getElementById('hdrWeek');
-  if(!el)return;
   const cw=currentWeek();
-  if(isProgramDone()){
-    el.innerHTML=`<div class="hdr-stat-dot" style="background:#30d158"></div><label>Status</label><b style="color:#30d158">FÆRDIG</b>`;
-  }else if(PROG.startDate){
-    el.innerHTML=`<div class="hdr-stat-dot"></div><label>Uge</label><b>${cw} / ${TW()}</b>`;
-  }else{
-    el.innerHTML=`<div class="hdr-stat-dot"></div><label>Plan</label><b>${TW()} UGE</b>`;
+  const done=isProgramDone();
+  const tw=TW();
+  // Ring-fremgang: gennemførte uger / total
+  const pct=done?100:Math.round(Math.max(0,Math.min(100,((cw-1)/tw)*100)));
+  const C=2*Math.PI*34; // omkreds ved r=34
+  const offset=C*(1-pct/100);
+  // Denne uges træninger
+  const trainDays=D.filter(d=>d.ex||d.run);
+  const doneThisWeek=PROG.startDate?trainDays.filter(d=>isDayFullyLogged(cw,d.full)).length:0;
+  // Streak
+  const streak=calcCurrentStreak();
+  // Byg stats-rækker
+  let rows='';
+  if(showRun){
+    const g=goal5kSec();
+    const dist=PROG.runDistance||5;
+    rows+=`<div class="ph-stat"><span class="ph-stat-l">Mål ${dist} km</span><span class="ph-stat-v grn">&lt;${fmtSec(g)}</span></div>`;
   }
+  rows+=`<div class="ph-stat"><span class="ph-stat-l">Denne uge</span><span class="ph-stat-v">${doneThisWeek} / ${trainDays.length} træninger</span></div>`;
+  rows+=`<div class="ph-stat"><span class="ph-stat-l">Streak</span><span class="ph-stat-v acc">${streak>0?'🔥 '+streak+' dage':'—'}</span></div>`;
+  el.innerHTML=`<div class="progress-hero" onclick="openSettingsModal()">
+    <div class="phero-ring">
+      <svg width="76" height="76" viewBox="0 0 76 76">
+        <circle class="phr-bg" cx="38" cy="38" r="34"/>
+        <circle class="phr-fill" cx="38" cy="38" r="34" style="stroke-dasharray:${C.toFixed(1)};stroke-dashoffset:${offset.toFixed(1)}"/>
+      </svg>
+      <div class="phr-center">
+        <div class="phr-pct">${done?'✓':pct+'%'}</div>
+        <div class="phr-sub">${done?'Færdig':'Uge '+cw+'/'+tw}</div>
+      </div>
+    </div>
+    <div class="phero-stats">${rows}</div>
+  </div>`;
 }
 
 let wpickExpanded=false;
@@ -2837,10 +3483,13 @@ function rWeekly(){
       const isToday=i===todayIdx&&PROG.startDate&&!isProgramDone();
       const isSel=sel===i;
       const col=dayColor(d);
+      // Grøn check-dot på gennemførte dage (center eller hjemme)
+      const dayDone=(d.ex||d.run)&&isDayFullyLogged(week,d.full);
       h+=`<button class="day${isSel?' on':''}${isToday?' today':''}" style="--dc:${col}" onclick="sd(${i})">
         ${ic(dayIcon(d))}
         <span class="day-label">${d.day}</span>
         ${isToday?'<span class="live-dot"></span>':''}
+        ${dayDone?'<span class="done-dot">✓</span>':''}
       </button>`;
     });
     h+='</div>';
@@ -2876,6 +3525,18 @@ function rWeekly(){
     if(exs){
       const gp=GP[gymPhase(week)];
       h+=wpickH();
+      const homeOn=isHomeDay(week,d.full);
+      h+=`<button class="home-toggle${homeOn?' on':''}" onclick="toggleHomeDay(${week},'${escAttr(d.full)}')">
+        <svg class="ic sm" viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg>
+        ${homeOn?'Hjemme-version aktiv — tap for center':'Intet center i dag? Træn hjemme'}
+      </button>`;
+      if(homeOn){
+        h+=`<div class="home-equip">
+          <span class="home-equip-label">Udstyr:</span>
+          <button class="he-chip${HOME_EQUIP==='bw'?' on':''}" onclick="setHomeEquip('bw')">Kun kropsvægt</button>
+          <button class="he-chip${HOME_EQUIP==='db'?' on':''}" onclick="setHomeEquip('db')">Har håndvægte</button>
+        </div>`;
+      }
       h+=`<div class="phase-banner" style="background:${gp.color}10;border:1px solid ${gp.color}30">
         <div class="phase-dot" style="background:${gp.color}"></div>
         <div class="phase-name" style="color:${gp.color}">${gp.name.toUpperCase()}</div>
@@ -2887,7 +3548,9 @@ function rWeekly(){
       </div>`;
       // Card-baseret layout — header er ikke længere relevant
       exs.forEach((e,exIdx)=>{
-        const sr=exSR(e,week),v=gw(week,d.full,e.n),dv=df(week,d.full,e.n);
+        // Hjemmedage logger under separat nøgle så center-historik/PR ikke påvirkes
+        const logName=homeOn?'HOME__'+e.n:e.n;
+        const sr=exSR(e,week),v=gw(week,d.full,logName),dv=df(week,d.full,logName);
         const numSets=parseInt(sr.s)||3;
         const isCust=e.custom;
         const cls=isCust?'cust':(e.core?'core':'');
@@ -2898,13 +3561,13 @@ function rWeekly(){
         const displayVal=summaryW(v)||'';
         const mainVal=maxW(v);
         const inSS=isInSuperset(d.full,exIdx);
-        const showPR=!e.core&&isPR(d.full,e.n,week)&&mainVal>0;
+        const showPR=!e.core&&isPR(d.full,logName,week)&&mainVal>0;
         const prBadge=showPR?'<span class="pr-badge">🏆 PR</span>':'';
         const swapTag=e.swapped?'<span class="swap-tag">ERSTATTET</span>':'';
         const noteKey=d.full+'__'+e.n;
         const hasNote=!!getExerciseNote(week,d.full,e.n);
         const noteOpen=selExRow==='note__'+noteKey;
-        const est1rm=!e.core?estimateExercise1RM(week,d.full,e.n,e):null;
+        const est1rm=!e.core?estimateExercise1RM(week,d.full,logName,e):null;
         const rmDisplay=est1rm?`<div class="est-1rm">est. 1RM: <b>${est1rm} kg</b></div>`:'';
         // Handlings-knapper samlet i tydelig bar
         const actionBar=`<div class="ex-actions">
@@ -2913,7 +3576,33 @@ function rWeekly(){
           <button class="ex-act${hasNote?' on':''}" onclick="toggleNote('${escAttr(noteKey)}')">${hasNote?'📝 Note':'✎ Note'}</button>
           ${isCust?`<button class="ex-act danger" onclick="removeCustomEx('${escAttr(d.full)}','${escAttr(e.n)}')">🗑 Fjern</button>`:''}
         </div>`;
-        h+=`<div class="exrow${cls?' '+cls:''}${showSetInputs?' has-sets':''}">
+        // Hjemme-alternativ (kun når hjemme-mode er aktiv for dagen)
+        let homeAltHtml='';
+        if(homeOn){
+          const alt=homeAlternative(e);
+          if(alt){
+            homeAltHtml=`<div class="home-alt">
+              <div class="home-alt-head">
+                <svg class="ic sm" viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg>
+                <b>${escHtml(alt.n)}</b>
+                <a class="home-alt-vid" href="${alt.l}" target="_blank">▶ Guide</a>
+              </div>
+              <div class="home-alt-note">${escHtml(alt.no)} Samme sæt/reps. Vægten logges separat — din center-historik påvirkes ikke.</div>
+            </div>`;
+          }
+        }
+        // Done-state: alle sæt logget på denne øvelse
+        const exDone=(()=>{
+          if(e.core)return countCompletedSets(v,numSets)===numSets;
+          const arr=parseW(v);
+          if(arr.length<numSets)return false;
+          for(let si=0;si<numSets;si++){
+            if(arr[si]==null||isNaN(arr[si]))return false;
+            if(!homeOn&&arr[si]<=0)return false;
+          }
+          return true;
+        })();
+        h+=`<div class="exrow${cls?' '+cls:''}${showSetInputs?' has-sets':''}${exDone?' done':''}">
           <div class="exrow-top">
             <div>
               <div class="exn">${e.n}${custTag}${swapTag}${prBadge}</div>
@@ -2922,25 +3611,24 @@ function rWeekly(){
             </div>
             <a class="vl" href="${e.l}" target="_blank">▶ Video</a>
           </div>
-          <div class="exrow-meta">
-            <span><b style="color:${d.color}">${sr.s}</b> sæt</span>
-            <span><b>${sr.r}</b> reps</span>
+          ${homeAltHtml}
+          <div class="metrics">
+            <div class="metric"><div class="metric-num" style="color:${d.color}">${sr.s}</div><div class="metric-cap">Sæt</div></div>
+            <div class="metric"><div class="metric-num">${sr.r}</div><div class="metric-cap">Reps</div></div>
             ${(()=>{
               if(e.core){
-                const done=countCompletedSets(gw(week,d.full,e.n),numSets);
-                if(done===0)return '<span class="meta-max" style="color:var(--mut2);opacity:.6">— 0/'+numSets+' sæt</span>';
-                if(done===numSets)return '<span class="meta-max" style="color:var(--grn)">✓ '+done+'/'+numSets+' sæt</span>';
-                return '<span class="meta-max">'+done+'/'+numSets+' sæt</span>';
+                const done=countCompletedSets(gw(week,d.full,logName),numSets);
+                if(done===numSets)return '<div class="metric"><div class="metric-num grn">✓</div><div class="metric-cap">'+done+'/'+numSets+' sæt</div></div>';
+                return '<div class="metric"><div class="metric-num'+(done===0?' muted':'')+'">'+done+'/'+numSets+'</div><div class="metric-cap">Sæt gjort</div></div>';
               }
-              if(!mainVal||isNaN(mainVal)||mainVal<=0)return '<span class="meta-max" style="color:var(--mut2);opacity:.6">— ikke logget</span>';
-              return '<span class=\"meta-max\">max '+mainVal+' kg</span>';
+              if(!mainVal||isNaN(mainVal)||mainVal<=0)return '<div class="metric"><div class="metric-num muted">—</div><div class="metric-cap">Max</div></div>';
+              return '<div class="metric"><div class="metric-num grn">'+mainVal+'<small>kg</small></div><div class="metric-cap">Max'+(diffH(dv)?' '+diffH(dv):'')+'</div></div>';
             })()}
-            ${diffH(dv)}
           </div>
-          ${week>=2?renderHistoryStrip(d.full,e.originalName||e.n,e):''}
+          ${week>=2?renderHistoryStrip(d.full,homeOn?logName:(e.originalName||e.n),e):''}
           ${rmDisplay||''}
-          ${e.core?renderCoreCheckmarks(week,d.full,e.n,numSets):''}
-          ${showSetInputs?renderSetInputs(week,d.full,e.n,numSets):''}
+          ${e.core?renderCoreCheckmarks(week,d.full,logName,numSets):''}
+          ${showSetInputs?renderSetInputs(week,d.full,logName,numSets):''}
           ${noteOpen?renderNotePopup(week,d.full,e.n):''}
           ${actionBar}
         </div>`;
@@ -2950,6 +3638,7 @@ function rWeekly(){
       h+=`<div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap;justify-content:center">
         <button class="ai-btn quick-coach" onclick="askCoachAboutToday('${escAttr(d.full)}')">${ic('bot','sm')} Spørg coachen</button>
         <button class="ai-btn ghost" onclick="go('library')">+ Tilføj øvelse</button>
+        <button class="ai-btn ghost" onclick="openMobilityModal()">🧘 Mobility</button>
       </div>`;
 
     }else if(d.run){
@@ -3113,6 +3802,15 @@ function rWeekly(){
       // Mål-kort placeres HER — efter loggen (sekundær reference)
       h+=goalCard;
       h+=renderPaceCalc();
+      // Løberute-generator: beregn dagens mål-distance fra planen
+      const routeKm=Math.max(2,Math.round((plan.totalDur*60/plan.pacePerKm)*10)/10);
+      h+=`<button class="route-btn" onclick="openRouteModal(${routeKm})">
+        <svg class="ic sm" viewBox="0 0 24 24"><path d="M9 20l-5.5-2.2a1 1 0 0 1-.5-.9V4.6a1 1 0 0 1 1.4-.9L9 5.8m0 14.2 6-2m-6 2V5.8m6 12.2 5.1 2a1 1 0 0 0 1.4-.9V6.6a1 1 0 0 0-.6-.9L15 3.8m0 14.2V3.8M9 5.8l6-2"/></svg>
+        Generér løberute · ca. ${routeKm} km fra din position
+      </button>`;
+      h+=`<button class="guide-btn" onclick="openRunGuide('${escAttr(d.full)}',${routeKm})">
+        🎧 Guidet løb — stemme i høretelefoner + auto-log
+      </button>`;
       h+=`<div style="margin-top:12px;text-align:center">
         <button class="ai-btn quick-coach" onclick="askCoachAboutToday('${escAttr(d.full)}')">${ic('bot','sm')} Spørg coachen om dagens løb</button>
       </div>`;
@@ -3123,6 +3821,14 @@ function rWeekly(){
         <div class="rest-title">Restitutionsdag</div>
         <div class="rest-sub">Søvn 7–9 timer &nbsp;·&nbsp; Let gåtur er fint</div>
       </div>`;
+      h+=`<button class="mob-card" onclick="openMobilityModal()">
+        <span class="mob-card-icon">🧘</span>
+        <div class="mob-card-text">
+          <b>Perfekt dag til mobility</b>
+          <small>4 rutiner · 8–15 min${mobDoneCount()>0?' · '+mobDoneCount()+' gennemført':''}</small>
+        </div>
+        <span class="mob-card-arrow">›</span>
+      </button>`;
     }
     h+='</div>';
     // Luk altid swipe-wrap (vi bruger den nu for alle dage)
@@ -4986,6 +5692,8 @@ function buildTrainingContext(){
         exs.filter(e=>!e.core).forEach(e=>{
           const v=gw(w,d.full,e.n);
           if(v){weekData+=`  ${d.full} ${e.n}: ${v} kg\n`;anyData=true}
+          const hv=gw(w,d.full,'HOME__'+e.n);
+          if(hv){weekData+=`  ${d.full} ${e.n} (HJEMME-version): ${hv} kg\n`;anyData=true}
         });
       }else if(d.run){
         const tid=gw(w,d.full,'tid'),pace=gw(w,d.full,'pace'),km=gw(w,d.full,'km'),note=gw(w,d.full,'note');
@@ -5008,6 +5716,11 @@ function buildTrainingContext(){
     allCust.forEach(([day,arr])=>{
       ctx+=`${day}: ${arr.map(e=>e.n).join(', ')}\n`;
     });
+  }
+
+  // Mobility-sessioner
+  if(typeof MOB!=='undefined'&&MOB.log&&MOB.log.length){
+    ctx+=`\n=== MOBILITY ===\nGennemførte mobility-sessioner: ${MOB.log.length} (seneste: ${MOB.log.slice(-3).map(k=>k.replace('__',' – ')).join(', ')})\n`;
   }
 
   // Kropsdata
@@ -6042,8 +6755,10 @@ function isDayFullyLogged(week,day){
   // Styrkedag: ALLE sæt skal være udfyldt på ALLE øvelser
   const exs=dayEx(dayObj);
   if(!exs||!exs.length)return false;
+  const home=isHomeDay(week,day);
   for(const e of exs){
-    const v=gw(week,day,e.n);
+    const key=home?'HOME__'+e.n:e.n;
+    const v=gw(week,day,key);
     if(!v)return false;
     const sr=exSR(e,week);
     const numSets=parseInt(sr.s)||3;
@@ -6052,11 +6767,12 @@ function isDayFullyLogged(week,day){
       const done=countCompletedSets(v,numSets);
       if(done<numSets)return false;
     }else{
-      // Vægt: ALLE sæt skal have en værdi > 0
+      // Vægt: ALLE sæt skal have en værdi (hjemme: 0 kg = kropsvægt er OK)
       const arr=parseW(v);
       if(arr.length<numSets)return false;
       for(let i=0;i<numSets;i++){
-        if(!arr[i]||arr[i]<=0)return false;
+        if(arr[i]==null||isNaN(arr[i]))return false;
+        if(!home&&arr[i]<=0)return false;
       }
     }
   }
@@ -6122,20 +6838,23 @@ function getDayStats(week,day){
   // Styrkedag: vis antal øvelser + total volumen
   const exs=dayEx(dayObj);
   if(!exs)return '';
+  const home=isHomeDay(week,day);
   let totalVol=0,exCount=0,prCount=0;
   exs.forEach(e=>{
     if(e.core)return;
-    const v=gw(week,day,e.n);
+    const key=home?'HOME__'+e.n:e.n;
+    const v=gw(week,day,key);
     const arr=parseW(v);
     const sr=exSR(e,week);
     const reps=parseInt(String(sr.r).split('-')[0])||8;
     arr.forEach(w=>{if(w>0)totalVol+=w*reps});
-    if(arr.length&&arr[0]>0)exCount++;
-    if(isPR(day,e.n,week))prCount++;
+    if(arr.length&&(arr[0]>0||(home&&!isNaN(arr[0]))))exCount++;
+    if(isPR(day,key,week))prCount++;
   });
   let bits=[];
   bits.push(`<div class="dcm-stat"><div class="dcm-stat-v">${exCount}</div><div class="dcm-stat-l">Øvelser</div></div>`);
   if(totalVol>0)bits.push(`<div class="dcm-stat"><div class="dcm-stat-v">${Math.round(totalVol).toLocaleString('da-DK')}</div><div class="dcm-stat-l">Volumen (kg)</div></div>`);
+  if(home)bits.push(`<div class="dcm-stat"><div class="dcm-stat-v" style="color:var(--blue)">🏠</div><div class="dcm-stat-l">Hjemme</div></div>`);
   if(prCount>0)bits.push(`<div class="dcm-stat"><div class="dcm-stat-v" style="color:#ffd60a">🏆 ${prCount}</div><div class="dcm-stat-l">Nye PRs</div></div>`);
   return bits.join('');
 }
@@ -6147,6 +6866,34 @@ function maybeShowDayComplete(week,day){
   markDayCompletedShown(week,day);
   // Lille forsinkelse så input-render er færdig
   setTimeout(()=>showDayCompleteCelebration(week,day),400);
+}
+
+// ─── BACKUP-REMINDER (hver 28. dag) ───
+const BKR_KEY='tw4_backup_reminder_last';
+function maybeShowBackupReminder(){
+  // Kun hvis brugeren faktisk har data at miste
+  if(Object.keys(W).length<10)return;
+  let last=0;
+  try{last=parseInt(localStorage.getItem(BKR_KEY)||'0')}catch(e){}
+  const now=Date.now();
+  const days28=28*24*60*60*1000;
+  if(now-last<days28)return;
+  // Vis diskret banner-modal
+  try{localStorage.setItem(BKR_KEY,String(now))}catch(e){}
+  setTimeout(()=>{
+    const m=document.getElementById('modal');
+    if(!m||m.classList.contains('show'))return; // forstyr ikke anden modal
+    m.innerHTML=`<div class="modal backup-reminder-modal" onclick="event.stopPropagation()">
+      <div class="brm-icon">💾</div>
+      <div class="brm-title">Tid til backup</div>
+      <div class="brm-body">Dine træningsdata ligger kun i browserens hukommelse. Hvis Safari-cachen ryddes, mistes alt. Tag en backup nu — det tager 2 sekunder.</div>
+      <div class="brm-btns">
+        <button class="prog-btn" onclick="exportData();closeModal()">⬇ Download backup</button>
+        <button class="prog-btn ghost" onclick="closeModal()">Senere</button>
+      </div>
+    </div>`;
+    m.classList.add('show');
+  },1500);
 }
 
 // Storage for at huske hvilke uger vi har vist body-log reminder
@@ -6374,7 +7121,8 @@ function exportData(){
     tw4:W, tw4_custom:CUSTOM, tw4_ai:{apiKey:AI.apiKey,model:AI.model,settingsOpen:AI.settingsOpen},
     tw4_swaps:SWAPS_EX,
     tw4_prog:PROG, tw4_body:BODY, tw4_ss:SUPERSETS, tw4_steps:STEPS, tw4_cycle:CYCLE, tw4_pcos_profile:PCOS_PROFILE, tw4_profile:PROFILE, tw4_wellness:WELLNESS,
-    _exported:new Date().toISOString(), _version:2
+    tw4_home_days:HOME_DAYS, tw4_home_equip:HOME_EQUIP, tw4_mobility:MOB,
+    _exported:new Date().toISOString(), _version:3
   };
   const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
   const url=URL.createObjectURL(blob);
@@ -6405,6 +7153,9 @@ function importData(input){
       if(data.tw4_pcos_profile){PCOS_PROFILE=data.tw4_pcos_profile;savePcosProfile()}
       if(data.tw4_profile){PROFILE=data.tw4_profile;saveProfile()}
       if(data.tw4_wellness){WELLNESS=data.tw4_wellness;saveWellness()}
+      if(data.tw4_home_days){HOME_DAYS=data.tw4_home_days;saveHomeDays()}
+      if(data.tw4_home_equip){HOME_EQUIP=data.tw4_home_equip;try{localStorage.setItem(HOME_EQUIP_KEY,HOME_EQUIP)}catch(e){}}
+      if(data.tw4_mobility){MOB=data.tw4_mobility;saveMob()}
       toast('✓ Data importeret');
       render();
     }catch(err){
@@ -6688,7 +7439,7 @@ function rStreak(){
     D.forEach((d,di)=>{
       const exs=dayEx(d);
       let hasData=false;
-      if(exs){hasData=exs.some(e=>gw(w,d.full,e.n))}
+      if(exs){hasData=exs.some(e=>gw(w,d.full,e.n)||gw(w,d.full,'HOME__'+e.n))}
       else if(d.run){hasData=['tid','pace','km'].some(k=>gw(w,d.full,k))}
       if(hasData){
         const dayIdx=(w-1)*7+di;
@@ -7104,32 +7855,12 @@ function introTouchEnd(e){
 /* ═══════════════════════════════════════════════════════════ */
 // Inline service worker via Blob URL — caches the app shell after first load
 if('serviceWorker' in navigator){
-  const swCode=`
-    const CACHE='traening-v1';
-    self.addEventListener('install',e=>{self.skipWaiting()});
-    self.addEventListener('activate',e=>{e.waitUntil(clients.claim())});
-    self.addEventListener('fetch',e=>{
-      if(e.request.method!=='GET')return;
-      e.respondWith(
-        caches.open(CACHE).then(cache=>
-          cache.match(e.request).then(cached=>{
-            const fetchPromise=fetch(e.request).then(resp=>{
-              if(resp&&resp.status===200&&resp.type==='basic'){
-                cache.put(e.request,resp.clone());
-              }
-              return resp;
-            }).catch(()=>cached);
-            return cached||fetchPromise;
-          })
-        )
-      );
+  // Registrér sw.js (skal ligge ved siden af index.html på serveren)
+  window.addEventListener('load',()=>{
+    navigator.serviceWorker.register('./sw.js').catch(()=>{
+      // sw.js mangler på serveren — appen virker stadig, bare uden offline-support
     });
-  `;
-  try{
-    const blob=new Blob([swCode],{type:'application/javascript'});
-    const swUrl=URL.createObjectURL(blob);
-    navigator.serviceWorker.register(swUrl).catch(()=>{});
-  }catch(e){}
+  });
 }
 
 /* ═══════════════════════════════════════════════════════════ */
@@ -7149,6 +7880,9 @@ render();
 // Vis intro for nye brugere (efter render så app er klar i baggrunden)
 if(!PROG.introSeen){
   setTimeout(showIntro,100);
+}else{
+  // Backup-reminder hver 28. dag (kun for etablerede brugere)
+  maybeShowBackupReminder();
 }
 
 // Kompakt header når man scroller i indhold
