@@ -214,6 +214,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .rg-pause{background:var(--bg3);color:var(--txt);border:none;font-family:'DM Mono',monospace;font-size:12px;font-weight:700;letter-spacing:1px;padding:14px 24px;border-radius:100px;cursor:pointer;min-height:50px}
 .rg-stop{background:linear-gradient(180deg,var(--red),#d63030);color:#fff;border:none;font-family:'DM Mono',monospace;font-size:12px;font-weight:700;letter-spacing:1px;padding:14px 24px;border-radius:100px;cursor:pointer;min-height:50px}
 .rg-note{font-family:'DM Mono',monospace;font-size:9px;color:var(--mut2);letter-spacing:.3px;line-height:1.6}
+.rg-nav{background:color-mix(in srgb,var(--blue) 12%,var(--bg1));border:1px solid color-mix(in srgb,var(--blue) 30%,transparent);border-radius:var(--r2);padding:14px 16px;margin-bottom:18px;font-size:15px;font-weight:600;color:var(--blue);line-height:1.4;min-height:52px;display:flex;align-items:center;justify-content:center;text-align:center}
 .phase-banner::before{display:none}
 .phase-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;box-shadow:0 0 8px currentColor}
 .phase-name{font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:1px}
@@ -2509,95 +2510,149 @@ let HOME_EQUIP=localStorage.getItem(HOME_EQUIP_KEY)||'bw';
 function setHomeEquip(v){HOME_EQUIP=v;try{localStorage.setItem(HOME_EQUIP_KEY,v)}catch(e){}render()}
 
 // Hjemme-alternativer per øvelse — bw: kropsvægt, db: med håndvægte
+const YT=q=>'https://www.youtube.com/results?search_query='+q.replace(/ /g,'+');
+// Hjemme-alternativer: 2 varianter per øvelse+udstyr → dagen dedupliqueres automatisk
 const HOME_ALT={
   'Bænkpres (flad)':{
-    bw:{n:'Push-ups (evt. m. rygsæk)',no:'Vægt i rygsæk for progression. Langsom sænkning.',l:'https://www.youtube.com/results?search_query=push+up+progression+weighted'},
-    db:{n:'Gulv-pres m. håndvægte',no:'Ligg på gulvet, pres håndvægtene op. Tungere end push-ups.',l:'https://www.youtube.com/results?search_query=dumbbell+floor+press'}},
+    bw:[{n:'Push-ups (evt. m. rygsæk)',no:'Vægt i rygsæk for progression. Langsom sænkning.',l:YT('weighted push up backpack')},
+        {n:'Archer push-ups',no:'Skift vægten til én arm ad gangen — tungere pr. side.',l:YT('archer push up')}],
+    db:[{n:'Gulv-pres m. håndvægte',no:'Ligg på gulvet, pres håndvægtene op.',l:YT('dumbbell floor press')},
+        {n:'DB fly på gulv',no:'Let bøjede arme, sænk vægtene ud til siden.',l:YT('dumbbell floor fly')}]},
   'Incline Bænkpres':{
-    bw:{n:'Pike push-ups / fødder hævet',no:'Fødder på stol rammer øvre bryst/skuldre.',l:'https://www.youtube.com/results?search_query=decline+push+up+feet+elevated'},
-    db:{n:'Incline DB-pres (ryg mod sofa/puder)',no:'Læn overkroppen 30-45° op ad sofaen, pres skråt op.',l:'https://www.youtube.com/results?search_query=incline+dumbbell+press+home+couch'}},
+    bw:[{n:'Decline push-ups (fødder hævet)',no:'Fødder på stol rammer øvre bryst.',l:YT('decline push up feet elevated')},
+        {n:'Pseudo planche push-ups',no:'Hænder ved hoften, læn frem — hård øvre bryst/skulder.',l:YT('pseudo planche push up')}],
+    db:[{n:'Incline DB-pres (ryg mod sofa)',no:'Overkrop 30-45° op ad sofaen, pres skråt op.',l:YT('incline dumbbell press couch home')},
+        {n:'Squeeze press',no:'Pres vægtene mod hinanden under hele løftet.',l:YT('dumbbell squeeze press')}]},
   'Skulderpres':{
-    bw:{n:'Pike push-ups',no:'Hofte højt, tryk mod lodret. Sværere: fødder på stol.',l:'https://www.youtube.com/results?search_query=pike+push+up+tutorial'},
-    db:{n:'Stående DB skulderpres',no:'Samme øvelse som i centeret — pres til strakte arme.',l:'https://www.youtube.com/results?search_query=standing+dumbbell+shoulder+press'}},
+    bw:[{n:'Pike push-ups',no:'Hofte højt, tryk mod lodret. Sværere: fødder på stol.',l:YT('pike push up tutorial')},
+        {n:'Wall walk / handstand hold',no:'Gå fødderne op ad væggen, hold 20-30 sek.',l:YT('wall walk exercise')}],
+    db:[{n:'Stående DB skulderpres',no:'Som i centeret — pres til strakte arme.',l:YT('standing dumbbell shoulder press')},
+        {n:'Arnold press',no:'Rotér håndfladerne undervejs — rammer alle tre skulderhoveder.',l:YT('arnold press dumbbell')}]},
   'Sidehæv':{
-    bw:{n:'Sidehæv m. flasker/elastik',no:'Vandflasker eller elastik under fødderne.',l:'https://www.youtube.com/results?search_query=lateral+raise+resistance+band'},
-    db:{n:'DB sidehæv',no:'Identisk med centeret — let vægt, høj kontrol.',l:'https://www.youtube.com/results?search_query=dumbbell+lateral+raise'}},
+    bw:[{n:'Sidehæv m. flasker/elastik',no:'Vandflasker eller elastik under fødderne.',l:YT('lateral raise resistance band')},
+        {n:'Side plank m. arm-løft',no:'Sideplanke, løft øverste arm mod loftet.',l:YT('side plank arm raise')}],
+    db:[{n:'DB sidehæv',no:'Let vægt, høj kontrol — som i centeret.',l:YT('dumbbell lateral raise')},
+        {n:'Lean-away sidehæv',no:'Hold fast i dørkarm, læn ud — større range.',l:YT('lean away lateral raise')}]},
   'Triceps pushdown':{
-    bw:{n:'Diamond push-ups / dips på stol',no:'Hænder samlet under brystet, albuer tæt.',l:'https://www.youtube.com/results?search_query=diamond+push+up+chair+dips'},
-    db:{n:'Overhead triceps extension m. DB',no:'Én håndvægt bag hovedet, stræk armene op.',l:'https://www.youtube.com/results?search_query=dumbbell+overhead+triceps+extension'}},
+    bw:[{n:'Diamond push-ups',no:'Hænder samlet under brystet, albuer tæt.',l:YT('diamond push up')},
+        {n:'Dips på stol/bænk',no:'Hænder bag dig på stolen, sænk dybt.',l:YT('bench dips chair')}],
+    db:[{n:'Overhead triceps extension m. DB',no:'Én vægt bag hovedet, stræk armene op.',l:YT('dumbbell overhead triceps extension')},
+        {n:'DB kickbacks',no:'Foroverbøjet, stræk armen bagud. Let vægt.',l:YT('dumbbell triceps kickback')}]},
   'Rows (maskine/stang)':{
-    bw:{n:'Rows m. håndklæde i dørkarm / rygsæk-row',no:'Læn tilbage, træk mod dørkarmen. Eller tung rygsæk.',l:'https://www.youtube.com/results?search_query=towel+door+row+bodyweight'},
-    db:{n:'One-arm DB row',no:'Én hånd på stol/sofa, ro håndvægten til hoften.',l:'https://www.youtube.com/results?search_query=one+arm+dumbbell+row'}},
+    bw:[{n:'Rows m. håndklæde i dørkarm',no:'Læn tilbage, træk mod dørkarmen.',l:YT('towel door row bodyweight')},
+        {n:'Table rows (under bordet)',no:'Grib bordkanten, ro brystet op til den.',l:YT('inverted row under table')}],
+    db:[{n:'One-arm DB row',no:'Én hånd på stol, ro vægten til hoften.',l:YT('one arm dumbbell row')},
+        {n:'Bent-over DB row (begge arme)',no:'Flad ryg, ro begge vægte samtidig.',l:YT('bent over dumbbell row two arm')}]},
   'Lat pulldown':{
-    bw:{n:'Pull-ups / dørkarm-træk',no:'Har du en pull-up bar er den bedst. Ellers negativ-reps.',l:'https://www.youtube.com/results?search_query=pull+up+progression+beginner'},
-    db:{n:'DB pullover',no:'Ligg på ryggen, sænk vægten bag hovedet med let bøjede arme.',l:'https://www.youtube.com/results?search_query=dumbbell+pullover+floor'}},
+    bw:[{n:'Pull-ups / dørkarm-træk',no:'Pull-up bar er bedst. Ellers negativ-reps.',l:YT('pull up progression beginner')},
+        {n:'Rygsæk-pullover på gulv',no:'Tung rygsæk, sænk bag hovedet med strakte arme.',l:YT('floor pullover exercise')}],
+    db:[{n:'DB pullover',no:'På ryggen, sænk vægten bag hovedet.',l:YT('dumbbell pullover floor')},
+        {n:'Renegade rows',no:'Push-up position på vægtene, ro skiftevis.',l:YT('renegade row dumbbell')}]},
   'Bicep curls':{
-    bw:{n:'Curls m. rygsæk/flasker',no:'Fyld en rygsæk med bøger. Langsom kontrol.',l:'https://www.youtube.com/results?search_query=backpack+bicep+curls'},
-    db:{n:'DB curls',no:'Identisk med centeret. Skift evt. til hammer curls for variation.',l:'https://www.youtube.com/results?search_query=dumbbell+bicep+curl'}},
+    bw:[{n:'Curls m. rygsæk/flasker',no:'Rygsæk med bøger. Langsom kontrol.',l:YT('backpack bicep curls')},
+        {n:'Håndklæde-curl (isometrisk)',no:'Træd på håndklædet, curl mod modstand, hold 30 sek.',l:YT('towel isometric curl')}],
+    db:[{n:'DB curls',no:'Som i centeret.',l:YT('dumbbell bicep curl')},
+        {n:'Hammer curls',no:'Neutralt greb — rammer også underarme.',l:YT('hammer curl dumbbell')}]},
   'Face pulls':{
-    bw:{n:'Band pull-aparts / reverse fly m. flasker',no:'Elastik i brysthøjde, træk til ansigt.',l:'https://www.youtube.com/results?search_query=band+pull+apart+reverse+fly'},
-    db:{n:'Bent-over reverse fly m. DB',no:'Foroverbøjet, løft vægtene ud til siden. Let vægt.',l:'https://www.youtube.com/results?search_query=bent+over+reverse+fly+dumbbell'}},
+    bw:[{n:'Band pull-aparts',no:'Elastik i brysthøjde, træk til ansigt.',l:YT('band pull apart')},
+        {n:'Liggende Y-T-W raises',no:'På maven, løft armene i Y-, T- og W-form.',l:YT('prone ytw raises')}],
+    db:[{n:'Bent-over reverse fly m. DB',no:'Foroverbøjet, løft ud til siden. Let vægt.',l:YT('bent over reverse fly dumbbell')},
+        {n:'Rear delt row m. DB',no:'Ro med høje albuer mod brystkassen.',l:YT('rear delt row dumbbell')}]},
   'Squat (stang)':{
-    bw:{n:'Goblet squat m. rygsæk / pistol-progression',no:'Tung rygsæk foran brystet. Dyb og kontrolleret.',l:'https://www.youtube.com/results?search_query=goblet+squat+backpack+home'},
-    db:{n:'DB goblet squat',no:'Hold én tung håndvægt mod brystet, squat dybt.',l:'https://www.youtube.com/results?search_query=dumbbell+goblet+squat'}},
+    bw:[{n:'Goblet squat m. rygsæk',no:'Tung rygsæk foran brystet. Dyb og kontrolleret.',l:YT('goblet squat backpack home')},
+        {n:'Tempo-squat (3 sek ned, 1 pause)',no:'Langsomt tempo gør kropsvægt hård.',l:YT('tempo squat bodyweight')}],
+    db:[{n:'DB goblet squat',no:'Én tung vægt mod brystet, squat dybt.',l:YT('dumbbell goblet squat')},
+        {n:'DB front squat (2 vægte på skuldrene)',no:'Vægte hviler på skuldrene — tungere end goblet.',l:YT('double dumbbell front squat')}]},
   'Hack Squat':{
-    bw:{n:'Bulgarian split squat',no:'Bagerste fod på stol. Rygsæk for ekstra vægt.',l:'https://www.youtube.com/results?search_query=bulgarian+split+squat+home'},
-    db:{n:'DB Bulgarian split squat',no:'Håndvægte i hænderne, bagerste fod på stol. Quad-fokus.',l:'https://www.youtube.com/results?search_query=dumbbell+bulgarian+split+squat'}},
+    bw:[{n:'Bulgarian split squat',no:'Bagerste fod på stol. Rygsæk for vægt.',l:YT('bulgarian split squat home')},
+        {n:'Skater squat',no:'Ét-bens squat med bagerste knæ mod gulv.',l:YT('skater squat progression')}],
+    db:[{n:'DB Bulgarian split squat',no:'Vægte i hænderne, bagerste fod på stol.',l:YT('dumbbell bulgarian split squat')},
+        {n:'DB step-downs',no:'Stå på stol/trin, sænk det frie ben langsomt mod gulv.',l:YT('dumbbell step down exercise')}]},
   'Rumænsk dødløft':{
-    bw:{n:'Single-leg RDL m. rygsæk',no:'Ét ben ad gangen giver sværhedsgrad uden tung vægt.',l:'https://www.youtube.com/results?search_query=single+leg+rdl+bodyweight'},
-    db:{n:'DB rumænsk dødløft',no:'Samme bevægelse som i centeret — vægtene glider langs benene.',l:'https://www.youtube.com/results?search_query=dumbbell+romanian+deadlift'}},
+    bw:[{n:'Single-leg RDL',no:'Ét ben ad gangen giver sværhedsgrad uden vægt.',l:YT('single leg rdl bodyweight')},
+        {n:'Good mornings m. rygsæk',no:'Rygsæk på ryggen, vip fra hoften m. flad ryg.',l:YT('good morning exercise backpack')}],
+    db:[{n:'DB rumænsk dødløft',no:'Vægtene glider langs benene.',l:YT('dumbbell romanian deadlift')},
+        {n:'Single-leg DB RDL',no:'Ét ben + vægt = balance og baglår i ét.',l:YT('single leg dumbbell rdl')}]},
   'Sumo Deadlift':{
-    bw:{n:'Glute bridge / hip thrust m. rygsæk',no:'Skulderblade på sofa, vægt over hoften.',l:'https://www.youtube.com/results?search_query=hip+thrust+home+backpack'},
-    db:{n:'DB sumo squat/dødløft',no:'Én tung håndvægt lodret mellem benene, bred stance.',l:'https://www.youtube.com/results?search_query=dumbbell+sumo+squat'}},
+    bw:[{n:'Hip thrust m. rygsæk',no:'Skulderblade på sofa, vægt over hoften.',l:YT('hip thrust home backpack')},
+        {n:'Bred sumo squat (tempo)',no:'Meget bred stance, 3 sek ned.',l:YT('sumo squat bodyweight tempo')}],
+    db:[{n:'DB sumo dødløft',no:'Én tung vægt lodret mellem benene, bred stance.',l:YT('dumbbell sumo deadlift')},
+        {n:'DB swing (hip hinge)',no:'Kettlebell-swing med håndvægt — eksplosiv hofte.',l:YT('dumbbell swing exercise')}]},
   'Leg press':{
-    bw:{n:'Step-ups på stol',no:'Kontrolleret op/ned. Rygsæk for progression.',l:'https://www.youtube.com/results?search_query=step+up+exercise+home'},
-    db:{n:'DB step-ups / DB lunges',no:'Håndvægte i hænderne, step op på stol eller lunges.',l:'https://www.youtube.com/results?search_query=dumbbell+step+up'}},
+    bw:[{n:'Step-ups på stol',no:'Kontrolleret op/ned. Rygsæk for progression.',l:YT('step up exercise home')},
+        {n:'Reverse lunges',no:'Træd bagud — skånsomt for knæene.',l:YT('reverse lunge bodyweight')}],
+    db:[{n:'DB step-ups',no:'Vægte i hænderne, step op på stol.',l:YT('dumbbell step up')},
+        {n:'DB reverse lunges',no:'Vægte i hænderne, træd bagud.',l:YT('dumbbell reverse lunge')}]},
   'Leg curls':{
-    bw:{n:'Nordic curl-progression / sliding leg curl',no:'Hæle på håndklæde på glat gulv, træk ind.',l:'https://www.youtube.com/results?search_query=sliding+leg+curl+towel'},
-    db:{n:'DB leg curl (liggende)',no:'Ligg på maven, klem håndvægten mellem fødderne, bøj knæene.',l:'https://www.youtube.com/results?search_query=dumbbell+leg+curl+lying'}},
+    bw:[{n:'Sliding leg curl',no:'Hæle på håndklæde på glat gulv, træk ind.',l:YT('sliding leg curl towel')},
+        {n:'Nordic curl (negativ)',no:'Fald langsomt frem fra knæene — meget hård.',l:YT('nordic curl negative progression')}],
+    db:[{n:'DB leg curl (liggende)',no:'På maven, klem vægten mellem fødderne.',l:YT('dumbbell leg curl lying')},
+        {n:'Sliding leg curl',no:'Hæle på håndklæde, træk ind mod ballerne.',l:YT('sliding leg curl towel')}]},
   'Leg extensions':{
-    bw:{n:'Sissy squat-progression / wall sit',no:'Wall sit 45-60 sek som alternativ.',l:'https://www.youtube.com/results?search_query=sissy+squat+wall+sit+home'},
-    db:{n:'DB leg extension (siddende)',no:'Sid på stol, klem håndvægt mellem fødderne, stræk knæene.',l:'https://www.youtube.com/results?search_query=seated+dumbbell+leg+extension'}},
+    bw:[{n:'Wall sit',no:'45-60 sek. Ryg fladt mod væggen.',l:YT('wall sit exercise')},
+        {n:'Sissy squat-progression',no:'Læn bagud fra knæene, hold i dørkarm.',l:YT('sissy squat progression')}],
+    db:[{n:'Siddende DB leg extension',no:'På stol, klem vægt mellem fødderne, stræk knæ.',l:YT('seated dumbbell leg extension')},
+        {n:'Goblet sissy squat',no:'Vægt mod brystet som modvægt.',l:YT('goblet sissy squat')}]},
   'Læghæv':{
-    bw:{n:'Læghæv på trappetrin',no:'Fuld stræk i bunden. Ét ben for sværhedsgrad.',l:'https://www.youtube.com/results?search_query=single+leg+calf+raise+stairs'},
-    db:{n:'DB læghæv på trappetrin',no:'Håndvægt i hånden, ét ben ad gangen for max belastning.',l:'https://www.youtube.com/results?search_query=dumbbell+single+leg+calf+raise'}},
+    bw:[{n:'Læghæv på trappetrin',no:'Fuld stræk i bunden. Ét ben for sværhedsgrad.',l:YT('single leg calf raise stairs')},
+        {n:'Læghæv m. rygsæk',no:'Tung rygsæk på — begge ben.',l:YT('weighted calf raise backpack')}],
+    db:[{n:'DB læghæv (ét ben, trappetrin)',no:'Vægt i hånden, ét ben — max belastning.',l:YT('dumbbell single leg calf raise')},
+        {n:'DB læghæv siddende',no:'Vægte på knæene, hæle op — rammer soleus.',l:YT('seated dumbbell calf raise')}]},
   'Walking Lunges':{
-    bw:{n:'Lunges på stedet / baglæns',no:'Samme øvelse — ingen udstyr nødvendigt.',l:'https://www.youtube.com/results?search_query=reverse+lunge+home'},
-    db:{n:'DB walking lunges',no:'Håndvægte i hænderne — identisk med centeret.',l:'https://www.youtube.com/results?search_query=dumbbell+walking+lunges'}}
+    bw:[{n:'Reverse lunges',no:'Træd bagud i stedet — ingen plads nødvendig.',l:YT('reverse lunge home')},
+        {n:'Jump lunges',no:'Eksplosivt skift i luften — puls + ben.',l:YT('jump lunge exercise')}],
+    db:[{n:'DB walking lunges',no:'Som i centeret.',l:YT('dumbbell walking lunges')},
+        {n:'DB reverse lunges',no:'Træd bagud med vægte.',l:YT('dumbbell reverse lunge')}]}
 };
 
-// Generisk fallback ud fra keywords i øvelsesnavnet
-function homeAlternative(e){
+// Generiske fallback-varianter per kategori — rækkefølgen betyder noget:
+// face pulls FØR generel pull, skulder/overhead FØR generel pres. 3 varianter per liste.
+const HOME_GENERIC=[
+  [/face/,
+    [{n:'Band pull-aparts',no:'Elastik i brysthøjde, træk til ansigt.',l:YT('band pull apart')},{n:'Liggende Y-T-W raises',no:'På maven, løft armene i Y-, T- og W-form.',l:YT('prone ytw raises')},{n:'Reverse snow angels',no:'På maven, før armene fra hofte til hoved.',l:YT('reverse snow angel exercise')}],
+    [{n:'Bent-over reverse fly m. DB',no:'Let vægt, løft ud til siden.',l:YT('bent over reverse fly dumbbell')},{n:'Rear delt row m. DB',no:'Ro med høje albuer.',l:YT('rear delt row dumbbell')},{n:'Liggende DB Y-raise',no:'På maven, løft vægtene i Y-form.',l:YT('prone y raise dumbbell')}]],
+  [/skulder|shoulder|overhead|militar|hæv|raise|delt/,
+    [{n:'Pike push-ups',no:'Hofte højt, tryk lodret.',l:YT('pike push up')},{n:'Wall walk / handstand hold',no:'Gå fødderne op ad væggen.',l:YT('wall walk exercise')},{n:'Flaske-sidehæv',no:'Vandflasker ud til siden.',l:YT('lateral raise bottles')}],
+    [{n:'Stående DB skulderpres',no:'Som i centeret.',l:YT('dumbbell shoulder press')},{n:'Arnold press',no:'Rotér håndfladerne undervejs.',l:YT('arnold press')},{n:'DB sidehæv',no:'Let vægt, høj kontrol.',l:YT('dumbbell lateral raise')}]],
+  [/pres|press|bænk|bench|push|bryst|chest|fly/,
+    [{n:'Push-up variation',no:'Knæ → normal → fødder hævet → rygsæk.',l:YT('push up progression')},{n:'Archer push-ups',no:'Vægt til én side ad gangen.',l:YT('archer push up')},{n:'Decline push-ups',no:'Fødder på stol — øvre bryst.',l:YT('decline push up')}],
+    [{n:'DB gulv-pres',no:'Pres fra gulvet.',l:YT('dumbbell floor press')},{n:'DB squeeze press',no:'Pres vægtene sammen undervejs.',l:YT('dumbbell squeeze press')},{n:'DB fly på gulv',no:'Let bøjede arme ud til siden.',l:YT('dumbbell floor fly')}]],
+  [/row|træk|pull|lat|ryg|back/,
+    [{n:'Håndklæde-rows i dørkarm',no:'Læn tilbage, træk dig ind.',l:YT('towel door row')},{n:'Table rows',no:'Ro dig op under bordkanten.',l:YT('inverted row under table')},{n:'Rygsæk-rows (foroverbøjet)',no:'Tung rygsæk, flad ryg, ro mod maven.',l:YT('backpack bent over row')}],
+    [{n:'One-arm DB row',no:'Én hånd på stol.',l:YT('one arm dumbbell row')},{n:'DB pullover',no:'Sænk vægten bag hovedet.',l:YT('dumbbell pullover floor')},{n:'Bent-over DB row (begge arme)',no:'Flad ryg, ro begge vægte.',l:YT('bent over dumbbell row')}]],
+  [/dødløft|deadlift|rdl|hip|glute|balle/,
+    [{n:'Single-leg RDL',no:'Ét ben ad gangen.',l:YT('single leg rdl bodyweight')},{n:'Hip thrust m. rygsæk',no:'Skulderblade på sofa.',l:YT('hip thrust home')},{n:'Good mornings m. rygsæk',no:'Vip fra hoften, flad ryg.',l:YT('good morning backpack')}],
+    [{n:'DB RDL',no:'Vægtene langs benene.',l:YT('dumbbell rdl')},{n:'DB hip thrust',no:'Vægt over hoften.',l:YT('dumbbell hip thrust')},{n:'DB swing',no:'Eksplosiv hofte-strækning.',l:YT('dumbbell swing')}]],
+  [/squat|ben|leg|lunge|quad/,
+    [{n:'Goblet squat m. rygsæk',no:'Tung rygsæk mod brystet.',l:YT('goblet squat backpack')},{n:'Reverse lunges',no:'Træd bagud.',l:YT('reverse lunge bodyweight')},{n:'Step-ups på stol',no:'Kontrolleret op/ned.',l:YT('step up exercise')}],
+    [{n:'DB goblet squat',no:'Vægt mod brystet.',l:YT('dumbbell goblet squat')},{n:'DB reverse lunges',no:'Vægte i hænderne.',l:YT('dumbbell reverse lunge')},{n:'DB step-ups',no:'Vægte i hænderne, step op.',l:YT('dumbbell step up')}]],
+  [/curl|bicep/,
+    [{n:'Rygsæk-curls',no:'Bøger i rygsækken.',l:YT('backpack bicep curls')},{n:'Håndklæde-curl (isometrisk)',no:'Træd på håndklædet, hold trækket.',l:YT('towel isometric curl')},{n:'Chin-up (underhåndsgreb)',no:'Underhånd rammer biceps hårdt.',l:YT('chin up biceps')}],
+    [{n:'DB curls',no:'Som i centeret.',l:YT('dumbbell curl')},{n:'Hammer curls',no:'Neutralt greb.',l:YT('hammer curl')},{n:'Concentration curls',no:'Albue mod indersiden af knæet.',l:YT('concentration curl')}]],
+  [/triceps|dip/,
+    [{n:'Diamond push-ups',no:'Albuer tæt.',l:YT('diamond push up')},{n:'Stol-dips',no:'Hænder bag dig på stolen.',l:YT('bench dips chair')},{n:'Bodyweight skull crushers',no:'Mod bordkant, sænk panden mod hænderne.',l:YT('bodyweight skull crusher')}],
+    [{n:'Overhead DB extension',no:'Vægt bag hovedet.',l:YT('dumbbell overhead triceps extension')},{n:'DB kickbacks',no:'Stræk armen bagud.',l:YT('dumbbell kickback')},{n:'DB skull crushers (gulv)',no:'På ryggen, sænk mod panden.',l:YT('dumbbell skull crusher floor')}]]
+];
+
+// Vælg alternativ til øvelse — undgår navne der allerede er brugt på dagen (used=Set)
+function homeAlternative(e,used){
+  if(e.core)return null; // core kan laves hjemme som de er
   const eq=HOME_EQUIP==='db'?'db':'bw';
-  const hit=HOME_ALT[e.n]||( e.originalName&&HOME_ALT[e.originalName]);
-  if(hit)return hit[eq]||hit.bw;
+  const pick=list=>{
+    if(!list||!list.length)return null;
+    const free=list.find(v=>!used||!used.has(v.n));
+    const v=free||list[list.length-1];
+    if(used)used.add(v.n);
+    return v;
+  };
+  const hit=HOME_ALT[e.n]||(e.originalName&&HOME_ALT[e.originalName]);
+  if(hit)return pick(hit[eq]||hit.bw);
   const n=e.n.toLowerCase();
-  if(e.core)return null; // core-øvelser kan allerede laves hjemme
-  const db=eq==='db';
-  if(/pres|press|bænk|bench|push/.test(n))return db
-    ?{n:'DB-pres variation (gulv/incline)',no:'Gulv-pres eller incline mod sofaen.',l:'https://www.youtube.com/results?search_query=dumbbell+press+home'}
-    :{n:'Push-up variation',no:'Vælg sværhedsgrad: knæ → normal → fødder hævet → rygsæk.',l:'https://www.youtube.com/results?search_query=push+up+progression'};
-  if(/row|træk|pull|lat/.test(n))return db
-    ?{n:'One-arm DB row / DB pullover',no:'Én hånd på stol, ro vægten til hoften.',l:'https://www.youtube.com/results?search_query=one+arm+dumbbell+row'}
-    :{n:'Row m. håndklæde/rygsæk eller pull-ups',no:'Dørkarm-rows eller tung rygsæk-row.',l:'https://www.youtube.com/results?search_query=bodyweight+row+home'};
-  if(/squat|ben|leg|lunge/.test(n))return db
-    ?{n:'DB goblet squat / DB lunges',no:'Tung håndvægt mod brystet eller i hænderne.',l:'https://www.youtube.com/results?search_query=dumbbell+leg+workout+home'}
-    :{n:'Squat/lunge-variation m. rygsæk',no:'Goblet squat, split squat eller step-ups.',l:'https://www.youtube.com/results?search_query=leg+workout+home+bodyweight'};
-  if(/dødløft|deadlift|rdl|hip/.test(n))return db
-    ?{n:'DB RDL / DB hip thrust',no:'Vægtene glider langs benene, eller vægt over hoften.',l:'https://www.youtube.com/results?search_query=dumbbell+rdl'}
-    :{n:'Hip thrust / single-leg RDL',no:'Rygsæk over hoften eller ét ben ad gangen.',l:'https://www.youtube.com/results?search_query=hip+hinge+home'};
-  if(/curl|bicep/.test(n))return db
-    ?{n:'DB curls / hammer curls',no:'Identisk med centeret.',l:'https://www.youtube.com/results?search_query=dumbbell+curl+variations'}
-    :{n:'Curls m. rygsæk/flasker',no:'Rygsæk med bøger, langsom kontrol.',l:'https://www.youtube.com/results?search_query=home+bicep+workout'};
-  if(/triceps|dip/.test(n))return db
-    ?{n:'Overhead DB extension / DB kickbacks',no:'Én vægt bag hovedet eller foroverbøjet kickback.',l:'https://www.youtube.com/results?search_query=dumbbell+triceps+home'}
-    :{n:'Diamond push-ups / stol-dips',no:'Albuer tæt på kroppen.',l:'https://www.youtube.com/results?search_query=triceps+home+workout'};
-  if(/skulder|shoulder|hæv|raise|delt/.test(n))return db
-    ?{n:'DB skulderpres / DB sidehæv',no:'Samme øvelser som centeret.',l:'https://www.youtube.com/results?search_query=dumbbell+shoulder+workout'}
-    :{n:'Pike push-ups / flaske-hæv',no:'Vandflasker eller elastik.',l:'https://www.youtube.com/results?search_query=shoulder+workout+home'};
-  return db
-    ?{n:'DB-alternativ',no:'Spørg AI-coachen om det bedste håndvægt-alternativ.',l:'https://www.youtube.com/results?search_query='+encodeURIComponent(e.n+' dumbbell alternative')}
-    :{n:'Kropsvægt-alternativ',no:'Spørg AI-coachen om det bedste hjemme-alternativ til denne øvelse.',l:'https://www.youtube.com/results?search_query='+encodeURIComponent(e.n+' bodyweight alternative')};
+  for(const [re,bwList,dbList] of HOME_GENERIC){
+    if(re.test(n))return pick(eq==='db'?dbList:bwList);
+  }
+  const q=encodeURIComponent(e.n+(eq==='db'?' dumbbell alternative':' bodyweight alternative'));
+  return {n:eq==='db'?'DB-alternativ':'Kropsvægt-alternativ',no:'Spørg AI-coachen om det bedste hjemme-alternativ.',l:'https://www.youtube.com/results?search_query='+q};
 }
 
 /* ═══ MOBILITY-MODUL ═══ */
@@ -2731,9 +2786,12 @@ function loadLeaflet(){
   });
 }
 
-function openRouteModal(km){
+function openRouteModal(km,day){
   routeTargetKm=km||5;
+  if(day)routeDay=day;
   routeSeed=Math.floor(Math.random()*100);
+  // Ryd evt. gammelt kort mens dets container måske stadig findes
+  if(routeMap){try{routeMap.off();routeMap.remove()}catch(e){}routeMap=null;routeLayer=null}
   const m=document.getElementById('modal');
   if(!ORS){
     // Setup-view: forklar + nøgle-input
@@ -2784,6 +2842,8 @@ function findAndDrawRoute(){
         headers:{'Authorization':ORS,'Content-Type':'application/json'},
         body:JSON.stringify({
           coordinates:[[lon,lat]],
+          instructions:true,
+          language:'da',
           options:{round_trip:{length:Math.round(routeTargetKm*1000),points:5,seed:routeSeed}}
         })
       });
@@ -2791,29 +2851,134 @@ function findAndDrawRoute(){
         throw new Error(resp.status===401||resp.status===403?'Ugyldig nøgle — tjek den under "Skift nøgle"':'Rutetjeneste-fejl ('+resp.status+')');
       }
       const geo=await resp.json();
+      // Validér at der faktisk kom en rute tilbage
+      if(!geo||!geo.features||!geo.features.length||!geo.features[0].geometry){
+        throw new Error('Ingen rute fundet her — prøv "Ny variant"');
+      }
       await loadLeaflet();
       const mapEl=document.getElementById('routeMapEl');
-      if(!mapEl)return;
-      if(routeMap){routeMap.remove();routeMap=null}
+      if(!mapEl)return; // modal lukket undervejs
+      // Ryd gammelt kort SIKKERT — containeren kan være fjernet (modal genåbnet)
+      if(routeMap){
+        try{routeMap.off();routeMap.remove()}catch(e){}
+        routeMap=null;routeLayer=null;
+      }
+      // Hvis elementet har rester fra tidligere Leaflet-init, nulstil det
+      if(mapEl._leaflet_id){try{delete mapEl._leaflet_id}catch(e){}mapEl.innerHTML=''}
       routeMap=L.map(mapEl,{zoomControl:false});
       L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© OpenStreetMap',maxZoom:19}).addTo(routeMap);
       routeLayer=L.geoJSON(geo,{style:{color:'#ffd60a',weight:4,opacity:.9}}).addTo(routeMap);
       L.circleMarker([lat,lon],{radius:7,color:'#32d74b',fillColor:'#32d74b',fillOpacity:1}).addTo(routeMap).bindPopup('Start/mål');
-      routeMap.fitBounds(routeLayer.getBounds(),{padding:[24,24]});
+      try{routeMap.fitBounds(routeLayer.getBounds(),{padding:[24,24]})}catch(e){routeMap.setView([lat,lon],14)}
       const sum=geo.features?.[0]?.properties?.summary;
       const distKm=sum?(sum.distance/1000).toFixed(1):routeTargetKm;
       const durMin=sum?Math.round(sum.duration/60):null;
+      // Byg navigations-data: koordinater + kumuleret distance + sving-instruktioner
+      buildRouteNav(geo);
       if(st)st.textContent='✓ Rute klar — følg den gule linje';
       const stats=document.getElementById('routeStats');
       if(stats)stats.innerHTML=`<div class="route-stat"><b>${distKm}</b><small>km</small></div>
         ${durMin?`<div class="route-stat"><b>~${durMin}</b><small>min gang</small></div>`:''}
-        <div class="route-stat"><b>Rundtur</b><small>start = mål</small></div>`;
+        <div class="route-stat"><b>${routeNav?routeNav.steps.length:0}</b><small>sving</small></div>`;
+      const btns=document.querySelector('.route-btns');
+      if(btns&&routeNav&&!document.getElementById('navRunBtn')){
+        const b=document.createElement('button');
+        b.id='navRunBtn';b.className='rg-start';b.style.width='100%';b.style.marginBottom='8px';
+        b.textContent='🎧 Løb ruten med navigation';
+        b.onclick=()=>openRunGuide(routeDay,routeTargetKm,true);
+        btns.parentNode.insertBefore(b,btns);
+      }
     }catch(err){
       if(st)st.textContent='⚠️ '+err.message;
     }
   },err=>{
     if(st)st.textContent='⚠️ Kunne ikke få din position — tillad lokation i Safari-indstillinger';
   },{enableHighAccuracy:true,timeout:10000});
+}
+
+/* ═══ TURN-BY-TURN NAVIGATION ═══ */
+let routeNav=null,routeDay=null;
+
+function buildRouteNav(geo){
+  try{
+    const f=geo.features[0];
+    const coords=f.geometry.coordinates.map(c=>({lat:c[1],lon:c[0]})); // [lon,lat] → {lat,lon}
+    if(coords.length<2){routeNav=null;return}
+    // Kumuleret distance langs ruten
+    const cum=[0];
+    for(let i=1;i<coords.length;i++){
+      cum.push(cum[i-1]+rgHaversine(coords[i-1],coords[i]));
+    }
+    // Sving-instruktioner fra alle segmenter
+    const steps=[];
+    (f.properties.segments||[]).forEach(seg=>{
+      (seg.steps||[]).forEach(s=>{
+        if(!s.way_points||s.type===11)return; // 11 = depart, spring over
+        steps.push({
+          instr:s.instruction||'',
+          startIdx:s.way_points[0],
+          type:s.type,
+          a120:false, // annonceret "om X meter"
+          aNow:false  // annonceret "nu"
+        });
+      });
+    });
+    routeNav={coords,cum,steps,lastIdx:0,offCount:0,offAnnounced:false};
+  }catch(e){routeNav=null}
+}
+
+// Kaldes fra rgOnPos når navigation er aktiv
+function navUpdate(lat,lon){
+  if(!routeNav||!RG.useNav)return;
+  const pos={lat,lon};
+  const n=routeNav.coords.length;
+  // Vinduessøgning efter nærmeste rutepunkt (rundture kan krydse sig selv)
+  const from=Math.max(0,routeNav.lastIdx-15);
+  const to=Math.min(n,routeNav.lastIdx+90);
+  let best=Infinity,bi=routeNav.lastIdx;
+  for(let i=from;i<to;i++){
+    const d=rgHaversine(pos,routeNav.coords[i]);
+    if(d<best){best=d;bi=i}
+  }
+  routeNav.lastIdx=bi;
+  // Væk fra ruten?
+  if(best>60){
+    routeNav.offCount++;
+    if(routeNav.offCount>=5&&!routeNav.offAnnounced){
+      routeNav.offAnnounced=true;
+      rgSpeak('Du er cirka '+Math.round(best/10)*10+' meter fra ruten. Find tilbage til den gule linje.');
+    }
+  }else{
+    routeNav.offCount=0;routeNav.offAnnounced=false;
+  }
+  // Find næste kommende sving
+  let next=null;
+  for(const s of routeNav.steps){
+    if(s.aNow)continue;
+    if(s.startIdx<=bi){
+      // Lige ankommet til svinget uden "nu"-annoncering? Sig den nu (catch-up)
+      if(!s.aNow&&routeNav.cum[bi]-routeNav.cum[s.startIdx]<45){
+        s.a120=true;s.aNow=true;rgSpeak(s.instr);
+      }else{s.a120=true;s.aNow=true}
+      continue;
+    }
+    next=s;break;
+  }
+  const navEl=document.getElementById('rgNav');
+  if(!next){
+    if(navEl)navEl.textContent='➡ Følg ruten til mål';
+    return;
+  }
+  const distTo=Math.max(0,routeNav.cum[next.startIdx]-routeNav.cum[bi]-best*0.3);
+  if(navEl)navEl.textContent='↰ Om '+(distTo<1000?Math.round(distTo/10)*10+' m':(distTo/1000).toFixed(1)+' km')+': '+next.instr;
+  if(distTo<=130&&!next.a120){
+    next.a120=true;
+    rgSpeak('Om '+Math.max(20,Math.round(distTo/10)*10)+' meter: '+next.instr);
+  }
+  if(distTo<=30&&!next.aNow){
+    next.aNow=true;
+    rgSpeak(next.instr);
+  }
 }
 
 /* ═══ GUIDET LØB ═══ */
@@ -2851,21 +3016,24 @@ function rgHaversine(a,b){
   return 2*R*Math.asin(Math.sqrt(x));
 }
 
-function openRunGuide(day,targetKm){
+function openRunGuide(day,targetKm,useNav){
   RG.day=day;RG.targetKm=targetKm||5;
+  RG.useNav=!!(useNav&&routeNav);
+  if(!useNav)routeNav=null; // standalone-løb skal ikke bruge gammel rute
   const m=document.getElementById('modal');
   m.innerHTML=`<div class="modal rg-modal" onclick="event.stopPropagation()">
-    <div class="rg-status" id="rgStatus">Klar — tryk start og læg telefonen i lommen (skærm forbliver tændt)</div>
+    <div class="rg-status" id="rgStatus">${RG.useNav?'🗺️ Navigation klar — stemmen guider dig ved hvert sving':'Klar — tryk start og læg telefonen i lommen (skærm forbliver tændt)'}</div>
     <div class="rg-time" id="rgTime">0:00</div>
     <div class="rg-row">
       <div class="rg-stat"><b id="rgKm">0.00</b><small>km</small></div>
       <div class="rg-stat"><b id="rgPace">–:––</b><small>pace /km</small></div>
     </div>
+    ${RG.useNav?'<div class="rg-nav" id="rgNav">↰ Navigation starter når du løber</div>':''}
     <div class="rg-btns" id="rgBtns">
       <button class="rg-start" onclick="startRunGuide()">▶ Start</button>
       <button class="ai-btn ghost" onclick="cancelRunGuide()">Luk</button>
     </div>
-    <div class="rg-note">Stemme-splits ved hver km · Auto-log ved stop · Virker med skærm tændt (iOS-krav for web-apps)</div>
+    <div class="rg-note">${RG.useNav?'Sving-guidning på dansk · ':''}Stemme-splits ved hver km · Auto-log ved stop · Virker med skærm tændt (iOS-krav for web-apps)</div>
   </div>`;
   m.classList.add('show');
 }
@@ -2905,6 +3073,7 @@ function rgOnPos(pos){
     }
   }
   RG.lastPos=p;
+  navUpdate(p.lat,p.lon);
 }
 function rgTick(){
   if(!RG.active||RG.paused)return;
@@ -3547,6 +3716,7 @@ function rWeekly(){
         </div>
       </div>`;
       // Card-baseret layout — header er ikke længere relevant
+      const usedHomeAlts=new Set(); // undgå samme hjemme-øvelse flere gange på dagen
       exs.forEach((e,exIdx)=>{
         // Hjemmedage logger under separat nøgle så center-historik/PR ikke påvirkes
         const logName=homeOn?'HOME__'+e.n:e.n;
@@ -3579,7 +3749,7 @@ function rWeekly(){
         // Hjemme-alternativ (kun når hjemme-mode er aktiv for dagen)
         let homeAltHtml='';
         if(homeOn){
-          const alt=homeAlternative(e);
+          const alt=homeAlternative(e,usedHomeAlts);
           if(alt){
             homeAltHtml=`<div class="home-alt">
               <div class="home-alt-head">
@@ -3804,7 +3974,7 @@ function rWeekly(){
       h+=renderPaceCalc();
       // Løberute-generator: beregn dagens mål-distance fra planen
       const routeKm=Math.max(2,Math.round((plan.totalDur*60/plan.pacePerKm)*10)/10);
-      h+=`<button class="route-btn" onclick="openRouteModal(${routeKm})">
+      h+=`<button class="route-btn" onclick="openRouteModal(${routeKm},'${escAttr(d.full)}')">
         <svg class="ic sm" viewBox="0 0 24 24"><path d="M9 20l-5.5-2.2a1 1 0 0 1-.5-.9V4.6a1 1 0 0 1 1.4-.9L9 5.8m0 14.2 6-2m-6 2V5.8m6 12.2 5.1 2a1 1 0 0 0 1.4-.9V6.6a1 1 0 0 0-.6-.9L15 3.8m0 14.2V3.8M9 5.8l6-2"/></svg>
         Generér løberute · ca. ${routeKm} km fra din position
       </button>`;
@@ -6244,6 +6414,11 @@ function openAddModal(libIdx){
 function closeModal(){
   const m=document.getElementById('modal');
   m.classList.remove('show');
+  // Ryd Leaflet-kort FØR containeren fjernes (undgår parentNode-fejl)
+  if(typeof routeMap!=='undefined'&&routeMap){
+    try{routeMap.off();routeMap.remove()}catch(e){}
+    routeMap=null;routeLayer=null;
+  }
   m.innerHTML='';
 }
 
@@ -7118,7 +7293,7 @@ function readMinSec(minId,secId){
 /* ═══════════════════════════════════════════════════════════ */
 function exportData(){
   const data={
-    tw4:W, tw4_custom:CUSTOM, tw4_ai:{apiKey:AI.apiKey,model:AI.model,settingsOpen:AI.settingsOpen},
+    tw4:W, tw4_custom:CUSTOM, tw4_ai:{apiKey:'',model:AI.model,settingsOpen:AI.settingsOpen}, /* nøgle medtages BEVIDST ikke i backup */
     tw4_swaps:SWAPS_EX,
     tw4_prog:PROG, tw4_body:BODY, tw4_ss:SUPERSETS, tw4_steps:STEPS, tw4_cycle:CYCLE, tw4_pcos_profile:PCOS_PROFILE, tw4_profile:PROFILE, tw4_wellness:WELLNESS,
     tw4_home_days:HOME_DAYS, tw4_home_equip:HOME_EQUIP, tw4_mobility:MOB,
@@ -7143,7 +7318,12 @@ function importData(input){
       if(!confirm('Importér backup?\n\nDette overskriver alle nuværende data. Kan ikke fortrydes.'))return;
       if(data.tw4){W=data.tw4;save()}
       if(data.tw4_custom){CUSTOM=data.tw4_custom;saveCustom()}
-      if(data.tw4_ai){AI={...AI,...data.tw4_ai};saveAI()}
+      if(data.tw4_ai){
+        const keepKey=AI.apiKey; // ny backup har tom nøgle — bevar den eksisterende
+        AI={...AI,...data.tw4_ai};
+        if(!AI.apiKey)AI.apiKey=keepKey;
+        saveAI();
+      }
       if(data.tw4_prog){PROG={...PROG,...data.tw4_prog};saveProg()}
       if(data.tw4_body){BODY=data.tw4_body;saveBody()}
       if(data.tw4_ss){SUPERSETS=data.tw4_ss;saveSS()}
