@@ -5743,7 +5743,7 @@ function toggleAISettings(){AI.settingsOpen=!AI.settingsOpen;saveAI();render()}
 function saveAISettings(){
   const key=document.getElementById('aiKey').value.trim();
   const model=document.getElementById('aiModel').value;
-  AI.apiKey=key;AI.model=model;saveAI();
+  AI.apiKey=key;AI.model=model;AI.workingModel=null;saveAI();
   toast('✓ Indstillinger gemt');
   AI.settingsOpen=false;
   render();
@@ -6103,31 +6103,48 @@ async function callClaude(userMessage){
   });
 
   const model=AI.model||'gemini-2.5-flash';
-  const url=`https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent`;
-
-  const res=await fetch(url,{
-    method:'POST',
-    headers:{
-      'Content-Type':'application/json',
-      'x-goog-api-key':AI.apiKey
-    },
-    body:JSON.stringify({
-      contents,
-      systemInstruction:{parts:[{text:getSystemPrompt()}]},
-      generationConfig:{
-        maxOutputTokens:1500,
-        temperature:1
-      }
-    })
-  });
+  // Fallback-kæde: nogle nøgler/konti mangler enkelte modeller (Google svarer 404).
+  // Prøv automatisk ældre søster-modeller og husk den der virker.
+  const candidates=[...new Set([
+    AI.workingModel||model, model,
+    'gemini-flash-latest','gemini-2.0-flash','gemini-1.5-flash'
+  ])];
+  let res=null,usedModel=model,lastErr='';
+  for(const cand of candidates){
+    const url=`https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(cand)}:generateContent`;
+    res=await fetch(url,{
+      method:'POST',
+      headers:{
+        'Content-Type':'application/json',
+        'x-goog-api-key':AI.apiKey
+      },
+      body:JSON.stringify({
+        contents,
+        systemInstruction:{parts:[{text:getSystemPrompt()}]},
+        generationConfig:{
+          maxOutputTokens:1500,
+          temperature:1
+        }
+      })
+    });
+    usedModel=cand;
+    if(res.ok)break;
+    // Kun 404/model-fejl udløser næste kandidat — andre fejl stopper straks
+    let em='';try{const ej=await res.clone().json();em=ej?.error?.message||''}catch(e){}
+    lastErr=em;
+    const modelMissing=res.status===404||(res.status===400&&em.toLowerCase().includes('model'));
+    if(!modelMissing)break;
+  }
+  // Husk fungerende model så vi ikke prøver kæden hver gang
+  if(res.ok&&usedModel!==AI.workingModel){AI.workingModel=usedModel;saveAI()}
 
   if(!res.ok){
     let errMsg=`API fejl ${res.status}`;
-    try{const err=await res.json();errMsg=err?.error?.message||errMsg;}catch(e){}
+    try{const err=await res.json();errMsg=err?.error?.message||lastErr||errMsg;}catch(e){if(lastErr)errMsg=lastErr}
     if(res.status===400&&errMsg.toLowerCase().includes('api key'))errMsg='Ugyldig API-nøgle. Tjek din nøgle i indstillinger.';
-    else if(res.status===403)errMsg='Adgang nægtet. Tjek at API-nøglen er aktiv på aistudio.google.com.';
+    else if(res.status===403)errMsg='Adgang nægtet ('+errMsg.slice(0,120)+'). Har nøglen en website-restriktion, skal den være: d5j9m87p5h-gif.github.io/* — eller sæt den til "None".';
     else if(res.status===429)errMsg='Daglig grænse nået (1500 forespørgsler/dag på Flash). Vent til i morgen, eller skift model.';
-    else if(res.status===404||(res.status===400&&errMsg.toLowerCase().includes('model')))errMsg=`Modellen "${model}" blev ikke fundet. Skift til Gemini 2.5 Flash i indstillinger.`;
+    else if(res.status===404||(res.status===400&&errMsg.toLowerCase().includes('model')))errMsg='Ingen af Gemini-modellerne er tilgængelige på din nøgle. Google siger: "'+(errMsg.slice(0,140))+'". Prøv at oprette en ny nøgle på aistudio.google.com.';
     else if(res.status===503)errMsg='Google har midlertidig overbelastning. Prøv igen om et øjeblik.';
     throw new Error(errMsg);
   }
