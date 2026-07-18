@@ -6120,10 +6120,12 @@ async function callClaude(userMessage){
       },
       body:JSON.stringify({
         contents,
-        systemInstruction:{parts:[{text:getSystemPrompt()}]},
+        systemInstruction:{parts:[{text:getSystemPrompt()+'\n\nSVAR ALTID PÅ DANSK — aldrig engelsk, heller ikke delvist. Hold svar under ~350 ord så de aldrig afkortes.'}]},
         generationConfig:{
-          maxOutputTokens:1500,
-          temperature:1
+          maxOutputTokens:4096,
+          temperature:1,
+          // 2.5-modeller bruger "thinking"-tokens der æder budgettet → slå fra
+          ...(cand.startsWith('gemini-2.5')?{thinkingConfig:{thinkingBudget:0}}:{})
         }
       })
     });
@@ -6154,8 +6156,13 @@ async function callClaude(userMessage){
   const candidate=data?.candidates?.[0];
   if(!candidate)throw new Error('Tomt svar fra Gemini. Prøv igen.');
   if(candidate.finishReason==='SAFETY')throw new Error('Svaret blev blokeret af Geminis sikkerhedsfilter.');
-  const text=(candidate.content?.parts||[]).filter(p=>p.text).map(p=>p.text).join('\n').trim();
+  // Filtrér "thinking"-dele fra (2.5-modeller kan inkludere dem)
+  let text=(candidate.content?.parts||[]).filter(p=>p.text&&!p.thought).map(p=>p.text).join('\n').trim();
   if(!text)throw new Error('Tomt tekstsvar — modellen returnerede intet.');
+  // Blev svaret afkortet? Sig det ærligt i stedet for at stoppe midt i en sætning
+  if(candidate.finishReason==='MAX_TOKENS'){
+    text+='\n\n*…(svaret blev for langt og er afkortet — skriv **"fortsæt"** for resten)*';
+  }
   return text;
 }
 
