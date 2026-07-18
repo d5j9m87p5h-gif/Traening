@@ -6120,12 +6120,12 @@ async function callClaude(userMessage){
       },
       body:JSON.stringify({
         contents,
-        systemInstruction:{parts:[{text:getSystemPrompt()+'\n\nSVAR ALTID PÅ DANSK — aldrig engelsk, heller ikke delvist. Hold svar under ~350 ord så de aldrig afkortes.'}]},
+        systemInstruction:{parts:[{text:getSystemPrompt()+'\n\nSVAR ALTID PÅ DANSK — aldrig engelsk, heller ikke delvist. Hold svar under ~350 ord så de aldrig afkortes. Vis ALDRIG din tænkeproces, udkast, planlægning eller meta-noter (fx "Drafting the response") — lever KUN det færdige svar.'}]},
         generationConfig:{
           maxOutputTokens:4096,
           temperature:1,
-          // 2.5-modeller bruger "thinking"-tokens der æder budgettet → slå fra
-          ...(cand.startsWith('gemini-2.5')?{thinkingConfig:{thinkingBudget:0}}:{})
+          // 2.5-serien OG "-latest"-aliaser (peger på 2.5) bruger thinking → slå fra
+          ...((cand.startsWith('gemini-2.5')||cand.endsWith('-latest'))?{thinkingConfig:{thinkingBudget:0}}:{})
         }
       })
     });
