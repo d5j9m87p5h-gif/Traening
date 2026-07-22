@@ -1078,6 +1078,126 @@ input[type=file]{display:none}
 /* ══ WEIGHT TAB SWIPE (Log vs Graf) ══ */
 .weight-swipe-hint{text-align:center;font-family:'DM Mono',monospace;font-size:9px;color:var(--mut2);letter-spacing:1.5px;margin-bottom:12px;opacity:.5;text-transform:uppercase}
 .weight-swipe-wrap{touch-action:pan-y;animation:dayFi .25s ease}
+/* ══ KALORIETÆLLER ══ */
+.cal-wrap{animation:dayFi .25s ease}
+.cal-hero{display:flex;gap:18px;align-items:center;background:var(--bg1);border:1px solid var(--bdr);border-radius:var(--r);padding:18px;margin-bottom:12px}
+.cal-ring{position:relative;flex-shrink:0;width:130px;height:130px}
+.cal-ring svg{transform:rotate(-90deg)}
+.cal-ring-bg{fill:none;stroke:var(--bg3);stroke-width:9}
+.cal-ring-fill{fill:none;stroke-width:9;stroke-linecap:round;transition:stroke-dashoffset .7s var(--ease),stroke .3s}
+.cal-ring-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.cal-ring-num{font-family:'Bebas Neue',sans-serif;font-size:38px;line-height:1}
+.cal-ring-sub{font-family:'DM Mono',monospace;font-size:10px;color:var(--mut)}
+.cal-hero-side{flex:1;min-width:0}
+.cal-remain{font-family:'Bebas Neue',sans-serif;font-size:26px;color:var(--grn);line-height:1}
+.cal-remain.over{color:var(--red)}
+.cal-target-label{font-family:'DM Mono',monospace;font-size:10px;color:var(--mut);letter-spacing:.3px;margin:2px 0 12px}
+.cal-macros{display:flex;flex-direction:column;gap:8px}
+.cal-macro{display:grid;grid-template-columns:auto 1fr;gap:4px 8px;align-items:center}
+.cal-macro .cm-lbl{font-size:11px;font-weight:600}
+.cal-macro b{font-family:'DM Mono',monospace;font-size:11px;text-align:right}
+.cal-macro .cm-bar{grid-column:1/3;height:4px;background:var(--bg3);border-radius:2px;overflow:hidden}
+.cal-macro .cm-bar div{height:100%;border-radius:2px;transition:width .5s var(--ease)}
+.cal-note-prot{background:color-mix(in srgb,var(--red) 8%,var(--bg1));border-left:3px solid var(--red);border-radius:var(--r3);padding:10px 12px;font-size:12px;color:var(--mut);line-height:1.5;margin-bottom:12px}
+.cal-photo-box{margin-bottom:12px}
+.cal-mealplan{margin-bottom:14px;background:var(--bg1);border:1px solid var(--bdr);border-radius:var(--r2);overflow:hidden}
+.cal-weekplan{margin-bottom:14px;background:var(--bg1);border:1.5px solid color-mix(in srgb,var(--acc) 25%,transparent);border-radius:var(--r2);overflow:hidden}
+.cal-weekplan>summary{font-family:'DM Mono',monospace;font-size:12px;font-weight:600;color:var(--acc);cursor:pointer;padding:14px 16px;letter-spacing:.3px;list-style:none}
+.cal-weekplan>summary::-webkit-details-marker{display:none}
+.cal-weekplan[open]>summary{border-bottom:1px solid var(--sep)}
+.wp-toggle{display:flex;gap:6px;padding:12px 12px 8px}
+.wp-tg{flex:1;background:var(--bg2);border:1px solid var(--bdr);color:var(--mut);font-family:'DM Mono',monospace;font-size:11px;font-weight:600;padding:10px;border-radius:var(--r3);cursor:pointer}
+.wp-tg.on{background:color-mix(in srgb,var(--acc) 15%,transparent);border-color:var(--acc);color:var(--acc)}
+.wp-shop{padding:4px 12px 8px}
+.wp-shop-item{display:flex;align-items:center;gap:10px;padding:9px 6px;border-bottom:1px solid var(--sep);cursor:pointer;font-size:13px}
+.wp-shop-item input{width:18px;height:18px;accent-color:var(--grn);flex-shrink:0}
+.wp-shop-item.done span{text-decoration:line-through;color:var(--mut2)}
+.wp-day{margin:0 12px 6px;background:var(--bg2);border-radius:var(--r3);overflow:hidden}
+.wp-day.today{border:1px solid color-mix(in srgb,var(--acc) 40%,transparent)}
+.wp-day>summary{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:11px 13px;cursor:pointer;list-style:none;font-size:13px}
+.wp-day>summary::-webkit-details-marker{display:none}
+.wp-day-name{font-weight:600}
+.wp-day.today .wp-day-name{color:var(--acc)}
+.wp-day-meta{font-family:'DM Mono',monospace;font-size:10px;color:var(--mut)}
+.wp-meal{display:flex;gap:10px;align-items:flex-start;padding:10px 13px;border-top:1px solid var(--sep);cursor:pointer}
+.wp-meal input{width:18px;height:18px;accent-color:var(--grn);flex-shrink:0;margin-top:2px}
+.wp-meal-body{flex:1;min-width:0}
+.wp-meal-head{display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+.wp-meal-head b{font-size:13px}
+.wp-meal-head span{font-family:'DM Mono',monospace;font-size:10px;color:var(--acc);white-space:nowrap}
+.wp-meal-desc{font-size:11px;color:var(--mut);line-height:1.5;margin-top:3px}
+.wp-meal.done .wp-meal-head b,.wp-meal.done .wp-meal-desc{text-decoration:line-through;color:var(--mut2)}
+.cal-mealplan summary{font-family:'DM Mono',monospace;font-size:12px;font-weight:600;color:var(--acc);cursor:pointer;padding:14px 16px;letter-spacing:.3px;list-style:none}
+.cal-mealplan summary::-webkit-details-marker{display:none}
+.cal-mealplan[open] summary{border-bottom:1px solid var(--sep)}
+.mp-intro{font-size:12px;color:var(--mut);line-height:1.6;padding:14px 16px 10px}
+.mp-intro b{color:var(--txt)}
+.mp-gen-btn{display:block;width:calc(100% - 32px);margin:0 16px 16px;background:var(--acc);color:#000;border:none;font-family:'DM Mono',monospace;font-weight:700;font-size:13px;padding:14px;border-radius:var(--r3);cursor:pointer}
+.mp-gen-btn:active{transform:scale(.98)}
+.mp-summary{font-family:'DM Mono',monospace;font-size:11px;color:var(--mut);padding:12px 16px 8px}
+.mp-summary b{color:var(--grn)}
+.mp-meal{margin:0 12px 8px;background:var(--bg2);border-radius:var(--r3);padding:12px}
+.mp-meal-head{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.mp-meal-name{font-size:14px;font-weight:600}
+.mp-meal-kcal{font-family:'Bebas Neue',sans-serif;font-size:18px;color:var(--acc);white-space:nowrap}
+.mp-meal-desc{font-size:12px;color:var(--mut);line-height:1.5;margin:4px 0 8px}
+.mp-meal-foot{display:flex;justify-content:space-between;align-items:center}
+.mp-meal-macros{font-family:'DM Mono',monospace;font-size:10px;color:var(--mut2)}
+.mp-log-btn{background:color-mix(in srgb,var(--grn) 15%,transparent);color:var(--grn);border:1px solid color-mix(in srgb,var(--grn) 35%,transparent);font-family:'DM Mono',monospace;font-size:11px;font-weight:600;padding:6px 14px;border-radius:100px;cursor:pointer}
+.mp-actions{display:flex;gap:8px;padding:6px 12px 14px}
+.mp-log-all{flex:1;background:var(--grn);color:#000;border:none;font-family:'DM Mono',monospace;font-weight:700;font-size:12px;padding:11px;border-radius:var(--r3);cursor:pointer}
+.mp-regen{background:var(--bg3);color:var(--txt);border:none;font-family:'DM Mono',monospace;font-size:12px;padding:11px 14px;border-radius:var(--r3);cursor:pointer}
+.mp-clear{background:var(--bg3);color:var(--mut);border:none;font-size:12px;padding:11px 14px;border-radius:var(--r3);cursor:pointer}
+.cal-photo-btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;background:color-mix(in srgb,var(--acc) 12%,var(--bg1));border:1.5px solid color-mix(in srgb,var(--acc) 40%,transparent);color:var(--acc);font-family:'DM Mono',monospace;font-weight:600;font-size:13px;padding:14px;border-radius:var(--r2);cursor:pointer;min-height:50px}
+.cal-photo-btn:active{transform:scale(.98)}
+.cal-photo-hint{font-size:11px;color:var(--mut);line-height:1.5;margin-top:6px;text-align:center}
+.cal-photo-hint b{color:var(--txt)}
+.cal-photo-result{background:var(--bg1);border:1.5px solid color-mix(in srgb,var(--acc) 35%,transparent);border-radius:var(--r2);padding:16px;margin-bottom:12px;animation:dayFi .25s ease}
+.cal-photo-res-head{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:4px}
+.cal-photo-res-name{font-size:15px;font-weight:600;line-height:1.3}
+.cal-photo-unc{font-family:'DM Mono',monospace;font-size:10px;white-space:nowrap;font-weight:600}
+.cal-photo-res-macros{font-family:'DM Mono',monospace;font-size:12px;color:var(--mut);margin-bottom:12px}
+.cal-photo-gram{display:flex;align-items:center;gap:8px}
+.cal-photo-gram label{font-size:12px;color:var(--mut)}
+.cal-photo-gram input{width:80px;background:var(--bg3);border:1.5px solid var(--bdr);color:var(--txt);font-family:'DM Mono',monospace;font-size:14px;padding:9px;border-radius:9px;text-align:center;outline:none}
+.cal-photo-gram input:focus{border-color:var(--acc)}
+.cal-photo-recalc{background:var(--bg3);color:var(--txt);border:1px solid var(--bdr);font-size:12px;padding:9px 14px;border-radius:9px;cursor:pointer;font-family:'DM Mono',monospace}
+.cal-photo-actions{display:flex;gap:8px}
+.cal-photo-confirm{flex:1;background:var(--grn);color:#000;border:none;font-weight:700;font-size:13px;padding:12px;border-radius:var(--r3);cursor:pointer;font-family:'DM Mono',monospace}
+.cal-photo-cancel{background:var(--bg3);color:var(--mut);border:none;font-size:13px;padding:12px 18px;border-radius:var(--r3);cursor:pointer;font-family:'DM Mono',monospace}
+.cal-search-box{margin-bottom:12px}
+.cal-search-row{display:flex;gap:8px}
+.cal-search-row input{flex:1;background:var(--bg2);border:1.5px solid var(--bdr);color:var(--txt);font-size:14px;padding:12px 14px;border-radius:var(--r3);outline:none}
+.cal-search-row input:focus{border-color:var(--acc)}
+.cal-search-btn{background:var(--acc);color:#000;border:none;font-family:'DM Mono',monospace;font-weight:700;font-size:13px;padding:0 20px;border-radius:var(--r3);cursor:pointer;min-width:60px}
+.cal-search-hint{font-family:'DM Mono',monospace;font-size:9px;color:var(--mut2);margin-top:6px;letter-spacing:.2px}
+.cal-err{background:color-mix(in srgb,var(--red) 12%,transparent);border:1px solid color-mix(in srgb,var(--red) 30%,transparent);color:#ff8a8a;font-size:12px;padding:10px 12px;border-radius:var(--r3);margin-bottom:10px;line-height:1.5}
+.cal-loading{text-align:center;color:var(--mut);font-size:13px;padding:16px}
+.cal-results{display:flex;flex-direction:column;gap:6px;margin-bottom:14px;max-height:320px;overflow-y:auto}
+.cal-result{display:flex;gap:8px;align-items:center;background:var(--bg2);border-radius:var(--r3);padding:10px 12px}
+.cal-result-info{flex:1;min-width:0}
+.cal-result-name{font-size:13px;font-weight:600;line-height:1.3}
+.cal-brand{font-weight:400;color:var(--mut);font-size:11px}
+.cal-result-macros{font-family:'DM Mono',monospace;font-size:10px;color:var(--mut);margin-top:2px}
+.cal-result-add{display:flex;align-items:center;gap:4px;flex-shrink:0}
+.cal-result-add input{width:52px;background:var(--bg3);border:1px solid var(--bdr);color:var(--txt);font-family:'DM Mono',monospace;font-size:12px;padding:7px 4px;border-radius:8px;text-align:center;outline:none}
+.cal-result-add span{font-size:11px;color:var(--mut)}
+.cal-result-add button{background:var(--grn);color:#000;border:none;font-size:18px;font-weight:700;width:34px;height:34px;border-radius:9px;cursor:pointer;line-height:1}
+.cal-day-label{font-family:'DM Mono',monospace;font-size:11px;color:var(--mut);letter-spacing:.5px;text-transform:uppercase;margin:8px 0 8px}
+.cal-items{display:flex;flex-direction:column;gap:6px}
+.cal-item{display:flex;align-items:center;gap:8px;background:var(--bg1);border:1px solid var(--sep);border-radius:var(--r3);padding:10px 12px}
+.cal-item-info{flex:1;min-width:0}
+.cal-item-name{font-size:13px;font-weight:500;line-height:1.3}
+.cal-item-macros{font-family:'DM Mono',monospace;font-size:10px;color:var(--mut);margin-top:2px}
+.cal-item-x{background:var(--bg3);border:none;color:var(--mut);width:26px;height:26px;border-radius:50%;cursor:pointer;font-size:11px;flex-shrink:0}
+.cal-empty{text-align:center;color:var(--mut2);font-size:12px;padding:20px;background:var(--bg1);border-radius:var(--r3)}
+.cal-manual{margin-top:14px}
+.cal-manual summary{font-family:'DM Mono',monospace;font-size:11px;color:var(--acc);cursor:pointer;letter-spacing:.3px;padding:8px 0}
+.cal-manual-grid{display:grid;grid-template-columns:1fr 70px 80px auto;gap:6px;margin-top:8px}
+.cal-manual-grid input{background:var(--bg2);border:1.5px solid var(--bdr);color:var(--txt);font-size:12px;padding:9px 8px;border-radius:8px;outline:none;min-width:0}
+.cal-manual-grid input:focus{border-color:var(--acc)}
+.cal-manual-grid button{background:var(--acc);color:#000;border:none;font-weight:700;font-size:12px;padding:0 12px;border-radius:8px;cursor:pointer}
+@media(max-width:520px){.cal-hero{flex-direction:column}.cal-manual-grid{grid-template-columns:1fr 1fr}}
 
 /* ══ WELLNESS PROMPT MODAL ══ */
 .wellness-modal{max-width:400px;padding:28px 22px 22px;animation:fi .3s ease;text-align:center}
@@ -1392,6 +1512,72 @@ const TEMPLATES={
     ]
   },
 
+  shred:{
+    id:'shred',name:'Aggressivt fedttab',emo:'🔥',color:'#ff375f',
+    desc:'Ekstremt fedttab med maksimal muskelbevarelse. 4 tunge styrkedage + 2 cardio. Tilpasser volumen og intensitet efter din erfaring — fra nybegynder til meget erfaren.',
+    weeks:10,needsRunTime:true,defaultRunSec:1800,expScale:true,
+    headerTitle:'AGGRESSIVE<br>SHRED',
+    D:[
+      {day:"MAN",full:"Mandag",type:"Upper — tungt",label:"OVERKROP",color:"#ff375f",icon:"💪",tag:"upper",ex:[
+        {n:"Bænkpres (flad)",k:"c",no:"Tungt — det bevarer musklen i underskud",l:"https://www.youtube.com/watch?v=4Y2ZdHCOXok"},
+        {n:"Bent-over Rows",k:"c",no:"Hold vægten høj",l:"https://www.youtube.com/results?search_query=bent+over+row+tutorial"},
+        {n:"Overhead Press",k:"c",no:"",l:"https://www.youtube.com/watch?v=F3QY5vMz_6I"},
+        {n:"Pullups / Lat Pulldown",k:"c",no:"",l:"https://www.youtube.com/results?search_query=lat+pulldown+tutorial"},
+        {n:"Face Pull",k:"i",no:"Skulderhelbred",l:"https://www.youtube.com/results?search_query=face+pull+tutorial"},
+        {n:"Planke",k:"x",no:"CORE",l:"https://www.youtube.com/results?search_query=plank+tutorial",core:1},
+      ]},
+      {day:"TIR",full:"Tirsdag",type:"Lower — tungt",label:"UNDERKROP",color:"#ff375f",icon:"🦵",tag:"lower",ex:[
+        {n:"Squat",k:"c",no:"Tungt — signalér 'behold musklen'",l:"https://www.youtube.com/watch?v=gcNh17Ckjgg"},
+        {n:"Romanian Deadlift",k:"c",no:"Baglår + baller",l:"https://www.youtube.com/watch?v=2SHsk9AzdjA"},
+        {n:"Leg Press",k:"c",no:"",l:"https://www.youtube.com/results?search_query=leg+press+tutorial"},
+        {n:"Leg Curls",k:"i",no:"",l:"https://www.youtube.com/results?search_query=leg+curl+tutorial"},
+        {n:"Calf Raises",k:"i",no:"",l:"https://www.youtube.com/results?search_query=calf+raise+tutorial"},
+        {n:"Hanging Leg Raise",k:"x",no:"CORE",l:"https://www.youtube.com/results?search_query=hanging+leg+raise+tutorial",core:1},
+      ]},
+      {day:"ONS",full:"Onsdag",type:"HIIT-intervaller",label:"HIIT",color:"#ff9f0a",icon:"⚡",tag:"run",
+        run:{pace:"5:30 /km",dur:"8×400m",type:"Intervalløb",tip:"Kort og hårdt — brænder maks fedt uden at æde muskel. Løbes efter overkropsdag."}},
+      {day:"TOR",full:"Torsdag",type:"Upper — volumen",label:"OVERKROP",color:"#ff375f",icon:"💪",tag:"upper",ex:[
+        {n:"Incline Bænkpres",k:"c",no:"Øvre bryst",l:"https://www.youtube.com/results?search_query=incline+bench+press+tutorial"},
+        {n:"DB Shoulder Press",k:"c",no:"",l:"https://www.youtube.com/results?search_query=dumbbell+shoulder+press+tutorial"},
+        {n:"Rows (maskine/stang)",k:"c",no:"",l:"https://www.youtube.com/results?search_query=seated+cable+row+tutorial"},
+        {n:"Lateral Raise",k:"i",no:"Skulderbredde bevares",l:"https://www.youtube.com/results?search_query=lateral+raise+tutorial"},
+        {n:"Biceps Curl (stang)",k:"i",no:"",l:"https://www.youtube.com/results?search_query=barbell+curl+tutorial"},
+        {n:"Triceps Pushdown",k:"i",no:"",l:"https://www.youtube.com/results?search_query=cable+tricep+pushdown+tutorial"},
+      ]},
+      {day:"FRE",full:"Fredag",type:"Lower — volumen",label:"UNDERKROP",color:"#ff375f",icon:"🦵",tag:"lower",ex:[
+        {n:"Sumo Deadlift",k:"c",no:"Hele bagkæden",l:"https://www.youtube.com/results?search_query=sumo+deadlift+tutorial"},
+        {n:"Walking Lunges",k:"c",no:"",l:"https://www.youtube.com/results?search_query=walking+lunges+tutorial"},
+        {n:"Hip Thrust",k:"c",no:"Baller",l:"https://www.youtube.com/watch?v=S_uZP4UH6J0"},
+        {n:"Leg Extensions",k:"i",no:"Quad-detalje",l:"https://www.youtube.com/results?search_query=leg+extension+tutorial"},
+        {n:"Læghæv",k:"i",no:"",l:"https://www.youtube.com/results?search_query=calf+raise+tutorial"},
+        {n:"Side Plank",k:"x",no:"CORE",l:"https://www.youtube.com/results?search_query=side+plank+tutorial",core:1},
+      ]},
+      {day:"LØR",full:"Lørdag",type:"Steady cardio + skridt",label:"FEDTFORBRÆNDING",color:"#30d158",icon:"🏃",tag:"run",
+        run:{pace:"7:00 /km",dur:"40-50 min",type:"Steady cardio",tip:"Roligt tempo i fedtforbrændingszonen. Kan tale undervejs. Sigt mod 10.000+ skridt hele dagen."}},
+      {day:"SØN",full:"Søndag",type:"Hvile + let gåtur",label:"RESTITUTION",color:"#5a5a7a",icon:"😴",tag:"rest"},
+    ],
+    GP:[
+      {name:"Priming",weeks:"Uge 1–3",color:"#ff375f",tip:"Etablér underskud · hold vægten på stængerne · RIR 2",c:{s:"4",r:"6–8"},i:{s:"3",r:"10–12"},x:{s:"3",r:"30–45s"}},
+      {name:"Aggressiv",weeks:"Uge 4–7",color:"#ff9f0a",tip:"Størst underskud · tunge løft bevarer musklen · RIR 1",c:{s:"4",r:"5–7"},i:{s:"3",r:"8–10"},x:{s:"3",r:"30–45s"}},
+      {name:"Finish",weeks:"Uge 8–10",color:"#bf5af2",tip:"Maks styrke-fokus · bevar hver gram muskel · RIR 1",c:{s:"5",r:"4–6"},i:{s:"3",r:"6–8"},x:{s:"3",r:"30–45s"}},
+    ],
+    PH:[
+      {n:1,l:"Base",w:"Uge 1–3",wd:"40 min @ 7:00/km",sa:"8×400m @ 5:30/km",g:"Vænning til dobbelt-cardio",c:"#30d158"},
+      {n:2,l:"Peak-brænd",w:"Uge 4–7",wd:"45 min @ 7:00/km",sa:"6×600m @ 5:45/km",g:"Maks kalorieforbrug",c:"#ff9f0a"},
+      {n:3,l:"Finish",w:"Uge 8–10",wd:"50 min @ 6:45/km",sa:"5×800m @ 6:00/km",g:"Sidste fedt af",c:"#ff375f"},
+    ],
+    RL:[
+      {i:"🥩",t:"Protein — kritisk",b:"2,6-3,0 g/kg dagligt. Det vigtigste værktøj til at beholde musklen i stort underskud.",c:"#ff375f"},
+      {i:"📉",t:"Aggressivt underskud",b:"700-1000 kcal underskud. Tab 0,8-1,2% af kropsvægt/uge. Ikke mere — så ryger musklen.",c:"#ff9f0a"},
+      {i:"🏋️",t:"Løft tungt",b:"Behold vægtene på stængerne. Tungt løft er signalet der siger 'behold musklen' — ikke let/høj-reps.",c:"#bf5af2"},
+      {i:"🚶",t:"NEAT er konge",b:"10.000-12.000 skridt dagligt. Skridt brænder fedt uden at koste restitution — modsat mere hård cardio.",c:"#30d158"},
+      {i:"😴",t:"Søvn beskytter muskel",b:"7-9 timer. For lidt søvn i underskud → mere muskeltab og værre sult. Ikke til forhandling.",c:"#0a84ff"},
+      {i:"🔄",t:"Diet-pauser",b:"Hver 3.-4. uge: 3-5 dage på vedligehold. Genopretter hormoner og gør underskuddet holdbart.",c:"#ffd60a"},
+      {i:"💧",t:"Vand & fibre",b:"Metter i underskud. 3-4 L vand + grøntsager til hvert måltid holder sulten nede.",c:"#64d2ff"},
+      {i:"⚖️",t:"Mål fremgang rigtigt",b:"Vej dig fastende hver morgen, brug ugentligt gennemsnit. Tag mål + billeder hver 2. uge — vægten alene lyver i underskud.",c:"#bf5af2"},
+    ]
+  },
+
   cut:{
     id:'cut',name:'Fedttab + kondi',emo:'🔥',color:'#ff453a',
     desc:'Fedt af, muskel bevares. 3 styrke-fullbody + 3 cardio-dage. Stort kalorieunderskud.',
@@ -1604,6 +1790,33 @@ const TEMPLATES={
   }
 };
 
+// Skalerer et forløb efter brugerens træningserfaring (kun forløb med expScale:true).
+// Erfarne løftere har brug for mere volumen + hårdere teknikker for at bevare muskel i underskud.
+function applyExperienceScaling(tplId){
+  const exp=PROFILE.experience||'some';
+  if(exp==='some')return; // GP i templaten er kalibreret til mellem-niveau = baseline
+  if(tplId==='shred'){
+    if(exp==='experienced'){
+      // Erfaren: +1 sæt på compound & isolation, tilføj intensitetsteknik per fase
+      const tech=['Sidste sæt: 1-2 rest-pause reps','Sidste sæt til teknisk failure (RIR 0)','Drop-set på sidste isolation-øvelse'];
+      GP.forEach((p,i)=>{
+        p.c={s:String(parseInt(p.c.s)+1),r:p.c.r};
+        p.i={s:String(parseInt(p.i.s)+1),r:p.i.r};
+        p.tip=p.tip+' · '+tech[i];
+      });
+      // Ekstra princip om avanceret autoregulering
+      RL.push({i:'🎯',t:'Autoregulér (erfaren)',b:'Du kender din krop: styr efter RIR, ikke faste tal. Ryger et løft 2+ reps ned to gange i træk, er det tid til en diet-pause.',c:'#ff375f'});
+    }else if(exp==='beginner'){
+      // Nybegynder: −1 sæt på compound, blødere finish-fase, form-fokus
+      GP.forEach((p,i)=>{
+        p.c={s:String(Math.max(3,parseInt(p.c.s)-1)),r:p.c.r};
+        if(i===2)p.tip='Hold formen skarp — pres ikke for hårdt sidste fase';
+      });
+      RL.push({i:'🧑‍🏫',t:'Form før vægt (ny)',b:'Som ny løfter: prioritér teknik over vægt. Muskel bevares fint på moderat belastning når du er ny, og skadesrisiko er større i underskud.',c:'#30d158'});
+    }
+  }
+}
+
 function loadProgram(){
   const tplId=PROG.template||'recomp';
   const tpl=TEMPLATES[tplId]||TEMPLATES.recomp;
@@ -1612,6 +1825,8 @@ function loadProgram(){
   GP=JSON.parse(JSON.stringify(tpl.GP));
   PH=JSON.parse(JSON.stringify(tpl.PH));
   RL=JSON.parse(JSON.stringify(tpl.RL));
+  // Erfarings-tilpasning: skalér volumen/intensitet for forløb der understøtter det
+  if(tpl.expScale)applyExperienceScaling(tplId);
   // Opdater header-titel — vis neutral titel hvis bruger ej har valgt program endnu
   const h1=document.querySelector('#hdr h1');
   if(h1){
@@ -2771,7 +2986,7 @@ function toggleMobEx(rid,idx,total){
 const ORS_KEY='tw4_ors_key';
 let ORS=localStorage.getItem(ORS_KEY)||'';
 function saveOrsKey(v){ORS=(v||'').trim();try{localStorage.setItem(ORS_KEY,ORS)}catch(e){}}
-let routeMap=null,routeLayer=null,routeTargetKm=5,routeSeed=1;
+let routeMap=null,routeLayer=null,routeTargetKm=5,routeSeed=1,routeEstMin=null;
 
 function loadLeaflet(){
   return new Promise((res,rej)=>{
@@ -2786,9 +3001,10 @@ function loadLeaflet(){
   });
 }
 
-function openRouteModal(km,day){
+function openRouteModal(km,day,estMin){
   routeTargetKm=km||5;
   if(day)routeDay=day;
+  if(estMin)routeEstMin=estMin;
   routeSeed=Math.floor(Math.random()*100);
   // Ryd evt. gammelt kort mens dets container måske stadig findes
   if(routeMap){try{routeMap.off();routeMap.remove()}catch(e){}routeMap=null;routeLayer=null}
@@ -2837,20 +3053,35 @@ function findAndDrawRoute(){
     const lat=pos.coords.latitude,lon=pos.coords.longitude;
     if(st)st.textContent='🧭 Beregner '+routeTargetKm+' km rute…';
     try{
-      const resp=await fetch('https://api.openrouteservice.org/v2/directions/foot-walking/geojson',{
-        method:'POST',
-        headers:{'Authorization':ORS,'Content-Type':'application/json'},
-        body:JSON.stringify({
-          coordinates:[[lon,lat]],
-          instructions:true,
-          language:'da',
-          options:{round_trip:{length:Math.round(routeTargetKm*1000),points:5,seed:routeSeed}}
-        })
-      });
-      if(!resp.ok){
-        throw new Error(resp.status===401||resp.status===403?'Ugyldig nøgle — tjek den under "Skift nøgle"':'Rutetjeneste-fejl ('+resp.status+')');
+      // Prøv op til 4 seeds og vælg ruten der rammer dagens distance tættest.
+      // (I tyndt vejnet kan rundturs-algoritmen ellers skyde langt over målet.)
+      const targetM=routeTargetKm*1000;
+      let best=null,bestDiff=Infinity;
+      for(let attempt=0;attempt<4;attempt++){
+        const seed=(routeSeed+attempt*17)%1000;
+        if(st&&attempt>0)st.textContent='🧭 Finjusterer længden… ('+(attempt+1)+'/4)';
+        const resp=await fetch('https://api.openrouteservice.org/v2/directions/foot-walking/geojson',{
+          method:'POST',
+          headers:{'Authorization':ORS,'Content-Type':'application/json'},
+          body:JSON.stringify({
+            coordinates:[[lon,lat]],
+            instructions:true,
+            language:'da',
+            options:{round_trip:{length:Math.round(targetM),points:5,seed}}
+          })
+        });
+        if(!resp.ok){
+          if(best)break; // vi har allerede en brugbar rute
+          throw new Error(resp.status===401||resp.status===403?'Ugyldig nøgle — tjek den under "Skift nøgle"':'Rutetjeneste-fejl ('+resp.status+')');
+        }
+        const g=await resp.json();
+        if(!g||!g.features||!g.features.length||!g.features[0].geometry)continue;
+        const dist=g.features[0].properties?.summary?.distance||0;
+        const diff=Math.abs(dist-targetM);
+        if(diff<bestDiff){best=g;bestDiff=diff}
+        if(diff/targetM<=0.12)break; // inden for 12% — godt nok
       }
-      const geo=await resp.json();
+      const geo=best;
       // Validér at der faktisk kom en rute tilbage
       if(!geo||!geo.features||!geo.features.length||!geo.features[0].geometry){
         throw new Error('Ingen rute fundet her — prøv "Ny variant"');
@@ -2871,14 +3102,20 @@ function findAndDrawRoute(){
       L.circleMarker([lat,lon],{radius:7,color:'#32d74b',fillColor:'#32d74b',fillOpacity:1}).addTo(routeMap).bindPopup('Start/mål');
       try{routeMap.fitBounds(routeLayer.getBounds(),{padding:[24,24]})}catch(e){routeMap.setView([lat,lon],14)}
       const sum=geo.features?.[0]?.properties?.summary;
-      const distKm=sum?(sum.distance/1000).toFixed(1):routeTargetKm;
-      const durMin=sum?Math.round(sum.duration/60):null;
+      const actualKm=sum?sum.distance/1000:routeTargetKm;
+      const distKm=actualKm.toFixed(1);
+      // Estimeret LØBE-tid: skalér dagens session-minutter med rutens faktiske længde
+      const runMin=routeEstMin?Math.round(routeEstMin*(actualKm/routeTargetKm)):null;
       // Byg navigations-data: koordinater + kumuleret distance + sving-instruktioner
       buildRouteNav(geo);
-      if(st)st.textContent='✓ Rute klar — følg den gule linje';
+      const dev=Math.abs(actualKm-routeTargetKm)/routeTargetKm;
+      if(st){
+        if(dev>0.20)st.textContent='⚠️ Ruten blev '+distKm+' km (dagens mål: '+routeTargetKm+' km) — vejnettet her gør præcis længde svær. Prøv "Ny variant".';
+        else st.textContent='✓ Rute klar ('+distKm+' km — mål '+routeTargetKm+' km). Følg den gule linje';
+      }
       const stats=document.getElementById('routeStats');
-      if(stats)stats.innerHTML=`<div class="route-stat"><b>${distKm}</b><small>km</small></div>
-        ${durMin?`<div class="route-stat"><b>~${durMin}</b><small>min gang</small></div>`:''}
+      if(stats)stats.innerHTML=`<div class="route-stat"><b>${distKm}</b><small>km · mål ${routeTargetKm}</small></div>
+        ${runMin?`<div class="route-stat"><b>~${runMin}</b><small>min løb</small></div>`:''}
         <div class="route-stat"><b>${routeNav?routeNav.steps.length:0}</b><small>sving</small></div>`;
       const btns=document.querySelector('.route-btns');
       if(btns&&routeNav&&!document.getElementById('navRunBtn')){
@@ -3988,7 +4225,7 @@ function rWeekly(){
         }
         return Math.max(2,Math.round(meters/100)/10);
       })();
-      h+=`<button class="route-btn" onclick="openRouteModal(${routeKm},'${escAttr(d.full)}')">
+      h+=`<button class="route-btn" onclick="openRouteModal(${routeKm},'${escAttr(d.full)}',${plan.totalDur})">
         <svg class="ic sm" viewBox="0 0 24 24"><path d="M9 20l-5.5-2.2a1 1 0 0 1-.5-.9V4.6a1 1 0 0 1 1.4-.9L9 5.8m0 14.2 6-2m-6 2V5.8m6 12.2 5.1 2a1 1 0 0 0 1.4-.9V6.6a1 1 0 0 0-.6-.9L15 3.8m0 14.2V3.8M9 5.8l6-2"/></svg>
         Generér løberute · ca. ${routeKm} km fra din position
       </button>`;
@@ -4347,6 +4584,647 @@ function restartProgram(){
 }
 // Combined Vægt+Graf med sub-tab toggle
 let weightSubView='log'; // 'log' eller 'graph'
+/* ═══ KALORIETÆLLER (Open Food Facts — gratis, ingen nøgle) ═══ */
+const CAL_KEY='tw4_calories';
+let CAL={};// {"2026-07-21":{items:[{n,kcal,p,c,f,qty}], ...}}
+try{CAL=JSON.parse(localStorage.getItem(CAL_KEY)||'{}')}catch(e){}
+function saveCal(){try{localStorage.setItem(CAL_KEY,JSON.stringify(CAL))}catch(e){}}
+let calSearchResults=null,calSearching=false,calSearchErr='';
+
+// Daglige makro-mål ud fra kropsvægt + forløb (protein er vigtigst i underskud)
+function calorieTargets(){
+  const w=parseFloat(PROFILE.weight)|| (BODY&&BODY.length?parseFloat(BODY[BODY.length-1].w):0) || 80;
+  const tpl=PROG.template||'recomp';
+  // kcal/kg og protein g/kg efter forløbs-mål
+  let kcalPerKg,protPerKg,label;
+  if(tpl==='shred'){kcalPerKg=26;protPerKg=2.8;label='Aggressivt underskud'}
+  else if(tpl==='cut'){kcalPerKg=30;protPerKg=2.4;label='Moderat underskud'}
+  else if(tpl==='bulk'){kcalPerKg=39;protPerKg=2.0;label='Overskud'}
+  else{kcalPerKg=33;protPerKg=2.2;label='Vedligehold / recomp'}
+  const kcal=Math.round(w*kcalPerKg);
+  const protein=Math.round(w*protPerKg);
+  const fat=Math.round(w*0.9); // ~0.9 g/kg fedt-gulv
+  const carbKcal=kcal-(protein*4)-(fat*9);
+  const carbs=Math.max(0,Math.round(carbKcal/4));
+  return {kcal,protein,fat,carbs,label,w};
+}
+
+function calDayKey(){return todayISO()}
+function calToday(){return CAL[calDayKey()]||{items:[]}}
+function calTotals(day){
+  const d=day||calToday();
+  return (d.items||[]).reduce((a,it)=>({
+    kcal:a.kcal+(it.kcal||0),p:a.p+(it.p||0),c:a.c+(it.c||0),f:a.f+(it.f||0)
+  }),{kcal:0,p:0,c:0,f:0});
+}
+
+async function calSearch(){
+  const inp=document.getElementById('calSearchInput');
+  const q=(inp?.value||'').trim();
+  if(q.length<2){calSearchErr='Skriv mindst 2 tegn';render();return}
+  calSearching=true;calSearchErr='';calSearchResults=null;render();
+  try{
+    // Open Food Facts navnesøgning — ingen nøgle. Vi beder kun om felterne vi bruger.
+    const url='https://world.openfoodfacts.org/cgi/search.pl?search_terms='+encodeURIComponent(q)
+      +'&search_simple=1&action=process&json=1&page_size=20'
+      +'&fields=product_name,product_name_da,brands,nutriments,quantity';
+    const r=await fetch(url,{headers:{'Accept':'application/json'}});
+    if(!r.ok)throw new Error('Søgetjeneste svarede '+r.status);
+    const data=await r.json();
+    // OFF kan svare 200 med tomt/ugyldigt — validér indhold
+    const prods=(data&&data.products)||[];
+    const clean=prods.map(p=>{
+      const n=p.nutriments||{};
+      const kcal=n['energy-kcal_100g']??(n['energy_100g']?Math.round(n['energy_100g']/4.184):null);
+      const name=p.product_name_da||p.product_name||'';
+      if(!name||kcal==null)return null; // spring produkter uden brugbar data over
+      return {
+        n:name,brand:(p.brands||'').split(',')[0].trim(),
+        kcal100:Math.round(kcal),
+        p100:Math.round((n.proteins_100g||0)*10)/10,
+        c100:Math.round((n.carbohydrates_100g||0)*10)/10,
+        f100:Math.round((n.fat_100g||0)*10)/10
+      };
+    }).filter(Boolean);
+    calSearchResults=clean;
+    if(!clean.length)calSearchErr='Ingen resultater med brugbar næringsdata — prøv et andet søgeord.';
+  }catch(e){
+    calSearchErr='Kunne ikke søge: '+e.message+'. Tjek din internetforbindelse.';
+  }
+  calSearching=false;render();
+}
+
+// Tilføj produkt med gramvægt → beregn faktiske makroer
+function calAddFood(idx,grams){
+  if(!calSearchResults||!calSearchResults[idx])return;
+  const f=calSearchResults[idx];
+  const g=parseFloat(grams)||100;
+  const factor=g/100;
+  const item={
+    n:f.n+(f.brand?' ('+f.brand+')':''),
+    qty:g,
+    kcal:Math.round(f.kcal100*factor),
+    p:Math.round(f.p100*factor*10)/10,
+    c:Math.round(f.c100*factor*10)/10,
+    f:Math.round(f.f100*factor*10)/10
+  };
+  const k=calDayKey();
+  if(!CAL[k])CAL[k]={items:[]};
+  CAL[k].items.push(item);
+  saveCal();
+  calSearchResults=null;
+  const inp=document.getElementById('calSearchInput');if(inp)inp.value='';
+  render();
+}
+function calRemoveItem(i){
+  const k=calDayKey();
+  if(CAL[k]&&CAL[k].items){CAL[k].items.splice(i,1);saveCal();render()}
+}
+// Hurtig manuel tilføjelse (når man kender kcal)
+function calAddManual(){
+  const nEl=document.getElementById('calManualName'),kEl=document.getElementById('calManualKcal'),pEl=document.getElementById('calManualProt');
+  const n=(nEl?.value||'').trim(),kcal=parseInt(kEl?.value)||0,p=parseFloat(pEl?.value)||0;
+  if(!n||!kcal){calSearchErr='Udfyld mindst navn + kalorier';render();return}
+  const k=calDayKey();if(!CAL[k])CAL[k]={items:[]};
+  CAL[k].items.push({n,qty:null,kcal,p,c:0,f:0});
+  saveCal();render();
+}
+
+/* ── FOTO-GENKENDELSE via Gemini vision ── */
+let calPhotoResult=null,calPhotoAnalyzing=false,calPhotoErr='',calPhotoData=null;
+
+// Kald Gemini med et billede — genbruger fallback-kæden fra callClaude
+async function callGeminiVision(base64,mimeType,promptText){
+  if(!AI.apiKey)throw new Error('AI-coachen kræver en Gemini-nøgle (se Coach-fanen). Foto-analyse bruger samme nøgle.');
+  const candidates=[...new Set([AI.workingModel||AI.model||'gemini-2.5-flash','gemini-flash-latest','gemini-2.0-flash','gemini-1.5-flash'])];
+  let res=null,usedModel='',lastErr='';
+  for(const cand of candidates){
+    const url=`https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(cand)}:generateContent`;
+    res=await fetch(url,{
+      method:'POST',
+      headers:{'Content-Type':'application/json','x-goog-api-key':AI.apiKey},
+      body:JSON.stringify({
+        contents:[{role:'user',parts:[
+          {inline_data:{mime_type:mimeType,data:base64}},
+          {text:promptText}
+        ]}],
+        generationConfig:{maxOutputTokens:2048,temperature:0.4,
+          ...((cand.startsWith('gemini-2.5')||cand.endsWith('-latest'))?{thinkingConfig:{thinkingBudget:0}}:{})}
+      })
+    });
+    usedModel=cand;
+    if(res.ok)break;
+    let em='';try{const ej=await res.clone().json();em=ej?.error?.message||''}catch(e){}
+    lastErr=em;
+    if(!(res.status===404||(res.status===400&&em.toLowerCase().includes('model'))))break;
+  }
+  if(res.ok&&usedModel!==AI.workingModel){AI.workingModel=usedModel;saveAI()}
+  if(!res.ok){
+    let em='Foto-analyse fejl '+res.status;
+    try{const e=await res.json();em=e?.error?.message||lastErr||em}catch(e){}
+    if(res.status===403)throw new Error('Adgang nægtet. Har din nøgle website-restriktion, skal den tillade d5j9m87p5h-gif.github.io/*');
+    if(res.status===429)throw new Error('Daglig AI-grænse nået. Prøv igen i morgen, eller indtast maden manuelt.');
+    throw new Error(em.slice(0,140));
+  }
+  const data=await res.json();
+  const cand=data?.candidates?.[0];
+  const txt=(cand?.content?.parts||[]).filter(p=>p.text&&!p.thought).map(p=>p.text).join('').trim();
+  if(!txt)throw new Error('Tomt svar fra billed-analysen.');
+  return txt;
+}
+
+// Læs valgt foto → send til Gemini → parse JSON-estimat
+/* ── MADPLAN (AI-genereret dag-for-dag) ── */
+const MEALPLAN_KEY='tw4_mealplan';
+let MEALPLAN={};// {"2026-07-21":{meals:[{navn,kcal,protein,kulhydrat,fedt,beskrivelse}],genereret}}
+try{MEALPLAN=JSON.parse(localStorage.getItem(MEALPLAN_KEY)||'{}')}catch(e){}
+function saveMealplan(){try{localStorage.setItem(MEALPLAN_KEY,JSON.stringify(MEALPLAN))}catch(e){}}
+let mealplanGenerating=false,mealplanErr='';
+
+// Ren tekst-Gemini (deler ikke coach-historik) med samme fallback-kæde
+async function callGeminiText(promptText,maxTok){
+  if(!AI.apiKey)throw new Error('Madplan kræver en Gemini-nøgle (samme som AI-coachen — se Coach-fanen).');
+  const candidates=[...new Set([AI.workingModel||AI.model||'gemini-2.5-flash','gemini-flash-latest','gemini-2.0-flash','gemini-1.5-flash'])];
+  let res=null,usedModel='',lastErr='';
+  for(const cand of candidates){
+    const url=`https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(cand)}:generateContent`;
+    res=await fetch(url,{
+      method:'POST',
+      headers:{'Content-Type':'application/json','x-goog-api-key':AI.apiKey},
+      body:JSON.stringify({
+        contents:[{role:'user',parts:[{text:promptText}]}],
+        generationConfig:{maxOutputTokens:maxTok||3000,temperature:0.7,
+          ...((cand.startsWith('gemini-2.5')||cand.endsWith('-latest'))?{thinkingConfig:{thinkingBudget:0}}:{})}
+      })
+    });
+    usedModel=cand;
+    if(res.ok)break;
+    let em='';try{const ej=await res.clone().json();em=ej?.error?.message||''}catch(e){}
+    lastErr=em;
+    if(!(res.status===404||(res.status===400&&em.toLowerCase().includes('model'))))break;
+  }
+  if(res.ok&&usedModel!==AI.workingModel){AI.workingModel=usedModel;saveAI()}
+  if(!res.ok){
+    let em='Madplan-fejl '+res.status;try{const e=await res.json();em=e?.error?.message||lastErr||em}catch(e){}
+    if(res.status===403)throw new Error('Adgang nægtet. Har din nøgle website-restriktion, skal den tillade d5j9m87p5h-gif.github.io/*');
+    if(res.status===429)throw new Error('Daglig AI-grænse nået. Prøv igen i morgen.');
+    throw new Error(em.slice(0,150));
+  }
+  const data=await res.json();const c=data?.candidates?.[0];
+  const txt=(c?.content?.parts||[]).filter(p=>p.text&&!p.thought).map(p=>p.text).join('').trim();
+  if(!txt)throw new Error('Tomt svar fra madplan-generatoren.');
+  return txt;
+}
+
+async function generateMealplan(){
+  const t=calorieTargets();
+  // Er i dag en træningsdag? (påvirker kulhydrat-timing)
+  const dayObj=D[sel]||D.find(d=>d.ex||d.run);
+  const isTraining=dayObj&&(dayObj.ex||dayObj.run);
+  const trainingType=dayObj?(dayObj.ex?'styrketræning':dayObj.run?'løb/cardio':'hviledag'):'hviledag';
+  const tplName=(TEMPLATES[PROG.template||'recomp']||{}).name||'';
+  mealplanGenerating=true;mealplanErr='';render();
+  const prompt=`Du er en dansk ernæringsekspert. Lav en konkret madplan for ÉN dag der rammer disse mål så præcist som muligt:
+- Kalorier: ${t.kcal} kcal
+- Protein: ${t.protein} g (VIGTIGST — ram dette tal)
+- Kulhydrat: ~${t.carbs} g
+- Fedt: ~${t.fat} g
+Kontekst: Personen følger forløbet "${tplName}" (${t.label}). I dag er en ${trainingType}${isTraining?' — læg gerne flest kulhydrater omkring træningen':''}.
+Krav:
+- 4 måltider: morgenmad, frokost, aftensmad, snack
+- Almindelige danske fødevarer man kan købe i Netto/Rema
+- Realistiske portioner med gram-mængder i beskrivelsen
+Svar KUN med ren JSON (ingen markdown, ingen tekst udenfor) i præcis dette format:
+{"meals":[{"navn":"Morgenmad","beskrivelse":"kort: hvad og hvor meget","kcal":tal,"protein":gram,"kulhydrat":gram,"fedt":gram},{...frokost...},{...aftensmad...},{...snack...}]}`;
+  try{
+    const raw=await callGeminiText(prompt,3000);
+    const clean=raw.replace(/```json|```/g,'').trim();
+    const j=JSON.parse(clean);
+    if(!j.meals||!Array.isArray(j.meals)||!j.meals.length)throw new Error('tomt');
+    const meals=j.meals.map(m=>({
+      navn:m.navn||'Måltid',beskrivelse:m.beskrivelse||'',
+      kcal:Math.round(m.kcal)||0,protein:Math.round(m.protein)||0,
+      kulhydrat:Math.round(m.kulhydrat)||0,fedt:Math.round(m.fedt)||0
+    }));
+    MEALPLAN[calDayKey()]={meals,genereret:new Date().toISOString()};
+    saveMealplan();
+  }catch(e){
+    mealplanErr=e.message.includes('JSON')||e.message==='tomt'?'Madplanen kom i et uventet format — prøv igen.':e.message;
+  }
+  mealplanGenerating=false;render();
+}
+
+// Log ét måltid fra planen ind i kalorietælleren
+function mealplanLogMeal(idx){
+  const plan=MEALPLAN[calDayKey()];
+  if(!plan||!plan.meals[idx])return;
+  const m=plan.meals[idx];
+  const k=calDayKey();if(!CAL[k])CAL[k]={items:[]};
+  CAL[k].items.push({n:m.navn+': '+m.beskrivelse.slice(0,40),qty:null,kcal:m.kcal,p:m.protein,c:m.kulhydrat,f:m.fedt});
+  saveCal();render();
+}
+function mealplanLogAll(){
+  const plan=MEALPLAN[calDayKey()];
+  if(!plan)return;
+  const k=calDayKey();if(!CAL[k])CAL[k]={items:[]};
+  plan.meals.forEach(m=>CAL[k].items.push({n:m.navn+': '+m.beskrivelse.slice(0,40),qty:null,kcal:m.kcal,p:m.protein,c:m.kulhydrat,f:m.fedt}));
+  saveCal();render();
+}
+function mealplanClear(){delete MEALPLAN[calDayKey()];saveMealplan();render()}
+
+/* ── UGENTLIG MADPLAN (7 dage + indkøbsliste + afhakning) ── */
+const WEEKPLAN_KEY='tw4_weekplan';
+let WEEKPLAN={};// {"2026-W29":{days:{Mandag:{meals:[{...,done}],targetKcal}},shopping:[{item,done}],genereret}}
+try{WEEKPLAN=JSON.parse(localStorage.getItem(WEEKPLAN_KEY)||'{}')}catch(e){}
+function saveWeekplan(){try{localStorage.setItem(WEEKPLAN_KEY,JSON.stringify(WEEKPLAN))}catch(e){}}
+let weekplanGenerating=false,weekplanErr='',weekplanView='plan'; // 'plan' | 'shopping'
+
+// ISO-uge-nøgle (mandag-baseret) så planen hører til den rigtige uge
+function isoWeekKey(d){
+  const dt=d?new Date(d):new Date();
+  dt.setHours(0,0,0,0);
+  const day=(dt.getDay()+6)%7; // man=0
+  dt.setDate(dt.getDate()-day+3); // torsdag i denne uge
+  const firstThu=new Date(dt.getFullYear(),0,4);
+  const week=1+Math.round(((dt-firstThu)/86400000-3+((firstThu.getDay()+6)%7))/7);
+  return dt.getFullYear()+'-W'+String(week).padStart(2,'0');
+}
+function currentWeekplan(){return WEEKPLAN[isoWeekKey()]}
+
+async function generateWeekplan(){
+  const t=calorieTargets();
+  const tplName=(TEMPLATES[PROG.template||'recomp']||{}).name||'';
+  // Hvilke dage er træningsdage? (giver AI kontekst til kulhydrat-timing)
+  const dayInfo=D.map(d=>({
+    navn:d.full,
+    type:d.ex?'styrketræning':d.run?(d.run.type||'løb'):'hviledag'
+  }));
+  weekplanGenerating=true;weekplanErr='';render();
+  const prompt=`Du er en dansk ernæringsekspert. Lav en madplan for en HEL UGE (7 dage) der hver dag rammer:
+- Kalorier: ${t.kcal} kcal/dag
+- Protein: ${t.protein} g/dag (VIGTIGST)
+- Kulhydrat: ~${t.carbs} g/dag · Fedt: ~${t.fat} g/dag
+Kontekst: Forløbet "${tplName}" (${t.label}). Ugens dage og træning:
+${dayInfo.map(d=>`- ${d.navn}: ${d.type}`).join('\n')}
+Læg flere kulhydrater på træningsdage. Variér retterne over ugen så det ikke bliver ensformigt, men genbrug ingredienser så indkøb er realistisk. Brug danske fødevarer fra Netto/Rema.
+Lav også en samlet indkøbsliste for hele ugen med cirka-mængder.
+Svar KUN med ren JSON (ingen markdown) i PRÆCIS dette format:
+{"days":[{"dag":"Mandag","meals":[{"navn":"Morgenmad","beskrivelse":"kort m. gram","kcal":tal,"protein":g,"kulhydrat":g,"fedt":g},{...frokost...},{...aftensmad...},{...snack...}]},{...6 dage mere...}],"shopping":["vare + mængde","..."]}`;
+  try{
+    const raw=await callGeminiText(prompt,8000);
+    const clean=raw.replace(/```json|```/g,'').trim();
+    const j=JSON.parse(clean);
+    if(!j.days||!Array.isArray(j.days)||j.days.length<5)throw new Error('tomt');
+    const days={};
+    j.days.forEach(d=>{
+      const meals=(d.meals||[]).map(m=>({
+        navn:m.navn||'Måltid',beskrivelse:m.beskrivelse||'',
+        kcal:Math.round(m.kcal)||0,protein:Math.round(m.protein)||0,
+        kulhydrat:Math.round(m.kulhydrat)||0,fedt:Math.round(m.fedt)||0,done:false
+      }));
+      if(d.dag&&meals.length)days[d.dag]=meals;
+    });
+    const shopping=(j.shopping||[]).map(s=>({item:String(s),done:false}));
+    WEEKPLAN[isoWeekKey()]={days,shopping,targetKcal:t.kcal,targetProt:t.protein,genereret:new Date().toISOString()};
+    saveWeekplan();
+    weekplanView='plan';
+  }catch(e){
+    weekplanErr=e.message.includes('JSON')||e.message==='tomt'?'Ugeplanen kom i et uventet format — prøv igen (det er en stor forespørgsel).':e.message;
+  }
+  weekplanGenerating=false;render();
+}
+
+// Hak et måltid af → ryger i kalorietælleren på den rigtige dag
+function weekplanToggleMeal(dayName,idx){
+  const wp=currentWeekplan();
+  if(!wp||!wp.days[dayName]||!wp.days[dayName][idx])return;
+  const meal=wp.days[dayName][idx];
+  meal.done=!meal.done;
+  // Find datoen for den ugedag → log/fjern i CAL
+  const dateKey=dateKeyForWeekday(dayName);
+  if(dateKey){
+    if(!CAL[dateKey])CAL[dateKey]={items:[]};
+    const tag='📋 '+meal.navn;
+    if(meal.done){
+      CAL[dateKey].items.push({n:tag+': '+meal.beskrivelse.slice(0,40),qty:null,kcal:meal.kcal,p:meal.protein,c:meal.kulhydrat,f:meal.fedt,_mp:dayName+'#'+idx});
+    }else{
+      CAL[dateKey].items=(CAL[dateKey].items||[]).filter(it=>it._mp!==dayName+'#'+idx);
+    }
+    saveCal();
+  }
+  saveWeekplan();render();
+}
+// Find ISO-dato for en ugedag i den nuværende plan-uge
+function dateKeyForWeekday(dayName){
+  const order=['Mandag','Tirsdag','Onsdag','Torsdag','Fredag','Lørdag','Søndag'];
+  const idx=order.indexOf(dayName);
+  if(idx<0)return null;
+  const now=new Date();now.setHours(0,0,0,0);
+  const curDay=(now.getDay()+6)%7; // man=0
+  const monday=new Date(now);monday.setDate(now.getDate()-curDay);
+  const target=new Date(monday);target.setDate(monday.getDate()+idx);
+  return target.toISOString().slice(0,10);
+}
+function weekplanToggleShop(i){
+  const wp=currentWeekplan();
+  if(!wp||!wp.shopping[i])return;
+  wp.shopping[i].done=!wp.shopping[i].done;
+  saveWeekplan();render();
+}
+function weekplanClearShop(){
+  const wp=currentWeekplan();if(!wp)return;
+  wp.shopping.forEach(s=>s.done=false);saveWeekplan();render();
+}
+function weekplanClear(){delete WEEKPLAN[isoWeekKey()];saveWeekplan();render()}
+function setWeekplanView(v){weekplanView=v;render()}
+
+function rWeekplanSection(){
+  const wp=currentWeekplan();
+  let h='<details class="cal-weekplan"'+(wp?' open':'')+'><summary>📅 Ugentlig madplan'+(wp?' — planlagt':'')+'</summary>';
+  if(weekplanGenerating){
+    h+=`<div class="cal-loading">👨‍🍳 Laver hele ugens madplan + indkøbsliste…<br><span style="font-size:10px;opacity:.6">Det tager lidt længere — 7 dage på én gang</span></div>`;
+  }
+  if(weekplanErr)h+=`<div class="cal-err">${escHtml(weekplanErr)}</div>`;
+  if(!wp&&!weekplanGenerating){
+    const t=calorieTargets();
+    h+=`<div class="mp-intro">Planlæg hele ugen på én gang — perfekt søndag før indkøb. Du får 7 dage à <b>${t.kcal} kcal</b>, en samlet <b>indkøbsliste</b>, og kan hakke måltider af undervejs (de ryger automatisk i din kalorielog).</div>
+    <button class="mp-gen-btn" onclick="generateWeekplan()">✨ Generér ugeplan</button>`;
+  }
+  if(wp){
+    // Sub-toggle: Plan / Indkøb
+    const shopDone=wp.shopping.filter(s=>s.done).length;
+    h+=`<div class="wp-toggle">
+      <button class="wp-tg${weekplanView==='plan'?' on':''}" onclick="setWeekplanView('plan')">📋 Dagsplan</button>
+      <button class="wp-tg${weekplanView==='shopping'?' on':''}" onclick="setWeekplanView('shopping')">🛒 Indkøb (${shopDone}/${wp.shopping.length})</button>
+    </div>`;
+    if(weekplanView==='shopping'){
+      h+='<div class="wp-shop">';
+      wp.shopping.forEach((s,i)=>{
+        h+=`<label class="wp-shop-item${s.done?' done':''}">
+          <input type="checkbox" ${s.done?'checked':''} onchange="weekplanToggleShop(${i})">
+          <span>${escHtml(s.item)}</span>
+        </label>`;
+      });
+      h+='</div>';
+      h+=`<div class="mp-actions"><button class="mp-regen" onclick="weekplanClearShop()">Nulstil afkrydsning</button></div>`;
+    }else{
+      // Dagsplan — vis dagene, dagens dag fremhævet/åben
+      const order=['Mandag','Tirsdag','Onsdag','Torsdag','Fredag','Lørdag','Søndag'];
+      const todayName=order[(new Date().getDay()+6)%7];
+      order.forEach(dn=>{
+        const meals=wp.days[dn];
+        if(!meals)return;
+        const isToday=dn===todayName;
+        const doneN=meals.filter(m=>m.done).length;
+        const dayKcal=meals.reduce((a,m)=>a+m.kcal,0);
+        h+=`<details class="wp-day${isToday?' today':''}"${isToday?' open':''}>
+          <summary><span class="wp-day-name">${dn}${isToday?' · i dag':''}</span><span class="wp-day-meta">${doneN}/${meals.length} · ${dayKcal} kcal</span></summary>`;
+        meals.forEach((m,i)=>{
+          h+=`<label class="wp-meal${m.done?' done':''}">
+            <input type="checkbox" ${m.done?'checked':''} onchange="weekplanToggleMeal('${escAttr(dn)}',${i})">
+            <div class="wp-meal-body">
+              <div class="wp-meal-head"><b>${escHtml(m.navn)}</b><span>${m.kcal} kcal · P${m.protein}</span></div>
+              <div class="wp-meal-desc">${escHtml(m.beskrivelse)}</div>
+            </div>
+          </label>`;
+        });
+        h+='</details>';
+      });
+    }
+    h+=`<div class="mp-actions">
+      <button class="mp-regen" onclick="generateWeekplan()">🔄 Ny ugeplan</button>
+      <button class="mp-clear" onclick="weekplanClear()">✕ Slet</button>
+    </div>`;
+  }
+  h+='</details>';
+  return h;
+}
+
+function rMealplanSection(){
+  const plan=MEALPLAN[calDayKey()];
+  let h='<details class="cal-mealplan"'+(plan?' open':'')+'><summary>🍽️ AI-madplan for i dag</summary>';
+  if(mealplanGenerating){
+    h+=`<div class="cal-loading">👨‍🍳 Laver din madplan…</div>`;
+  }
+  if(mealplanErr)h+=`<div class="cal-err">${escHtml(mealplanErr)}</div>`;
+  if(!plan&&!mealplanGenerating){
+    const t=calorieTargets();
+    h+=`<div class="mp-intro">Få en madplan skræddersyet til dagens mål: <b>${t.kcal} kcal</b> · <b>${t.protein}g protein</b>. Tilpasses dit forløb og om det er en træningsdag.</div>
+    <button class="mp-gen-btn" onclick="generateMealplan()">✨ Generér madplan</button>`;
+  }
+  if(plan){
+    const pt=plan.meals.reduce((a,m)=>({kcal:a.kcal+m.kcal,p:a.p+m.protein}),{kcal:0,p:0});
+    h+=`<div class="mp-summary">Plan-total: <b>${pt.kcal} kcal</b> · <b>${pt.p}g protein</b></div>`;
+    plan.meals.forEach((m,i)=>{
+      h+=`<div class="mp-meal">
+        <div class="mp-meal-head">
+          <span class="mp-meal-name">${escHtml(m.navn)}</span>
+          <span class="mp-meal-kcal">${m.kcal} kcal</span>
+        </div>
+        <div class="mp-meal-desc">${escHtml(m.beskrivelse)}</div>
+        <div class="mp-meal-foot">
+          <span class="mp-meal-macros">P${m.protein} K${m.kulhydrat} F${m.fedt}</span>
+          <button class="mp-log-btn" onclick="mealplanLogMeal(${i})">+ Log</button>
+        </div>
+      </div>`;
+    });
+    h+=`<div class="mp-actions">
+      <button class="mp-log-all" onclick="mealplanLogAll()">+ Log hele dagen</button>
+      <button class="mp-regen" onclick="generateMealplan()">🔄 Ny plan</button>
+      <button class="mp-clear" onclick="mealplanClear()">✕</button>
+    </div>`;
+  }
+  h+='</details>';
+  return h;
+}
+
+function calPhotoPick(input){
+  const file=input.files&&input.files[0];
+  if(!file)return;
+  const reader=new FileReader();
+  reader.onload=()=>{
+    calPhotoData={base64:reader.result.split(',')[1],mime:file.type||'image/jpeg'};
+    calAnalyzePhoto();
+  };
+  reader.onerror=()=>{calPhotoErr='Kunne ikke læse billedet.';render()};
+  reader.readAsDataURL(file);
+}
+
+async function calAnalyzePhoto(){
+  if(!calPhotoData)return;
+  calPhotoAnalyzing=true;calPhotoErr='';calPhotoResult=null;render();
+  const prompt=`Du er en ernæringsekspert. Se billedet af mad og estimér næringsindholdet.
+Svar KUN med ren JSON (ingen markdown, ingen forklaring) i præcis dette format:
+{"navn":"kort dansk beskrivelse","gram":estimeret_vægt_i_gram,"kcal":total_kalorier,"protein":gram,"kulhydrat":gram,"fedt":gram,"usikkerhed":"lav|middel|høj"}
+Estimér realistisk ud fra hvad du kan se. Hvis portionsstørrelsen er svær at bedømme, sæt usikkerhed til "høj". Er det ikke mad, sæt navn til "ikke mad".`;
+  try{
+    const raw=await callGeminiVision(calPhotoData.base64,calPhotoData.mime,prompt);
+    const clean=raw.replace(/```json|```/g,'').trim();
+    const j=JSON.parse(clean);
+    if(!j.navn||j.navn.toLowerCase()==='ikke mad'){
+      calPhotoErr='Kunne ikke genkende mad på billedet. Prøv et tydeligere foto, eller indtast manuelt.';
+    }else{
+      calPhotoResult={
+        n:j.navn,gram:Math.round(j.gram)||100,
+        kcal:Math.round(j.kcal)||0,
+        p:Math.round((j.protein||0)*10)/10,
+        c:Math.round((j.kulhydrat||0)*10)/10,
+        f:Math.round((j.fedt||0)*10)/10,
+        usikkerhed:j.usikkerhed||'høj'
+      };
+    }
+  }catch(e){
+    calPhotoErr=e.message.includes('JSON')?'Analysen gav et uventet svar — prøv igen eller indtast manuelt.':e.message;
+  }
+  calPhotoAnalyzing=false;calPhotoData=null;render();
+}
+
+// Juster foto-estimatet til en vejet gramvægt (bevarer makro-forhold)
+function calPhotoRescale(newGram){
+  if(!calPhotoResult)return;
+  const g=parseFloat(newGram)||calPhotoResult.gram;
+  const factor=g/calPhotoResult.gram;
+  calPhotoResult={...calPhotoResult,gram:g,
+    kcal:Math.round(calPhotoResult.kcal*factor),
+    p:Math.round(calPhotoResult.p*factor*10)/10,
+    c:Math.round(calPhotoResult.c*factor*10)/10,
+    f:Math.round(calPhotoResult.f*factor*10)/10};
+  render();
+}
+function calPhotoConfirm(){
+  if(!calPhotoResult)return;
+  const k=calDayKey();if(!CAL[k])CAL[k]={items:[]};
+  CAL[k].items.push({n:calPhotoResult.n+' 📷',qty:calPhotoResult.gram,kcal:calPhotoResult.kcal,p:calPhotoResult.p,c:calPhotoResult.c,f:calPhotoResult.f});
+  saveCal();calPhotoResult=null;render();
+}
+function calPhotoCancel(){calPhotoResult=null;calPhotoErr='';render()}
+
+function rCalorieContent(){
+  const t=calorieTargets();
+  const tot=calTotals();
+  const pct=Math.min(100,Math.round(tot.kcal/t.kcal*100));
+  const remain=t.kcal-tot.kcal;
+  const ringC=2*Math.PI*52;
+  const ringOff=ringC*(1-Math.min(1,tot.kcal/t.kcal));
+  let h='<div class="cal-wrap">';
+  // Dagens ring + mål
+  h+=`<div class="cal-hero">
+    <div class="cal-ring">
+      <svg width="130" height="130" viewBox="0 0 130 130">
+        <circle cx="65" cy="65" r="52" class="cal-ring-bg"/>
+        <circle cx="65" cy="65" r="52" class="cal-ring-fill" style="stroke-dasharray:${ringC.toFixed(1)};stroke-dashoffset:${ringOff.toFixed(1)};stroke:${remain<0?'#ff453a':'#30d158'}"/>
+      </svg>
+      <div class="cal-ring-center">
+        <div class="cal-ring-num">${tot.kcal}</div>
+        <div class="cal-ring-sub">/ ${t.kcal} kcal</div>
+      </div>
+    </div>
+    <div class="cal-hero-side">
+      <div class="cal-remain ${remain<0?'over':''}">${remain>=0?remain+' tilbage':Math.abs(remain)+' over'}</div>
+      <div class="cal-target-label">${t.label} · ${t.w} kg</div>
+      <div class="cal-macros">
+        <div class="cal-macro"><span class="cm-lbl" style="color:#ff453a">Protein</span><b>${Math.round(tot.p)} / ${t.protein}g</b><div class="cm-bar"><div style="width:${Math.min(100,tot.p/t.protein*100)}%;background:#ff453a"></div></div></div>
+        <div class="cal-macro"><span class="cm-lbl" style="color:#ffd60a">Kulhydrat</span><b>${Math.round(tot.c)} / ${t.carbs}g</b><div class="cm-bar"><div style="width:${Math.min(100,tot.c/t.carbs*100)}%;background:#ffd60a"></div></div></div>
+        <div class="cal-macro"><span class="cm-lbl" style="color:#0a84ff">Fedt</span><b>${Math.round(tot.f)} / ${t.fat}g</b><div class="cm-bar"><div style="width:${Math.min(100,tot.f/t.fat*100)}%;background:#0a84ff"></div></div></div>
+      </div>
+    </div>
+  </div>`;
+  if(PROG.template==='shred'||PROG.template==='cut'){
+    h+=`<div class="cal-note-prot">🥩 Protein er dit vigtigste tal i underskud — ram det, selv på dage hvor kalorierne skrider.</div>`;
+  }
+  // AI-madplan
+  h+=rWeekplanSection();
+  h+=rMealplanSection();
+  // Foto-genkendelse
+  h+=`<div class="cal-photo-box">
+    <label class="cal-photo-btn">
+      📷 Tag/vælg billede af maden
+      <input type="file" accept="image/*" capture="environment" style="display:none" onchange="calPhotoPick(this)">
+    </label>
+    <div class="cal-photo-hint">AI estimerer retten og makroer. Det er et <b>kvalificeret gæt</b> — vej maden og justér grammene for præcision.</div>
+  </div>`;
+  if(calPhotoAnalyzing)h+=`<div class="cal-loading">📷 Analyserer billedet…</div>`;
+  if(calPhotoResult){
+    const u=calPhotoResult.usikkerhed;
+    const uColor=u==='lav'?'#30d158':u==='middel'?'#ffd60a':'#ff9f0a';
+    h+=`<div class="cal-photo-result">
+      <div class="cal-photo-res-head">
+        <div class="cal-photo-res-name">${escHtml(calPhotoResult.n)}</div>
+        <div class="cal-photo-unc" style="color:${uColor}">Usikkerhed: ${u}</div>
+      </div>
+      <div class="cal-photo-res-macros">${calPhotoResult.kcal} kcal · P${calPhotoResult.p} K${calPhotoResult.c} F${calPhotoResult.f}</div>
+      <div class="cal-photo-gram">
+        <label>Vejet mængde:</label>
+        <input type="number" id="calPhotoGram" value="${calPhotoResult.gram}" min="1" step="10" onfocus="this.select()">
+        <span>g</span>
+        <button class="cal-photo-recalc" onclick="calPhotoRescale(document.getElementById('calPhotoGram').value)">Justér</button>
+      </div>
+      <div class="cal-photo-hint" style="margin:8px 0 10px">💡 Har du vejet maden? Skriv grammene og tryk Justér — så bliver kalorierne præcise.</div>
+      <div class="cal-photo-actions">
+        <button class="cal-photo-confirm" onclick="calPhotoConfirm()">✓ Tilføj til dagen</button>
+        <button class="cal-photo-cancel" onclick="calPhotoCancel()">Annullér</button>
+      </div>
+    </div>`;
+  }
+  if(calPhotoErr)h+=`<div class="cal-err">${escHtml(calPhotoErr)}</div>`;
+  // Søgning
+  h+=`<div class="cal-search-box">
+    <div class="cal-search-row">
+      <input type="text" id="calSearchInput" placeholder="Søg fødevare (fx skyr, kylling, rugbrød)…" onkeydown="if(event.key==='Enter')calSearch()">
+      <button class="cal-search-btn" onclick="calSearch()">${calSearching?'…':'Søg'}</button>
+    </div>
+    <div class="cal-search-hint">Data fra Open Food Facts — gratis, åben database. Vælg og angiv gram.</div>
+  </div>`;
+  if(calSearchErr)h+=`<div class="cal-err">${escHtml(calSearchErr)}</div>`;
+  if(calSearching)h+=`<div class="cal-loading">🔍 Søger i fødevaredatabasen…</div>`;
+  if(calSearchResults&&calSearchResults.length){
+    h+='<div class="cal-results">';
+    calSearchResults.forEach((f,i)=>{
+      h+=`<div class="cal-result">
+        <div class="cal-result-info">
+          <div class="cal-result-name">${escHtml(f.n)}${f.brand?' <span class="cal-brand">'+escHtml(f.brand)+'</span>':''}</div>
+          <div class="cal-result-macros">${f.kcal100} kcal · P${f.p100} K${f.c100} F${f.f100} <span style="opacity:.6">per 100g</span></div>
+        </div>
+        <div class="cal-result-add">
+          <input type="number" id="calGrams${i}" value="100" min="1" step="10" onfocus="this.select()">
+          <span>g</span>
+          <button onclick="calAddFood(${i},document.getElementById('calGrams${i}').value)">+</button>
+        </div>
+      </div>`;
+    });
+    h+='</div>';
+  }
+  // Dagens log
+  const today=calToday();
+  h+=`<div class="cal-day-label">I dag · ${today.items.length} ${today.items.length===1?'vare':'varer'}</div>`;
+  if(today.items.length){
+    h+='<div class="cal-items">';
+    today.items.forEach((it,i)=>{
+      h+=`<div class="cal-item">
+        <div class="cal-item-info">
+          <div class="cal-item-name">${escHtml(it.n)}</div>
+          <div class="cal-item-macros">${it.kcal} kcal${it.qty?' · '+it.qty+'g':''} · P${it.p||0}</div>
+        </div>
+        <button class="cal-item-x" onclick="calRemoveItem(${i})">✕</button>
+      </div>`;
+    });
+    h+='</div>';
+  }else{
+    h+=`<div class="cal-empty">Ingen varer endnu i dag. Søg ovenfor, eller tilføj manuelt.</div>`;
+  }
+  // Manuel tilføjelse
+  h+=`<details class="cal-manual"><summary>+ Tilføj manuelt (kender du tallene)</summary>
+    <div class="cal-manual-grid">
+      <input type="text" id="calManualName" placeholder="Navn">
+      <input type="number" id="calManualKcal" placeholder="kcal" onfocus="this.select()">
+      <input type="number" id="calManualProt" placeholder="protein g" onfocus="this.select()">
+      <button onclick="calAddManual()">Tilføj</button>
+    </div>
+  </details>`;
+  h+='</div>';
+  return h;
+}
+
 function rWeightsCombined(){
   let h=`<div class="page-title">
     <div class="page-eyebrow">// Vægt-tracking</div>
@@ -4356,11 +5234,14 @@ function rWeightsCombined(){
   h+=`<div class="view-toggle" style="margin-bottom:18px">
     <button class="vt-opt${weightSubView==='log'?' on':''}" onclick="setWeightSubView('log')">${ic('clipboard','sm')} Log</button>
     <button class="vt-opt${weightSubView==='graph'?' on':''}" onclick="setWeightSubView('graph')">${ic('trending','sm')} Graf</button>
+    <button class="vt-opt${weightSubView==='cal'?' on':''}" onclick="setWeightSubView('cal')">🍽️ Kalorier</button>
   </div>`;
   h+=`<div class="weight-swipe-hint">‹ Swipe for at skifte ›</div>`;
   h+=`<div class="weight-swipe-wrap" ontouchstart="weightSwipeStart(event)" ontouchmove="weightSwipeMove(event)" ontouchend="weightSwipeEnd(event)">`;
   if(weightSubView==='log'){
     h+=rLogContent();
+  }else if(weightSubView==='cal'){
+    h+=rCalorieContent();
   }else{
     h+=rGraphContent();
   }
@@ -5121,6 +6002,8 @@ function setProfileField(field,val){
   if(PROFILE[field]===val&&field!=='injuries'){delete PROFILE[field]}
   else{PROFILE[field]=val}
   saveProfile();
+  // Erfaring påvirker skalerbare forløb (fx shred) → genindlæs så GP/RL opdateres
+  if(field==='experience'&&TEMPLATES[PROG.template||'']?.expScale)loadProgram();
   // Hvis vi er i et modal, opdater kun modal-indholdet — ikke hele appen
   const modalContent=document.getElementById('profileModalContent');
   if(modalContent){
@@ -5905,6 +6788,11 @@ function buildTrainingContext(){
   // Mobility-sessioner
   if(typeof MOB!=='undefined'&&MOB.log&&MOB.log.length){
     ctx+=`\n=== MOBILITY ===\nGennemførte mobility-sessioner: ${MOB.log.length} (seneste: ${MOB.log.slice(-3).map(k=>k.replace('__',' – ')).join(', ')})\n`;
+  }
+  // Dagens kalorier/makroer
+  if(typeof CAL!=='undefined'&&calToday().items.length){
+    const t=calorieTargets(),tot=calTotals();
+    ctx+=`\n=== KALORIER I DAG ===\n${tot.kcal}/${t.kcal} kcal · Protein ${Math.round(tot.p)}/${t.protein}g · Kulhydrat ${Math.round(tot.c)}/${t.carbs}g · Fedt ${Math.round(tot.f)}/${t.fat}g (${t.label})\n`;
   }
 
   // Kropsdata
@@ -7334,7 +8222,7 @@ function exportData(){
     tw4:W, tw4_custom:CUSTOM, tw4_ai:{apiKey:'',model:AI.model,settingsOpen:AI.settingsOpen}, /* nøgle medtages BEVIDST ikke i backup */
     tw4_swaps:SWAPS_EX,
     tw4_prog:PROG, tw4_body:BODY, tw4_ss:SUPERSETS, tw4_steps:STEPS, tw4_cycle:CYCLE, tw4_pcos_profile:PCOS_PROFILE, tw4_profile:PROFILE, tw4_wellness:WELLNESS,
-    tw4_home_days:HOME_DAYS, tw4_home_equip:HOME_EQUIP, tw4_mobility:MOB,
+    tw4_home_days:HOME_DAYS, tw4_home_equip:HOME_EQUIP, tw4_mobility:MOB, tw4_calories:CAL, tw4_mealplan:MEALPLAN, tw4_weekplan:WEEKPLAN,
     _exported:new Date().toISOString(), _version:3
   };
   const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
@@ -7374,6 +8262,9 @@ function importData(input){
       if(data.tw4_home_days){HOME_DAYS=data.tw4_home_days;saveHomeDays()}
       if(data.tw4_home_equip){HOME_EQUIP=data.tw4_home_equip;try{localStorage.setItem(HOME_EQUIP_KEY,HOME_EQUIP)}catch(e){}}
       if(data.tw4_mobility){MOB=data.tw4_mobility;saveMob()}
+      if(data.tw4_calories){CAL=data.tw4_calories;saveCal()}
+      if(data.tw4_mealplan){MEALPLAN=data.tw4_mealplan;saveMealplan()}
+      if(data.tw4_weekplan){WEEKPLAN=data.tw4_weekplan;saveWeekplan()}
       toast('✓ Data importeret');
       render();
     }catch(err){
