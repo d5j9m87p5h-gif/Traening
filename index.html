@@ -4747,30 +4747,43 @@ async function callGeminiText(promptText,maxTok){
   const candidates=[...new Set([AI.workingModel||AI.model||'gemini-2.5-flash','gemini-flash-latest','gemini-2.0-flash','gemini-1.5-flash'])];
   let res=null,usedModel='',lastErr='';
   for(const cand of candidates){
+    // Cap output-tokens sikkert: 2.5 klarer meget, ældre modeller ~8192 inkl. reservationer
+    const is25=cand.startsWith('gemini-2.5')||cand.endsWith('-latest');
+    const cap=is25?8192:6000;
+    const tok=Math.min(maxTok||3000,cap);
     const url=`https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(cand)}:generateContent`;
     res=await fetch(url,{
       method:'POST',
       headers:{'Content-Type':'application/json','x-goog-api-key':AI.apiKey},
       body:JSON.stringify({
         contents:[{role:'user',parts:[{text:promptText}]}],
-        generationConfig:{maxOutputTokens:maxTok||3000,temperature:0.7,
-          ...((cand.startsWith('gemini-2.5')||cand.endsWith('-latest'))?{thinkingConfig:{thinkingBudget:0}}:{})}
+        generationConfig:{maxOutputTokens:tok,temperature:0.7,
+          ...(is25?{thinkingConfig:{thinkingBudget:0}}:{})}
       })
     });
     usedModel=cand;
     if(res.ok)break;
     let em='';try{const ej=await res.clone().json();em=ej?.error?.message||''}catch(e){}
     lastErr=em;
-    if(!(res.status===404||(res.status===400&&em.toLowerCase().includes('model'))))break;
+    const eml=em.toLowerCase();
+    // Prøv næste model ved: model-ikke-fundet ELLER "invalid argument" (kan være model-specifikt token-loft)
+    const tryNext=res.status===404||(res.status===400&&(eml.includes('model')||eml.includes('invalid argument')||eml.includes('token')));
+    if(!tryNext)break;
   }
   if(res.ok&&usedModel!==AI.workingModel){AI.workingModel=usedModel;saveAI()}
   if(!res.ok){
-    let em='Madplan-fejl '+res.status;try{const e=await res.json();em=e?.error?.message||lastErr||em}catch(e){}
+    let em='Madplan-fejl '+res.status;try{const e=await res.json();em=e?.error?.message||lastErr||em}catch(e){if(lastErr)em=lastErr}
+    const eml=(em||'').toLowerCase();
     if(res.status===403)throw new Error('Adgang nægtet. Har din nøgle website-restriktion, skal den tillade d5j9m87p5h-gif.github.io/*');
     if(res.status===429)throw new Error('Daglig AI-grænse nået. Prøv igen i morgen.');
+    if(res.status===400&&eml.includes('api key'))throw new Error('Ugyldig API-nøgle. Tjek den under Coach-fanen.');
+    if(res.status===400)throw new Error('AI-tjenesten afviste forespørgslen. Prøv igen — sker det igen, generér én dag ad gangen i stedet (dags-madplanen nedenfor).');
     throw new Error(em.slice(0,150));
   }
   const data=await res.json();const c=data?.candidates?.[0];
+  if(c&&c.finishReason==='MAX_TOKENS'&&!(c.content?.parts||[]).some(p=>p.text)){
+    throw new Error('Ugeplanen blev for stor. Prøv dags-madplanen nedenfor i stedet.');
+  }
   const txt=(c?.content?.parts||[]).filter(p=>p.text&&!p.thought).map(p=>p.text).join('').trim();
   if(!txt)throw new Error('Tomt svar fra madplan-generatoren.');
   return txt;
@@ -4860,18 +4873,13 @@ async function generateWeekplan(){
     type:d.ex?'styrketræning':d.run?(d.run.type||'løb'):'hviledag'
   }));
   weekplanGenerating=true;weekplanErr='';render();
-  const prompt=`Du er en dansk ernæringsekspert. Lav en madplan for en HEL UGE (7 dage) der hver dag rammer:
-- Kalorier: ${t.kcal} kcal/dag
-- Protein: ${t.protein} g/dag (VIGTIGST)
-- Kulhydrat: ~${t.carbs} g/dag · Fedt: ~${t.fat} g/dag
-Kontekst: Forløbet "${tplName}" (${t.label}). Ugens dage og træning:
-${dayInfo.map(d=>`- ${d.navn}: ${d.type}`).join('\n')}
-Læg flere kulhydrater på træningsdage. Variér retterne over ugen så det ikke bliver ensformigt, men genbrug ingredienser så indkøb er realistisk. Brug danske fødevarer fra Netto/Rema.
-Lav også en samlet indkøbsliste for hele ugen med cirka-mængder.
-Svar KUN med ren JSON (ingen markdown) i PRÆCIS dette format:
-{"days":[{"dag":"Mandag","meals":[{"navn":"Morgenmad","beskrivelse":"kort m. gram","kcal":tal,"protein":g,"kulhydrat":g,"fedt":g},{...frokost...},{...aftensmad...},{...snack...}]},{...6 dage mere...}],"shopping":["vare + mængde","..."]}`;
+  const prompt=`Du er en dansk ernæringsekspert. Lav en madplan for en HEL UGE (7 dage) der hver dag rammer ca. ${t.kcal} kcal og ${t.protein} g protein (protein vigtigst). Forløb: "${tplName}" (${t.label}).
+Træningsdage (læg flere kulhydrater her): ${dayInfo.filter(d=>d.type!=='hviledag').map(d=>d.navn).join(', ')||'ingen'}.
+Variér retterne men genbrug ingredienser så indkøb er nemt. Danske varer fra Netto/Rema. Hold beskrivelser KORTE (maks 8 ord, med gram).
+Svar KUN med ren JSON (ingen markdown). Format:
+{"days":[{"dag":"Mandag","meals":[{"navn":"Morgenmad","beskrivelse":"kort m. gram","kcal":0,"protein":0,"kulhydrat":0,"fedt":0},{"navn":"Frokost",...},{"navn":"Aftensmad",...},{"navn":"Snack",...}]},{"dag":"Tirsdag",...}, ...7 dage],"shopping":["vare + mængde",...]}`;
   try{
-    const raw=await callGeminiText(prompt,8000);
+    const raw=await callGeminiText(prompt,8192);
     const clean=raw.replace(/```json|```/g,'').trim();
     const j=JSON.parse(clean);
     if(!j.days||!Array.isArray(j.days)||j.days.length<5)throw new Error('tomt');
