@@ -4698,25 +4698,31 @@ async function callGeminiVision(base64,mimeType,promptText){
   if(!AI.apiKey)throw new Error('AI-coachen kræver en Gemini-nøgle (se Coach-fanen). Foto-analyse bruger samme nøgle.');
   const candidates=[...new Set([AI.workingModel||AI.model||'gemini-2.5-flash','gemini-flash-latest','gemini-2.0-flash','gemini-1.5-flash'])];
   let res=null,usedModel='',lastErr='';
-  for(const cand of candidates){
+  async function tryVision(cand,withThinking){
+    const is25=cand.startsWith('gemini-2.5')||cand.endsWith('-latest');
+    const gen={maxOutputTokens:2048,temperature:0.4};
+    if(is25&&withThinking)gen.thinkingConfig={thinkingBudget:0};
     const url=`https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(cand)}:generateContent`;
-    res=await fetch(url,{
+    return fetch(url,{
       method:'POST',
       headers:{'Content-Type':'application/json','x-goog-api-key':AI.apiKey},
-      body:JSON.stringify({
-        contents:[{role:'user',parts:[
-          {inline_data:{mime_type:mimeType,data:base64}},
-          {text:promptText}
-        ]}],
-        generationConfig:{maxOutputTokens:2048,temperature:0.4,
-          ...((cand.startsWith('gemini-2.5')||cand.endsWith('-latest'))?{thinkingConfig:{thinkingBudget:0}}:{})}
-      })
+      body:JSON.stringify({contents:[{role:'user',parts:[{inline_data:{mime_type:mimeType,data:base64}},{text:promptText}]}],generationConfig:gen})
     });
+  }
+  for(const cand of candidates){
+    res=await tryVision(cand,true);
     usedModel=cand;
     if(res.ok)break;
     let em='';try{const ej=await res.clone().json();em=ej?.error?.message||''}catch(e){}
-    lastErr=em;
-    if(!(res.status===404||(res.status===400&&em.toLowerCase().includes('model'))))break;
+    const eml=em.toLowerCase();
+    if(res.status===400&&eml.includes('invalid argument')){
+      const r2=await tryVision(cand,false);
+      if(r2.ok){res=r2;break}
+      let em2='';try{const ej2=await r2.clone().json();em2=ej2?.error?.message||''}catch(e){}
+      lastErr=em2||em;res=r2;
+    }else{lastErr=em}
+    const l=lastErr.toLowerCase();
+    if(!(res.status===404||(res.status===400&&(l.includes('model')||l.includes('invalid')||l.includes('not found')))))break;
   }
   if(res.ok&&usedModel!==AI.workingModel){AI.workingModel=usedModel;saveAI()}
   if(!res.ok){
@@ -4746,28 +4752,34 @@ async function callGeminiText(promptText,maxTok){
   if(!AI.apiKey)throw new Error('Madplan kræver en Gemini-nøgle (samme som AI-coachen — se Coach-fanen).');
   const candidates=[...new Set([AI.workingModel||AI.model||'gemini-2.5-flash','gemini-flash-latest','gemini-2.0-flash','gemini-1.5-flash'])];
   let res=null,usedModel='',lastErr='';
-  for(const cand of candidates){
-    // Cap output-tokens sikkert: 2.5 klarer meget, ældre modeller ~8192 inkl. reservationer
+  // Hjælper: ét kald mod én model, evt. uden thinkingConfig
+  async function tryCall(cand,withThinking){
     const is25=cand.startsWith('gemini-2.5')||cand.endsWith('-latest');
-    const cap=is25?8192:6000;
-    const tok=Math.min(maxTok||3000,cap);
+    const tok=Math.min(maxTok||3000,is25?8192:6000);
+    const gen={maxOutputTokens:tok,temperature:0.7};
+    if(is25&&withThinking)gen.thinkingConfig={thinkingBudget:0};
     const url=`https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(cand)}:generateContent`;
-    res=await fetch(url,{
+    return fetch(url,{
       method:'POST',
       headers:{'Content-Type':'application/json','x-goog-api-key':AI.apiKey},
-      body:JSON.stringify({
-        contents:[{role:'user',parts:[{text:promptText}]}],
-        generationConfig:{maxOutputTokens:tok,temperature:0.7,
-          ...(is25?{thinkingConfig:{thinkingBudget:0}}:{})}
-      })
+      body:JSON.stringify({contents:[{role:'user',parts:[{text:promptText}]}],generationConfig:gen})
     });
+  }
+  for(const cand of candidates){
+    res=await tryCall(cand,true);
     usedModel=cand;
     if(res.ok)break;
     let em='';try{const ej=await res.clone().json();em=ej?.error?.message||''}catch(e){}
-    lastErr=em;
     const eml=em.toLowerCase();
-    // Prøv næste model ved: model-ikke-fundet ELLER "invalid argument" (kan være model-specifikt token-loft)
-    const tryNext=res.status===404||(res.status===400&&(eml.includes('model')||eml.includes('invalid argument')||eml.includes('token')));
+    // Er fejlen "invalid argument"? Prøv SAMME model igen uden thinkingConfig (parametret kan være problemet)
+    if(res.status===400&&eml.includes('invalid argument')){
+      const res2=await tryCall(cand,false);
+      if(res2.ok){res=res2;break}
+      let em2='';try{const ej2=await res2.clone().json();em2=ej2?.error?.message||''}catch(e){}
+      lastErr=em2||em;res=res2;
+    }else{lastErr=em}
+    const eml2=lastErr.toLowerCase();
+    const tryNext=res.status===404||(res.status===400&&(eml2.includes('model')||eml2.includes('invalid')||eml2.includes('token')||eml2.includes('not found')));
     if(!tryNext)break;
   }
   if(res.ok&&usedModel!==AI.workingModel){AI.workingModel=usedModel;saveAI()}
@@ -4777,7 +4789,7 @@ async function callGeminiText(promptText,maxTok){
     if(res.status===403)throw new Error('Adgang nægtet. Har din nøgle website-restriktion, skal den tillade d5j9m87p5h-gif.github.io/*');
     if(res.status===429)throw new Error('Daglig AI-grænse nået. Prøv igen i morgen.');
     if(res.status===400&&eml.includes('api key'))throw new Error('Ugyldig API-nøgle. Tjek den under Coach-fanen.');
-    if(res.status===400)throw new Error('AI-tjenesten afviste forespørgslen. Prøv igen — sker det igen, generér én dag ad gangen i stedet (dags-madplanen nedenfor).');
+    if(res.status===400)throw new Error('AI-tjenesten afviste forespørgslen. Prøv igen om lidt — virker det stadig ikke, så prøv en anden model under Coach → indstillinger.');
     throw new Error(em.slice(0,150));
   }
   const data=await res.json();const c=data?.candidates?.[0];
@@ -7006,31 +7018,33 @@ async function callClaude(userMessage){
     'gemini-flash-latest','gemini-2.0-flash','gemini-1.5-flash'
   ])];
   let res=null,usedModel=model,lastErr='';
-  for(const cand of candidates){
+  const sysText=getSystemPrompt()+'\n\nSVAR ALTID PÅ DANSK — aldrig engelsk, heller ikke delvist. Hold svar under ~350 ord så de aldrig afkortes. Vis ALDRIG din tænkeproces, udkast, planlægning eller meta-noter (fx "Drafting the response") — lever KUN det færdige svar.';
+  async function tryCoach(cand,withThinking){
+    const is25=cand.startsWith('gemini-2.5')||cand.endsWith('-latest');
+    const gen={maxOutputTokens:4096,temperature:1};
+    if(is25&&withThinking)gen.thinkingConfig={thinkingBudget:0};
     const url=`https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(cand)}:generateContent`;
-    res=await fetch(url,{
+    return fetch(url,{
       method:'POST',
-      headers:{
-        'Content-Type':'application/json',
-        'x-goog-api-key':AI.apiKey
-      },
-      body:JSON.stringify({
-        contents,
-        systemInstruction:{parts:[{text:getSystemPrompt()+'\n\nSVAR ALTID PÅ DANSK — aldrig engelsk, heller ikke delvist. Hold svar under ~350 ord så de aldrig afkortes. Vis ALDRIG din tænkeproces, udkast, planlægning eller meta-noter (fx "Drafting the response") — lever KUN det færdige svar.'}]},
-        generationConfig:{
-          maxOutputTokens:4096,
-          temperature:1,
-          // 2.5-serien OG "-latest"-aliaser (peger på 2.5) bruger thinking → slå fra
-          ...((cand.startsWith('gemini-2.5')||cand.endsWith('-latest'))?{thinkingConfig:{thinkingBudget:0}}:{})
-        }
-      })
+      headers:{'Content-Type':'application/json','x-goog-api-key':AI.apiKey},
+      body:JSON.stringify({contents,systemInstruction:{parts:[{text:sysText}]},generationConfig:gen})
     });
+  }
+  for(const cand of candidates){
+    res=await tryCoach(cand,true);
     usedModel=cand;
     if(res.ok)break;
-    // Kun 404/model-fejl udløser næste kandidat — andre fejl stopper straks
     let em='';try{const ej=await res.clone().json();em=ej?.error?.message||''}catch(e){}
-    lastErr=em;
-    const modelMissing=res.status===404||(res.status===400&&em.toLowerCase().includes('model'));
+    const eml=em.toLowerCase();
+    // "invalid argument"? Prøv samme model uden thinkingConfig før vi opgiver
+    if(res.status===400&&eml.includes('invalid argument')){
+      const r2=await tryCoach(cand,false);
+      if(r2.ok){res=r2;break}
+      let em2='';try{const ej2=await r2.clone().json();em2=ej2?.error?.message||''}catch(e){}
+      lastErr=em2||em;res=r2;
+    }else{lastErr=em}
+    const l=lastErr.toLowerCase();
+    const modelMissing=res.status===404||(res.status===400&&(l.includes('model')||l.includes('invalid')||l.includes('not found')));
     if(!modelMissing)break;
   }
   // Husk fungerende model så vi ikke prøver kæden hver gang
