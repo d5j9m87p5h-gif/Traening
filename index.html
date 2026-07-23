@@ -4690,13 +4690,53 @@ function calAddManual(){
   saveCal();render();
 }
 
+/* ── GEMINI-HJÆLPERE: kvote-beskeder + husk døde modeller ── */
+// Tolker Googles 429 præcist: er grænsen pr. minut eller pr. dag? Og hvor længe skal man vente?
+function geminiRateMsg(errJson){
+  const err=(errJson&&errJson.error)||{};
+  const msg=(err.message||'').toLowerCase();
+  let retrySec=null,perMinute=false,perDay=false;
+  (err.details||[]).forEach(d=>{
+    const t=d['@type']||'';
+    if(t.includes('RetryInfo')&&d.retryDelay){
+      const mm=String(d.retryDelay).match(/([\d.]+)s/);
+      if(mm)retrySec=Math.ceil(parseFloat(mm[1]));
+    }
+    if(t.includes('QuotaFailure')){
+      (d.violations||[]).forEach(v=>{
+        const q=(v.quotaId||'')+(v.quotaMetric||'');
+        if(/PerMinute/i.test(q))perMinute=true;
+        if(/PerDay/i.test(q))perDay=true;
+      });
+    }
+  });
+  if(!perMinute&&!perDay){
+    if(/per minute/.test(msg))perMinute=true;
+    else if(/per day|daily/.test(msg))perDay=true;
+  }
+  if(perDay)return 'Dagens AI-kvote er brugt op. Den nulstilles i nat — prøv igen i morgen.';
+  if(perMinute||retrySec)return 'For mange forespørgsler lige nu (grænse pr. minut). Vent '+(retrySec?retrySec+' sekunder':'ca. et minut')+' og prøv igen.';
+  return 'AI-grænse nået. Vent et minut og prøv igen — er dagens kvote brugt, nulstilles den i nat.';
+}
+// Husk modeller din nøgle ikke har adgang til, så vi ikke spilder kald på dem hver gang
+function geminiCandidates(preferred){
+  const bad=AI.badModels||[];
+  const all=[...new Set([preferred||AI.workingModel||AI.model||'gemini-2.5-flash','gemini-flash-latest','gemini-2.0-flash','gemini-1.5-flash'])];
+  const good=all.filter(m=>bad.indexOf(m)<0);
+  return good.length?good:all; // er alt markeret dødt, prøv alligevel forfra
+}
+function markBadModel(m){
+  if(!AI.badModels)AI.badModels=[];
+  if(AI.badModels.indexOf(m)<0){AI.badModels.push(m);saveAI()}
+}
+
 /* ── FOTO-GENKENDELSE via Gemini vision ── */
 let calPhotoResult=null,calPhotoAnalyzing=false,calPhotoErr='',calPhotoData=null;
 
 // Kald Gemini med et billede — genbruger fallback-kæden fra callClaude
 async function callGeminiVision(base64,mimeType,promptText){
   if(!AI.apiKey)throw new Error('AI-coachen kræver en Gemini-nøgle (se Coach-fanen). Foto-analyse bruger samme nøgle.');
-  const candidates=[...new Set([AI.workingModel||AI.model||'gemini-2.5-flash','gemini-flash-latest','gemini-2.0-flash','gemini-1.5-flash'])];
+  const candidates=geminiCandidates();
   let res=null,usedModel='',lastErr='';
   async function tryVision(cand,withThinking){
     const is25=cand.startsWith('gemini-2.5')||cand.endsWith('-latest');
@@ -4722,14 +4762,15 @@ async function callGeminiVision(base64,mimeType,promptText){
       lastErr=em2||em;res=r2;
     }else{lastErr=em}
     const l=lastErr.toLowerCase();
+    if(res.status===404||l.includes('not found'))markBadModel(cand);
     if(!(res.status===404||(res.status===400&&(l.includes('model')||l.includes('invalid')||l.includes('not found')))))break;
   }
   if(res.ok&&usedModel!==AI.workingModel){AI.workingModel=usedModel;saveAI()}
   if(!res.ok){
-    let em='Foto-analyse fejl '+res.status;
-    try{const e=await res.json();em=e?.error?.message||lastErr||em}catch(e){}
+    let em='Foto-analyse fejl '+res.status,ej=null;
+    try{ej=await res.json();em=ej?.error?.message||lastErr||em}catch(e){}
     if(res.status===403)throw new Error('Adgang nægtet. Har din nøgle website-restriktion, skal den tillade d5j9m87p5h-gif.github.io/*');
-    if(res.status===429)throw new Error('Daglig AI-grænse nået. Prøv igen i morgen, eller indtast maden manuelt.');
+    if(res.status===429)throw new Error(geminiRateMsg(ej)+' (Du kan indtaste maden manuelt imens.)');
     throw new Error(em.slice(0,140));
   }
   const data=await res.json();
@@ -4750,7 +4791,7 @@ let mealplanGenerating=false,mealplanErr='';
 // Ren tekst-Gemini (deler ikke coach-historik) med samme fallback-kæde
 async function callGeminiText(promptText,maxTok){
   if(!AI.apiKey)throw new Error('Madplan kræver en Gemini-nøgle (samme som AI-coachen — se Coach-fanen).');
-  const candidates=[...new Set([AI.workingModel||AI.model||'gemini-2.5-flash','gemini-flash-latest','gemini-2.0-flash','gemini-1.5-flash'])];
+  const candidates=geminiCandidates();
   let res=null,usedModel='',lastErr='';
   // Hjælper: ét kald mod én model, evt. uden thinkingConfig
   async function tryCall(cand,withThinking){
@@ -4779,15 +4820,16 @@ async function callGeminiText(promptText,maxTok){
       lastErr=em2||em;res=res2;
     }else{lastErr=em}
     const eml2=lastErr.toLowerCase();
+    if(res.status===404||eml2.includes('not found'))markBadModel(cand);
     const tryNext=res.status===404||(res.status===400&&(eml2.includes('model')||eml2.includes('invalid')||eml2.includes('token')||eml2.includes('not found')));
     if(!tryNext)break;
   }
   if(res.ok&&usedModel!==AI.workingModel){AI.workingModel=usedModel;saveAI()}
   if(!res.ok){
-    let em='Madplan-fejl '+res.status;try{const e=await res.json();em=e?.error?.message||lastErr||em}catch(e){if(lastErr)em=lastErr}
+    let em='Madplan-fejl '+res.status,ej=null;try{ej=await res.json();em=ej?.error?.message||lastErr||em}catch(e){if(lastErr)em=lastErr}
     const eml=(em||'').toLowerCase();
     if(res.status===403)throw new Error('Adgang nægtet. Har din nøgle website-restriktion, skal den tillade d5j9m87p5h-gif.github.io/*');
-    if(res.status===429)throw new Error('Daglig AI-grænse nået. Prøv igen i morgen.');
+    if(res.status===429)throw new Error(geminiRateMsg(ej));
     if(res.status===400&&eml.includes('api key'))throw new Error('Ugyldig API-nøgle. Tjek den under Coach-fanen.');
     if(res.status===400)throw new Error('AI-tjenesten afviste forespørgslen. Prøv igen om lidt — virker det stadig ikke, så prøv en anden model under Coach → indstillinger.');
     throw new Error(em.slice(0,150));
@@ -6646,7 +6688,7 @@ function toggleAISettings(){AI.settingsOpen=!AI.settingsOpen;saveAI();render()}
 function saveAISettings(){
   const key=document.getElementById('aiKey').value.trim();
   const model=document.getElementById('aiModel').value;
-  AI.apiKey=key;AI.model=model;AI.workingModel=null;saveAI();
+  AI.apiKey=key;AI.model=model;AI.workingModel=null;AI.badModels=[];saveAI();
   toast('✓ Indstillinger gemt');
   AI.settingsOpen=false;
   render();
@@ -7013,10 +7055,7 @@ async function callClaude(userMessage){
   const model=AI.model||'gemini-2.5-flash';
   // Fallback-kæde: nogle nøgler/konti mangler enkelte modeller (Google svarer 404).
   // Prøv automatisk ældre søster-modeller og husk den der virker.
-  const candidates=[...new Set([
-    AI.workingModel||model, model,
-    'gemini-flash-latest','gemini-2.0-flash','gemini-1.5-flash'
-  ])];
+  const candidates=geminiCandidates(AI.workingModel||model);
   let res=null,usedModel=model,lastErr='';
   const sysText=getSystemPrompt()+'\n\nSVAR ALTID PÅ DANSK — aldrig engelsk, heller ikke delvist. Hold svar under ~350 ord så de aldrig afkortes. Vis ALDRIG din tænkeproces, udkast, planlægning eller meta-noter (fx "Drafting the response") — lever KUN det færdige svar.';
   async function tryCoach(cand,withThinking){
@@ -7044,6 +7083,7 @@ async function callClaude(userMessage){
       lastErr=em2||em;res=r2;
     }else{lastErr=em}
     const l=lastErr.toLowerCase();
+    if(res.status===404||l.includes('not found'))markBadModel(cand);
     const modelMissing=res.status===404||(res.status===400&&(l.includes('model')||l.includes('invalid')||l.includes('not found')));
     if(!modelMissing)break;
   }
@@ -7051,11 +7091,11 @@ async function callClaude(userMessage){
   if(res.ok&&usedModel!==AI.workingModel){AI.workingModel=usedModel;saveAI()}
 
   if(!res.ok){
-    let errMsg=`API fejl ${res.status}`;
-    try{const err=await res.json();errMsg=err?.error?.message||lastErr||errMsg;}catch(e){if(lastErr)errMsg=lastErr}
+    let errMsg=`API fejl ${res.status}`,errJson=null;
+    try{errJson=await res.json();errMsg=errJson?.error?.message||lastErr||errMsg;}catch(e){if(lastErr)errMsg=lastErr}
     if(res.status===400&&errMsg.toLowerCase().includes('api key'))errMsg='Ugyldig API-nøgle. Tjek din nøgle i indstillinger.';
     else if(res.status===403)errMsg='Adgang nægtet ('+errMsg.slice(0,120)+'). Har nøglen en website-restriktion, skal den være: d5j9m87p5h-gif.github.io/* — eller sæt den til "None".';
-    else if(res.status===429)errMsg='Daglig grænse nået (1500 forespørgsler/dag på Flash). Vent til i morgen, eller skift model.';
+    else if(res.status===429)errMsg=geminiRateMsg(errJson);
     else if(res.status===404||(res.status===400&&errMsg.toLowerCase().includes('model')))errMsg='Ingen af Gemini-modellerne er tilgængelige på din nøgle. Google siger: "'+(errMsg.slice(0,140))+'". Prøv at oprette en ny nøgle på aistudio.google.com.';
     else if(res.status===503)errMsg='Google har midlertidig overbelastning. Prøv igen om et øjeblik.';
     throw new Error(errMsg);
