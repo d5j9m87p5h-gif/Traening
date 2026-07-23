@@ -1101,6 +1101,53 @@ input[type=file]{display:none}
 .cal-note-prot{background:color-mix(in srgb,var(--red) 8%,var(--bg1));border-left:3px solid var(--red);border-radius:var(--r3);padding:10px 12px;font-size:12px;color:var(--mut);line-height:1.5;margin-bottom:12px}
 .cal-photo-box{margin-bottom:12px}
 .cal-mealplan{margin-bottom:14px;background:var(--bg1);border:1px solid var(--bdr);border-radius:var(--r2);overflow:hidden}
+/* deload + skader + opvarmning */
+.deload-banner{background:linear-gradient(135deg,color-mix(in srgb,#bf5af2 16%,var(--bg1)),var(--bg1));border:1.5px solid color-mix(in srgb,#bf5af2 45%,transparent);border-radius:var(--r2);padding:14px 16px;margin-bottom:14px}
+.dl-head{font-family:'Bebas Neue',sans-serif;font-size:20px;color:#bf5af2;letter-spacing:.5px}
+.dl-body{font-size:12.5px;color:var(--txt);line-height:1.6;margin-top:5px}
+.dl-body b{color:#bf5af2}
+.dl-why{font-size:11px;color:var(--mut);line-height:1.6;margin-top:8px;padding-top:8px;border-top:1px solid var(--sep)}
+.swap-tag.inj{background:color-mix(in srgb,#ff9f0a 20%,transparent);color:#ff9f0a}
+.inj-why{font-size:10.5px;color:#ff9f0a;line-height:1.5;margin-top:3px}
+.inj-picker{margin-top:12px}
+.inj-picker-lbl{font-size:11px;color:var(--mut);line-height:1.5;margin-bottom:8px}
+.inj-chips{display:flex;flex-wrap:wrap;gap:6px}
+.inj-chip{background:var(--bg2);border:1px solid var(--bdr);color:var(--mut);font-size:11.5px;padding:8px 12px;border-radius:100px;cursor:pointer}
+.inj-chip.on{background:color-mix(in srgb,#ff9f0a 18%,transparent);border-color:#ff9f0a;color:#ff9f0a;font-weight:600}
+.inj-disclaimer{font-size:10px;color:var(--mut2);line-height:1.6;margin-top:10px;padding:8px 10px;background:var(--bg2);border-radius:var(--r3)}
+.wu{margin-top:8px}
+.wu summary{font-family:'DM Mono',monospace;font-size:10.5px;color:var(--mut);cursor:pointer;padding:5px 0;list-style:none}
+.wu summary::-webkit-details-marker{display:none}
+.wu-rows{background:var(--bg2);border-radius:var(--r3);padding:9px 11px;margin-top:4px}
+.wu-row{display:flex;align-items:baseline;gap:9px;padding:4px 0;font-family:'DM Mono',monospace;font-size:12px}
+.wu-pct{color:var(--mut2);font-size:10px;min-width:30px}
+.wu-row b{color:var(--txt);min-width:58px}
+.wu-reps{color:var(--mut);font-size:11px}
+.wu-note{font-size:10px;color:var(--mut2);line-height:1.5;margin-top:6px;padding-top:6px;border-top:1px solid var(--sep)}
+.cal-energy{margin-bottom:14px;background:var(--bg1);border:1px solid var(--bdr);border-radius:var(--r2);overflow:hidden}
+.cal-energy>summary{font-family:'DM Mono',monospace;font-size:12px;font-weight:600;color:var(--acc);cursor:pointer;padding:14px 16px;letter-spacing:.3px;list-style:none}
+.cal-energy>summary::-webkit-details-marker{display:none}
+.cal-energy[open]>summary{border-bottom:1px solid var(--sep)}
+.en-warn{background:color-mix(in srgb,#ff9f0a 12%,transparent);border-left:3px solid #ff9f0a;font-size:11px;color:var(--mut);line-height:1.5;padding:10px 14px;margin:12px}
+.en-intro{font-size:12px;color:var(--mut);line-height:1.6;padding:12px 16px 4px}
+.en-intro b{color:var(--txt)}
+.en-rows{padding:8px 12px}
+.en-row{display:grid;grid-template-columns:44px 1fr auto auto;gap:10px;align-items:center;padding:9px 8px;border-bottom:1px solid var(--sep)}
+.en-row.today{background:color-mix(in srgb,var(--acc) 7%,transparent);border-radius:var(--r3)}
+.en-day{font-family:'DM Mono',monospace;font-size:11px;font-weight:600;color:var(--mut);position:relative}
+.en-row.today .en-day{color:var(--acc)}
+.en-today-dot{display:inline-block;width:4px;height:4px;border-radius:50%;background:var(--acc);margin-left:3px;vertical-align:middle}
+.en-mid{min-width:0}
+.en-type{font-size:12px;font-weight:500;line-height:1.3}
+.en-bd{font-family:'DM Mono',monospace;font-size:9px;color:var(--mut2);margin-top:2px}
+.en-tot{text-align:right}
+.en-tot b{font-family:'Bebas Neue',sans-serif;font-size:19px;display:block;line-height:1}
+.en-tot small{font-family:'DM Mono',monospace;font-size:8px;color:var(--mut2)}
+.en-bal{font-family:'DM Mono',monospace;font-size:12px;font-weight:700;min-width:48px;text-align:right}
+.en-legend{padding:10px 16px;font-family:'DM Mono',monospace;font-size:9.5px;color:var(--mut);line-height:1.8}
+.en-steps{margin-top:4px;color:var(--mut2)}
+.en-honest{margin:4px 12px 14px;background:var(--bg2);border-radius:var(--r3);padding:11px 13px;font-size:11px;color:var(--mut);line-height:1.6}
+.en-honest b{color:var(--txt)}
 .cal-weekplan{margin-bottom:14px;background:var(--bg1);border:1.5px solid color-mix(in srgb,var(--acc) 25%,transparent);border-radius:var(--r2);overflow:hidden}
 .cal-weekplan>summary{font-family:'DM Mono',monospace;font-size:12px;font-weight:600;color:var(--acc);cursor:pointer;padding:14px 16px;letter-spacing:.3px;list-style:none}
 .cal-weekplan>summary::-webkit-details-marker{display:none}
@@ -1409,7 +1456,108 @@ function phaseRanges(){
 }
 function gymPhase(w){const r=phaseRanges();if(w<=r[0].e)return 0;if(w<=r[1].e)return 1;return 2}
 function phaseLabel(i){const r=phaseRanges()[i];return`Uge ${r.s}–${r.e}`}
-function exSR(e,w){if(e.core)return GP[gymPhase(w)].x;return GP[gymPhase(w)][e.k]||GP[gymPhase(w)].c}
+// ── DELOAD: planlagte aflastningsuger så træthed ikke akkumulerer ──
+// Placeres ca. hver 4.-6. uge; kortere forløb får én, længere flere.
+// ── OPVARMNINGSSÆT: optrapning til tunge compounds ──
+function warmupSets(workWeight){
+  const w=parseFloat(workWeight);
+  if(!w||w<40)return null; // under 40 kg giver optrapning ikke mening
+  const r=x=>Math.max(20,Math.round(x/2.5)*2.5);
+  return[{pct:40,w:r(w*0.4),reps:5},{pct:60,w:r(w*0.6),reps:3},{pct:80,w:r(w*0.8),reps:2}];
+}
+
+function deloadWeeks(){
+  const tw=TW();
+  if(tw<=8)return[5];
+  if(tw<=10)return[6];
+  if(tw<=12)return[5,9];
+  return[5,9,13];
+}
+function isDeload(w){return deloadWeeks().indexOf(w||week)>=0}
+// ── SKADEHENSYN: byt belastende øvelser til skånsomme varianter ──
+// Bevidst konservativt: kun bytninger med en fagligt solid begrundelse.
+// Dette er IKKE lægefaglig rådgivning — vedvarende smerte hører til hos en fysioterapeut.
+const INJURY_AREAS={
+  shoulder:{label:'Skulder',emo:'🤕'},
+  elbow:{label:'Albue',emo:'💪'},
+  wrist:{label:'Håndled',emo:'✋'},
+  back:{label:'Lænd/ryg',emo:'🦴'},
+  knee:{label:'Knæ',emo:'🦵'},
+  hip:{label:'Hofte',emo:'🕺'},
+  shin:{label:'Skinneben/ankel',emo:'🦶'}
+};
+// original → {n:erstatning, why:begrundelse}
+const INJURY_SWAPS={
+  shoulder:{
+    'Overhead Press':{n:'Landmine Press',why:'skrå bane belaster skulderleddet mindre end lodret pres'},
+    'DB Shoulder Press':{n:'Landmine Press',why:'skrå bane er mere skulderskånsom'},
+    'Bænkpres (flad)':{n:'Neutral-greb DB pres',why:'neutralt greb mindsker tryk på skulderforsiden'},
+    'Incline Bænkpres':{n:'Neutral-greb DB skråpres',why:'neutralt greb aflaster skulderen'},
+    'Lateral Raise':{n:'Cable Lateral Raise (lav vinkel)',why:'kortere løftearm ved skulderhøjde'},
+    'Dips':{n:'Triceps Pushdown',why:'dips presser skulderen i yderstilling'},
+    'Pullups / Lat Pulldown':{n:'Lat Pulldown (neutralt greb)',why:'neutralt greb er mere skulderskånsomt end bredt'}
+  },
+  elbow:{
+    'Biceps Curl (stang)':{n:'Hammer Curl',why:'neutralt greb aflaster albuens sener'},
+    'Triceps Pushdown':{n:'Triceps Pushdown (reb, let)',why:'reb tillader naturlig rotation'},
+    'Skull Crushers':{n:'Triceps Pushdown (reb, let)',why:'mindre træk i albueleddet'}
+  },
+  wrist:{
+    'Bænkpres (flad)':{n:'DB Bænkpres (neutralt greb)',why:'håndvægte lader håndleddet finde neutral stilling'},
+    'Front Squat':{n:'Goblet Squat',why:'undgår ekstrem håndledsbøjning i stativet'},
+    'Biceps Curl (stang)':{n:'Hammer Curl',why:'neutralt greb er blidere ved håndleddet'}
+  },
+  back:{
+    'Deadlift':{n:'Hip Thrust',why:'træner bagkæden uden kompression af lænden'},
+    'Sumo Deadlift':{n:'Hip Thrust',why:'aflaster lænden markant'},
+    'Romanian Deadlift':{n:'Leg Curls',why:'isolerer baglår uden lændebelastning'},
+    'Bent-over Rows':{n:'Chest-supported Row',why:'brystplade fjerner belastningen fra lænden'},
+    'Squat':{n:'Leg Press (moderat dybde)',why:'ryggen støttes gennem hele bevægelsen'},
+    'Good Mornings':{n:'Back Extension (kontrolleret)',why:'langt lavere lændebelastning'}
+  },
+  knee:{
+    'Squat':{n:'Box Squat (til parallel)',why:'kontrolleret dybde begrænser knæets vinkel'},
+    'Leg Extensions':{n:'Leg Curls',why:'knæstræk belaster knæskallen kraftigt'},
+    'Walking Lunges':{n:'Hip Thrust',why:'undgår knæets vandring frem over tåen'},
+    'Leg Press':{n:'Leg Press (halv bevægelse)',why:'kortere bane er mere knævenlig'},
+    'Bulgarian Split Squat':{n:'Hip Thrust',why:'fjerner ensidig knæbelastning'}
+  },
+  hip:{
+    'Squat':{n:'Leg Press (moderat dybde)',why:'mindre hoftefleksion i bunden'},
+    'Walking Lunges':{n:'Leg Curls',why:'undgår dybt udfald i hoften'},
+    'Hip Thrust':{n:'Glute Bridge (gulv)',why:'kortere bane, mildere for hofteleddet'}
+  },
+  shin:{} // påvirker løb, ikke løft — håndteres som løbe-advarsel
+};
+function activeInjuries(){
+  const a=PROFILE.injuryAreas;
+  return Array.isArray(a)?a:[];
+}
+function toggleInjuryArea(key){
+  let a=activeInjuries().slice();
+  const i=a.indexOf(key);
+  if(i>=0)a.splice(i,1);else a.push(key);
+  PROFILE.injuryAreas=a;saveProfile();render();
+}
+// Returnér erstatning for en øvelse hvis en aktiv skade kræver det
+function injurySwap(exName){
+  const areas=activeInjuries();
+  for(const ar of areas){
+    const map=INJURY_SWAPS[ar];
+    if(map&&map[exName])return{...map[exName],area:ar,areaLabel:(INJURY_AREAS[ar]||{}).label||ar};
+  }
+  return null;
+}
+function hasRunInjury(){return activeInjuries().indexOf('shin')>=0}
+
+function exSR(e,w){
+  const base=e.core?GP[gymPhase(w)].x:(GP[gymPhase(w)][e.k]||GP[gymPhase(w)].c);
+  if(!isDeload(w))return base;
+  // Deload: ~40% færre sæt, samme reps-interval, let vægt (se banner)
+  const n=parseInt(base.s);
+  if(!n)return base;
+  return{s:String(Math.max(2,Math.round(n*0.6))),r:base.r};
+}
 let PH=[
   {n:1,l:"Opbygning",w:"Uge 1–3",wd:"30 min @ 7:30/km",sa:"6×400m @ 5:30/km",g:"32–33 min",c:"#4f8ef7"},
   {n:2,l:"Fart",w:"Uge 4–6",wd:"30–35 min @ 7:00/km",sa:"5×800m @ 6:00/km",g:"31 min",c:"#f07040"},
@@ -2330,7 +2478,8 @@ function getCooldownForRunType(wk,runType){
 function getRunPlan(wk,dayRunDef){
   const runType=classifyRunType(dayRunDef.type);
   const pacePerKm=getPaceForRunType(wk,runType);
-  const dur=getDurationForRun(wk,runType);
+  // Deload: samme tempo, ~35% kortere — intensitet bevares, volumen sænkes
+  const dur=isDeload(wk)?Math.max(15,Math.round(getDurationForRun(wk,runType)*0.65)):getDurationForRun(wk,runType);
   const phase=getRunPhase(wk);
   let format='dur';
   let intervalsInfo=null;
@@ -2699,6 +2848,11 @@ function dayEx(d){
     if(swaps[e.n]){
       // Bevar core/k-attribut fra original hvis ikke specificeret i swap
       return {...e,...swaps[e.n],originalName:e.n,swapped:true};
+    }
+    // Skadehensyn — kun hvis brugeren ikke selv har valgt en erstatning
+    const inj=injurySwap(e.n);
+    if(inj){
+      return {...e,n:inj.n,originalName:e.n,injurySwapped:true,injuryWhy:inj.why,injuryArea:inj.areaLabel,l:e.l};
     }
     return e;
   });
@@ -3838,6 +3992,15 @@ function dayContextLabel(dayIdx){
 }
 
 /* ── WEEKLY ── */
+function deloadBanner(){
+  if(!isDeload(week))return '';
+  return `<div class="deload-banner">
+    <div class="dl-head">🌙 DELOAD-UGE ${week}</div>
+    <div class="dl-body">Planlagt aflastning: <b>~40% færre sæt</b> og <b>kortere løbeture</b> — samme øvelser, men brug <b>60-70% af din normale vægt</b> og stop 3-4 reps fra failure.</div>
+    <div class="dl-why">Det er her kroppen indhenter den træthed du har samlet. Springer du den over, falder styrken typisk i ugerne efter — deload er en del af programmet, ikke en pause fra det.</div>
+  </div>`;
+}
+
 function rWeekly(){
   let h='';
 
@@ -3927,6 +4090,8 @@ function rWeekly(){
         <div class="badge" style="background:color-mix(in srgb,${dCol} 18%,transparent);color:${dCol};border:none">${d.label}</div>
       </div>`;
 
+    h+=deloadBanner();
+
     const exs=dayEx(d);
     if(exs){
       const gp=GP[gymPhase(week)];
@@ -3970,12 +4135,21 @@ function rWeekly(){
         const inSS=isInSuperset(d.full,exIdx);
         const showPR=!e.core&&isPR(d.full,logName,week)&&mainVal>0;
         const prBadge=showPR?'<span class="pr-badge">🏆 PR</span>':'';
-        const swapTag=e.swapped?'<span class="swap-tag">ERSTATTET</span>':'';
+        const swapTag=e.swapped?'<span class="swap-tag">ERSTATTET</span>':(e.injurySwapped?'<span class="swap-tag inj">SKÅNSOM</span>':'');
         const noteKey=d.full+'__'+e.n;
         const hasNote=!!getExerciseNote(week,d.full,e.n);
         const noteOpen=selExRow==='note__'+noteKey;
         const est1rm=!e.core?estimateExercise1RM(week,d.full,logName,e):null;
         const rmDisplay=est1rm?`<div class="est-1rm">est. 1RM: <b>${est1rm} kg</b></div>`:'';
+        // Opvarmningssæt: kun tunge compounds hvor en arbejdsvægt kendes
+        const wuHtml=(()=>{
+          if(e.core||e.k!=='c'||homeOn)return '';
+          const wu=warmupSets(mainVal||parseFloat(df(week,d.full,logName))||0);
+          if(!wu)return '';
+          return `<details class="wu"><summary>🔥 Opvarmning før arbejdssæt</summary>
+            <div class="wu-rows">${wu.map(s=>`<div class="wu-row"><span class="wu-pct">${s.pct}%</span><b>${s.w} kg</b><span class="wu-reps">× ${s.reps}</span></div>`).join('')}
+            <div class="wu-note">Hvil 60-90 sek mellem opvarmningssæt. Sidste opvarmning skal føles let og hurtig — ikke trættende.</div></div></details>`;
+        })();
         // Handlings-knapper samlet i tydelig bar
         const actionBar=`<div class="ex-actions">
           ${!e.core?`<button class="ex-act${inSS?' on':''}" onclick="toggleSuperset('${escAttr(d.full)}',${exIdx})">${inSS?'✓ Superset':'+ Superset'}</button>`:''}
@@ -4014,11 +4188,13 @@ function rWeekly(){
             <div>
               <div class="exn">${e.n}${custTag}${swapTag}${prBadge}</div>
               ${e.swapped?`<div class="exno" style="color:var(--mut2)">⇆ Erstatter "${escHtml(e.originalName)}"</div>`:''}
+              ${e.injurySwapped?`<div class="inj-why">🤕 Byttet fra "${escHtml(e.originalName)}" pga. ${escHtml(e.injuryArea||'skade')} — ${escHtml(e.injuryWhy||'')}</div>`:''}
               ${e.no?`<div class="exno">${e.no}</div>`:''}
             </div>
             <a class="vl" href="${e.l}" target="_blank">▶ Video</a>
           </div>
           ${homeAltHtml}
+          ${wuHtml}
           <div class="metrics">
             <div class="metric"><div class="metric-num" style="color:${d.color}">${sr.s}</div><div class="metric-cap">Sæt</div></div>
             <div class="metric"><div class="metric-num">${sr.r}</div><div class="metric-cap">Reps</div></div>
@@ -5161,6 +5337,115 @@ function calPhotoConfirm(){
 }
 function calPhotoCancel(){calPhotoResult=null;calPhotoErr='';render()}
 
+/* ══ ENERGIFORBRUG: hvile + hverdag + træning per dag ══ */
+function energyWeight(){
+  return parseFloat(PROFILE.weight)||((BODY&&BODY.length)?parseFloat(BODY[BODY.length-1].w):0)||80;
+}
+// Hvilestofskifte (BMR) — Mifflin-St Jeor, den mest præcise standardformel
+function bmrKcal(){
+  const w=energyWeight();
+  const h=parseFloat(PROFILE.height)||178;
+  const a=parseFloat(PROFILE.age)||32;
+  // 'private'/ukendt → midt mellem mande- og kvindekonstanten
+  const k=PROFILE.gender==='male'?5:PROFILE.gender==='female'?-161:-78;
+  return Math.round(10*w+6.25*h-5*a+k);
+}
+// Dagens løbedistance ud fra planen (samme logik som rute-knappen)
+function dayRunKm(wk,plan){
+  if(!plan)return 0;
+  const easyPace=getPaceForRunType(wk,'easy');
+  let meters=0;
+  if(plan.warmup)meters+=plan.warmup.dur*60/easyPace*1000;
+  if(plan.cooldown)meters+=plan.cooldown.dur*60/easyPace*1000;
+  if(plan.format==='intervals'){
+    const recPace=getPaceForRunType(wk,'recovery');
+    meters+=plan.dur*60*(0.5/plan.pacePerKm+0.5/recPace)*1000;
+  }else{
+    meters+=plan.dur*60/plan.pacePerKm*1000;
+  }
+  return Math.max(2,Math.round(meters/100)/10);
+}
+// Estimeret forbrænding fra dagens træning
+function dayTrainingBurn(dayObj,wk){
+  const w=energyWeight();
+  if(!dayObj||dayObj.tag==='rest')return {kcal:0,min:0,label:'Hvile'};
+  if(dayObj.run){
+    const plan=getRunPlan(wk,dayObj.run);
+    const km=dayRunKm(wk,plan);
+    // Løb: ~0,95 kcal pr. kg pr. km (veletableret nettoestimat)
+    return {kcal:Math.round(w*km*0.95),min:plan?plan.totalDur:40,label:plan?.typeLabel||'Løb',km};
+  }
+  if(dayObj.ex){
+    const sets=dayEx(dayObj).reduce((a,e)=>a+(parseInt(exSR(e,wk).s)||3),0);
+    const min=Math.round(sets*2.6+10); // inkl. pauser og opvarmning
+    // Styrketræning ≈ 4,5 MET → kcal/min = MET × 3,5 × kg / 200
+    return {kcal:Math.round(4.5*3.5*w/200*min),min,label:'Styrketræning',sets};
+  }
+  return {kcal:0,min:0,label:'Hvile'};
+}
+// Hverdagsaktivitet (NEAT) — bruger dine rigtige skridt hvis de er logget
+function dayNeatKcal(dateKey){
+  const w=energyWeight();
+  const steps=(dateKey&&typeof STEPS!=='undefined')?parseInt(STEPS[dateKey]):0;
+  const s=steps>0?steps:6000; // 6.000 = typisk hverdag uden logning
+  return {kcal:Math.round(s*0.045*(w/80)),steps:s,logged:steps>0};
+}
+// Samlet dagsregnskab
+function dayEnergy(dayObj,wk,dateKey){
+  const bmr=bmrKcal();
+  const tef=Math.round(bmr*0.12);      // fordøjelse (termisk effekt af mad)
+  const neat=dayNeatKcal(dateKey);
+  const tr=dayTrainingBurn(dayObj,wk);
+  const total=bmr+tef+neat.kcal+tr.kcal;
+  const target=calorieTargets();
+  return {bmr,tef,neat,training:tr,total,intake:target.kcal,balance:target.kcal-total,label:target.label};
+}
+
+function rEnergySection(){
+  const t=calorieTargets();
+  const bmr=bmrKcal();
+  const order=['Mandag','Tirsdag','Onsdag','Torsdag','Fredag','Lørdag','Søndag'];
+  const todayName=order[(new Date().getDay()+6)%7];
+  const missing=[];
+  if(!PROFILE.height)missing.push('højde');
+  if(!PROFILE.age)missing.push('alder');
+  if(!PROFILE.weight)missing.push('vægt');
+  let h='<details class="cal-energy"><summary>⚡ Dagligt energiforbrug</summary>';
+  if(missing.length){
+    h+=`<div class="en-warn">Beregningen bruger standardværdier fordi din ${missing.join(', ')} mangler. Udfyld profilen for præcise tal.</div>`;
+  }
+  h+=`<div class="en-intro">Dit forbrug = hvilestofskifte (<b>${bmr}</b>) + fordøjelse + hverdagsbevægelse + træning. Sammenlignet med dit indtag på <b>${t.kcal} kcal</b>.</div>`;
+  // Dagsrækker
+  h+='<div class="en-rows">';
+  order.forEach(dn=>{
+    const dayObj=D.find(d=>d.full===dn);
+    const dk=dateKeyForWeekday(dn);
+    const e=dayEnergy(dayObj,week,dk);
+    const isToday=dn===todayName;
+    const balColor=e.balance<-50?'#ff453a':e.balance>50?'#30d158':'#ffd60a';
+    const balTxt=e.balance<0?'−'+Math.abs(e.balance):'+'+e.balance;
+    h+=`<div class="en-row${isToday?' today':''}">
+      <div class="en-day">${dn.slice(0,3)}${isToday?'<span class="en-today-dot"></span>':''}</div>
+      <div class="en-mid">
+        <div class="en-type">${escHtml(e.training.label)}${e.training.min?' · '+e.training.min+' min':''}</div>
+        <div class="en-bd">Hvile ${e.bmr} + hverdag ${e.neat.kcal}${e.training.kcal?' + træning '+e.training.kcal:''}</div>
+      </div>
+      <div class="en-tot"><b>${e.total}</b><small>kcal</small></div>
+      <div class="en-bal" style="color:${balColor}">${balTxt}</div>
+    </div>`;
+  });
+  h+='</div>';
+  const neatToday=dayNeatKcal(todayISO());
+  h+=`<div class="en-legend">
+    <div><b>kcal</b> = dit samlede forbrug den dag</div>
+    <div><b style="color:#ff453a">−tal</b> = underskud (du taber dig) · <b style="color:#30d158">+tal</b> = overskud</div>
+    <div class="en-steps">Hverdagsbevægelse regnet ud fra ${neatToday.logged?'dine loggede '+neatToday.steps.toLocaleString('da-DK')+' skridt':'6.000 skridt (log dine skridt for præcision)'}.</div>
+  </div>`;
+  h+=`<div class="en-honest">⚠️ Alle forbrændingstal er <b>estimater</b> — også dem fra ure og pulsbælter rammer typisk 20-30% ved siden af. Brug dem som pejlemærke, ikke facit. Det eneste rigtige svar er vægten over 2-3 uger: taber du dig for hurtigt, spis mere; sker der intet, spis lidt mindre.</div>`;
+  h+='</details>';
+  return h;
+}
+
 function rCalorieContent(){
   const t=calorieTargets();
   const tot=calTotals();
@@ -5194,6 +5479,8 @@ function rCalorieContent(){
   if(PROG.template==='shred'||PROG.template==='cut'){
     h+=`<div class="cal-note-prot">🥩 Protein er dit vigtigste tal i underskud — ram det, selv på dage hvor kalorierne skrider.</div>`;
   }
+  // Energiforbrug
+  h+=rEnergySection();
   // AI-madplan
   h+=rWeekplanSection();
   h+=rMealplanSection();
@@ -5296,14 +5583,11 @@ function rWeightsCombined(){
   h+=`<div class="view-toggle" style="margin-bottom:18px">
     <button class="vt-opt${weightSubView==='log'?' on':''}" onclick="setWeightSubView('log')">${ic('clipboard','sm')} Log</button>
     <button class="vt-opt${weightSubView==='graph'?' on':''}" onclick="setWeightSubView('graph')">${ic('trending','sm')} Graf</button>
-    <button class="vt-opt${weightSubView==='cal'?' on':''}" onclick="setWeightSubView('cal')">🍽️ Kalorier</button>
   </div>`;
   h+=`<div class="weight-swipe-hint">‹ Swipe for at skifte ›</div>`;
   h+=`<div class="weight-swipe-wrap" ontouchstart="weightSwipeStart(event)" ontouchmove="weightSwipeMove(event)" ontouchend="weightSwipeEnd(event)">`;
   if(weightSubView==='log'){
     h+=rLogContent();
-  }else if(weightSubView==='cal'){
-    h+=rCalorieContent();
   }else{
     h+=rGraphContent();
   }
@@ -5995,6 +6279,11 @@ function rProfileOnboarding(){
       <textarea id="profInjuries" rows="2" placeholder="Fx: 'Højre knæ irriteret ved dybe squats', 'undgå overhead press pga skuldre'…"
         style="width:100%;background:var(--bg2);border:1.5px solid var(--bdr);color:var(--txt);font-family:inherit;font-size:13px;padding:10px 12px;border-radius:var(--r2);outline:none;resize:vertical;min-height:60px"
         onchange="setProfileField('injuries',this.value)">${escHtml(p.injuries||'')}</textarea>
+      <div class="inj-picker">
+        <div class="inj-picker-lbl">Vælg område — så bytter appen automatisk de mest belastende øvelser:</div>
+        <div class="inj-chips">${Object.keys(INJURY_AREAS).map(k=>`<button class="inj-chip${activeInjuries().indexOf(k)>=0?' on':''}" onclick="toggleInjuryArea('${k}')">${INJURY_AREAS[k].emo} ${INJURY_AREAS[k].label}</button>`).join('')}</div>
+        <div class="inj-disclaimer">Bytningerne er generelle forholdsregler, ikke behandling. Har du vedvarende smerte, hører den til hos en fysioterapeut eller læge — ikke i en app.</div>
+      </div>
     </div>
 
     ${tdee?`<div class="pcos-ob-card" style="background:rgba(48,209,88,.08);border-color:rgba(48,209,88,.3)">
@@ -6505,17 +6794,22 @@ function rInfo(){
 // Combined Coach + Krop med sub-tab
 let coachSubView='coach'; // 'coach' eller 'body'
 function rCoachCombined(){
+  const cLbl={coach:'AI Coach',body:'Krop & måling',cal:'Kost & kalorier'}[coachSubView]||'AI Coach';
   let h=`<div class="page-title" style="padding-bottom:0">
-    <div class="page-eyebrow">// ${coachSubView==='coach'?'AI Coach':'Krop & måling'}</div>
+    <div class="page-eyebrow">// ${cLbl}</div>
   </div>`;
   // Sub-tab toggle
   h+=`<div class="view-toggle" style="margin-bottom:14px">
     <button class="vt-opt${coachSubView==='coach'?' on':''}" onclick="setCoachSubView('coach')">${ic('bot','sm')} Coach</button>
+    <button class="vt-opt${coachSubView==='cal'?' on':''}" onclick="setCoachSubView('cal')">🍽️ Kalorier</button>
     <button class="vt-opt${coachSubView==='body'?' on':''}" onclick="setCoachSubView('body')">${ic('person','sm')} Krop</button>
   </div>`;
   h+=`<div class="coach-swipe-wrap" ontouchstart="coachSwipeStart(event)" ontouchmove="coachSwipeMove(event)" ontouchend="coachSwipeEnd(event)">`;
   if(coachSubView==='coach'){
     h+=rCoach();
+  }else if(coachSubView==='cal'){
+    h+=`<div class="page-title"><div class="page-eyebrow">// Kost</div><div class="page-h1">Kalorier</div></div>`;
+    h+=rCalorieContent();
   }else{
     h+=rBody();
   }
@@ -6549,8 +6843,10 @@ function coachSwipeEnd(e){
   const elapsed=Date.now()-coachSwipeTime;
   const isSwipe=Math.abs(dx)>60||(Math.abs(dx)>30&&elapsed<200);
   if(isSwipe){
-    if(dx<0&&coachSubView==='coach'){coachSubView='body';render()}
-    else if(dx>0&&coachSubView==='body'){coachSubView='coach';render()}
+    const order=['coach','cal','body'];
+    const i=order.indexOf(coachSubView);
+    if(dx<0&&i<order.length-1){coachSubView=order[i+1];render()}
+    else if(dx>0&&i>0){coachSubView=order[i-1];render()}
   }
   coachSwipeX=null;coachSwipeY=null;
 }
@@ -6740,6 +7036,10 @@ function buildTrainingContext(){
       ctx+=`Erfaring: ${exMap[PROFILE.experience]||PROFILE.experience}\n`;
     }
     if(PROFILE.injuries)ctx+=`Skader/begrænsninger: ${PROFILE.injuries}\n`;
+    const ia=activeInjuries();
+    if(ia.length){
+      ctx+=`Markerede skadesområder: ${ia.map(k=>(INJURY_AREAS[k]||{}).label||k).join(', ')} — appen har allerede byttet de mest belastende øvelser til skånsomme varianter. Foreslå ALDRIG at gå tilbage til de originale øvelser, og anbefal professionel hjælp ved vedvarende smerte.\n`;
+    }
     const tdee=calcTDEE(),target=calcCalorieTarget(),protein=calcProteinTarget();
     if(tdee)ctx+=`TDEE: ${tdee} kcal\n`;
     if(target)ctx+=`Anbefalede daglige kalorier: ${target} kcal\n`;
@@ -6779,6 +7079,7 @@ function buildTrainingContext(){
   if(PROG.startDate){
     ctx+=`Program startdato: ${fmtDate(PROG.startDate)}\n`;
     if(programDone){
+      if(isDeload(week))ctx+=`VIGTIGT: Uge ${week} er en planlagt DELOAD-uge (~40% færre sæt, kortere løb, 60-70% vægt). Det er meningen — pres ikke brugeren til mere volumen denne uge.\n`;
       ctx+=`STATUS: Programmet er FÆRDIGT – brugeren har gennemført hele programmet! Foreslå hvad de skal nu (nyt forløb, nye mål, deload, etc).\n`;
     }else{
       ctx+=`Programuge: ${cw} af ${TW()} (${GP[gymPhase(cw)].name}-fase)\n`;
