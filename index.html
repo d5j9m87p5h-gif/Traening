@@ -1115,6 +1115,50 @@ input[type=file]{display:none}
 .inj-chip{background:var(--bg2);border:1px solid var(--bdr);color:var(--mut);font-size:11.5px;padding:8px 12px;border-radius:100px;cursor:pointer}
 .inj-chip.on{background:color-mix(in srgb,#ff9f0a 18%,transparent);border-color:#ff9f0a;color:#ff9f0a;font-weight:600}
 .inj-disclaimer{font-size:10px;color:var(--mut2);line-height:1.6;margin-top:10px;padding:8px 10px;background:var(--bg2);border-radius:var(--r3)}
+/* program-bygger */
+.bld-sec{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.5px;text-transform:uppercase;color:var(--acc);margin:22px 0 10px}
+.bld-opt{color:var(--mut2);text-transform:none;letter-spacing:0}
+.bld-splits{display:flex;flex-direction:column;gap:8px}
+.bld-split{display:flex;flex-direction:column;align-items:flex-start;gap:3px;background:var(--bg1);border:1.5px solid var(--bdr);border-radius:var(--r2);padding:13px 15px;cursor:pointer;text-align:left;width:100%}
+.bld-split.on{border-color:#64d2ff;background:color-mix(in srgb,#64d2ff 10%,var(--bg1))}
+.bld-split b{font-family:'Bebas Neue',sans-serif;font-size:19px;color:var(--txt);letter-spacing:.5px}
+.bld-split.on b{color:#64d2ff}
+.bld-split span{font-size:12px;color:var(--mut)}
+.bld-weeks{display:flex;gap:8px}
+.bld-wk{flex:1;background:var(--bg1);border:1.5px solid var(--bdr);color:var(--mut);font-family:'DM Mono',monospace;font-size:13px;padding:12px;border-radius:var(--r3);cursor:pointer}
+.bld-wk.on{border-color:#64d2ff;color:#64d2ff;background:color-mix(in srgb,#64d2ff 10%,transparent);font-weight:700}
+.bld-hint{font-size:11px;color:var(--mut);margin-top:8px;line-height:1.5}
+.bld-day{background:var(--bg1);border:1px solid var(--bdr);border-radius:var(--r2);margin-bottom:7px;overflow:hidden}
+.bld-day.open{border-color:#64d2ff}
+.bld-day.rest{opacity:.75}
+.bld-day-head{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 14px;cursor:pointer}
+.bld-day-head b{font-size:14px}
+.bld-day-type{font-size:11px;color:var(--mut);margin-left:8px}
+.bld-day-n{font-family:'DM Mono',monospace;font-size:10px;color:var(--mut)}
+.bld-run{background:var(--bg3);border:1px solid var(--bdr);color:var(--mut);font-family:'DM Mono',monospace;font-size:10px;padding:6px 11px;border-radius:100px;cursor:pointer}
+.bld-run.on{background:color-mix(in srgb,#30d158 18%,transparent);border-color:#30d158;color:#30d158}
+.bld-exlist{padding:0 14px 8px}
+.bld-ex{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--sep);font-size:13px}
+.bld-ex button{background:none;border:none;color:var(--mut2);font-size:13px;cursor:pointer;padding:0 4px}
+.bld-add-lbl{font-family:'DM Mono',monospace;font-size:10px;color:var(--mut);padding:8px 14px 4px;letter-spacing:.3px}
+.bld-cat{font-size:10px;color:var(--mut2);padding:6px 14px 3px;font-weight:600}
+.bld-chips{display:flex;flex-wrap:wrap;gap:5px;padding:0 14px 6px}
+.bld-chip{background:var(--bg2);border:1px solid var(--bdr);color:var(--mut);font-size:11px;padding:6px 10px;border-radius:100px;cursor:pointer}
+.bld-chip:active{background:color-mix(in srgb,#64d2ff 20%,transparent);color:#64d2ff}
+.bld-go{width:100%;background:#64d2ff;color:#000;border:none;font-family:'DM Mono',monospace;font-weight:700;font-size:14px;padding:16px;border-radius:var(--r2);cursor:pointer;margin-top:22px}
+.bld-back{width:100%;background:none;border:none;color:var(--mut);font-size:12px;padding:14px;cursor:pointer;margin-top:6px}
+.bld-card{border-style:dashed}
+.sugg{display:flex;align-items:baseline;flex-wrap:wrap;gap:7px;background:color-mix(in srgb,var(--acc) 8%,var(--bg2));border-left:3px solid var(--acc);border-radius:var(--r3);padding:9px 11px;margin-top:8px}
+.sugg.deload{background:color-mix(in srgb,#bf5af2 10%,var(--bg2));border-left-color:#bf5af2}
+.sugg.phase{background:color-mix(in srgb,#0a84ff 10%,var(--bg2));border-left-color:#0a84ff}
+.sugg.first{background:var(--bg2);border-left-color:var(--mut2)}
+.sugg-lbl{font-family:'DM Mono',monospace;font-size:8.5px;letter-spacing:.6px;text-transform:uppercase;color:var(--mut);flex-shrink:0}
+.sugg-w{font-family:'Bebas Neue',sans-serif;font-size:22px;line-height:1;color:var(--acc)}
+.sugg.deload .sugg-w{color:#bf5af2}
+.sugg.phase .sugg-w{color:#0a84ff}
+.sugg-reps{font-family:'DM Mono',monospace;font-size:12px;color:var(--txt)}
+.sugg-why{font-size:10px;color:var(--mut);width:100%;line-height:1.4}
+.sugg-txt{font-size:11px;color:var(--mut);line-height:1.5;flex:1;min-width:0}
 .wu{margin-top:8px}
 .wu summary{font-family:'DM Mono',monospace;font-size:10.5px;color:var(--mut);cursor:pointer;padding:5px 0;list-style:none}
 .wu summary::-webkit-details-marker{display:none}
@@ -1550,6 +1594,46 @@ function injurySwap(exName){
 }
 function hasRunInjury(){return activeInjuries().indexOf('shin')>=0}
 
+// ── VÆGTANBEFALING: hvad skal der på stangen i dag? ──
+// Bygger på logget historik + fasens rep-interval + progressiv overbelastning.
+function progressionStep(e,dayObj){
+  if(e.k!=='c')return 2.5;                       // isolation: mindre spring
+  return (dayObj&&dayObj.tag==='lower')?5:2.5;   // underkrop tåler større spring
+}
+function repTopOf(sr){
+  const s=String(sr&&sr.r||'');
+  return parseInt(s.split('–').pop())||parseInt(s)||10;
+}
+function suggestWeight(wk,dayFull,logName,e,dayObj){
+  if(!e||e.core)return null;                     // core er tid/reps, ikke vægt
+  // Seneste uge med logget vægt (kig op til 6 uger tilbage)
+  let lastW=NaN,lastWk=null;
+  for(let w=wk-1;w>=Math.max(1,wk-6);w--){
+    const v=maxW(gw(w,dayFull,logName));
+    if(!isNaN(v)&&v>0){lastW=v;lastWk=w;break}
+  }
+  const sr=exSR(e,wk);
+  if(isNaN(lastW)){
+    return{kind:'first',reps:sr.r,
+      text:'Første gang: find en vægt hvor sidste rep er hård, men teknisk ren. Log den — så regner appen resten ud fremover.'};
+  }
+  const samePhase=gymPhase(lastWk)===gymPhase(wk);
+  let target,why;
+  if(samePhase){
+    target=lastW+progressionStep(e,dayObj);
+    why='progression fra '+lastW+' kg i uge '+lastWk;
+  }else{
+    // Ny fase med nyt rep-interval → omregn via estimeret 1RM
+    const oneRM=estimate1RM(lastW,repTopOf(exSR(e,lastWk)));
+    target=oneRM/(1+repTopOf(sr)/30);
+    why='omregnet til ny fase (est. 1RM '+oneRM+' kg)';
+  }
+  const deload=isDeload(wk);
+  if(deload){target*=0.65;why='deload — ca. 65% af normal arbejdsvægt'}
+  const rounded=Math.max(2.5,Math.round(target/2.5)*2.5);
+  return{kind:deload?'deload':samePhase?'progress':'phase',w:rounded,from:lastW,fromWk:lastWk,reps:sr.r,why};
+}
+
 function exSR(e,w){
   const base=e.core?GP[gymPhase(w)].x:(GP[gymPhase(w)][e.k]||GP[gymPhase(w)].c);
   if(!isDeload(w))return base;
@@ -1965,7 +2049,144 @@ function applyExperienceScaling(tplId){
   }
 }
 
+/* ═══ EGET PROGRAM: byg din egen uge ═══ */
+const CUSTOMPROG_KEY='tw4_customprog';
+let CUSTOMPROG=null; // {split:'ul',weeks:8,dayEx:{Mandag:[navne...]},runDays:['Onsdag']}
+try{CUSTOMPROG=JSON.parse(localStorage.getItem(CUSTOMPROG_KEY)||'null')}catch(e){}
+function saveCustomProg(){try{localStorage.setItem(CUSTOMPROG_KEY,JSON.stringify(CUSTOMPROG))}catch(e){}}
+
+const YTQ='https://www.youtube.com/results?search_query=';
+// Øvelsespulje til egen-byg — k: c=compound, i=isolation, x=core
+const EX_POOL={
+  Ben:[
+    {n:'Squat',k:'c'},{n:'Front Squat',k:'c'},{n:'Leg Press',k:'c'},
+    {n:'Romanian Deadlift',k:'c'},{n:'Deadlift',k:'c'},{n:'Bulgarian Split Squat',k:'c'},
+    {n:'Walking Lunges',k:'c'},{n:'Hip Thrust',k:'c'},
+    {n:'Leg Extensions',k:'i'},{n:'Leg Curls',k:'i'},{n:'Calf Raises',k:'i'}
+  ],
+  Bryst:[
+    {n:'Bænkpres (flad)',k:'c'},{n:'Incline Bænkpres',k:'c'},{n:'DB Bænkpres',k:'c'},
+    {n:'Dips',k:'c'},{n:'Cable Fly',k:'i'},{n:'Pec Deck',k:'i'}
+  ],
+  Ryg:[
+    {n:'Pullups / Lat Pulldown',k:'c'},{n:'Bent-over Rows',k:'c'},{n:'Chest-supported Row',k:'c'},
+    {n:'T-bar Row',k:'c'},{n:'Seated Cable Row',k:'c'},{n:'Straight-arm Pulldown',k:'i'},
+    {n:'Face Pull',k:'i'}
+  ],
+  Skuldre:[
+    {n:'Overhead Press',k:'c'},{n:'DB Shoulder Press',k:'c'},{n:'Landmine Press',k:'c'},
+    {n:'Lateral Raise',k:'i'},{n:'Rear Delt Fly',k:'i'}
+  ],
+  Arme:[
+    {n:'Biceps Curl (stang)',k:'i'},{n:'Hammer Curl',k:'i'},{n:'Incline DB Curl',k:'i'},
+    {n:'Triceps Pushdown',k:'i'},{n:'Skull Crushers',k:'i'},{n:'Overhead Triceps Extension',k:'i'}
+  ],
+  Core:[
+    {n:'Planke',k:'x',core:1},{n:'Hanging Leg Raise',k:'x',core:1},
+    {n:'Side Plank',k:'x',core:1},{n:'Cable Crunch',k:'x',core:1}
+  ]
+};
+function poolFind(name){
+  for(const cat of Object.keys(EX_POOL)){
+    const f=EX_POOL[cat].find(e=>e.n===name);
+    if(f)return{...f,l:YTQ+encodeURIComponent(f.n+' tutorial')};
+  }
+  return{n:name,k:'i',l:YTQ+encodeURIComponent(name+' tutorial')};
+}
+// Split-skabeloner: hvilke dage trænes, og hvad hedder de
+const SPLITS={
+  fb3:{label:'Full body ×3',days:3,plan:[
+    {full:'Mandag',type:'Full body A',tag:'lower',ex:['Squat','Bænkpres (flad)','Bent-over Rows','Lateral Raise','Planke']},
+    {full:'Onsdag',type:'Full body B',tag:'upper',ex:['Romanian Deadlift','Overhead Press','Pullups / Lat Pulldown','Leg Curls','Hanging Leg Raise']},
+    {full:'Fredag',type:'Full body C',tag:'lower',ex:['Leg Press','Incline Bænkpres','Seated Cable Row','Biceps Curl (stang)','Triceps Pushdown']}
+  ]},
+  ul4:{label:'Overkrop / Underkrop ×2',days:4,plan:[
+    {full:'Mandag',type:'Overkrop',tag:'upper',ex:['Bænkpres (flad)','Bent-over Rows','Overhead Press','Pullups / Lat Pulldown','Biceps Curl (stang)','Triceps Pushdown']},
+    {full:'Tirsdag',type:'Underkrop',tag:'lower',ex:['Squat','Romanian Deadlift','Leg Press','Leg Curls','Calf Raises']},
+    {full:'Torsdag',type:'Overkrop',tag:'upper',ex:['Incline Bænkpres','Seated Cable Row','DB Shoulder Press','Face Pull','Hammer Curl','Skull Crushers']},
+    {full:'Fredag',type:'Underkrop',tag:'lower',ex:['Deadlift','Bulgarian Split Squat','Hip Thrust','Leg Extensions','Hanging Leg Raise']}
+  ]},
+  ppl5:{label:'Push / Pull / Ben + Overkrop / Underkrop',days:5,plan:[
+    {full:'Mandag',type:'Push',tag:'upper',ex:['Bænkpres (flad)','Overhead Press','Incline Bænkpres','Lateral Raise','Triceps Pushdown']},
+    {full:'Tirsdag',type:'Pull',tag:'upper',ex:['Pullups / Lat Pulldown','Bent-over Rows','Seated Cable Row','Face Pull','Biceps Curl (stang)']},
+    {full:'Onsdag',type:'Ben',tag:'lower',ex:['Squat','Romanian Deadlift','Leg Press','Leg Curls','Calf Raises']},
+    {full:'Fredag',type:'Overkrop',tag:'upper',ex:['DB Bænkpres','Chest-supported Row','DB Shoulder Press','Hammer Curl','Skull Crushers']},
+    {full:'Lørdag',type:'Underkrop',tag:'lower',ex:['Deadlift','Bulgarian Split Squat','Hip Thrust','Leg Extensions','Planke']}
+  ]},
+  ppl6:{label:'Push / Pull / Ben ×2',days:6,plan:[
+    {full:'Mandag',type:'Push',tag:'upper',ex:['Bænkpres (flad)','Overhead Press','Incline Bænkpres','Lateral Raise','Triceps Pushdown']},
+    {full:'Tirsdag',type:'Pull',tag:'upper',ex:['Pullups / Lat Pulldown','Bent-over Rows','Face Pull','Biceps Curl (stang)','Hammer Curl']},
+    {full:'Onsdag',type:'Ben',tag:'lower',ex:['Squat','Romanian Deadlift','Leg Press','Leg Curls','Calf Raises']},
+    {full:'Torsdag',type:'Push',tag:'upper',ex:['DB Bænkpres','DB Shoulder Press','Dips','Rear Delt Fly','Overhead Triceps Extension']},
+    {full:'Fredag',type:'Pull',tag:'upper',ex:['T-bar Row','Seated Cable Row','Straight-arm Pulldown','Incline DB Curl','Face Pull']},
+    {full:'Lørdag',type:'Ben',tag:'lower',ex:['Deadlift','Bulgarian Split Squat','Hip Thrust','Leg Extensions','Hanging Leg Raise']}
+  ]}
+};
+const ALL_DAYS=[
+  {full:'Mandag',day:'MAN'},{full:'Tirsdag',day:'TIR'},{full:'Onsdag',day:'ONS'},
+  {full:'Torsdag',day:'TOR'},{full:'Fredag',day:'FRE'},{full:'Lørdag',day:'LØR'},{full:'Søndag',day:'SØN'}
+];
+// Byg et fuldt template-objekt ud fra brugerens opsætning
+function buildCustomTemplate(){
+  if(!CUSTOMPROG)return null;
+  const split=SPLITS[CUSTOMPROG.split]||SPLITS.ul4;
+  const runDays=CUSTOMPROG.runDays||[];
+  const D=ALL_DAYS.map(d=>{
+    const planDay=split.plan.find(p=>p.full===d.full);
+    const names=(CUSTOMPROG.dayEx&&CUSTOMPROG.dayEx[d.full])||(planDay?planDay.ex:null);
+    if(names&&names.length){
+      const col=planDay&&planDay.tag==='lower'?'#ff9f0a':'#0a84ff';
+      return{day:d.day,full:d.full,type:planDay?planDay.type:'Træning',
+        label:(planDay?planDay.type:'TRÆNING').toUpperCase(),color:col,
+        icon:planDay&&planDay.tag==='lower'?'🦵':'💪',tag:planDay?planDay.tag:'upper',
+        ex:names.map(poolFind)};
+    }
+    if(runDays.indexOf(d.full)>=0){
+      return{day:d.day,full:d.full,type:'Løb',label:'LØB',color:'#30d158',icon:'🏃',tag:'run',
+        run:{pace:'6:30 /km',dur:'30 min',type:'Easy run',tip:'Roligt tempo — du skal kunne tale undervejs.'}};
+    }
+    return{day:d.day,full:d.full,type:'Hvile',label:'RESTITUTION',color:'#5a5a7a',icon:'😴',tag:'rest'};
+  });
+  const w=CUSTOMPROG.weeks||8;
+  return{
+    id:'custom',name:'Mit eget program',emo:'🛠️',color:'#64d2ff',
+    desc:`Din egen uge: ${split.label}${runDays.length?' + '+runDays.length+' løbedag'+(runDays.length>1?'e':''):''}. Appen styrer sæt, reps, progression og deloads automatisk.`,
+    weeks:w,needsRunTime:runDays.length>0,defaultRunSec:1800,
+    headerTitle:'MIT EGET<br>PROGRAM',
+    D,
+    GP:[
+      {name:'Hypertrofi',weeks:phaseLabelFor(w,0),color:'#0a84ff',tip:'Byg muskelmasse · RIR 2-3',c:{s:'4',r:'8–12'},i:{s:'3',r:'12–15'},x:{s:'3',r:'30–45s'}},
+      {name:'Styrke',weeks:phaseLabelFor(w,1),color:'#ff9f0a',tip:'Tungere vægt, færre reps · RIR 1-2',c:{s:'5',r:'4–6'},i:{s:'3',r:'8–12'},x:{s:'3',r:'30–45s'}},
+      {name:'Peak',weeks:phaseLabelFor(w,2),color:'#bf5af2',tip:'Maks styrke · RIR 1',c:{s:'5',r:'3–5'},i:{s:'3',r:'8–10'},x:{s:'3',r:'30–45s'}}
+    ],
+    PH:runDays.length?[
+      {n:1,l:'Base',w:phaseLabelFor(w,0),wd:'30 min @ 6:30/km',sa:'—',g:'Byg grundform',c:'#30d158'},
+      {n:2,l:'Fart',w:phaseLabelFor(w,1),wd:'35 min @ 6:15/km',sa:'—',g:'Øget tempo',c:'#ff9f0a'},
+      {n:3,l:'Peak',w:phaseLabelFor(w,2),wd:'40 min @ 6:00/km',sa:'—',g:'Bedste form',c:'#ff375f'}
+    ]:[],
+    RL:[
+      {i:'🥩',t:'Protein',b:'1,6-2,2 g per kg kropsvægt dagligt — grundlaget for muskelopbygning.',c:'#ff375f'},
+      {i:'📈',t:'Progressiv overbelastning',b:'Tilføj lidt vægt eller en rep hver uge. Appen foreslår automatisk næste vægt.',c:'#0a84ff'},
+      {i:'😴',t:'Søvn',b:'7-9 timer. Musklen bygges når du sover, ikke i centeret.',c:'#bf5af2'},
+      {i:'🌙',t:'Tag dine deloads',b:'Aflastningsugerne er planlagt med vilje — de er grunden til at du kan blive ved med at gå frem.',c:'#30d158'}
+    ]
+  };
+}
+// Fase-ugelabels for en given programlængde
+function phaseLabelFor(tw,i){
+  const p1=Math.ceil(tw*0.375),p2=p1+Math.ceil(tw*0.375);
+  const r=[{s:1,e:p1},{s:p1+1,e:p2},{s:p2+1,e:tw}][i];
+  return`Uge ${r.s}–${r.e}`;
+}
+// Registrér/genopfrisk eget program i TEMPLATES
+function refreshCustomTemplate(){
+  const t=buildCustomTemplate();
+  if(t)TEMPLATES.custom=t; else delete TEMPLATES.custom;
+  return t;
+}
+
 function loadProgram(){
+  refreshCustomTemplate();
   const tplId=PROG.template||'recomp';
   const tpl=TEMPLATES[tplId]||TEMPLATES.recomp;
   // Deep clone så ændringer ikke ødelægger templates
@@ -1975,6 +2196,7 @@ function loadProgram(){
   RL=JSON.parse(JSON.stringify(tpl.RL));
   // Erfarings-tilpasning: skalér volumen/intensitet for forløb der understøtter det
   if(tpl.expScale)applyExperienceScaling(tplId);
+  if(tplId==='custom'&&CUSTOMPROG&&CUSTOMPROG.weeks)PROG.totalWeeks=CUSTOMPROG.weeks;
   // Opdater header-titel — vis neutral titel hvis bruger ej har valgt program endnu
   const h1=document.querySelector('#hdr h1');
   if(h1){
@@ -1995,12 +2217,137 @@ function loadProgram(){
   if(cog)cog.style.display=PROG.templateChosen?'':'none';
 }
 
+// ── BYGGER-UI ──
+let builderOpen=false,builderDay=null;
+function openBuilder(){
+  if(!CUSTOMPROG)CUSTOMPROG={split:'ul4',weeks:8,dayEx:null,runDays:[]};
+  builderOpen=true;render();
+}
+function closeBuilder(){builderOpen=false;builderDay=null;render()}
+function builderSetSplit(k){
+  CUSTOMPROG.split=k;
+  CUSTOMPROG.dayEx=null; // nulstil til splittets standard-øvelser
+  CUSTOMPROG.runDays=[];
+  saveCustomProg();refreshCustomTemplate();render();
+}
+function builderSetWeeks(w){CUSTOMPROG.weeks=w;saveCustomProg();refreshCustomTemplate();render()}
+function builderToggleRun(dayFull){
+  const r=CUSTOMPROG.runDays||[];
+  const i=r.indexOf(dayFull);
+  if(i>=0)r.splice(i,1);else r.push(dayFull);
+  CUSTOMPROG.runDays=r;saveCustomProg();refreshCustomTemplate();render();
+}
+function builderEditDay(dayFull){builderDay=builderDay===dayFull?null:dayFull;render()}
+function builderDayExercises(dayFull){
+  if(CUSTOMPROG.dayEx&&CUSTOMPROG.dayEx[dayFull])return CUSTOMPROG.dayEx[dayFull];
+  const split=SPLITS[CUSTOMPROG.split]||SPLITS.ul4;
+  const p=split.plan.find(x=>x.full===dayFull);
+  return p?p.ex.slice():[];
+}
+function builderSetDayEx(dayFull,list){
+  if(!CUSTOMPROG.dayEx){
+    // Materialisér alle dage første gang så standarderne bevares
+    CUSTOMPROG.dayEx={};
+    (SPLITS[CUSTOMPROG.split]||SPLITS.ul4).plan.forEach(p=>{CUSTOMPROG.dayEx[p.full]=p.ex.slice()});
+  }
+  CUSTOMPROG.dayEx[dayFull]=list;
+  saveCustomProg();refreshCustomTemplate();render();
+}
+function builderAddEx(dayFull,name){
+  const l=builderDayExercises(dayFull).slice();
+  if(l.indexOf(name)<0)l.push(name);
+  builderSetDayEx(dayFull,l);
+}
+function builderRemoveEx(dayFull,name){
+  const l=builderDayExercises(dayFull).filter(x=>x!==name);
+  if(!l.length)return; // mindst én øvelse
+  builderSetDayEx(dayFull,l);
+}
+function builderActivate(){
+  refreshCustomTemplate();
+  PROG.template='custom';PROG.templateChosen=true;
+  PROG.totalWeeks=CUSTOMPROG.weeks||8;
+  if((CUSTOMPROG.runDays||[]).length&&!PROG.start5kSec){PROG.start5kSec=1800;PROG.runDistance=5}
+  saveProg();loadProgram();
+  builderOpen=false;builderDay=null;
+  week=currentWeek();sel=0;
+  render();
+}
+
+function rBuilder(){
+  const cp=CUSTOMPROG||{split:'ul4',weeks:8,runDays:[]};
+  const split=SPLITS[cp.split]||SPLITS.ul4;
+  const trainDays=split.plan.map(p=>p.full);
+  let h=`<div class="tpl-chooser">
+    <div class="tpl-eyebrow">// Byg dit eget</div>
+    <div class="tpl-h1">MIT EGET PROGRAM</div>
+    <div class="tpl-sub">Vælg din uge — appen står for sæt, reps, progression, vægtforslag og deload-uger.</div>`;
+  // Split
+  h+=`<div class="bld-sec">1 · Hvor mange dage om ugen?</div><div class="bld-splits">`;
+  Object.keys(SPLITS).forEach(k=>{
+    const s=SPLITS[k];
+    h+=`<button class="bld-split${cp.split===k?' on':''}" onclick="builderSetSplit('${k}')">
+      <b>${s.days} dage</b><span>${s.label}</span></button>`;
+  });
+  h+=`</div>`;
+  // Længde
+  h+=`<div class="bld-sec">2 · Hvor langt skal forløbet være?</div><div class="bld-weeks">`;
+  [8,12,16].forEach(w=>{
+    h+=`<button class="bld-wk${(cp.weeks||8)===w?' on':''}" onclick="builderSetWeeks(${w})">${w} uger</button>`;
+  });
+  h+=`</div><div class="bld-hint">Deload-uger placeres automatisk: ${(()=>{const tw=cp.weeks||8;const d=tw<=8?[5]:tw<=10?[6]:tw<=12?[5,9]:[5,9,13];return 'uge '+d.join(', ')})()}.</div>`;
+  // Dage
+  h+=`<div class="bld-sec">3 · Tilpas dine dage <span class="bld-opt">(valgfrit)</span></div>`;
+  ALL_DAYS.forEach(d=>{
+    const isTrain=trainDays.indexOf(d.full)>=0;
+    const isRun=(cp.runDays||[]).indexOf(d.full)>=0;
+    if(isTrain){
+      const exs=builderDayExercises(d.full);
+      const open=builderDay===d.full;
+      const p=split.plan.find(x=>x.full===d.full);
+      h+=`<div class="bld-day${open?' open':''}">
+        <div class="bld-day-head" onclick="builderEditDay('${escAttr(d.full)}')">
+          <div><b>${d.full}</b><span class="bld-day-type">${p.type}</span></div>
+          <span class="bld-day-n">${exs.length} øvelser ${open?'▲':'▾'}</span>
+        </div>`;
+      if(open){
+        h+=`<div class="bld-exlist">`;
+        exs.forEach(n=>{
+          h+=`<div class="bld-ex"><span>${escHtml(n)}</span>${exs.length>1?`<button onclick="builderRemoveEx('${escAttr(d.full)}','${escAttr(n)}')">✕</button>`:''}</div>`;
+        });
+        h+=`</div><div class="bld-add-lbl">Tilføj øvelse:</div>`;
+        Object.keys(EX_POOL).forEach(cat=>{
+          const avail=EX_POOL[cat].filter(e=>exs.indexOf(e.n)<0);
+          if(!avail.length)return;
+          h+=`<div class="bld-cat">${cat}</div><div class="bld-chips">`;
+          avail.forEach(e=>{h+=`<button class="bld-chip" onclick="builderAddEx('${escAttr(d.full)}','${escAttr(e.n)}')">+ ${escHtml(e.n)}</button>`});
+          h+=`</div>`;
+        });
+      }
+      h+=`</div>`;
+    }else{
+      h+=`<div class="bld-day rest">
+        <div class="bld-day-head">
+          <div><b>${d.full}</b><span class="bld-day-type">${isRun?'Løbedag':'Hvile'}</span></div>
+          <button class="bld-run${isRun?' on':''}" onclick="builderToggleRun('${escAttr(d.full)}')">${isRun?'✓ Løb':'+ Løb'}</button>
+        </div>
+      </div>`;
+    }
+  });
+  h+=`<button class="bld-go" onclick="builderActivate()">Start mit program →</button>`;
+  h+=`<button class="bld-back" onclick="closeBuilder()">Tilbage til færdige programmer</button>`;
+  h+=`</div>`;
+  return h;
+}
+
 function rTemplateChooser(){
+  if(builderOpen)return rBuilder();
   const cur=PROG.template||'recomp';
   let h=`<div class="tpl-chooser">
     <div class="tpl-eyebrow">// Vælg dit program</div>
     <div class="tpl-h1">VÆLG PROGRAM</div>
     <div class="tpl-sub">Hvad er dit primære mål? Du kan altid skifte senere via ⚙️ indstillinger.</div>`;
+  refreshCustomTemplate();
   Object.values(TEMPLATES).forEach(t=>{
     const isCur=t.id===cur;
     const tag=isCur?'<span class="tpl-current-tag">NUVÆRENDE</span>':'';
@@ -2812,7 +3159,7 @@ function toggleCoreSet(w,day,name,setIdx,numSets){
     if(prevWeeks.length===0){
       // Første gang alle sæt er gennemført — lille fejring
       setTimeout(()=>{
-        const el=document.querySelector(`.core-check-row[data-day="${day}"][data-name="${CSS.escape?CSS.escape(name):name}"]`);
+        const el=document.querySelector(`.core-check-row[data-day="${day}"][data-name="${typeof CSS!=="undefined"&&CSS.escape?CSS.escape(name):name}"]`);
         if(el)el.classList.add('all-done');
       },50);
     }
@@ -4141,10 +4488,23 @@ function rWeekly(){
         const noteOpen=selExRow==='note__'+noteKey;
         const est1rm=!e.core?estimateExercise1RM(week,d.full,logName,e):null;
         const rmDisplay=est1rm?`<div class="est-1rm">est. 1RM: <b>${est1rm} kg</b></div>`:'';
+        // Vægtanbefaling
+        const sugg=(!e.core&&!homeOn)?suggestWeight(week,d.full,logName,e,d):null;
+        const suggHtml=(()=>{
+          if(!sugg)return '';
+          if(sugg.kind==='first')return `<div class="sugg first"><span class="sugg-lbl">Forslag</span><div class="sugg-txt">${escHtml(sugg.text)}</div></div>`;
+          const cls=sugg.kind==='deload'?'deload':sugg.kind==='phase'?'phase':'';
+          return `<div class="sugg ${cls}">
+            <span class="sugg-lbl">Forslag</span>
+            <b class="sugg-w">${sugg.w} kg</b>
+            <span class="sugg-reps">× ${sugg.reps}</span>
+            <span class="sugg-why">${escHtml(sugg.why)}</span>
+          </div>`;
+        })();
         // Opvarmningssæt: kun tunge compounds hvor en arbejdsvægt kendes
         const wuHtml=(()=>{
           if(e.core||e.k!=='c'||homeOn)return '';
-          const wu=warmupSets(mainVal||parseFloat(df(week,d.full,logName))||0);
+          const wu=warmupSets(mainVal||(sugg&&sugg.w)||0);
           if(!wu)return '';
           return `<details class="wu"><summary>🔥 Opvarmning før arbejdssæt</summary>
             <div class="wu-rows">${wu.map(s=>`<div class="wu-row"><span class="wu-pct">${s.pct}%</span><b>${s.w} kg</b><span class="wu-reps">× ${s.reps}</span></div>`).join('')}
@@ -4194,6 +4554,7 @@ function rWeekly(){
             <a class="vl" href="${e.l}" target="_blank">▶ Video</a>
           </div>
           ${homeAltHtml}
+          ${suggHtml}
           ${wuHtml}
           <div class="metrics">
             <div class="metric"><div class="metric-num" style="color:${d.color}">${sr.s}</div><div class="metric-cap">Sæt</div></div>
@@ -7079,10 +7440,10 @@ function buildTrainingContext(){
   if(PROG.startDate){
     ctx+=`Program startdato: ${fmtDate(PROG.startDate)}\n`;
     if(programDone){
-      if(isDeload(week))ctx+=`VIGTIGT: Uge ${week} er en planlagt DELOAD-uge (~40% færre sæt, kortere løb, 60-70% vægt). Det er meningen — pres ikke brugeren til mere volumen denne uge.\n`;
       ctx+=`STATUS: Programmet er FÆRDIGT – brugeren har gennemført hele programmet! Foreslå hvad de skal nu (nyt forløb, nye mål, deload, etc).\n`;
     }else{
       ctx+=`Programuge: ${cw} af ${TW()} (${GP[gymPhase(cw)].name}-fase)\n`;
+      if(isDeload(cw))ctx+=`VIGTIGT: Uge ${cw} er en planlagt DELOAD-uge (~40% færre sæt, kortere løb, 60-70% vægt). Det er meningen — pres ikke brugeren til mere volumen denne uge.\n`;
       ctx+=`5km mål: ${fmtSec(PROG.start5kSec||2100)} → under ${fmtSec(goal5kSec())} på ${TW()} uger\n`;
     }
   }else{
@@ -8585,7 +8946,7 @@ function exportData(){
     tw4:W, tw4_custom:CUSTOM, tw4_ai:{apiKey:'',model:AI.model,settingsOpen:AI.settingsOpen}, /* nøgle medtages BEVIDST ikke i backup */
     tw4_swaps:SWAPS_EX,
     tw4_prog:PROG, tw4_body:BODY, tw4_ss:SUPERSETS, tw4_steps:STEPS, tw4_cycle:CYCLE, tw4_pcos_profile:PCOS_PROFILE, tw4_profile:PROFILE, tw4_wellness:WELLNESS,
-    tw4_home_days:HOME_DAYS, tw4_home_equip:HOME_EQUIP, tw4_mobility:MOB, tw4_calories:CAL, tw4_mealplan:MEALPLAN, tw4_weekplan:WEEKPLAN,
+    tw4_home_days:HOME_DAYS, tw4_home_equip:HOME_EQUIP, tw4_mobility:MOB, tw4_calories:CAL, tw4_mealplan:MEALPLAN, tw4_weekplan:WEEKPLAN, tw4_customprog:CUSTOMPROG,
     _exported:new Date().toISOString(), _version:3
   };
   const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
@@ -8628,6 +8989,7 @@ function importData(input){
       if(data.tw4_calories){CAL=data.tw4_calories;saveCal()}
       if(data.tw4_mealplan){MEALPLAN=data.tw4_mealplan;saveMealplan()}
       if(data.tw4_weekplan){WEEKPLAN=data.tw4_weekplan;saveWeekplan()}
+      if(data.tw4_customprog){CUSTOMPROG=data.tw4_customprog;saveCustomProg();refreshCustomTemplate()}
       toast('✓ Data importeret');
       render();
     }catch(err){
