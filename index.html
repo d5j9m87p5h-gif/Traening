@@ -1606,11 +1606,22 @@ function repTopOf(sr){
 }
 function suggestWeight(wk,dayFull,logName,e,dayObj){
   if(!e||e.core)return null;                     // core er tid/reps, ikke vægt
-  // Seneste uge med logget vægt (kig op til 6 uger tilbage)
+  const thisIsDeload=isDeload(wk);
+  // Seneste uge med logget ARBEJDSVÆGT (kig op til 8 uger tilbage).
+  // Deload-uger springes over — ellers ville en let deload-vægt trække næste
+  // uges forslag ned. Er vi selv i en deload, må vi gerne bruge en deload-uge.
   let lastW=NaN,lastWk=null;
-  for(let w=wk-1;w>=Math.max(1,wk-6);w--){
+  for(let w=wk-1;w>=Math.max(1,wk-8);w--){
+    if(isDeload(w)&&!thisIsDeload)continue; // ignorér deload-uger for normale forslag
     const v=maxW(gw(w,dayFull,logName));
     if(!isNaN(v)&&v>0){lastW=v;lastWk=w;break}
+  }
+  // Faldback: fandt vi kun deload-data (fx allerførste uger var deload), tag alligevel seneste
+  if(isNaN(lastW)){
+    for(let w=wk-1;w>=Math.max(1,wk-8);w--){
+      const v=maxW(gw(w,dayFull,logName));
+      if(!isNaN(v)&&v>0){lastW=v;lastWk=w;break}
+    }
   }
   const sr=exSR(e,wk);
   if(isNaN(lastW)){
@@ -4110,14 +4121,14 @@ function renderHistoryStrip(day,name,exDef){
   }
   if(history.length===0)return '';
   const unit='kg';
-  // Foreslå næste vægt (kun for ikke-core)
+  // Foreslå næste vægt (kun for ikke-core) — brug den deload-bevidste motor
   let suggestion='';
   if(!isCore&&history.length>=1){
-    const lastMax=history[0].max;
-    const isCompound=exDef.k==='c';
-    const increment=isCompound?2.5:1.25;
-    const next=Math.round((lastMax+increment)*4)/4;
-    suggestion=`<span class="hist-suggest">→ Prøv ${next} ${unit}</span>`;
+    const dayObj=D.find(x=>x.full===day);
+    const sug=suggestWeight(cw,day,name,exDef,dayObj);
+    if(sug&&sug.w){
+      suggestion=`<span class="hist-suggest">→ Prøv ${sug.w} ${unit}</span>`;
+    }
   }
   let trendIcon='';
   if(history.length>=2){
