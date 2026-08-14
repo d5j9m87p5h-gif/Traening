@@ -307,6 +307,9 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .hist-v{font-family:'DM Mono',monospace;font-size:13px;color:var(--txt);font-weight:600}
 .hist-cell.latest .hist-v{color:var(--blue)}
 .hist-suggest{font-family:'DM Mono',monospace;font-size:11px;color:var(--grn);font-weight:700;letter-spacing:.3px;margin-left:auto;white-space:nowrap;background:rgba(48,209,88,.1);padding:4px 10px;border-radius:100px;border:1px solid rgba(48,209,88,.25)}
+.hist-suggest-btn{cursor:pointer;transition:transform .12s,background .12s}
+.hist-suggest-btn:active{transform:scale(.94);background:rgba(48,209,88,.22)}
+.hist-suggest-btn::after{content:' ⤵';opacity:.7}
 
 /* ══ SWAP EXERCISE ══ */
 .swap-btn{background:rgba(10,132,255,.1);border:1px solid rgba(10,132,255,.25);color:var(--blue);font-family:'DM Mono',monospace;font-size:10px;font-weight:600;letter-spacing:.3px;padding:4px 8px;border-radius:6px;cursor:pointer;margin-left:4px;min-width:32px;min-height:32px;display:inline-flex;align-items:center;justify-content:center}
@@ -776,12 +779,18 @@ input[type=file]{display:none}
 .body-compare-card .bcc-empty{color:var(--mut2);font-size:24px;opacity:.3}
 
 /* ══ REST TIMER ══ */
-#restTimer{position:fixed;bottom:calc(var(--sb) + 72px);right:16px;z-index:99;width:72px;height:72px;border-radius:50%;background:var(--glass);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);border:2px solid var(--acc);box-shadow:0 4px 24px rgba(255,214,10,.2);display:none;align-items:center;justify-content:center;flex-direction:column;cursor:pointer;transition:transform .2s var(--spring);font-family:'DM Mono',monospace}
+#restTimer{position:fixed;bottom:calc(var(--sb) + 72px);right:16px;left:16px;z-index:99;margin:0 auto;max-width:340px;border-radius:18px;background:var(--glass);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);border:2px solid var(--acc);box-shadow:0 4px 24px rgba(255,214,10,.2);display:none;align-items:center;gap:12px;padding:12px 14px;font-family:'DM Mono',monospace}
 #restTimer.show{display:flex;animation:slideUp .3s var(--spring)}
-#restTimer:active{transform:scale(.92)}
-#restTimer .rt-time{font-size:20px;font-weight:700;color:var(--acc);line-height:1}
-#restTimer .rt-label{font-size:7px;color:var(--mut);letter-spacing:1px;text-transform:uppercase;margin-top:2px}
-#restTimer.done{border-color:var(--grn);animation:timerPulse .6s ease 3}
+#restTimer .rt-main{display:flex;flex-direction:column;align-items:center;min-width:56px}
+#restTimer .rt-time{font-size:24px;font-weight:700;color:var(--acc);line-height:1}
+#restTimer .rt-label{font-size:7px;color:var(--mut);letter-spacing:1px;text-transform:uppercase;margin-top:3px}
+#restTimer .rt-controls{display:flex;gap:6px;flex:1}
+#restTimer .rt-btn{flex:1;background:var(--bg2);border:1px solid var(--bdr);color:var(--txt);font-family:'DM Mono',monospace;font-size:12px;font-weight:600;padding:11px 6px;border-radius:10px;cursor:pointer;transition:transform .12s,background .12s;min-height:42px}
+#restTimer .rt-btn:active{transform:scale(.94);background:var(--bg3)}
+#restTimer .rt-btn.rt-skip{font-size:10px;color:var(--mut);letter-spacing:.3px}
+#restTimer.done{border-color:var(--grn)}
+#restTimer.done .rt-time{color:var(--grn)}
+#restTimer.done{animation:timerPulse .6s ease 3}
 #restTimer.done .rt-time{color:var(--grn)}
 @keyframes timerPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}
 
@@ -1149,7 +1158,7 @@ input[type=file]{display:none}
 .mm-toggle button{flex:1;background:var(--bg2);border:1px solid var(--bdr);color:var(--mut);font-family:'DM Mono',monospace;font-size:11px;padding:8px;border-radius:var(--r3);cursor:pointer}
 .mm-toggle button.on{background:color-mix(in srgb,var(--acc) 15%,transparent);border-color:var(--acc);color:var(--acc)}
 .mm-svg{display:flex;justify-content:center;padding:4px 0}
-.mm-svg svg{width:auto;height:320px;max-width:100%}
+.mm-svg svg{width:auto;height:200px;max-width:100%}
 .mm-svg .mm-passive{fill:#191922;stroke:#24242e;stroke-width:.3}
 .mm-svg .mm-mg{fill:#3a3a47;stroke:#12121a;stroke-width:.25;cursor:pointer;transition:fill .16s}
 .mm-svg .mm-mg:hover{fill:#54546a}
@@ -1164,6 +1173,7 @@ input[type=file]{display:none}
 .mm-add{background:color-mix(in srgb,var(--grn) 15%,transparent);color:var(--grn);border:1px solid color-mix(in srgb,var(--grn) 35%,transparent);font-family:'DM Mono',monospace;font-size:11px;font-weight:600;padding:7px 12px;border-radius:100px;cursor:pointer;flex-shrink:0}
 .mm-added{font-family:'DM Mono',monospace;font-size:11px;color:var(--grn);flex-shrink:0}
 .mm-vid{color:var(--acc);font-size:11px;font-family:'DM Mono',monospace;text-decoration:none;flex-shrink:0}
+.mm-actions{display:flex;align-items:center;gap:10px;flex-shrink:0}
 .mm-empty{text-align:center;color:var(--mut2);font-size:12px;padding:20px;background:var(--bg1);border-radius:var(--r3)}
 .bld-addmode,.lib-viewmode{display:flex;gap:6px;margin:4px 0 10px}
 .lib-viewmode{margin:0 0 14px}
@@ -1397,7 +1407,7 @@ input[type=file]{display:none}
   <div id="cnt"></div>
 </div>
 <div id="toast">✓ Gemt</div>
-<div id="restTimer" onclick="dismissTimer()"><div class="rt-time">0:00</div><div class="rt-label">Pause</div></div>
+<div id="restTimer"><div class="rt-main"><div class="rt-time">0:00</div><div class="rt-label">Pause</div></div><div class="rt-controls"><button class="rt-btn" onclick="adjustRest(-30)">−30</button><button class="rt-btn rt-skip" onclick="dismissTimer()">Spring over</button><button class="rt-btn" onclick="adjustRest(30)">+30</button></div></div>
 <div id="prToast" class="pr-toast">🏆 NY PR!</div>
 <div id="confetti"></div>
 <div id="introOverlay"></div>
@@ -2177,13 +2187,17 @@ function renderMuscleExercises(ctx){
     });
     return h;
   }else{
-    // Library: vis matchende LIB-øvelser med video
+    // Library: vis matchende LIB-øvelser med video + tilføj-til-program
     const libEx=LIB.filter(function(e){return e.m===g.lib});
     let h='<div class="mm-exhead">'+g.label+' <span>'+libEx.length+' øvelser</span></div>';
     if(!libEx.length)return h+'<div class="mm-empty">Ingen øvelser her endnu</div>';
     libEx.forEach(function(e){
+      const idx=LIB.indexOf(e);
       h+='<div class="mm-excard"><span class="mm-exn">'+escHtml(e.n)+'</span>'+
-        '<a class="mm-vid" href="https://www.youtube.com/results?search_query='+encodeURIComponent(e.n+' tutorial')+'" target="_blank" rel="noopener">▶ Video</a></div>';
+        '<span class="mm-actions">'+
+        '<a class="mm-vid" href="https://www.youtube.com/results?search_query='+encodeURIComponent(e.n+' tutorial')+'" target="_blank" rel="noopener">▶ Video</a>'+
+        '<button class="mm-add" onclick="openAddModal('+idx+')">+ Tilføj</button>'+
+        '</span></div>';
     });
     return h;
   }
@@ -4280,7 +4294,8 @@ function renderHistoryStrip(day,name,exDef){
     const dayObj=D.find(x=>x.full===day);
     const sug=suggestWeight(cw,day,name,exDef,dayObj);
     if(sug&&sug.w){
-      suggestion=`<span class="hist-suggest">→ Prøv ${sug.w} ${unit}</span>`;
+      const nSets=parseInt(exSR(exDef,cw).s)||3;
+      suggestion=`<button class="hist-suggest hist-suggest-btn" onclick="applySuggestion(${cw},'${escAttr(day)}','${escAttr(name)}',${nSets},${sug.w})">→ Prøv ${sug.w} ${unit}</button>`;
     }
   }
   let trendIcon='';
@@ -4335,6 +4350,15 @@ function fillAllSets(w,day,name,numSets,val){
   sw(w,day,name,arr.join(','));
   checkAndCelebratePR(day,name,arr.join(','));
   toast('✓ '+val+' kg på alle sæt');
+  maybeShowDayComplete(w,day);
+  render();
+}
+// Klik på vægtforslaget → udfyld alle sæt med den anbefalede vægt
+function applySuggestion(w,day,name,numSets,val){
+  const arr=Array(numSets).fill(val);
+  sw(w,day,name,arr.join(','));
+  checkAndCelebratePR(day,name,arr.join(','));
+  toast('✓ '+val+' kg sat på alle '+numSets+' sæt');
   maybeShowDayComplete(w,day);
   render();
 }
@@ -8694,36 +8718,59 @@ function removeCustomEx(dayFull,exName){
 /* ═══════════════════════════════════════════════════════════ */
 /* ── REST TIMER ────────────────────────────────────────────── */
 /* ═══════════════════════════════════════════════════════════ */
-let restTimerInterval=null,restTimerEnd=0;
+let restTimerInterval=null,restTimerEnd=0,restAutoHide=null;
 
 function startRestTimer(exType){
   // exType: 'c'=compound (150s), 'i'=isolation (75s), 'x'=core (45s), 'ss'=superset transition (20s)
   const durations={c:150,i:75,x:45,ss:20};
   const labels={c:'Pause',i:'Pause',x:'Pause',ss:'Skift øvelse'};
   const secs=durations[exType]||90;
-  const label=labels[exType]||'Pause';
   restTimerEnd=Date.now()+secs*1000;
   const el=document.getElementById('restTimer');
   el.classList.remove('done');
   el.classList.add('show');
-  el.querySelector('.rt-label').textContent=label;
+  el.querySelector('.rt-label').textContent=labels[exType]||'Pause';
+  tickRestTimer();
   clearInterval(restTimerInterval);
-  restTimerInterval=setInterval(()=>{
-    const left=Math.max(0,Math.ceil((restTimerEnd-Date.now())/1000));
-    const m=Math.floor(left/60),s=left%60;
-    el.querySelector('.rt-time').textContent=m+':'+String(s).padStart(2,'0');
-    if(left<=0){
-      clearInterval(restTimerInterval);
-      el.classList.add('done');
-      el.querySelector('.rt-time').textContent='GÅ!';
-      try{navigator.vibrate&&navigator.vibrate([200,100,200])}catch(e){}
-      setTimeout(()=>dismissTimer(),4000);
-    }
-  },250);
+  restTimerInterval=setInterval(tickRestTimer,250);
+}
+function tickRestTimer(){
+  const el=document.getElementById('restTimer');
+  if(!el)return;
+  const left=Math.max(0,Math.ceil((restTimerEnd-Date.now())/1000));
+  const m=Math.floor(left/60),s=left%60;
+  const t=el.querySelector('.rt-time');
+  if(left<=0){
+    clearInterval(restTimerInterval);
+    el.classList.add('done');
+    t.textContent='GÅ!';
+    try{navigator.vibrate&&navigator.vibrate([200,100,200])}catch(e){}
+    clearTimeout(restAutoHide);
+    restAutoHide=setTimeout(()=>dismissTimer(),5000);
+  }else{
+    t.textContent=m+':'+String(s).padStart(2,'0');
+  }
+}
+// Justér pausen mens den kører (+/− sekunder). Genoptager hvis den var talt ned.
+function adjustRest(delta){
+  const now=Date.now();
+  let base=Math.max(now,restTimerEnd); // hvis timeren er udløbet, læg oveni nu
+  let newEnd=base+delta*1000;
+  if(newEnd-now<1000){ // ikke under 1 sek → luk hvis man trækker for langt ned
+    if(delta<0){dismissTimer();return}
+  }
+  restTimerEnd=Math.max(now+1000,newEnd);
+  const el=document.getElementById('restTimer');
+  if(el){el.classList.remove('done');clearTimeout(restAutoHide)}
+  clearInterval(restTimerInterval);
+  tickRestTimer();
+  restTimerInterval=setInterval(tickRestTimer,250);
+  try{navigator.vibrate&&navigator.vibrate(30)}catch(e){}
 }
 
 function dismissTimer(){
   clearInterval(restTimerInterval);
+  clearTimeout(restAutoHide);
   const el=document.getElementById('restTimer');
   el.classList.remove('show','done');
 }
