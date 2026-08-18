@@ -854,6 +854,45 @@ input[type=file]{display:none}
 /* ══ VOLUME CHART ══ */
 .vol-section{background:var(--bg1);border:1px solid var(--bdr);border-radius:var(--r);padding:18px;margin-bottom:16px;box-shadow:var(--shadow)}
 .vol-title{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:.5px;margin-bottom:4px}
+/* dashboard-overblik */
+.sw-row{align-items:flex-start!important;padding:14px!important}
+.sw-row .ms{white-space:normal!important;line-height:1.5;margin-top:3px}
+.dash{margin-bottom:20px}
+.dash-hero{background:linear-gradient(135deg,color-mix(in srgb,var(--acc) 12%,var(--bg1)),var(--bg1));border:1.5px solid color-mix(in srgb,var(--acc) 35%,transparent);border-radius:var(--r);padding:15px}
+.dh-top{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.dh-wk{font-family:'Bebas Neue',sans-serif;font-size:28px;line-height:1;letter-spacing:.5px}
+.dh-wk span{font-size:15px;color:var(--mut)}
+.dh-phase{font-family:'DM Mono',monospace;font-size:9.5px;padding:4px 9px;border-radius:100px;white-space:nowrap;letter-spacing:.3px}
+.dh-prog{height:7px;background:var(--bg3);border-radius:4px;margin:11px 0 6px;overflow:hidden}
+.dh-fill{height:100%;background:linear-gradient(90deg,var(--acc),#ffb800);border-radius:4px;transition:width .4s}
+.dh-sub{font-family:'DM Mono',monospace;font-size:9.5px;color:var(--mut);line-height:1.5}
+.dash-sec{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.5px;text-transform:uppercase;color:var(--mut);margin:20px 0 9px}
+.dash-days{display:flex;gap:4px}
+.dash-day{flex:1;aspect-ratio:1;border-radius:9px;background:var(--bg2);border:1px solid var(--sep);display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:'DM Mono',monospace;min-width:0}
+.dash-day.done{background:color-mix(in srgb,var(--grn) 16%,transparent);border-color:color-mix(in srgb,var(--grn) 50%,transparent)}
+.dash-day.rest{opacity:.4}
+.dash-day.today{border-color:var(--acc);border-width:2px}
+.dd-d{font-size:7.5px;color:var(--mut);letter-spacing:.2px}
+.dash-day.done .dd-d{color:var(--grn)}
+.dd-i{font-size:12px;margin-top:1px}
+.dash-kpis{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+.dash-kpi{background:var(--bg1);border:1px solid var(--bdr);border-radius:var(--r2);padding:12px}
+.dk-l{font-family:'DM Mono',monospace;font-size:8.5px;color:var(--mut2);text-transform:uppercase;letter-spacing:.5px}
+.dk-v{font-family:'Bebas Neue',sans-serif;font-size:26px;line-height:1.1;margin-top:3px;letter-spacing:.5px}
+.dk-v span{font-size:14px;color:var(--mut)}
+.dk-s{font-family:'DM Mono',monospace;font-size:9px;color:var(--mut);margin-top:2px;line-height:1.4}
+.dk-s.up{color:var(--grn)}
+.dk-s.down{color:#ff9f0a}
+.dash-chart{background:var(--bg1);border:1px solid var(--bdr);border-radius:var(--r2);padding:13px}
+.dc-hd{display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin-bottom:8px}
+.dc-t{font-size:12.5px;font-weight:600}
+.dc-d{font-family:'DM Mono',monospace;font-size:9.5px;color:var(--mut)}
+.dash-pr{display:flex;justify-content:space-between;align-items:center;gap:10px;background:var(--bg1);border:1px solid var(--sep);border-radius:var(--r3);padding:11px 13px;margin-bottom:6px}
+.dp-n{font-size:13px;font-weight:500}
+.dp-d{font-family:'DM Mono',monospace;font-size:9px;color:var(--mut2);margin-top:2px}
+.dp-r{display:flex;align-items:center;gap:6px;flex-shrink:0}
+.dp-w{font-family:'Bebas Neue',sans-serif;font-size:19px;color:var(--acc);letter-spacing:.5px}
+.dp-badge{font-family:'DM Mono',monospace;font-size:8.5px;background:color-mix(in srgb,var(--grn) 18%,transparent);color:var(--grn);padding:3px 7px;border-radius:100px}
 .vol-sub{font-size:11px;color:var(--mut);font-family:'DM Mono',monospace;margin-bottom:12px}
 .vol-bars{display:flex;flex-direction:column;gap:8px}
 .vol-bar-row{display:grid;grid-template-columns:80px 1fr 60px;gap:10px;align-items:center}
@@ -1873,6 +1912,7 @@ const TEMPLATES={
         {n:"Bænkpres (flad)",k:"c",no:"",l:"https://www.youtube.com/watch?v=4Y2ZdHCOXok"},
         {n:"Bent-over Rows",k:"c",no:"",l:"https://www.youtube.com/results?search_query=bent+over+row+tutorial"},
         {n:"Overhead Press",k:"c",no:"",l:"https://www.youtube.com/watch?v=F3QY5vMz_6I"},
+        {n:"Triceps Pushdown",k:"i",no:"Bevar armmasse",l:"https://www.youtube.com/results?search_query=triceps+pushdown+tutorial"},
         {n:"Planke",k:"x",no:"CORE",l:"https://www.youtube.com/results?search_query=plank+tutorial",core:1},
       ]},
       {day:"TIR",full:"Tirsdag",type:"Cardio",label:"LØB/CYKEL",color:"#30d158",icon:"🏃",tag:"run",
@@ -1882,6 +1922,7 @@ const TEMPLATES={
         {n:"Incline Bænkpres",k:"c",no:"",l:"https://www.youtube.com/results?search_query=incline+bench+press+tutorial"},
         {n:"Lat Pulldown",k:"c",no:"",l:"https://www.youtube.com/results?search_query=lat+pulldown+tutorial"},
         {n:"Walking Lunges",k:"c",no:"",l:"https://www.youtube.com/results?search_query=walking+lunges+tutorial"},
+        {n:"Biceps Curl (stang)",k:"i",no:"Bevar armmasse",l:"https://www.youtube.com/results?search_query=barbell+biceps+curl+tutorial"},
         {n:"Side Plank",k:"x",no:"CORE",l:"https://www.youtube.com/results?search_query=side+plank+tutorial",core:1},
       ]},
       {day:"TOR",full:"Torsdag",type:"Intervaller",label:"HIIT",color:"#ff453a",icon:"⚡",tag:"run",
@@ -1891,6 +1932,7 @@ const TEMPLATES={
         {n:"DB Shoulder Press",k:"c",no:"",l:"https://www.youtube.com/results?search_query=dumbbell+shoulder+press+tutorial"},
         {n:"Pullups / Lat Pulldown",k:"c",no:"",l:"https://www.youtube.com/results?search_query=lat+pulldown+tutorial"},
         {n:"Hip Thrust",k:"c",no:"",l:"https://www.youtube.com/watch?v=S_uZP4UH6J0"},
+        {n:"Hammer Curl",k:"i",no:"Bevar armmasse",l:"https://www.youtube.com/results?search_query=hammer+curl+tutorial"},
         {n:"Hanging Leg Raise",k:"x",no:"CORE",l:"https://www.youtube.com/results?search_query=hanging+leg+raise+tutorial",core:1},
       ]},
       {day:"LØR",full:"Lørdag",type:"Lang gåtur/cykel",label:"AKTIV REST",color:"#30d158",icon:"🚶",tag:"run",
@@ -2146,6 +2188,7 @@ const MMAP_B={"head-back": "m 48.157455,6.3585449 0.44208,-0.14964 0.16111,0.164
 const MMAP_G={"chest": {"label": "Bryst", "front": ["chest-upper-left", "chest-lower-left", "chest-upper-right", "chest-lower-right"], "lib": "chest"}, "shoulders": {"label": "Skuldre", "front": ["shoulder-front-left", "shoulder-side-left", "shoulder-front-right", "shoulder-side-right"], "back": ["deltoid-rear-left", "deltoid-rear-right"], "lib": "shoulders"}, "biceps": {"label": "Biceps", "front": ["biceps-left", "biceps-right"], "lib": "arms"}, "triceps": {"label": "Triceps", "back": ["triceps-long-left", "triceps-lateral-left", "triceps-long-right", "triceps-lateral-right"], "lib": "arms"}, "forearms": {"label": "Underarme", "front": ["forearm-left", "forearm-right"], "back": ["forearm-flexors-left", "forearm-extensors-left", "forearm-flexors-right", "forearm-extensors-right"], "lib": "arms"}, "abs": {"label": "Mave", "front": ["abs-upper-left", "abs-upper-right", "abs-lower-left", "abs-lower-right"], "lib": "core"}, "obliques": {"label": "Skrå mave", "front": ["obliques-left", "obliques-right", "serratus-anterior-left", "serratus-anterior-right"], "lib": "core"}, "traps": {"label": "Trapezius", "back": ["traps-upper-left", "traps-mid-left", "traps-lower-left", "traps-upper-right", "traps-mid-right", "traps-lower-right"], "lib": "back"}, "lats": {"label": "Lat / ryg", "back": ["lats-upper-left", "lats-mid-left", "lats-lower-left", "lats-upper-right", "lats-mid-right", "lats-lower-right"], "lib": "back"}, "lowerback": {"label": "Lænd", "back": ["lower-back-erectors-left", "lower-back-ql-left", "lower-back-erectors-right", "lower-back-ql-right", "spine"], "lib": "back"}, "quads": {"label": "Forlår", "front": ["quads-left", "quads-right", "hip-flexor-left", "hip-flexor-right"], "lib": "legs"}, "adductors": {"label": "Inderlår", "front": ["adductors-left", "adductors-right"], "lib": "legs"}, "hamstrings": {"label": "Baglår", "back": ["hamstrings-medial-left", "hamstrings-lateral-left", "hamstrings-medial-right", "hamstrings-lateral-right"], "lib": "legs"}, "glutes": {"label": "Baller", "back": ["gluteus-maximus-left", "gluteus-medius-left", "gluteus-maximus-right", "gluteus-medius-right"], "lib": "legs"}, "calves": {"label": "Lægge", "front": ["tibialis-anterior-left", "tibialis-anterior-right"], "back": ["calves-gastroc-medial-left", "calves-gastroc-lateral-left", "calves-soleus-left", "calves-gastroc-medial-right", "calves-gastroc-lateral-right", "calves-soleus-right"], "lib": "legs"}};
 const MMAP_PF=["head", "face", "neck-right", "neck-left", "knee-left", "knee-right", "foot-left", "foot-right", "elbow-left", "elbow-right", "hand-left", "hand-right"];
 const MMAP_PB=["head-back", "nape", "knee-back-left", "knee-back-right", "foot-back-left", "foot-back-right", "hand-back-left", "hand-back-right"];
+const MMAP_LIBEX={"biceps": ["Biceps Curl (stang)", "Biceps Curl (DB)", "Hammer Curl", "Cable Curl", "Preacher Curl", "Concentration Curl", "Incline DB Curl", "Spider Curl", "EZ-bar Curl", "Chin-ups"], "triceps": ["Triceps Pushdown", "Overhead Tri Extension", "Skull Crushers", "Close-Grip Bench", "Dips (triceps)", "Rope Pushdown", "Dips (assisteret)", "Diamond Push-ups"], "forearms": ["Hammer Curl", "Cable Curl", "EZ-bar Curl"], "quads": ["Squat", "Front Squat", "Hack Squat", "Leg Press", "Bulgarian Split Squat", "Goblet Squat", "Leg Extension", "Leg Press (unilateralt)", "Sissy Squat", "Step-ups", "Reverse Lunges", "Walking Lunges"], "hamstrings": ["Romanian Deadlift", "Leg Curl (siddende)", "Leg Curl (liggende)", "Nordic Ham Curl", "Seated Leg Curl", "Deadlift", "Sumo Deadlift"], "glutes": ["Hip Thrust", "Glute Bridge", "Bulgarian Split Squat", "Walking Lunges", "Sumo Deadlift", "Step-ups", "Reverse Lunges"], "calves": ["Calf Raises (stående)", "Calf Raises (siddende)", "Tibialis Raises"], "adductors": ["Cossack Squat", "Adductor Machine", "Copenhagen Plank", "Goblet Squat"], "lats": ["Pullups", "Lat Pulldown", "Bent-over Rows", "Pendlay Row", "Seated Cable Row", "T-Bar Row", "Dumbbell Row", "Inverted Row", "Underhaands Pulldown", "Chin-ups", "Chest-supported Row", "Meadows Row", "Straight-arm Pulldown"], "traps": ["Shrugs", "Face Pull", "Rack Pull"], "lowerback": ["Deadlift", "Rack Pull", "Hyperextension", "Romanian Deadlift"], "abs": ["Plank", "Cable Crunch", "Hanging Leg Raise", "Ab Wheel Rollout", "Dead Bug", "Hollow Hold", "Toes-to-bar", "Weighted Plank", "Mountain Climbers"], "obliques": ["Side Plank", "Russian Twist", "Pallof Press", "Cable Woodchop", "Copenhagen Plank", "Bird Dog"], "chest": [], "shoulders": []};
 const MMAP_POOL={"chest": ["Bænkpres (flad)", "Incline Bænkpres", "Decline Bænkpres", "DB Bænkpres", "Incline DB Press", "Dips", "Push-ups", "Cable Fly", "Dumbbell Flyes", "Pec Deck"], "lats": ["Pullups / Lat Pulldown", "Bent-over Rows", "Pendlay Row", "Chest-supported Row", "T-bar Row", "Seated Cable Row", "Dumbbell Row", "Straight-arm Pulldown"], "traps": ["Shrugs", "Face Pull", "Upright Row"], "shoulders": ["Overhead Press", "DB Shoulder Press", "Arnold Press", "Landmine Press", "Lateral Raise", "Cable Lateral Raise", "Front Raise", "Rear Delt Fly"], "biceps": ["Biceps Curl (stang)", "Biceps Curl (DB)", "Hammer Curl", "Cable Curl", "Incline DB Curl", "Preacher Curl"], "triceps": ["Triceps Pushdown", "Skull Crushers", "Overhead Triceps Extension", "Close-Grip Bench", "Dips"], "forearms": ["Hammer Curl", "Cable Curl"], "abs": ["Planke", "Hanging Leg Raise", "Cable Crunch", "Ab Wheel Rollout", "Hollow Hold"], "obliques": ["Side Plank", "Russian Twist", "Pallof Press"], "lowerback": ["Deadlift", "Romanian Deadlift", "Rack Pull", "Glute Bridge"], "quads": ["Squat", "Front Squat", "Hack Squat", "Leg Press", "Goblet Squat", "Bulgarian Split Squat", "Walking Lunges", "Leg Extensions"], "adductors": ["Bulgarian Split Squat", "Walking Lunges", "Goblet Squat"], "hamstrings": ["Romanian Deadlift", "Leg Curls", "Deadlift", "Sumo Deadlift"], "glutes": ["Hip Thrust", "Glute Bridge", "Bulgarian Split Squat", "Walking Lunges", "Sumo Deadlift"], "calves": ["Calf Raises", "Seated Calf Raise"]};
 // ── MUSKEL-VÆLGER: klikbar anatomisk krop (data: body-muscles, Apache 2.0) ──
 let mmSide='front', mmSel=null, mmContext='builder', mmDay=null;
@@ -2188,7 +2231,11 @@ function renderMuscleExercises(ctx){
     return h;
   }else{
     // Library: vis matchende LIB-øvelser med video + tilføj-til-program
-    const libEx=LIB.filter(function(e){return e.m===g.lib});
+    // Brug præcis navne-mapping hvor den findes, ellers hele muskelgruppen
+    const precise=MMAP_LIBEX[mmSel];
+    const libEx=(precise&&precise.length)
+      ? LIB.filter(function(e){return precise.indexOf(e.n)>=0})
+      : LIB.filter(function(e){return e.m===g.lib});
     let h='<div class="mm-exhead">'+g.label+' <span>'+libEx.length+' øvelser</span></div>';
     if(!libEx.length)return h+'<div class="mm-empty">Ingen øvelser her endnu</div>';
     libEx.forEach(function(e){
@@ -2390,12 +2437,19 @@ function builderRemoveEx(dayFull,name){
 }
 function builderActivate(){
   refreshCustomTemplate();
+  // Har brugeren allerede trænings-data? Så lad dem vælge start-forfra vs fortsæt
+  if(Object.keys(W).length&&PROG.template!=='custom'){
+    builderOpen=false;builderDay=null;
+    openSwitchModal('custom');
+    return;
+  }
   PROG.template='custom';PROG.templateChosen=true;
   PROG.totalWeeks=CUSTOMPROG.weeks||8;
   if((CUSTOMPROG.runDays||[]).length&&!PROG.start5kSec){PROG.start5kSec=1800;PROG.runDistance=5}
+  if(!PROG.startDate)PROG.startDate=todayISO();
   saveProg();loadProgram();
   builderOpen=false;builderDay=null;
-  week=currentWeek();sel=0;
+  week=Math.min(currentWeek(),TW());sel=0;
   render();
 }
 
@@ -2505,16 +2559,81 @@ function chooseTemplate(tplId){
   if(!tpl)return;
   const wasCurrentDefault=PROG.template===tplId&&PROG.templateChosen;
   if(wasCurrentDefault){
-    // Hvis de allerede har dette template, luk bare
+    // Samme program valgt igen: har man data, så tilbyd genstart (evt. med nye øvelser)
+    if(Object.keys(W).length){
+      openSwitchModal(tplId,true);
+      return;
+    }
     PROG.templateChosen=true;saveProg();
     if(modalOpenForTemplate){closeModal();modalOpenForTemplate=false}
     render();return;
   }
-  // Hvis de skifter program og har eksisterende data → spørg
   const hasData=Object.keys(W).length>0;
   const isFirstTimeChoice=!PROG.templateChosen;
+  // Skifter man program MED eksisterende data → lad brugeren vælge hvordan
   if(hasData&&PROG.template!==tplId){
-    if(!confirm('Skift til "'+tpl.name+'"?\n\nDine eksisterende vægt-data bevares men programmet ændrer sig.'))return;
+    openSwitchModal(tplId);
+    return;
+  }
+  applyTemplateSwitch(tplId,!hasData);
+  if(isFirstTimeChoice){
+    setTimeout(()=>openTrainingStylePicker(),400);
+  }else{
+    render();
+  }
+}
+// Vælg om det nye program skal starte forfra eller fortsætte
+function openSwitchModal(tplId,isRestart){
+  const tpl=TEMPLATES[tplId];
+  const m=document.getElementById('modal');
+  m.innerHTML=`<div class="modal" onclick="event.stopPropagation()">
+    <div class="modal-title">${isRestart?'Kør '+escHtml(tpl.name)+' igen':'Skift til "'+escHtml(tpl.name)+'"'}</div>
+    <div class="modal-sub">${isRestart?'Du er allerede i gang med dette program. Vil du starte et nyt forløb?':'Du har allerede trænings-data. Hvordan vil du starte?'}</div>
+    <div class="modal-list">
+      <div class="modal-row sw-row" onclick="applyTemplateSwitch('${escAttr(tplId)}',true)">
+        <span class="mi">🆕</span>
+        <div>
+          <div class="mt">Start forfra</div>
+          <div class="ms">Nyt forløb fra uge 1 i dag med programmets standard-øvelser. Din gamle træning gemmes som historik.</div>
+        </div>
+      </div>
+      <div class="modal-row sw-row" onclick="applyTemplateSwitch('${escAttr(tplId)}',true,true)">
+        <span class="mi">🎲</span>
+        <div>
+          <div class="mt">Start forfra med nye øvelser</div>
+          <div class="ms">Samme program og struktur, men assistance-øvelserne byttes til ligeværdige varianter — fx Bent-over Rows → Pendlay Row. Basisløftene (Squat, Bænkpres, Overhead Press, Deadlift) består.</div>
+        </div>
+      </div>
+      ${isRestart?'':`<div class="modal-row sw-row" onclick="applyTemplateSwitch('${escAttr(tplId)}',false)">
+        <span class="mi">➡️</span>
+        <div>
+          <div class="mt">Fortsæt hvor jeg er</div>
+          <div class="ms">Behold uge ${Math.min(currentWeek(),TW())} og alle logs. Kun øvelserne skifter — brug denne hvis du bare vil bytte program midt i et forløb.</div>
+        </div>
+      </div>`}
+    </div>
+    <button class="modal-close" onclick="closeModal()">Annuller</button>
+  </div>`;
+  m.classList.add('show');
+}
+function applyTemplateSwitch(tplId,freshStart,withVariation){
+  const tpl=TEMPLATES[tplId];
+  if(!tpl)return;
+  if(freshStart){
+    // Arkivér den gamle log så intet går tabt, og start med blankt skema
+    try{
+      const arch=JSON.parse(localStorage.getItem('tw4_archive')||'[]');
+      if(Object.keys(W).length){
+        arch.push({template:PROG.template,startDate:PROG.startDate,ended:todayISO(),data:W});
+        localStorage.setItem('tw4_archive',JSON.stringify(arch.slice(-5)));
+      }
+    }catch(e){}
+    W={};save();
+    PROG.startDate=todayISO();
+    // Nulstil forløbs-specifikke tilstande
+    HOME_DAYS={};try{localStorage.setItem(HOME_KEY,JSON.stringify(HOME_DAYS))}catch(e){}
+    CUSTOM={};try{localStorage.setItem(CK,JSON.stringify(CUSTOM))}catch(e){}
+    SWAPS_EX={};try{localStorage.setItem(SWK,JSON.stringify(SWAPS_EX))}catch(e){}
   }
   PROG.template=tplId;
   PROG.templateChosen=true;
@@ -2522,18 +2641,16 @@ function chooseTemplate(tplId){
   if(tpl.needsRunTime&&tpl.defaultRunSec)PROG.start5kSec=tpl.defaultRunSec;
   saveProg();
   loadProgram();
-  // Reset supersets fordi øvelser kan have ændret sig
   SUPERSETS={};saveSS();
   try{localStorage.removeItem('tw4_ss_init')}catch(e){}
   applyDefaultSupersets();
-  if(modalOpenForTemplate){closeModal();modalOpenForTemplate=false}
-  toast('✓ Skiftet til '+tpl.name);
-  // Første gang: spørg om træningsstil
-  if(isFirstTimeChoice){
-    setTimeout(()=>openTrainingStylePicker(),400);
-  }else{
-    render();
-  }
+  let varCount=0;
+  if(withVariation)varCount=applyVariation();
+  week=Math.min(currentWeek(),TW());sel=0;
+  if(modalOpenForTemplate){modalOpenForTemplate=false}
+  closeModal();
+  toast(withVariation?('✓ '+tpl.name+' med '+varCount+' nye øvelser'):freshStart?('✓ '+tpl.name+' startet fra uge 1'):('✓ Skiftet til '+tpl.name));
+  render();
 }
 
 // Modal hvor nye brugere vælger Kalender vs Flex
@@ -6247,6 +6364,152 @@ function rGraph(){
   h+=rGraphContent();
   return h;
 }
+/* ── DASHBOARD-OVERBLIK (øverst i Graf-visningen) ── */
+function dashKPIs(){
+  const cw=Math.min(currentWeek(),TW());
+  // Vægt + trend
+  const bodyLog=(typeof BODY!=='undefined'&&Array.isArray(BODY))?BODY.filter(b=>b&&b.w):[];
+  let wNow=null,wDelta=null;
+  if(bodyLog.length){
+    wNow=parseFloat(bodyLog[bodyLog.length-1].w);
+    const older=bodyLog.length>=4?bodyLog[bodyLog.length-4]:bodyLog[0];
+    const wOld=parseFloat(older.w);
+    if(!isNaN(wNow)&&!isNaN(wOld)&&bodyLog.length>=2)wDelta=Math.round((wNow-wOld)*10)/10;
+  }
+  // Volumen denne uge vs sidste
+  const volNow=Object.values(calcWeeklyVolume(cw)).reduce((a,b)=>a+b,0);
+  const volPrev=cw>1?Object.values(calcWeeklyVolume(cw-1)).reduce((a,b)=>a+b,0):0;
+  const volPct=(volPrev>0&&volNow>0)?Math.round((volNow-volPrev)/volPrev*100):null;
+  // Gennemførte træningspas
+  let done=0,planned=0;
+  for(let w=1;w<=cw;w++){
+    D.filter(d=>d.ex||d.run).forEach(d=>{
+      planned++;
+      if(isDayFullyLogged(w,d.full))done++;
+    });
+  }
+  const pct=planned?Math.round(done/planned*100):0;
+  // Løbetid
+  let bestRun=null;
+  D.filter(d=>d.run).forEach(rd=>{
+    for(let w=1;w<=TW();w++){
+      const t=gw(w,rd.full,'tid');
+      if(t&&/^\d+:\d+$/.test(t)){
+        const parts=t.split(':'),secs=(+parts[0])*60+(+parts[1]);
+        if(!bestRun||secs<bestRun)bestRun=secs;
+      }
+    }
+  });
+  return{wNow,wDelta,volNow,volPct,done,planned,pct,bestRun,cw};
+}
+function rDashboard(){
+  const k=dashKPIs();
+  const tpl=TEMPLATES[PROG.template]||{};
+  const progPct=Math.round(k.cw/TW()*100);
+  const phase=GP[gymPhase(k.cw)];
+  const dls=deloadWeeks().filter(w=>w>k.cw);
+  const nextDl=dls.length?('uge '+dls[0]):'ingen flere';
+  let h=`<div class="dash">`;
+  // Hero
+  h+=`<div class="dash-hero">
+    <div class="dh-top">
+      <div class="dh-wk">UGE ${k.cw} <span>/ ${TW()}</span></div>
+      <div class="dh-phase" style="background:color-mix(in srgb,${phase.color} 20%,transparent);color:${phase.color}">${phase.name.toUpperCase()}-FASE</div>
+    </div>
+    <div class="dh-prog"><div class="dh-fill" style="width:${progPct}%"></div></div>
+    <div class="dh-sub">${progPct}% gennemført · ${Math.max(0,TW()-k.cw)} uger tilbage · næste deload: ${nextDl}</div>
+  </div>`;
+  // Ugens dage
+  const todayName=['Mandag','Tirsdag','Onsdag','Torsdag','Fredag','Lørdag','Søndag'][(new Date().getDay()+6)%7];
+  h+=`<div class="dash-sec">Denne uge</div><div class="dash-days">`;
+  D.forEach(d=>{
+    const logged=(d.ex||d.run)&&isDayFullyLogged(k.cw,d.full);
+    const isToday=d.full===todayName;
+    const rest=d.tag==='rest';
+    const icon=logged?'✓':rest?'😴':d.run?'🏃':'💪';
+    h+=`<div class="dash-day${logged?' done':''}${rest?' rest':''}${isToday?' today':''}">
+      <div class="dd-d">${d.day}</div><div class="dd-i">${icon}</div></div>`;
+  });
+  h+=`</div>`;
+  // KPI'er
+  h+=`<div class="dash-kpis">`;
+  h+=`<div class="dash-kpi"><div class="dk-l">Vægt</div>
+    <div class="dk-v">${k.wNow?k.wNow.toLocaleString('da-DK'):'—'} <span>${k.wNow?'kg':''}</span></div>
+    <div class="dk-s${k.wDelta!==null?(k.wDelta<0?' down':k.wDelta>0?' up':''):''}">${k.wDelta!==null?(k.wDelta<0?'↓ ':k.wDelta>0?'↑ +':'→ ')+Math.abs(k.wDelta)+' kg':'Log din vægt'}</div></div>`;
+  h+=`<div class="dash-kpi"><div class="dk-l">Volumen i uge</div>
+    <div class="dk-v">${k.volNow?Math.round(k.volNow).toLocaleString('da-DK'):'—'} <span>${k.volNow?'kg':''}</span></div>
+    <div class="dk-s${k.volPct>0?' up':k.volPct<0?' down':''}">${k.volPct!==null?(k.volPct>=0?'↑ +':'↓ ')+Math.abs(k.volPct)+'% vs sidste uge':'Ingen data endnu'}</div></div>`;
+  const goalS=goal5kSec();
+  h+=`<div class="dash-kpi"><div class="dk-l">Bedste løb</div>
+    <div class="dk-v">${k.bestRun?fmtSec(k.bestRun):'—'}</div>
+    <div class="dk-s${k.bestRun&&k.bestRun<=goalS?' up':''}">${k.bestRun?'mål '+fmtSec(goalS):'Log en løbetur'}</div></div>`;
+  h+=`<div class="dash-kpi"><div class="dk-l">Træningspas</div>
+    <div class="dk-v">${k.done}</div>
+    <div class="dk-s">${k.pct}% af ${k.planned} planlagte</div></div>`;
+  h+=`</div>`;
+  // Vægtgraf
+  h+=rDashWeightChart();
+  // PR'er
+  h+=rDashPRs();
+  h+=`</div>`;
+  return h;
+}
+function rDashWeightChart(){
+  const log=(typeof BODY!=='undefined'&&Array.isArray(BODY))?BODY.filter(b=>b&&b.w&&!isNaN(parseFloat(b.w))):[];
+  if(log.length<2)return '';
+  const pts=log.slice(-10).map(b=>parseFloat(b.w));
+  const mx=Math.max(...pts),mn=Math.min(...pts);
+  const range=Math.max(mx-mn,1);
+  const W=300,H=80,pad=8;
+  const stepX=pts.length>1?W/(pts.length-1):W;
+  const coords=pts.map((v,i)=>({x:i*stepX,y:pad+(1-(v-mn)/range)*(H-pad*2)}));
+  const line=coords.map((c,i)=>(i?'L':'M')+c.x.toFixed(1)+','+c.y.toFixed(1)).join(' ');
+  const area=line+` L${W},${H} L0,${H} Z`;
+  const delta=Math.round((pts[pts.length-1]-pts[0])*10)/10;
+  return `<div class="dash-sec">Vægtudvikling</div>
+  <div class="dash-chart">
+    <div class="dc-hd"><span class="dc-t">Seneste ${pts.length} målinger</span>
+    <span class="dc-d">${pts[0]} → ${pts[pts.length-1]} kg (${delta>0?'+':''}${delta})</span></div>
+    <svg viewBox="0 0 ${W} ${H}" style="width:100%">
+      <defs><linearGradient id="dwg" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#ffd60a" stop-opacity=".28"/>
+        <stop offset="100%" stop-color="#ffd60a" stop-opacity="0"/></linearGradient></defs>
+      <path d="${area}" fill="url(#dwg)"/>
+      <path d="${line}" fill="none" stroke="#ffd60a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="${coords[coords.length-1].x.toFixed(1)}" cy="${coords[coords.length-1].y.toFixed(1)}" r="3.5" fill="#ffd60a"/>
+    </svg>
+  </div>`;
+}
+function rDashPRs(){
+  const list=[];
+  D.filter(d=>d.ex).forEach(d=>{
+    dayEx(d).filter(e=>!e.core&&e.k==='c').forEach(e=>{
+      const pr=getPR(d.full,e.n);
+      if(!pr)return;
+      // Find første loggede vægt for at vise fremgang
+      let first=null,prWeek=null;
+      for(let w=1;w<=TW();w++){
+        const v=maxW(gw(w,d.full,e.n));
+        if(!isNaN(v)&&v>0){if(first===null)first=v;if(v===pr&&prWeek===null)prWeek=w}
+      }
+      list.push({n:e.n,pr,gain:first!==null?Math.round((pr-first)*10)/10:null,week:prWeek});
+    });
+  });
+  if(!list.length)return '';
+  list.sort((a,b)=>b.pr-a.pr);
+  const cw=Math.min(currentWeek(),TW());
+  let h=`<div class="dash-sec">Personlige rekorder</div>`;
+  list.slice(0,5).forEach(p=>{
+    const isNew=p.week===cw;
+    h+=`<div class="dash-pr">
+      <div><div class="dp-n">${escHtml(p.n)}</div>
+      <div class="dp-d">Uge ${p.week}${p.gain>0?' · +'+p.gain+' kg siden start':''}</div></div>
+      <div class="dp-r"><span class="dp-w">${p.pr} kg</span>${isNew?'<span class="dp-badge">NY</span>':''}</div>
+    </div>`;
+  });
+  return h;
+}
+
 function rGraphContent(){
   const gymExs=[];
   D.filter(d=>d.ex).forEach(d=>{
@@ -6256,7 +6519,7 @@ function rGraphContent(){
   });
   if(selGraph>=gymExs.length)selGraph=0;
   const selEx=gymExs[selGraph]||gymExs[0];
-  if(!selEx)return '<div class="hint"><span class="hint-icon">📊</span>Ingen øvelser endnu</div>';
+  if(!selEx)return rDashboard()+'<div class="hint"><span class="hint-icon">📊</span>Ingen øvelser endnu</div>';
   const pts=[];
   for(let w=1;w<=TW();w++){const v=maxW(gw(w,selEx.day,selEx.n));pts.push(isNaN(v)?null:v)}
   const filled=pts.filter(v=>v!==null);
@@ -6305,7 +6568,9 @@ function rGraphContent(){
   const firstVal=filled[0],lastVal=filled[filled.length-1];
   const totalGain=filled.length>=2?Math.round((lastVal-firstVal)*10)/10:null;
 
-  let h=`<div class="ex-picker">`;
+  let h=rDashboard();
+  h+=`<div class="dash-sec">Øvelsesfremgang</div>`;
+  h+=`<div class="ex-picker">`;
   gymExs.forEach((e,i)=>{
     const on=i===selGraph;
     h+=`<button class="expill${on?' on':''}" style="${on?`background:${e.color}22;border-color:${e.color};color:${e.color}`:''}" onclick="selGraph=${i};render()">${e.n}</button>`;
@@ -8506,14 +8771,129 @@ function addAiSuggestionToLib(name,type,note,link){
 /* ── SWAP EXERCISE MODAL ───────────────────────────────────── */
 /* ═══════════════════════════════════════════════════════════ */
 // Muskelgruppe-detection fra øvelsesnavn (simpel heuristik)
+/* ── VARIATION: byt øvelser til ligeværdige alternativer ved nyt forløb ──
+   Grupperet efter FUNKTION, ikke bare muskelgruppe. Squat → Front Squat
+   (begge knæ-dominante), aldrig Squat → Leg Curl. Kun sidestillede varianter. */
+const VARIATION_GROUPS=[
+  // Knæ-dominant underkrop
+  ['Squat','Front Squat','Hack Squat / Benpres','Hack Squat','Goblet Squat','Leg Press'],
+  // Hofte-dominant underkrop
+  ['Romanian Deadlift','Sumo Deadlift','Deadlift','Rack Pull','Straight Leg Deadlift'],
+  // Unilateralt ben
+  ['Walking Lunges','Bulgarian Split Squat','Reverse Lunges','Step-ups','Cossack Squat'],
+  // Baglår-isolation
+  ['Leg Curl','Leg Curl (liggende)','Seated Leg Curl','Nordic Ham Curl'],
+  // Baller
+  ['Hip Thrust','Glute Bridge'],
+  // Forlår-isolation
+  ['Leg Extension','Leg Extensions','Sissy Squat'],
+  // Lægge
+  ['Calf Raises','Calf Raises (stående)','Calf Raises (siddende)','Seated Calf Raise'],
+  // Vandret pres
+  ['Bænkpres (flad)','DB Bænkpres','Machine Chest Press','Push-ups','Close-Grip Bench'],
+  // Skråt pres
+  ['Incline Bænkpres','Incline DB Press','Landmine Press (bryst)','Decline Bænkpres'],
+  // Bryst-isolation
+  ['Cable Fly','Cable Flyes','Dumbbell Flyes','Pec Deck','Incline Cable Fly'],
+  // Lodret træk
+  ['Pullups / Lat Pulldown','Pullups','Lat Pulldown','Underhaands Pulldown','Chin-ups'],
+  // Vandret træk
+  ['Bent-over Rows','Pendlay Row','Seated Cable Row','Kabel Rows','T-Bar Row','Dumbbell Row','Chest-supported Row','Meadows Row'],
+  // Lodret pres skulder
+  ['Overhead Press','DB Shoulder Press','Arnold Press','Landmine Press (skulder)','Machine Shoulder Press'],
+  // Sideskulder
+  ['Lateral Raise','Cable Lateral Raise','Front Raise'],
+  // Bagskulder
+  ['Face Pull','Facepulls','Rear Delt Fly','Cable Rear Delt Fly','Face Pull (høj)'],
+  // Biceps
+  ['Biceps Curl (stang)','Biceps Curl (DB)','Biceps Curl (kabel)','Cable Curl','Hammer Curl','Incline DB Curl','Preacher Curl','EZ-bar Curl','Spider Curl','Concentration Curl'],
+  // Triceps
+  ['Triceps Pushdown','Rope Pushdown','Skull Crushers','Overhead Triceps Extension','Overhead Tri Extension','Diamond Push-ups'],
+  // Core: anti-ekstension
+  ['Planke','Plank','Ab Wheel Rollout','Hollow Hold','Weighted Plank','Dead Bug'],
+  // Core: anti-rotation / sider
+  ['Side Planke','Side Plank','Pallof Press','Russian Twist','Cable Woodchop','Copenhagen Plank'],
+  // Core: fleksion
+  ['Cable Crunch','Hanging Leg Raise','Toes-to-bar','Leg Raise']
+];
+// Findes øvelsen i biblioteket? (så vi ikke bytter til noget uden video/beskrivelse)
+function exerciseExists(name){
+  return (typeof LIB!=='undefined')&&Array.isArray(LIB)&&LIB.some(e=>e&&e.n===name);
+}
+// Find et alternativ til en øvelse — deterministisk ud fra seed, så samme
+// forløb altid giver samme skema (ikke nyt hver gang man åbner appen)
+function variantFor(name,seed){
+  const grp=VARIATION_GROUPS.find(g=>g.indexOf(name)>=0);
+  if(!grp)return null;
+  // Kandidater: andre i gruppen som findes i biblioteket
+  const cands=grp.filter(n=>n!==name&&exerciseExists(n));
+  if(!cands.length)return null;
+  // Deterministisk valg ud fra navn+seed
+  let hash=seed*31;
+  for(let i=0;i<name.length;i++)hash=(hash*31+name.charCodeAt(i))>>>0;
+  return cands[hash%cands.length];
+}
+// Basisløft der IKKE byttes væk — de er programmets rygrad og bør bestå
+// gennem alle forløb. Variation hører til på assistance-øvelserne.
+const VARIATION_PROTECTED=['Squat','Deadlift','Bænkpres (flad)','Overhead Press'];
+// Anvend variation på hele programmet: gemmes som almindelige SWAPS_EX
+function applyVariation(seed){
+  const s=seed||((PROG.variationSeed||0)+1);
+  PROG.variationSeed=s;
+  let count=0;
+  const usedGlobal=new Set(); // undgå samme øvelse to gange i ugen
+  // Registrér først alt der bliver stående
+  D.filter(d=>d.ex).forEach(d=>d.ex.forEach(e=>{
+    if(VARIATION_PROTECTED.indexOf(e.n)>=0)usedGlobal.add(e.n);
+  }));
+  D.filter(d=>d.ex).forEach(d=>{
+    const usedToday=new Set();
+    const usedGroups=new Set();
+    // Registrér ALLE dagens originale navne først, så en bytning aldrig
+    // lander på en øvelse der i forvejen står på dagen
+    d.ex.forEach(e=>usedToday.add(e.n));
+    d.ex.forEach(e=>{
+      if(VARIATION_PROTECTED.indexOf(e.n)>=0){
+        usedToday.add(e.n);
+        const g0=VARIATION_GROUPS.findIndex(g=>g.indexOf(e.n)>=0);
+        if(g0>=0)usedGroups.add(g0);
+        return; // basisløft bevares
+      }
+      const gi=VARIATION_GROUPS.findIndex(g=>g.indexOf(e.n)>=0);
+      if(gi<0){usedToday.add(e.n);return}
+      // Er gruppen allerede brugt i dag? Så lad øvelsen stå (undgår dublet)
+      if(usedGroups.has(gi)){usedToday.add(e.n);return}
+      const grp=VARIATION_GROUPS[gi];
+      const cands=grp.filter(n=>n!==e.n&&exerciseExists(n)&&!usedToday.has(n)&&!usedGlobal.has(n));
+      if(!cands.length){usedToday.add(e.n);usedGroups.add(gi);return}
+      let hash=s*31;
+      for(let i=0;i<e.n.length;i++)hash=(hash*31+e.n.charCodeAt(i))>>>0;
+      const alt=cands[hash%cands.length];
+      const libEx=(typeof LIB!=='undefined'&&Array.isArray(LIB))?LIB.find(x=>x&&x.n===alt):null;
+      if(!SWAPS_EX[d.full])SWAPS_EX[d.full]={};
+      SWAPS_EX[d.full][e.n]={n:alt,k:e.k,l:libEx?libEx.l:e.l,core:e.core};
+      usedToday.add(alt);usedGlobal.add(alt);usedGroups.add(gi);
+      count++;
+    });
+  });
+  try{localStorage.setItem(SWK,JSON.stringify(SWAPS_EX))}catch(e){}
+  saveProg();
+  return count;
+}
+
 function guessExerciseMuscle(name){
   const n=name.toLowerCase();
-  if(/(bænk|press|chest|fly|push.*up|push up|dumbbell press|incline)/.test(n))return 'chest';
-  if(/(row|pull|lat|chin|deadlift|dødløft|hyperexten)/.test(n))return 'back';
-  if(/(squat|leg|lunge|hip thrust|calf|glute|bulgarian|rdl|romanian)/.test(n))return 'legs';
-  if(/(shoulder|overhead|ohp|lateral|raise|face pull|shrug)/.test(n))return 'shoulders';
-  if(/(curl|biceps|triceps|extension|kickback|pushdown)/.test(n))return 'arms';
-  if(/(crunch|plank|core|ab |abs|leg raise|twist|rollout|dead bug)/.test(n))return 'core';
+  // VIGTIGT: rækkefølgen betyder alt. Mest specifikke mønstre først, ellers
+  // fanger "press" alle skulderpres som bryst, og "curl" alle leg curls som arme.
+  if(/(leg curl|ham curl|nordic|leg exten|sissy|adductor|tibialis)/.test(n))return 'legs';
+  if(/(lateral raise|side raise|front raise|rear delt|reverse fly|overhead press|ohp|shoulder press|arnold|landmine press \(skulder\)|handstand|dislocate)/.test(n))return 'shoulders';
+  if(/(face.?pull|facepull|shrug|upright row)/.test(n))return 'back';
+  if(/(curl|biceps|triceps|skull|pushdown|kickback|overhead tri|close.?grip|diamond push|wrist|dips)/.test(n))return 'arms';
+  if(/(crunch|plank|planke|core|ab |abs|ab wheel|leg raise|toes.?to|twist|rollout|dead bug|pallof|woodchop|hollow|bird dog|copenhagen|mountain climb)/.test(n))return 'core';
+  if(/(squat|leg press|lunge|hip thrust|glute|calf|bulgarian|rdl|romanian|split squat|step.?up|cossack|sumo deadlift)/.test(n))return 'legs';
+  if(/(row|pulldown|pull.?up|pullup|chin.?up|lat |deadlift|dødløft|rack pull|hyperexten|straight.?arm)/.test(n))return 'back';
+  if(/(bænk|bench|chest|fly|flyes|push.?up|pec deck|incline|decline)/.test(n))return 'chest';
+  if(/press/.test(n))return 'chest'; // resterende pres = bryst
   return null;
 }
 
