@@ -3008,7 +3008,10 @@ function getPaceForRunType(wk,runType){
     tempo:     12,  // +12 sek/km (laktat-tærskel)
     interval: -10   // -10 sek/km (VO2max, 3-5 min effort)
   };
-  return racePace+(offsets[runType]||0);
+  const raw=racePace+(offsets[runType]||0);
+  // Loft og gulv: under 2:30/km er urealistisk hurtigt, over 15:00/km er
+  // langsommere end rask gang — begge dele ville give meningsløse planer.
+  return Math.max(150,Math.min(900,raw));
 }
 
 // Beregn varighed (i minutter) baseret på fase, type, og brugerens niveau
@@ -8818,7 +8821,7 @@ const VARIATION_GROUPS=[
 ];
 // Findes øvelsen i biblioteket? (så vi ikke bytter til noget uden video/beskrivelse)
 function exerciseExists(name){
-  return (typeof LIB!=='undefined')&&Array.isArray(LIB)&&LIB.some(e=>e&&e.n===name);
+  return !!libLookup(name);
 }
 // Find et alternativ til en øvelse — deterministisk ud fra seed, så samme
 // forløb altid giver samme skema (ikke nyt hver gang man åbner appen)
@@ -8869,7 +8872,7 @@ function applyVariation(seed){
       let hash=s*31;
       for(let i=0;i<e.n.length;i++)hash=(hash*31+e.n.charCodeAt(i))>>>0;
       const alt=cands[hash%cands.length];
-      const libEx=(typeof LIB!=='undefined'&&Array.isArray(LIB))?LIB.find(x=>x&&x.n===alt):null;
+      const libEx=libLookup(alt);
       if(!SWAPS_EX[d.full])SWAPS_EX[d.full]={};
       SWAPS_EX[d.full][e.n]={n:alt,k:e.k,l:libEx?libEx.l:e.l,core:e.core};
       usedToday.add(alt);usedGlobal.add(alt);usedGroups.add(gi);
@@ -8879,6 +8882,53 @@ function applyVariation(seed){
   try{localStorage.setItem(SWK,JSON.stringify(SWAPS_EX))}catch(e){}
   saveProg();
   return count;
+}
+
+/* ── NAVNE-ALIAS: programmerne og biblioteket bruger nogle gange lidt
+   forskellige navne for samme øvelse. Denne tabel binder dem sammen så
+   video, muskel-vælger og bytte-forslag altid finder den rigtige øvelse. */
+const EX_ALIAS={
+  'Pullups / Lat Pulldown':'Lat Pulldown',
+  'Facepulls':'Face Pull',
+  'Leg Curl':'Leg Curl (liggende)',
+  'Leg Curls':'Leg Curl (liggende)',
+  'Leg Curl (siddende)':'Leg Curl (siddende)',
+  'Calf Raises':'Calf Raises (stående)',
+  'Læghæv':'Calf Raises (stående)',
+  'Planke':'Plank',
+  'Side Planke':'Side Plank',
+  'Kabel Rows':'Seated Cable Row',
+  'Rows (maskine/stang)':'Bent-over Rows',
+  'Biceps Curl (kabel)':'Cable Curl',
+  'Hack Squat / Benpres':'Hack Squat',
+  'Leg Extensions':'Leg Extension',
+  // Skade-varianter → nærmeste biblioteksøvelse (så video virker)
+  'Landmine Press':'Landmine Press (skulder)',
+  'Neutral-greb DB pres':'Incline DB Press',
+  'Neutral-greb DB skråpres':'Incline DB Press',
+  'HIIT-finisher':'Burpees',
+  'DB Bænkpres':'Incline DB Press',
+  'Cable Lateral Raise (lav vinkel)':'Cable Lateral Raise',
+  'Lat Pulldown (neutralt greb)':'Lat Pulldown',
+  'Triceps Pushdown (reb, let)':'Rope Pushdown',
+  'DB Bænkpres (neutralt greb)':'Incline DB Press',
+  'Leg Press (moderat dybde)':'Leg Press',
+  'Leg Press (halv bevægelse)':'Leg Press',
+  'Box Squat (til parallel)':'Squat',
+  'Back Extension (kontrolleret)':'Hyperextension',
+  'Glute Bridge (gulv)':'Glute Bridge',
+  'Chest-supported Row':'Chest-supported Row'
+};
+// Slå en øvelse op i biblioteket — prøver alias hvis direkte match fejler
+function libLookup(name){
+  if(typeof LIB==='undefined'||!Array.isArray(LIB))return null;
+  let hit=LIB.find(e=>e&&e.n===name);
+  if(hit)return hit;
+  const alias=EX_ALIAS[name];
+  if(alias){hit=LIB.find(e=>e&&e.n===alias);if(hit)return hit}
+  // Sidste forsøg: match uden parentes-tilføjelser og versaler
+  const base=String(name).toLowerCase().replace(/\s*\([^)]*\)/g,'').trim();
+  return LIB.find(e=>e&&e.n.toLowerCase().replace(/\s*\([^)]*\)/g,'').trim()===base)||null;
 }
 
 function guessExerciseMuscle(name){
