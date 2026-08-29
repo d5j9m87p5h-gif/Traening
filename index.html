@@ -2550,6 +2550,16 @@ function rTemplateChooser(){
       <div class="tpl-arr">›</div>
     </div>`;
   });
+  // Byg-dit-eget-kort til sidst
+  h+=`<div class="tpl-card bld-card" style="--tc:#64d2ff" onclick="openBuilder()">
+    <div class="tpl-emo">🛠️</div>
+    <div class="tpl-info">
+      <div class="tpl-name">Byg dit eget</div>
+      <div class="tpl-meta">3-6 DAGE · DU BESTEMMER</div>
+      <div class="tpl-desc">Sammensæt selv din uge og dine øvelser. Appen styrer sæt, reps, progression, vægtforslag og deloads automatisk.</div>
+    </div>
+    <div class="tpl-arr">›</div>
+  </div>`;
   h+=`</div>`;
   return h;
 }
@@ -5438,7 +5448,8 @@ let calSearchResults=null,calSearching=false,calSearchErr='';
 
 // Daglige makro-mål ud fra kropsvægt + forløb (protein er vigtigst i underskud)
 function calorieTargets(){
-  const w=parseFloat(PROFILE.weight)|| (BODY&&BODY.length?parseFloat(BODY[BODY.length-1].w):0) || 80;
+  const bl=bodyLogWeeks();
+  const w=parseFloat(PROFILE.weight)||(bl.length?bl[bl.length-1].kg:0)||80;
   const tpl=PROG.template||'recomp';
   // kcal/kg og protein g/kg efter forløbs-mål
   let kcalPerKg,protPerKg,label;
@@ -6008,7 +6019,8 @@ function calPhotoCancel(){calPhotoResult=null;calPhotoErr='';render()}
 
 /* ══ ENERGIFORBRUG: hvile + hverdag + træning per dag ══ */
 function energyWeight(){
-  return parseFloat(PROFILE.weight)||((BODY&&BODY.length)?parseFloat(BODY[BODY.length-1].w):0)||80;
+  const bl=bodyLogWeeks();
+  return parseFloat(PROFILE.weight)||(bl.length?bl[bl.length-1].kg:0)||80;
 }
 // Hvilestofskifte (BMR) — Mifflin-St Jeor, den mest præcise standardformel
 function bmrKcal(){
@@ -6368,16 +6380,24 @@ function rGraph(){
   return h;
 }
 /* ── DASHBOARD-OVERBLIK (øverst i Graf-visningen) ── */
+// BODY gemmes som {ugenr:{kg,fat,...}}. Returnér sorteret liste med gyldig vægt.
+function bodyLogWeeks(){
+  if(typeof BODY!=='object'||!BODY)return [];
+  return Object.keys(BODY)
+    .map(k=>({week:parseInt(k),kg:parseFloat(BODY[k]&&BODY[k].kg)}))
+    .filter(x=>!isNaN(x.week)&&!isNaN(x.kg)&&x.kg>0)
+    .sort((a,b)=>a.week-b.week);
+}
 function dashKPIs(){
   const cw=Math.min(currentWeek(),TW());
   // Vægt + trend
-  const bodyLog=(typeof BODY!=='undefined'&&Array.isArray(BODY))?BODY.filter(b=>b&&b.w):[];
+  // BODY er et objekt nøglet på ugenummer: {1:{kg:82.5,fat:18}, ...}
+  const bodyWeeks=bodyLogWeeks();
   let wNow=null,wDelta=null;
-  if(bodyLog.length){
-    wNow=parseFloat(bodyLog[bodyLog.length-1].w);
-    const older=bodyLog.length>=4?bodyLog[bodyLog.length-4]:bodyLog[0];
-    const wOld=parseFloat(older.w);
-    if(!isNaN(wNow)&&!isNaN(wOld)&&bodyLog.length>=2)wDelta=Math.round((wNow-wOld)*10)/10;
+  if(bodyWeeks.length){
+    wNow=bodyWeeks[bodyWeeks.length-1].kg;
+    const older=bodyWeeks.length>=4?bodyWeeks[bodyWeeks.length-4]:bodyWeeks[0];
+    if(bodyWeeks.length>=2)wDelta=Math.round((wNow-older.kg)*10)/10;
   }
   // Volumen denne uge vs sidste
   const volNow=Object.values(calcWeeklyVolume(cw)).reduce((a,b)=>a+b,0);
@@ -6458,9 +6478,9 @@ function rDashboard(){
   return h;
 }
 function rDashWeightChart(){
-  const log=(typeof BODY!=='undefined'&&Array.isArray(BODY))?BODY.filter(b=>b&&b.w&&!isNaN(parseFloat(b.w))):[];
+  const log=bodyLogWeeks();
   if(log.length<2)return '';
-  const pts=log.slice(-10).map(b=>parseFloat(b.w));
+  const pts=log.slice(-10).map(b=>b.kg);
   const mx=Math.max(...pts),mn=Math.min(...pts);
   const range=Math.max(mx-mn,1);
   const W=300,H=80,pad=8;
@@ -6645,6 +6665,8 @@ function rBody(){
     h+=rStepsWidget();
     h+=rCycleTracker();
   }
+  // Søvn & stress — påvirker restitution og bruges af AI-coachen
+  h+=rWellnessWidget();
 
   // Week navigator
   const gp=GP[gymPhase(Math.min(bw,TW()))];
@@ -7856,6 +7878,15 @@ function buildTrainingContext(){
     const ia=activeInjuries();
     if(ia.length){
       ctx+=`Markerede skadesområder: ${ia.map(k=>(INJURY_AREAS[k]||{}).label||k).join(', ')} — appen har allerede byttet de mest belastende øvelser til skånsomme varianter. Foreslå ALDRIG at gå tilbage til de originale øvelser, og anbefal professionel hjælp ved vedvarende smerte.\n`;
+    }
+    // Søvn og stress i dag (påvirker restitution markant)
+    const wToday=(typeof WELLNESS!=='undefined'&&WELLNESS[todayISO()])||null;
+    if(wToday&&(wToday.sleep!=null||wToday.stress!=null)){
+      let wl='Wellness i dag:';
+      if(wToday.sleep!=null)wl+=` søvn ${wToday.sleep} timer`;
+      if(wToday.stress!=null)wl+=`${wToday.sleep!=null?',':''} stress ${wToday.stress}/5`;
+      wl+='. Tag hensyn til dette i dine råd — dårlig søvn eller høj stress betyder lavere kapacitet i dag.';
+      ctx+=wl+'\n';
     }
     const tdee=calcTDEE(),target=calcCalorieTarget(),protein=calcProteinTarget();
     if(tdee)ctx+=`TDEE: ${tdee} kcal\n`;
