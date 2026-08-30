@@ -855,6 +855,16 @@ input[type=file]{display:none}
 .vol-section{background:var(--bg1);border:1px solid var(--bdr);border-radius:var(--r);padding:18px;margin-bottom:16px;box-shadow:var(--shadow)}
 .vol-title{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:.5px;margin-bottom:4px}
 /* dashboard-overblik */
+.setup-modal{max-height:85vh;overflow-y:auto}
+.setup-lbl{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.4px;text-transform:uppercase;color:var(--acc);margin:18px 0 8px}
+.setup-row{display:flex;gap:7px;flex-wrap:wrap}
+.setup-opt{flex:1;min-width:64px;background:var(--bg2);border:1.5px solid var(--bdr);border-radius:var(--r3);padding:11px 6px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px}
+.setup-opt.on{border-color:var(--acc);background:color-mix(in srgb,var(--acc) 14%,transparent)}
+.setup-opt b{font-family:'Bebas Neue',sans-serif;font-size:22px;line-height:1;color:var(--txt)}
+.setup-opt.on b{color:var(--acc)}
+.setup-opt span{font-family:'DM Mono',monospace;font-size:8.5px;color:var(--mut);text-align:center;line-height:1.3}
+.setup-note{font-size:11px;color:var(--mut);line-height:1.55;margin-top:8px;padding:9px 11px;background:var(--bg2);border-radius:var(--r3)}
+.setup-go{width:100%;background:var(--acc);color:#000;border:none;font-family:'DM Mono',monospace;font-weight:700;font-size:14px;padding:15px;border-radius:var(--r2);cursor:pointer;margin-top:20px}
 .freq-rec{font-family:'DM Mono',monospace;font-size:9px;background:color-mix(in srgb,var(--grn) 18%,transparent);color:var(--grn);padding:2px 7px;border-radius:100px;margin-left:5px;vertical-align:middle}
 .sw-row{align-items:flex-start!important;padding:14px!important}
 .sw-row .ms{white-space:normal!important;line-height:1.5;margin-top:3px}
@@ -2465,6 +2475,7 @@ function loadProgram(){
   // Erfarings-tilpasning: skalér volumen/intensitet for forløb der understøtter det
   if(tpl.expScale)applyExperienceScaling(tplId);
   if(tplId==='custom'&&CUSTOMPROG&&CUSTOMPROG.weeks)PROG.totalWeeks=CUSTOMPROG.weeks;
+  else if(PROG.customWeeks)PROG.totalWeeks=PROG.customWeeks;
   // Tilpas antal træningsdage til brugerens tid (hvis valgt)
   applyDayReduction();
   // Opdater header-titel — vis neutral titel hvis bruger ej har valgt program endnu
@@ -2674,9 +2685,8 @@ function chooseTemplate(tplId){
       openSwitchModal(tplId,true);
       return;
     }
-    PROG.templateChosen=true;saveProg();
-    if(modalOpenForTemplate){closeModal();modalOpenForTemplate=false}
-    render();return;
+    openFrequencyPicker(tplId,false,false);
+    return;
   }
   const hasData=Object.keys(W).length>0;
   const isFirstTimeChoice=!PROG.templateChosen;
@@ -2724,30 +2734,69 @@ function openSwitchModal(tplId,isRestart){
 }
 function openFrequencyPicker(tplId,freshStart,withVariation){
   const tpl=TEMPLATES[tplId];
-  const opts=frequencyOptions(tplId);
   const f=programFullDays(tplId);
+  // Forvalg: behold nuværende valg hvis det giver mening, ellers programmets standard
+  setupDays=(PROG.gymDays&&PROG.gymDays<=f.gym)?PROG.gymDays:f.gym;
+  setupWeeks=(PROG.template===tplId&&PROG.totalWeeks)?PROG.totalWeeks:(tpl.weeks||8);
+  setupCtx={tplId,freshStart:!!freshStart,withVariation:!!withVariation};
+  renderSetupModal();
+}
+let setupDays=null,setupWeeks=null,setupCtx=null;
+function setupSetDays(n){setupDays=n;renderSetupModal()}
+function setupSetWeeks(n){setupWeeks=n;renderSetupModal()}
+function renderSetupModal(){
+  const {tplId}=setupCtx;
+  const tpl=TEMPLATES[tplId];
+  const f=programFullDays(tplId);
+  const opts=frequencyOptions(tplId);
   const m=document.getElementById('modal');
-  let rows='';
-  opts.forEach(o=>{
-    const isFull=o.gym===f.gym;
-    rows+=`<div class="modal-row sw-row" onclick="pickFrequency('${escAttr(tplId)}',${o.gym},${!!freshStart},${!!withVariation})">
-      <span class="mi">${o.gym>=5?'🔥':o.gym===4?'💪':o.gym===3?'👍':'⏱️'}</span>
-      <div>
-        <div class="mt">${o.label}${isFull?' <span class="freq-rec">som designet</span>':''}</div>
-        <div class="ms">${isFull
-          ? 'Programmets fulde version — bedst resultat hvis du har tiden.'
-          : 'Øvelserne flettes sammen, så du stadig rammer alle muskelgrupper. Passene bliver længere.'}</div>
-      </div>
-    </div>`;
+  // Dage
+  let dayBtns='';
+  opts.slice().reverse().forEach(o=>{
+    const on=setupDays===o.gym;
+    dayBtns+=`<button class="setup-opt${on?' on':''}" onclick="setupSetDays(${o.gym})">
+      <b>${o.gym}</b><span>styrkedage</span></button>`;
   });
-  m.innerHTML=`<div class="modal" onclick="event.stopPropagation()">
-    <div class="modal-title">Hvor mange dage har du tid?</div>
-    <div class="modal-sub">${escHtml(tpl.name)} er designet til ${f.gym} styrkedage${f.run?' + '+f.run+' løbedage':''}. Vælg hvad der passer din hverdag — det bedste program er det du faktisk gennemfører.</div>
-    <div class="modal-list">${rows}</div>
+  // Uger — tilbyd standard plus kortere/længere varianter
+  const base=tpl.weeks||8;
+  const weekOpts=[...new Set([Math.max(4,base-4),base,base+4,base+8])].filter(w=>w>=4&&w<=20).sort((a,b)=>a-b);
+  let weekBtns='';
+  weekOpts.forEach(w=>{
+    const on=setupWeeks===w;
+    weekBtns+=`<button class="setup-opt${on?' on':''}" onclick="setupSetWeeks(${w})">
+      <b>${w}</b><span>uger${w===base?' · standard':''}</span></button>`;
+  });
+  // Deload-forhåndsvisning
+  const dl=(setupWeeks<=8?[5]:setupWeeks<=10?[6]:setupWeeks<=12?[5,9]:[5,9,13]).filter(x=>x<setupWeeks);
+  const isFull=setupDays>=f.gym;
+  m.innerHTML=`<div class="modal setup-modal" onclick="event.stopPropagation()">
+    <div class="modal-title">Tilpas ${escHtml(tpl.name)}</div>
+    <div class="modal-sub">Programmet er designet til ${f.gym} styrkedage${f.run?' + '+f.run+' løbedage':''} over ${base} uger. Justér så det passer din hverdag.</div>
+
+    <div class="setup-lbl">Hvor mange dage om ugen?</div>
+    <div class="setup-row">${dayBtns}</div>
+    <div class="setup-note">${isFull
+      ? '✓ Fuld version — bedst resultat hvis du har tiden.'
+      : '⚠ Øvelserne flettes sammen, så du stadig rammer alle muskelgrupper. Passene bliver længere.'}${f.run?'<br>Løbedagene ('+f.run+') bevares uanset valg.':''}</div>
+
+    <div class="setup-lbl">Hvor langt skal forløbet være?</div>
+    <div class="setup-row">${weekBtns}</div>
+    <div class="setup-note">Deload-uger placeres automatisk: ${dl.length?'uge '+dl.join(', '):'ingen (kort forløb)'}.</div>
+
+    <button class="setup-go" onclick="setupConfirm()">Start ${escHtml(tpl.name)} →</button>
     <button class="modal-close" onclick="closeModal()">Annuller</button>
   </div>`;
   m.classList.add('show');
 }
+function setupConfirm(){
+  const {tplId,freshStart,withVariation}=setupCtx;
+  const full=programFullDays(tplId).gym;
+  PROG.gymDays=(setupDays>=full)?null:setupDays;
+  PROG.customWeeks=setupWeeks;
+  saveProg();
+  applyTemplateSwitch(tplId,freshStart,withVariation);
+}
+// Bevaret for bagudkompatibilitet
 function pickFrequency(tplId,gymDays,freshStart,withVariation){
   const full=programFullDays(tplId).gym;
   PROG.gymDays=(gymDays>=full)?null:gymDays;
@@ -2776,7 +2825,7 @@ function applyTemplateSwitch(tplId,freshStart,withVariation){
   }
   PROG.template=tplId;
   PROG.templateChosen=true;
-  PROG.totalWeeks=tpl.weeks||8;
+  PROG.totalWeeks=PROG.customWeeks||tpl.weeks||8;
   if(tpl.needsRunTime&&tpl.defaultRunSec)PROG.start5kSec=tpl.defaultRunSec;
   saveProg();
   loadProgram();
@@ -9911,7 +9960,7 @@ function openSettingsModal(){
       <button class="prog-btn ghost" style="width:100%;margin-bottom:8px" onclick="closeModal();openProfileModal()">👤 Personlig profil</button>
       ${tpl?.id==='pcos'?`<button class="prog-btn ghost" style="width:100%;margin-bottom:8px" onclick="closeModal();openPcosProfileModal()">🌸 Rediger PCOS profil</button>`:''}
       <button class="prog-btn ghost" style="width:100%;margin-bottom:8px" onclick="closeModal();openTemplateChooserModal()">🔄 Skift program</button>
-      <button class="prog-btn ghost" style="width:100%;margin-bottom:8px" onclick="closeModal();openFrequencyPicker(PROG.template,false,false)">📅 Ændr træningsdage (${PROG.gymDays||programFullDays().gym}/uge)</button>
+      <button class="prog-btn ghost" style="width:100%;margin-bottom:8px" onclick="closeModal();openFrequencyPicker(PROG.template,false,false)">📅 Tilpas dage & længde (${PROG.gymDays||programFullDays().gym} dage · ${TW()} uger)</button>
       <button class="prog-btn ghost" style="width:100%" onclick="closeModal();showIntro()">📖 Se intro igen</button>
     </div>
   </div>`;
