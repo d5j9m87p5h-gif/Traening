@@ -1568,8 +1568,8 @@ let D=[
     {n:"Hack Squat / Benpres",k:"c",no:"",l:"https://www.youtube.com/results?search_query=hack+squat+tutorial"},
     {n:"Sumo Deadlift",k:"c",no:"",l:"https://www.youtube.com/results?search_query=sumo+deadlift+tutorial"},
     {n:"Walking Lunges",k:"c",no:"",l:"https://www.youtube.com/results?search_query=walking+lunges+tutorial"},
-    {n:"Leg Curl (liggende)",k:"i",no:"3 sek ned",l:"https://www.youtube.com/results?search_query=lying+leg+curl+tutorial"},
     {n:"Hip Thrust",k:"c",no:"",l:"https://www.youtube.com/watch?v=S_uZP4UH6J0"},
+    {n:"Leg Curl (liggende)",k:"i",no:"3 sek ned",l:"https://www.youtube.com/results?search_query=lying+leg+curl+tutorial"},
     {n:"Tibialis Raises",k:"i",no:"",l:"https://www.youtube.com/results?search_query=tibialis+raise+tutorial"},
     {n:"Ab Wheel Rollout",k:"x",no:"CORE · Kontroller vejen",l:"https://www.youtube.com/results?search_query=ab+wheel+rollout+tutorial",core:1},
     {n:"Dead Bug",k:"x",no:"CORE · Langsomt",l:"https://www.youtube.com/results?search_query=dead+bug+exercise+tutorial",core:1},
@@ -1603,10 +1603,13 @@ function warmupSets(workWeight){
 
 function deloadWeeks(){
   const tw=TW();
+  if(tw<=6)return[];          // for kort til at nå at samle træthed
   if(tw<=8)return[5];
   if(tw<=10)return[6];
-  if(tw<=12)return[5,9];
-  return[5,9,13];
+  // Længere forløb: en aflastningsuge ca. hver 4. uge, men aldrig sidste uge
+  const out=[];
+  for(let w=5;w<tw;w+=4)out.push(w);
+  return out;
 }
 function isDeload(w){return deloadWeeks().indexOf(w||week)>=0}
 // ── SKADEHENSYN: byt belastende øvelser til skånsomme varianter ──
@@ -2400,6 +2403,36 @@ function applyFrequency(gymDays){
   PROG.gymDays=gymDays;saveProg();loadProgram();
 }
 // Kaldes fra loadProgram: skær dagene ned og flet øvelser
+// Fagligt korrekt rækkefølge i et træningspas. Store, teknisk krævende løft
+// skal laves mens man er frisk — squat/deadlift først, core til allersidst.
+function exerciseOrderRank(e){
+  if(e.core)return 3;
+  const mg=guessExerciseMuscle(e.n);
+  if(e.k==='c')return mg==='legs'?0:1;
+  return 2;
+}
+// GP-labels ("Uge 1–3") er hårdkodet i templaten. Vælger man en anden
+// programlængde, skal de genberegnes — ellers viser UI'et forkerte uger.
+function syncPhaseLabels(){
+  if(typeof GP==='undefined'||!Array.isArray(GP))return;
+  const r=phaseRanges();
+  GP.forEach((g,i)=>{if(r[i])g.weeks='Uge '+r[i].s+'–'+r[i].e});
+  if(typeof PH!=='undefined'&&Array.isArray(PH)){
+    const rr=(typeof runPhaseRanges==='function')?runPhaseRanges():r;
+    PH.forEach((p,i)=>{if(rr[i])p.w='Uge '+rr[i].s+'–'+rr[i].e});
+  }
+}
+
+function sortDayExercises(){
+  D.forEach(d=>{
+    if(!d.ex||!d.ex.length)return;
+    // Stabil sortering: bevar den oprindelige rækkefølge inden for samme rang
+    d.ex=d.ex.map((e,i)=>({e,i}))
+      .sort((a,b)=>(exerciseOrderRank(a.e)-exerciseOrderRank(b.e))||(a.i-b.i))
+      .map(x=>x.e);
+  });
+}
+
 function applyDayReduction(){
   const raw=parseInt(PROG.gymDays);
   // Ignorér ugyldige værdier helt (0, negativ, NaN, større end programmet)
@@ -2430,9 +2463,12 @@ function applyDayReduction(){
   // Byg de nye dage: sikr at ALLE muskelgrupper stadig rammes
   keep.forEach(ki=>{
     const merged=[...D[ki].ex,...extra[ki]];
-    // Prioritér: compounds først, så isolation, så core. Maks 8 øvelser per dag.
-    const rank=e=>e.core?2:(e.k==='c'?0:1);
-    merged.sort((a,b)=>rank(a)-rank(b));
+    // Rækkefølge på et flettet pas:
+    //  1. Tunge ben-compounds (squat, deadlift) — kræver mest af kroppen
+    //  2. Øvrige compounds (pres, træk)
+    //  3. Isolation
+    //  4. Core til sidst (ellers mister man stabilitet i de tunge løft)
+    merged.sort((a,b)=>exerciseOrderRank(a)-exerciseOrderRank(b));
     // Færre dage = længere pas. Ellers kan alle muskelgrupper ikke være med.
     const cap=target<=2?10:target===3?9:8;
     D[ki].ex=merged.slice(0,cap);
@@ -2457,6 +2493,8 @@ function applyDayReduction(){
     D[target].ex.push(cand);
     covered.add(missing);
   });
+  // Sortér én gang til — sikkerhedsnettet kan have skubbet en øvelse bagerst
+  keep.forEach(ki=>{D[ki].ex.sort((a,b)=>exerciseOrderRank(a)-exerciseOrderRank(b))});
   // Gør de fjernede dage til hviledage
   dropped.forEach(di=>{
     D[di]={...D[di],type:'Hvile',label:'RESTITUTION',color:'#5a5a7a',icon:'😴',tag:'rest',ex:null,run:null};
@@ -2476,8 +2514,13 @@ function loadProgram(){
   if(tpl.expScale)applyExperienceScaling(tplId);
   if(tplId==='custom'&&CUSTOMPROG&&CUSTOMPROG.weeks)PROG.totalWeeks=CUSTOMPROG.weeks;
   else if(PROG.customWeeks)PROG.totalWeeks=PROG.customWeeks;
+  // Faselabels skal matche den valgte programlængde, ikke templatens standard
+  syncPhaseLabels();
   // Tilpas antal træningsdage til brugerens tid (hvis valgt)
   applyDayReduction();
+  // Sikr fagligt korrekt øvelsesrækkefølge på ALLE dage:
+  // tunge ben-compounds → øvrige compounds → isolation → core
+  sortDayExercises();
   // Opdater header-titel — vis neutral titel hvis bruger ej har valgt program endnu
   const h1=document.querySelector('#hdr h1');
   if(h1){
